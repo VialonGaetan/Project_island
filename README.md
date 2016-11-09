@@ -2,13 +2,13 @@
 
 ## Team Information
 
-  * Identifier: `XX`
-  * Team name: 
+  * Identifier: `AD`
+  * Team name: La ligue des explorateurs
   * Members:
-    *  [Member #1](mailto:login1@etu.unice.fr)
-    *  [Member #2](mailto:login1@etu.unice.fr)
-    *  [Member #3](mailto:login1@etu.unice.fr)
-    *  [Member #4](mailto:login1@etu.unice.fr)
+    *  [Alexandre CLEMENT #1](alexandre.clement@etu.unice.fr)
+    *  [Théo CHOLLEY #2](theo.cholley@etu.unice.fr)
+    *  [Romain SUMEROT #3](romain.sumerot@etu.unice.fr)
+    *  [Gaetan VIALON #4](gaetan.vialon@etu.unice.fr)
 
 ## Features Change log
 

@@ -4,11 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>fr.unice.polytech.3a.qgl</groupId>
-  <artifactId>islxx</artifactId> <!-- CHANGE ME -->
+  <artifactId>islad</artifactId>
   <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>ISLXX :: Nom de l'equipe</name> <!-- CHANGE ME -->
+  <name>ISLAD :: La ligue des explorateurs</name>
   <url>http://www.i3s.unice.fr/~mosser/teaching/16_17/se</url>
 
   <properties>
