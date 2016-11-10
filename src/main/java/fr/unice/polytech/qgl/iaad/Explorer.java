@@ -1,18 +1,30 @@
 package fr.unice.polytech.qgl.iaad;
 
 import eu.ace_design.island.bot.IExplorerRaid;
+import org.json.JSONObject;
+import org.json.JSONWriter;
+
+import java.io.StringWriter;
 
 
 public class Explorer implements IExplorerRaid {
 
+    int nbSpace = 1;
+    Context Initialisation;
     @Override
     public void initialize(String s) {
-         throw new UnsupportedOperationException("Not yet implemented!");
+        JSONObject Contract = new JSONObject(s);
+        Initialisation = new Context(Contract);
     }
 
     @Override
     public String takeDecision() {
-        throw new UnsupportedOperationException("Not yet implemented!");
+        JSONObject actions = new JSONObject();
+        actions.put("action","stop");
+
+        return actions.toString(nbSpace);
+
+
     }
 
     @Override
