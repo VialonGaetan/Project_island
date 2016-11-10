@@ -13,6 +13,7 @@ public class Explorer implements IExplorerRaid {
     private JSONObject Contract;
     private JSONObject Result;
 
+
     @Override
     public void initialize(String s) {
         Contract = new JSONObject(s);
