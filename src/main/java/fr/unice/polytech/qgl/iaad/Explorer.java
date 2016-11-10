@@ -10,8 +10,12 @@ import java.io.StringWriter;
 public class Explorer implements IExplorerRaid {
 
     private Context Initialisation;
+    private AnswersQuery Answer;
     private JSONObject Contract;
     private JSONObject Result;
+    private JSONObject RequestActions;
+    String Action;
+
 
     @Override
     public void initialize(String s) {
@@ -21,14 +25,16 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
-        JSONObject actions = new JSONObject();
-        actions.put("action","stop");
-        return actions.toString();
+        RequestActions = new JSONObject();
+        Action = "stop";
+        RequestActions.put("action",Action);
+        return RequestActions.toString();
     }
 
     @Override
     public void acknowledgeResults(String s) {
         Result = new JSONObject(s);
+        Answer = new AnswersQuery(Result);
     }
 
     @Override

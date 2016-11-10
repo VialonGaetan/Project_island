@@ -11,13 +11,12 @@ import static org.junit.Assert.assertEquals;
 public class ContextTest {
 
     Context Contract;
-    JSONObject test;
+    JSONObject FirstContrat;
     int NumContrat;
-    Explorer explorer;
 
     @Before
     public void defineContext() {
-        test = new JSONObject("{ \n" +
+        FirstContrat = new JSONObject("{ \n" +
                 "  \"men\": 12,\n" +
                 "  \"budget\": 10000,\n" +
                 "  \"contracts\": [\n" +
@@ -26,9 +25,7 @@ public class ContextTest {
                 "  ],\n" +
                 "  \"heading\": \"W\"\n" +
                 "}");
-        Contract = new Context(test);
-        explorer = new Explorer();
-        explorer.initialize(test.toString());
+        Contract = new Context(FirstContrat);
     }
 
     @Test
@@ -66,6 +63,20 @@ public class ContextTest {
     public void TestRessourceContrat1(){
         String Ressource = "WOOD";
         NumContrat = 0;
+        assertEquals(Ressource, Contract.ContratRessource(NumContrat));
+    }
+
+    @Test
+    public void TestAmountContrat2(){
+        int Ammount = 200;
+        NumContrat = 1;
+        assertEquals(Ammount, Contract.ContratAmmount(NumContrat));
+    }
+
+    @Test
+    public void TestRessourceContrat2(){
+        String Ressource = "GLASS";
+        NumContrat = 1;
         assertEquals(Ressource, Contract.ContratRessource(NumContrat));
     }
 }
