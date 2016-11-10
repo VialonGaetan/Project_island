@@ -15,7 +15,7 @@ public class AnswersQuery {
     }
 
     public int GetCost(){
-        return Answers.getInt(ArgAnswer.COTS.getName());
+        return Answers.getInt(ArgAnswer.COST.getName());
     }
     public String GetStatus(){
         return Answers.getString(ArgAnswer.STATUS.getName());
@@ -23,7 +23,7 @@ public class AnswersQuery {
 }
 
 enum ArgAnswer {
-    COTS("cost"),
+    COST("cost"),
     EXTRAS("extras"),
     STATUS("status");
 
