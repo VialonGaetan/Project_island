@@ -29,7 +29,6 @@ public class Explorer implements IExplorerRaid {
     @Override
     public void acknowledgeResults(String s) {
         Result = new JSONObject(s);
-
     }
 
     @Override
