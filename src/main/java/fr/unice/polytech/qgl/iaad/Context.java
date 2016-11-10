@@ -4,12 +4,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Created by user on 10/11/2016.
+ * Created by Gaetan VIALON on 10/11/2016.
  */
 public class Context {
 
-    JSONObject Initialise = new JSONObject();
-    JSONArray Contrats = new JSONArray();
+    private JSONObject Initialise = new JSONObject();
+    private JSONArray Contrats = new JSONArray();
 
     public Context(JSONObject Contract){
 

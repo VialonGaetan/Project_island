@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by user on 10/11/2016.
+ * Created by Gaetan VIALON on 10/11/2016.
  */
 public class ContextTest {
 

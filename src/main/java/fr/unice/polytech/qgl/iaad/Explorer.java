@@ -9,9 +9,9 @@ import java.io.StringWriter;
 
 public class Explorer implements IExplorerRaid {
 
-    Context Initialisation;
-    JSONObject Contract;
-    JSONObject Result;
+    private Context Initialisation;
+    private JSONObject Contract;
+    private JSONObject Result;
 
     @Override
     public void initialize(String s) {

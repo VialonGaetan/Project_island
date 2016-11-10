@@ -14,7 +14,7 @@ public class ExplorerTest {
 
     @Test
     public void TestStop (){
-        String Stop ="{\"action\": \"stop\"}";
+        String Stop ="{\"action\":\"stop\"}";
         assertEquals(Stop, explorer.takeDecision());
     }
 
