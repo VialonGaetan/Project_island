@@ -18,32 +18,45 @@ public class Context {
     }
 
     public String GetHeading(){
-        String Arghead = "heading";
-        return Initialise.getString(Arghead);
+        return Initialise.getString(ArgInit.heading.getName());
     }
 
     public int GetMens(){
-        String ArgMen = "men";
-        return Initialise.getInt(ArgMen);
+        return Initialise.getInt(ArgInit.men.getName());
     }
 
     public int GetBudget(){
         String ArgBudget = "budget";
-        return Initialise.getInt(ArgBudget);
+        return Initialise.getInt(ArgInit.budget.getName());
     }
 
     public int NbofContrats(){
         return Contrats.length();
     }
+
     public int ContratAmmount(int n){
-        String ArgAmmount ="amount";
-        return Contrats.getJSONObject(n).getInt(ArgAmmount);
+        return Contrats.getJSONObject(n).getInt(ArgInit.amount.getName());
     }
 
     public String ContratRessource (int n){
-        String ArgRessource = "resource";
-        return Contrats.getJSONObject(n).getString(ArgRessource);
+        return Contrats.getJSONObject(n).getString(ArgInit.resource.getName());
+    }
+}
+
+enum ArgInit {
+    heading("heading"),
+    men("men"),
+    budget("budget"),
+    amount("amount"),
+    resource("resource");
+
+    private String name;
+
+    public String getName() {
+        return name;
     }
 
-
+    ArgInit(String name) {
+        this.name = name;
+    }
 }
