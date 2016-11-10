@@ -24,7 +24,6 @@ public class Explorer implements IExplorerRaid {
         JSONObject actions = new JSONObject();
         actions.put("action","stop");
         return actions.toString();
-
     }
 
     @Override
