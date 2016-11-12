@@ -20,7 +20,7 @@ public class Drone {
     }
 
     public Decision takeDecision(Decision decision, AnswersQuery answersQuery) {
-        return null;
+        return new Decision().putAction(Action.STOP);
     }
 }
 
