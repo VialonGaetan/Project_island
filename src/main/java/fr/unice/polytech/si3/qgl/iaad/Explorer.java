@@ -20,6 +20,7 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
+
         Decision decision;
         if (decisions.isEmpty())
             decision = drone.setBudget(context.getBudget()).setDirection(context.getHeading()).takeFirstDecision();

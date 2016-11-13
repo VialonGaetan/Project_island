@@ -39,7 +39,7 @@ public class ContextTest {
     @Test
     public void testMen(){
         int mens = 12;
-        assertEquals(mens, context.getMens());
+        assertEquals(mens, context.getMen());
     }
 
     @Test

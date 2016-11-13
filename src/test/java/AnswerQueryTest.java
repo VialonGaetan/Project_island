@@ -2,6 +2,9 @@ import fr.unice.polytech.si3.qgl.iaad.AnswersQuery;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
+import javax.management.Query;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,6 +15,7 @@ public class AnswerQueryTest {
     AnswersQuery Query;
     JSONObject AnswerStopAction;
 
+
     @Before
     public void defineContext() {
         AnswerStopAction = new JSONObject("\n" +
@@ -20,7 +24,7 @@ public class AnswerQueryTest {
     }
 
     @Test
-    public void TestCosts(){
+    public void TestCosts() {
         int Costs = 3;
         assertEquals(Costs, Query.GetCost());
     }

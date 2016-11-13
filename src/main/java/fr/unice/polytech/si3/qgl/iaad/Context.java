@@ -41,7 +41,7 @@ public class Context {
 
     public String getHeading(){ return heading; }
 
-    public int getMens(){ return numberOfMen; }
+    public int getMen(){ return numberOfMen; }
 
     public int getBudget(){ return budget; }
 
