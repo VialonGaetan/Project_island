@@ -10,13 +10,14 @@ import static org.junit.Assert.assertEquals;
  */
 public class ContextTest {
 
-    Context Contract;
-    JSONObject FirstContrat;
-    int NumContrat;
+    Context context;
+    JSONObject firstContext;
+    int numContrat;
 
     @Before
     public void defineContext() {
-        FirstContrat = new JSONObject("{ \n" +
+
+        firstContext = new JSONObject("{ \n" +
                 "  \"men\": 12,\n" +
                 "  \"budget\": 10000,\n" +
                 "  \"contracts\": [\n" +
@@ -25,58 +26,58 @@ public class ContextTest {
                 "  ],\n" +
                 "  \"heading\": \"W\"\n" +
                 "}");
-        Contract = new Context(FirstContrat);
+        context = new Context(firstContext);
     }
 
     @Test
-    public void TestHeading(){
+    public void testHeading(){
         String Direction = "W";
-        assertEquals(Direction, Contract.GetHeading());
+        assertEquals(Direction, context.getHeading());
     }
 
     @Test
-    public void TestMen(){
-        int Mens = 12;
-        assertEquals(Mens, Contract.GetMens());
+    public void testMen(){
+        int mens = 12;
+        assertEquals(mens, context.getMens());
     }
 
     @Test
-    public void TestBudget(){
-        int Budget = 10000;
-        assertEquals(Budget, Contract.GetBudget());
+    public void testBudget(){
+        int budget = 10000;
+        assertEquals(budget, context.getBudget());
     }
 
     @Test
-    public void TestNumberofContrats(){
-        int Number = 2;
-        assertEquals(Number, Contract.NbofContrats());
+    public void testNumberOfContracts(){
+        int number = 2;
+        assertEquals(number, context.numberOfContrats());
     }
 
     @Test
-    public void TestAmountContrat1(){
-        int Ammount = 600;
-        NumContrat = 0;
-        assertEquals(Ammount, Contract.ContratAmmount(NumContrat));
+    public void testAmountContract1(){
+        int ammount = 600;
+        numContrat = 0;
+        assertEquals(ammount, context.getContract(numContrat).getAmount());
     }
 
     @Test
-    public void TestRessourceContrat1(){
+    public void testRessourceContrat1(){
         String Ressource = "WOOD";
-        NumContrat = 0;
-        assertEquals(Ressource, Contract.ContratRessource(NumContrat));
+        numContrat = 0;
+        assertEquals(Ressource, context.getContract(numContrat).getResource());
     }
 
     @Test
-    public void TestAmountContrat2(){
-        int Ammount = 200;
-        NumContrat = 1;
-        assertEquals(Ammount, Contract.ContratAmmount(NumContrat));
+    public void testAmountContrat2(){
+        int ammount = 200;
+        numContrat = 1;
+        assertEquals(ammount, context.getContract(numContrat).getAmount());
     }
 
     @Test
-    public void TestRessourceContrat2(){
-        String Ressource = "GLASS";
-        NumContrat = 1;
-        assertEquals(Ressource, Contract.ContratRessource(NumContrat));
+    public void testRessourceContract2(){
+        String ressource = "GLASS";
+        numContrat = 1;
+        assertEquals(ressource, context.getContract(numContrat).getResource());
     }
 }

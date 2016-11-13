@@ -1,49 +1,59 @@
 package fr.unice.polytech.qgl.iaad;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
+
+import java.util.List;
+import java.util.ArrayList;
+
 /**
- * Created by Gaetan VIALON on 10/11/2016.
+ * manage informations about :
+ * men
+ * budget
+ * contracts
+ * heading
  */
 public class Context {
 
-    private JSONObject Initialise = new JSONObject();
-    private JSONArray Contrats = new JSONArray();
+    private int numberOfMen;
+    private int budget;
+    private List<Contract> contracts;
+    private String heading;
 
-    public Context(JSONObject Contract){
+    /**
+     * convert JSONObject in each attributes
+     */
 
-        this.Initialise = Contract;
-        Contrats = Initialise.getJSONArray("contracts");
+    public Context(JSONObject jsonObject){
+        numberOfMen=jsonObject.getInt(Argument.men.getName());
+        budget=jsonObject.getInt(Argument.budget.getName());
+        heading=jsonObject.getString(Argument.heading.getName());
+
+        contracts=new ArrayList<>();
+
+        for(int i=0; i<jsonObject.getJSONArray("contracts").length(); i++)
+        {
+            Contract contract=new Contract(jsonObject.getJSONArray("contracts").getJSONObject(i).getInt(Argument.amount.getName()),jsonObject.getJSONArray("contracts").getJSONObject(i).getString(Argument.resource.getName()));
+            contracts.add(contract);
+        }
+
     }
 
-    public String GetHeading(){
-        return Initialise.getString(ArgInit.heading.getName());
-    }
+    public String getHeading(){ return heading; }
 
-    public int GetMens(){
-        return Initialise.getInt(ArgInit.men.getName());
-    }
+    public int getMens(){ return numberOfMen; }
 
-    public int GetBudget(){
-        String ArgBudget = "budget";
-        return Initialise.getInt(ArgInit.budget.getName());
-    }
+    public int getBudget(){ return budget; }
 
-    public int NbofContrats(){
-        return Contrats.length();
-    }
+    public int numberOfContrats(){ return contracts.size(); }
 
-    public int ContratAmmount(int n){
-        return Contrats.getJSONObject(n).getInt(ArgInit.amount.getName());
-    }
-
-    public String ContratRessource (int n){
-        return Contrats.getJSONObject(n).getString(ArgInit.resource.getName());
+    public Contract getContract(int index) {
+        if(index<0 || index >=numberOfContrats()) System.err.println("Contract out of range");
+        return contracts.get(index);
     }
 }
 
-enum ArgInit {
+enum Argument {
     heading("heading"),
     men("men"),
     budget("budget"),
@@ -52,11 +62,7 @@ enum ArgInit {
 
     private String name;
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
-    ArgInit(String name) {
-        this.name = name;
-    }
+    Argument(String name) { this.name = name; }
 }
