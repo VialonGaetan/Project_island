@@ -18,7 +18,7 @@ public class DecisionTest {
 
     @Test
     public void putActionTest() {
-        assertEquals("{\"action\":\"fly\"}", new Decision().putAction(Action.FlY).getDecision());
+        assertEquals("{\"action\":\"fly\"}", new Decision().putAction(Action.FLY).getDecision());
     }
 
     @Test

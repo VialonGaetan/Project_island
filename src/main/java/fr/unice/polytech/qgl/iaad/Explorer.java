@@ -22,7 +22,7 @@ public class Explorer implements IExplorerRaid {
     public String takeDecision() {
         Decision decision;
         if (decisions.isEmpty())
-            decision = drone.setDirection(context.getHeading()).takeFirstDecision();
+            decision = drone.setBudget(context.getBudget()).setDirection(context.getHeading()).takeFirstDecision();
         else
             decision = drone.takeDecision(decisions.peek(), results.peek());
         decisions.push(decision);

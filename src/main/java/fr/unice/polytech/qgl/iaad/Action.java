@@ -5,7 +5,7 @@ package fr.unice.polytech.qgl.iaad;
  *         Created the 12/11/2016.
  */
 public enum Action {
-    FlY("fly"),
+    FLY("fly"),
     ECHO("echo"),
     HEADING("heading"),
     SCAN("scan"),

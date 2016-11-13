@@ -31,7 +31,7 @@ public class ExplorerTest {
 
     @Test
     public void TestStop(){
-        explorer.initialize(setContrat(12, 10000, "N", setResource(600, "WOOD"), setResource(200, "GLASS")).toString());
+        explorer.initialize(setContrat(12, 2, "N", setResource(600, "WOOD"), setResource(200, "GLASS")).toString());
         explorer.takeDecision();
         explorer.acknowledgeResults("{ \"cost\": 1, \"extras\": { \"range\": 2, \"found\": \"GROUND\" }, \"status\": \"OK\" }");
 

@@ -17,6 +17,14 @@ public class Decision {
         return this;
     }
 
+    public Action getAction() {
+        String actionDecision = decision.getString(Request.ACTION.getName());
+        for (Action action: Action.values())
+            if (action.getName().equals(actionDecision))
+                return action;
+        return null;
+    }
+
     public Decision putParameters(Direction direction) {
         parameters.put(Request.DIRECTION.getName(), direction);
         return this;
