@@ -1,4 +1,4 @@
-package fr.unice.polytech.qgl.iaad;
+package fr.unice.polytech.si3.qgl.iaad;
 
 /**
  * Created by romain on 13/11/16.

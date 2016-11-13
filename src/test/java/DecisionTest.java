@@ -1,8 +1,8 @@
-import fr.unice.polytech.qgl.iaad.Action;
-import fr.unice.polytech.qgl.iaad.Decision;
+import fr.unice.polytech.si3.qgl.iaad.Action;
+import fr.unice.polytech.si3.qgl.iaad.Decision;
 import static org.junit.Assert.*;
 
-import fr.unice.polytech.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.Direction;
 import org.junit.Test;
 
 /**

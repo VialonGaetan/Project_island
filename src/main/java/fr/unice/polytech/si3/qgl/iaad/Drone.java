@@ -1,4 +1,4 @@
-package fr.unice.polytech.qgl.iaad;
+package fr.unice.polytech.si3.qgl.iaad;
 
 /**
  * @author Alexandre Clement
@@ -32,7 +32,12 @@ public class Drone {
         if (decision.getAction() == Action.ECHO)
         {
             if (answersQuery.getExtras().getFound() == Found.GROUND)
-                return new Decision().putAction(Action.FLY);
+            {
+                if (answersQuery.getExtras().getRange() < 1)
+                    return new Decision().putAction(Action.STOP);
+                else
+                    return new Decision().putAction(Action.FLY);
+            }
             else if (answersQuery.getExtras().getFound() == Found.OUT_OF_RANGE)
             {
                 if (answersQuery.getExtras().getRange() < 1)

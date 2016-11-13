@@ -47,7 +47,7 @@ hs_err_pid*
 # .idea/gradle.xml
 # .idea/libraries
 
-# Mongo fr.unice.polytech.qgl.iaad.Explorer plugin:
+# Mongo Explorer plugin:
 # .idea/mongoSettings.xml
 
 ## File-based project format:

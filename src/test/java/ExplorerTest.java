@@ -1,8 +1,7 @@
-import eu.ace_design.island.bot.IExplorerRaid;
-import fr.unice.polytech.qgl.iaad.*;
+import fr.unice.polytech.si3.qgl.iaad.*;
+import fr.unice.polytech.si3.qgl.iaad.Explorer;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

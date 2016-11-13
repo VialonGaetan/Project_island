@@ -1,11 +1,11 @@
 import static org.junit.Assert.*;
 
-import fr.unice.polytech.qgl.iaad.AnswersQuery;
-import fr.unice.polytech.qgl.iaad.Decision;
+import fr.unice.polytech.si3.qgl.iaad.AnswersQuery;
+import fr.unice.polytech.si3.qgl.iaad.Decision;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import fr.unice.polytech.qgl.iaad.Drone;
+import fr.unice.polytech.si3.qgl.iaad.Drone;
 
 /**
  * @author Alexandre Clement
@@ -68,7 +68,7 @@ public class DroneTest {
     }
 
     @Test
-    public void TakeDecisionTest() {
+    public void TakeDecisionStopGroundTest() {
         Decision decision;
         AnswersQuery answersQuery;
         Drone drone = new Drone().setBudget(10000).setDirection("E");
@@ -76,7 +76,7 @@ public class DroneTest {
         // turn 1
         decision = drone.takeFirstDecision();
         assertEquals("{\"action\":\"echo\",\"parameters\":{\"direction\":\"E\"}}", drone.takeFirstDecision().getDecision());
-        answersQuery = new AnswersQuery(new JSONObject("{ \"cost\": 1, \"extras\": { \"range\": 0, \"found\": \"GROUND\" }, \"status\": \"OK\" }"));
+        answersQuery = new AnswersQuery(new JSONObject("{ \"cost\": 1, \"extras\": { \"range\": 1, \"found\": \"GROUND\" }, \"status\": \"OK\" }"));
 
         // turn 2
         decision = drone.takeDecision(decision, answersQuery);
@@ -86,7 +86,7 @@ public class DroneTest {
         // turn 3
         decision = drone.takeDecision(decision, answersQuery);
         assertEquals("{\"action\":\"echo\",\"parameters\":{\"direction\":\"E\"}}", decision.getDecision());
-        answersQuery = new AnswersQuery(new JSONObject("{ \"cost\": 1, \"extras\": { \"range\": 0, \"found\": \"OUT_OF_RANGE\" }, \"status\": \"OK\" }"));
+        answersQuery = new AnswersQuery(new JSONObject("{ \"cost\": 1, \"extras\": { \"range\": 0, \"found\": \"GROUND\" }, \"status\": \"OK\" }"));
 
         // turn 4
         decision = drone.takeDecision(decision, answersQuery);

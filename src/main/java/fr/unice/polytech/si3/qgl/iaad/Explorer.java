@@ -1,4 +1,4 @@
-package fr.unice.polytech.qgl.iaad;
+package fr.unice.polytech.si3.qgl.iaad;
 
 import eu.ace_design.island.bot.IExplorerRaid;
 import org.json.JSONObject;

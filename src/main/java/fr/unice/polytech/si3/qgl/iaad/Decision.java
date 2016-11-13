@@ -1,6 +1,5 @@
-package fr.unice.polytech.qgl.iaad;
+package fr.unice.polytech.si3.qgl.iaad;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**

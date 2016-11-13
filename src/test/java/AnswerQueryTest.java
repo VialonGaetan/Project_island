@@ -1,4 +1,4 @@
-import fr.unice.polytech.qgl.iaad.AnswersQuery;
+import fr.unice.polytech.si3.qgl.iaad.AnswersQuery;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
