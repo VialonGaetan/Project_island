@@ -36,6 +36,6 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String deliverFinalReport() {
-        return null;
+        throw new UnsupportedOperationException("not implemented yet.");
     }
 }
