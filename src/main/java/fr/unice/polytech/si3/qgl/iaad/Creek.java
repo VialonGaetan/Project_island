@@ -21,7 +21,7 @@ public class Creek {
     Ici on initialise tous les couples à l' Origine (qu'on matérialisera par [-1,-1] par exemple) [-1,-1] etc..
      */
 
-    private Creek()
+    public Creek()
     {
         for (int i = 0; i<creeks.length; i++)
         {
