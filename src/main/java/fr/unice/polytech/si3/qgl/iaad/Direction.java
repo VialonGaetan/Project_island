@@ -1,8 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad;
 
 /**
- * @author Alexandre Clement
- *         Created the 12/11/2016.
+ * Created on 14/11/2016.
+ * @author Gaetan VIALON
  */
 public enum Direction {
     N,

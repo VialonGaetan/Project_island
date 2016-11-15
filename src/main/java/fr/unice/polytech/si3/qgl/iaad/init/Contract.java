@@ -1,10 +1,15 @@
-package fr.unice.polytech.si3.qgl.iaad;
+package fr.unice.polytech.si3.qgl.iaad.init;
 
+/**
+ * Created on 10/11/2016.
+ * @author Gaetan VIALON
+ */
 /**
  * Contract contains :
  * amount
  * ressource
  */
+
 public class Contract {
     private int amount;
     private String resource;

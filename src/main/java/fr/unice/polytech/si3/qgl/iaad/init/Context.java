@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad;
+package fr.unice.polytech.si3.qgl.iaad.init;
 
 import org.json.JSONObject;
 
@@ -13,6 +13,11 @@ import java.util.ArrayList;
  * contracts
  * heading
  */
+/**
+ * Created on 10/11/2016.
+ * @author Gaetan VIALON
+ */
+
 public class Context {
 
     private int numberOfMen;
@@ -25,15 +30,15 @@ public class Context {
      */
 
     public Context(JSONObject jsonObject){
-        numberOfMen=jsonObject.getInt(Argument.men.getName());
-        budget=jsonObject.getInt(Argument.budget.getName());
-        heading=jsonObject.getString(Argument.heading.getName());
+        numberOfMen=jsonObject.getInt(ArgContext.men.getName());
+        budget=jsonObject.getInt(ArgContext.budget.getName());
+        heading=jsonObject.getString(ArgContext.heading.getName());
 
         contracts=new ArrayList<>();
 
         for(int i=0; i<jsonObject.getJSONArray("contracts").length(); i++)
         {
-            Contract contract=new Contract(jsonObject.getJSONArray("contracts").getJSONObject(i).getInt(Argument.amount.getName()),jsonObject.getJSONArray("contracts").getJSONObject(i).getString(Argument.resource.getName()));
+            Contract contract=new Contract(jsonObject.getJSONArray("contracts").getJSONObject(i).getInt(ArgContext.amount.getName()),jsonObject.getJSONArray("contracts").getJSONObject(i).getString(ArgContext.resource.getName()));
             contracts.add(contract);
         }
 
@@ -51,18 +56,4 @@ public class Context {
         if(index<0 || index >=numberOfContrats()) System.err.println("Contract out of range");
         return contracts.get(index);
     }
-}
-
-enum Argument {
-    heading("heading"),
-    men("men"),
-    budget("budget"),
-    amount("amount"),
-    resource("resource");
-
-    private String name;
-
-    public String getName() { return name; }
-
-    Argument(String name) { this.name = name; }
 }

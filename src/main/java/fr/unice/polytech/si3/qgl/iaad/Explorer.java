@@ -1,6 +1,9 @@
 package fr.unice.polytech.si3.qgl.iaad;
 
 import eu.ace_design.island.bot.IExplorerRaid;
+import fr.unice.polytech.si3.qgl.iaad.Actions.*;
+import fr.unice.polytech.si3.qgl.iaad.init.*;
+import fr.unice.polytech.si3.qgl.iaad.result.ResultActions;
 import org.json.JSONObject;
 import java.util.*;
 
@@ -8,9 +11,7 @@ import java.util.*;
 public class Explorer implements IExplorerRaid {
 
     private Context context;
-    private final Stack<Decision> decisions = new Stack<>();
-    private final Stack<AnswersQuery> results = new Stack<>();
-    private final Drone drone = new Drone();
+    private ResultActions resultActions;
 
 
     @Override
@@ -20,20 +21,11 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
-
-        Decision decision;
-        if (decisions.isEmpty())
-            decision = drone.setBudget(context.getBudget()).setDirection(context.getHeading()).takeFirstDecision();
-        else
-            decision = drone.takeDecision(decisions.peek(), results.peek());
-        decisions.push(decision);
-        return decision.getDecision();
+        return new Fly().toJSON();
     }
 
     @Override
-    public void acknowledgeResults(String s) {
-        results.push(new AnswersQuery(new JSONObject(s)));
-    }
+    public void acknowledgeResults(String s) { resultActions = new ResultActions(new JSONObject(s));}
 
     @Override
     public String deliverFinalReport() {
