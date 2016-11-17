@@ -1,10 +1,10 @@
 package fr.unice.polytech.si3.qgl.iaad;
 
+import fr.unice.polytech.si3.qgl.iaad.IslandMap.IslandMap;
+
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 /**
  * @author Théo
@@ -12,50 +12,79 @@ import java.util.List;
 
 public class Creek {
 
-    public List<List<Double>> creeks;   //Une liste de couple qui contient les coordonnées de toutes les creeks
+    public List<List<Integer>> creeks;   //Une liste de couple qui contient les coordonnées de toutes les creeks
 
 
     public Creek()
     {
-        creeks=new ArrayList<>();
+        creeks = new ArrayList<>();
     }
+
     /*
-    * Ajoute manuellement les creeks à la liste
-    * /
+     * Ajoute manuellement les creeks à la liste
      */
 
-    private void addCreek(int x, int y)
+    public void addCreek(int x, int y)
     {
-        List<Double> temp = new ArrayList<Double>();
-        temp.add((double) x);
-        temp.add((double) y);
+        List<Integer> temp = new ArrayList<Integer>();
+        temp.add(x);
+        temp.add(y);
         this.creeks.add(temp);
     }
 
     /*
+     *Getter : renvoie la liste des creeks d'une map
+     */
+
+    public List<List<Integer>> getCreeks(Creek c)
+    {
+        return this.creeks;
+    }
+
+    /*
+    Getter : renvoie une creek à un indice particulier
+     */
+
+    public List<Integer> getOneCreek(Creek c, int i)
+    {
+        return this.creeks.get(i);
+    }
+    /*
     * Parcourt la map et lorsqu'il y a une map sur une case, l'ajoute dans la liste des creeks
     */
 
-    private void addAllTheCreeks(Map m)
+    public void addAllTheCreeks(IslandMap m)
     {
-        //En attente de Map
+        for (int j=0; j<m.getVerticalDimension(); j++)
+        {
+            for (int i=0; i<m.getHorizontalDimension(); i++)
+            {
+                if (m.hasElement(i,j,Element.CREEK))
+                {
+                    ArrayList<Integer> temp = new ArrayList<>();
+                    temp.add(i);
+                    temp.add(j);
+                    creeks.add(temp);
+                }
+            }
+        }
+
     }
 
     /*
     * Determines quelle creek est la plus proche du site d'urgence
      */
 
-
-    private List<Double> closest(double xSite, double ySite)
+    public ArrayList<Integer> closest(double xSite, double ySite)
     {
         double X;
         double Y;
         double temp;
         double distance=-1;
         double min=1000000000; //pas beau mais pour le moment ça ira
-        List<Double> minCoordinates = new ArrayList<Double>();
-        double xMin= creeks.get(0).get(0);
-        double yMin = creeks.get(0).get(1);
+        ArrayList<Integer> minCoordinates = new ArrayList<>();
+        int xMin= creeks.get(0).get(0);
+        int yMin = creeks.get(0).get(1);
 
         for (int i=0; i< creeks.size(); i++)
         {
@@ -63,7 +92,6 @@ public class Creek {
             Y = Math.pow(creeks.get(i).get(1)-ySite,2);
             temp =Math.abs(X+Y);
             distance = Math.pow(temp,0.5);
-
             if (distance < min)
             {
                 min = distance;
@@ -80,9 +108,5 @@ public class Creek {
         }
         return null;
     }
-
-
-
-
 
 }
