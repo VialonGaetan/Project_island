@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.result;
 
+import fr.unice.polytech.si3.qgl.iaad.result.*;
 import org.json.JSONObject;
 
 /**
@@ -8,17 +9,7 @@ import org.json.JSONObject;
 public class FlyResult extends AreaResult {
 
     public FlyResult(String result) {
-        this.result = result;
-    }
-
-    @Override
-    public int getCost() {
-        return new JSONObject(result).getInt("cost");
-    }
-
-    @Override
-    public String getStatus() {
-        return new JSONObject(result).getString("Status");
+        super(result);
     }
 
 }
