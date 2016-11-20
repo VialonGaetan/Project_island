@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.iaad;
 
 import eu.ace_design.island.bot.IExplorerRaid;
 import fr.unice.polytech.si3.qgl.iaad.Actions.*;
+import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.init.*;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 import fr.unice.polytech.si3.qgl.iaad.result.EchoResult;
@@ -16,29 +17,33 @@ public class Explorer implements IExplorerRaid {
     private Context context;
     private String decision;
     private Action action;
-    private Results resultsAction = new FlyResult("lol");
+    private Drone drone;
+    private String rapport;
 
     @Override
     public void initialize(String s) {
+        rapport = "";
         context = new Context(new JSONObject(s));
+        drone = new Drone(this, context.getBudget(), Direction.valueOf(context.getHeading()));
     }
 
     @Override
     public String takeDecision() {
         //action = MakeDecision();
-        action = new Fly();
-        decision = action.toJSON();
-        return decision;
+        return drone.doAction().toJSON();
     }
 
     @Override
     public void acknowledgeResults(String s) {
-
     }
 
     @Override
     public String deliverFinalReport() {
-        throw new UnsupportedOperationException("not implemented yet.");
+        return rapport;
+    }
+
+    public void setRapport(String rapport) {
+        this.rapport = rapport;
     }
 
     public Results results(Action action){

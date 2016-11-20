@@ -7,6 +7,6 @@ import fr.unice.polytech.si3.qgl.iaad.Direction;
  */
 public abstract class Area implements Action {
 
-    Direction direction;
+    public Direction direction;
 
 }
