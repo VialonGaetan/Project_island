@@ -19,6 +19,8 @@ public class Explorer implements IExplorerRaid {
     private Action action;
     private Drone drone;
     private String rapport;
+    private AreaResult result;
+    private String typeAction;
 
     @Override
     public void initialize(String s) {
@@ -29,12 +31,15 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
-        //action = MakeDecision();
-        return drone.doAction().toJSON();
+        action =drone.doAction();
+        decision = action.toJSON();
+        return decision;
     }
 
     @Override
     public void acknowledgeResults(String s) {
+        result = results(drone.doAction());
+        drone.getResult(result);
     }
 
     @Override
@@ -46,19 +51,18 @@ public class Explorer implements IExplorerRaid {
         this.rapport = rapport;
     }
 
-    public Results results(Action action){
-        /*try{
+    public AreaResult results(Action action){
+        try{
             String typeAction = action.getClass().getName();
             Class c = Class.forName("result." + typeAction + "Result");
             Constructor constructor = c.getConstructor(String.class);
             Object o = constructor.newInstance(action);
             if(o instanceof Results)
-                return (Results) o;
+                return (AreaResult) o;
             else return null;
         }
         catch (Exception e){
             return null;
-        }*/
-        return null;
+        }
     }
 }

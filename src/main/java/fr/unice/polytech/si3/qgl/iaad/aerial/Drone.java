@@ -63,6 +63,7 @@ public class Drone {
         return new Stop();
     }
 
+
     public void getResult(AreaResult results)
     {
         budget -= results.getCost();
