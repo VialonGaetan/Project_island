@@ -11,8 +11,9 @@ public enum ArgResult {
     BIOMES("biomes"),
     CREEK("creek"),
     SITES("sites"),
-    OUT_OF_RANGE("OUT_OF_RANGE"),
-    GROUND("GROUND");
+    FOUND("found"),
+    ALTITUDE("altitude"),
+    RESOURCES("resources");
 
     private String name;
 
