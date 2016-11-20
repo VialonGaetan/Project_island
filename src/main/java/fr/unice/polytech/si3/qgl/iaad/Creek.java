@@ -36,7 +36,7 @@ public class Creek {
      *Getter : renvoie la liste des creeks d'une map
      */
 
-    public List<List<Integer>> getCreeks(Creek c)
+    public List<List<Integer>> getCreeks()
     {
         return this.creeks;
     }
@@ -45,7 +45,7 @@ public class Creek {
     Getter : renvoie une creek à un indice particulier
      */
 
-    public List<Integer> getOneCreek(Creek c, int i)
+    public List<Integer> getOneCreek(int i)
     {
         return this.creeks.get(i);
     }
