@@ -29,6 +29,7 @@ public abstract class AreaResult implements Results{
     public int nbBiomes(){ return -1;}
 
     public String getBiome(int n){return null;}
+
     public String getCreek(){return null;}
 
     public String getSites(){return null;}

@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad.Actions;
+package fr.unice.polytech.si3.qgl.iaad.actions;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 

@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad.Actions;
+package fr.unice.polytech.si3.qgl.iaad.actions;
 
 /**
  * Created on 14/11/2016.

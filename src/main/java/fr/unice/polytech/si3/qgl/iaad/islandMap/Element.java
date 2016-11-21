@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad;
+package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
 /**
  * Created by romain on 15/11/16.

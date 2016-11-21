@@ -14,6 +14,7 @@ public class ContextTest {
     JSONObject firstContext;
     int numContrat;
 
+    // TODO: 21/11/2016 Rajouter des tests 
     @Before
     public void defineContext() {
 

@@ -1,6 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad;
-
-import fr.unice.polytech.si3.qgl.iaad.IslandMap.IslandMap;
+package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
 import java.lang.Math;
 import java.util.ArrayList;
@@ -59,7 +57,7 @@ public class Creek {
         {
             for (int i=0; i<m.getHorizontalDimension(); i++)
             {
-                if (m.hasElement(i,j,Element.CREEK))
+                if (m.hasElement(i,j, Element.CREEK))
                 {
                     ArrayList<Integer> temp = new ArrayList<>();
                     temp.add(i);

@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.result;
 
-import fr.unice.polytech.si3.qgl.iaad.Actions.Echo;
 import org.json.JSONObject;
 
 /**

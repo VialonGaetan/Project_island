@@ -1,9 +1,8 @@
 
-import fr.unice.polytech.si3.qgl.iaad.Creek;
-import org.json.JSONObject;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.Creek;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

@@ -1,5 +1,5 @@
-package fr.unice.polytech.si3.qgl.iaad.IslandMap;
-import java.util.Arrays;
+package fr.unice.polytech.si3.qgl.iaad.islandMap;
+
 /**
  * @author Théo
  */

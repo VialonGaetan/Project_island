@@ -1,7 +1,6 @@
-package fr.unice.polytech.si3.qgl.iaad.IslandMap;
+package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
 
-import fr.unice.polytech.si3.qgl.iaad.Element;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 
 /**

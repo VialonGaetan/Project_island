@@ -1,12 +1,6 @@
-import fr.unice.polytech.si3.qgl.iaad.Actions.Echo;
-import fr.unice.polytech.si3.qgl.iaad.Actions.Fly;
-import fr.unice.polytech.si3.qgl.iaad.Actions.Heading;
-import fr.unice.polytech.si3.qgl.iaad.Actions.Scan;
-import fr.unice.polytech.si3.qgl.iaad.Direction;
 import org.junit.Before;
 import fr.unice.polytech.si3.qgl.iaad.result.*;
 import org.junit.Test;
-import org.junit.runner.Result;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
