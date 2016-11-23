@@ -11,31 +11,5 @@ import static org.junit.Assert.assertTrue;
  **/
 
 public class CreekTest {
-
-    Creek c;
-
-    @Before
-    public void defineCreek() {
-    //In Progress
-    }
-
-    @Test
-    public void testGetCreek() {
-        //In Progress
-    }
-
-    @Test
-    public void testGetOneCreek(){
-        //In Progress
-    }
-
-    @Test
-    public void testaddAllTheCreeks(){
-        //In Progress
-    }
-
-    @Test
-    public void testClosest(){
-        //In Progress
-    }
+ //ToDo
 }
