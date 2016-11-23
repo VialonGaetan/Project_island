@@ -11,12 +11,14 @@ import java.util.List;
 public class Creek {
 
     public List<List<Integer>> creeks;   //Une liste de couple qui contient les coordonnées de toutes les creeks
+    IslandMap map;
 
 
-    public Creek()
+    public Creek(IslandMap map)
     {
         creeks = new ArrayList<>();
-    } //On verra plus tard pour l'ameliorer en tableau de longueur nopmbre de creek
+        this.map = map;
+    } //On verra plus tard pour l'ameliorer en tableau de longueur nombre de creek
 
     /*
      * Ajoute manuellement les creeks à la liste
@@ -55,12 +57,12 @@ public class Creek {
     * Parcourt la map et lorsqu'il y a une map sur une case, l'ajoute dans la liste des creeks
     */
 
-    public void addAllTheCreeks(IslandMap m) throws AddPointsException
+    public void addAllTheCreeks() throws AddPointsException
     {
-        for (int j=0; j<m.getVerticalDimension(); j++)
+        for (int j=0; j<this.map.getVerticalDimension(); j++)
         {
-            for (int i=0; i<m.getHorizontalDimension(); i++)
-                if (m.hasElement(i, j, Element.CREEK)) {
+            for (int i=0; i<this.map.getHorizontalDimension(); i++)
+                if (this.map.hasElement(i, j, Element.CREEK)) {
                     ArrayList<Integer> temp = new ArrayList<>();
                     temp.add(i);
                     temp.add(j);
