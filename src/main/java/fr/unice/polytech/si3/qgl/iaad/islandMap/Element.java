@@ -10,11 +10,10 @@ package fr.unice.polytech.si3.qgl.iaad.islandMap;
 public enum Element
 {
     UNKNOWN,
-    NEW_ELEMENT,
     OCEAN,
     CREEK,
     EMERGENCY_SITE,
     BEACH,
     WOOD,
-    START_DRONE;
+    GROUND;
 }

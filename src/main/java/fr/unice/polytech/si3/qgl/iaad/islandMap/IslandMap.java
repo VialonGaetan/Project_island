@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
-
 import fr.unice.polytech.si3.qgl.iaad.Direction;
+import java.awt.Point;
 
 /**
  * Created by romain on 13/11/16.
@@ -10,130 +10,276 @@ import fr.unice.polytech.si3.qgl.iaad.Direction;
 /**
  * Build a map from every movements completed
  * Contains all resources found
+ * Manage the drone coordinates
+ * Manage setOutOfRange
+ * Manage ground
  */
 
 public class IslandMap
 {
     /**
-     * matrix is the map
+     * matrix is the map represented by integers
      */
     private DynamicTwoDimensionalMatrix matrix;
 
     /**
-     * boolean that equals true if the map is finished and false otherwise
+     * current coordinates of the the drone
+     * i=0 <=> y ; i=1 <=> x
      */
-    private boolean islandMapIsFinished;
+    private int[] droneCoordinates;
 
     /**
-     * coordinates of the starting point of the drone
+     * dimensionFinished is an array of booleans that inform if a direction is finished
+     * i=0 => N ; i=1 => E ; i=2 => S ; i=3 => W (but that depends of the order in the enumeration)
      */
-    private int[] coordinatesStartDrone;
+    private boolean dimensionFinished[];
 
     /**
      * Default constructor
-     * @param matrix
+     * initializes matrix as an unique point with (0, 0) as coordinates
+     * initializes the coordinates of the drone at (0,0)
+     * initializes all the dimension as not finished
      */
     public IslandMap()
     {
         matrix=new DynamicTwoDimensionalMatrix();
-        coordinatesStartDrone=new int[2];
+        droneCoordinates=new int[2];
+        dimensionFinished=new boolean[4];
     }
 
     /**
-     * set if the map is finished
-     * @param islandMapIsFinished
+     * informs if the point at coordinates(line, column) exists
+     * @param i
+     * @param j
+     * @return boolean type : true if the point exist, false otherwise
      */
-    public void setFinishedMap() { islandMapIsFinished=true; }
+    private boolean pointExist(int i, int j)
+    {
+        boolean test=false;
+
+        if(i>=0 && i<matrix.getNumberOfLines() && j>=0 && j<matrix.getNumberOfColumns()) test=true;
+
+        return test;
+    }
 
     /**
-     * get if the map is finished
-     * @return true if island Map Is Finished and false otherwise
+     * receives a direction
+     * adds points asked if the direction is unlocked in the map
+     * each time a point is created, set UNKNOWN as default resource
+     * the drone coordinates are updated
+     * throw an exception if direction is finished
+     * throw an exception if the number of points is inferior than the number of points available
+     * @param direction
+     * @param numberOfPoints
+     * @throws AddPointsException
      */
-    public boolean isFinished() { return islandMapIsFinished; }
+    private void addPoints(Direction direction, int numberOfPoints) throws AddPointsException
+    {
+        if(isDirectionFinished(direction)) throw new AddPointsException();
+        if(numberOfPoints<getNumberOfAvailablePoints(direction)) throw new AddPointsException();
+
+        numberOfPoints-=getNumberOfAvailablePoints(direction);
+
+        switch(direction)
+        {
+            case N:
+                matrix.addLines(0, numberOfPoints);
+                droneCoordinates[0]+=numberOfPoints;
+                break;
+            case S:
+                matrix.addLines(-1, numberOfPoints);
+                break;
+            case E:
+                matrix.addColumns(-1, numberOfPoints);
+                break;
+            case W:
+                matrix.addColumns(0, numberOfPoints);
+                droneCoordinates[1]+=numberOfPoints;
+                break;
+        }
+    }
 
     /**
-     * get the starting coordinates of the drone
-     * @return int[] ie [x,y]
+     * returns drone coordinates
+     * @return Point type
      */
-    public int[] getStartingCoordinatesOfDrone() { return coordinatesStartDrone; }
+    public Point getDroneCoordinates() { return new Point(droneCoordinates[1], droneCoordinates[0]); }
 
     /**
-     * get horizontal dimension of the map
+     * moves the drone just by one point (update its coordinates)
+     * @param direction
+     * @return boolean type, true if the drone is still in the map and false it it left the map
+     */
+    public boolean moveDroneCorrectly(Direction direction)
+    {
+        boolean isAuthorizedTomove=false;
+
+        switch(direction)
+        {
+            case N:
+                if(pointExist(droneCoordinates[0]-1, droneCoordinates[1])) isAuthorizedTomove=true;
+                droneCoordinates[0]--;
+                break;
+            case S:
+                if(pointExist(droneCoordinates[0]+1, droneCoordinates[1])) isAuthorizedTomove=true;
+                droneCoordinates[0]++;
+                break;
+            case E:
+                if(pointExist(droneCoordinates[0], droneCoordinates[1]+1)) isAuthorizedTomove=true;
+                droneCoordinates[1]++;
+                break;
+            case W:
+                if(pointExist(droneCoordinates[0], droneCoordinates[1]-1)) isAuthorizedTomove=true;
+                droneCoordinates[1]--;
+                break;
+        }
+
+        return isAuthorizedTomove;
+    }
+
+    /**
+     * informs if this direction is finished
+     * @param direction
+     * @return boolean type : true if the direction is finished, false otherwise
+     */
+    public boolean isDirectionFinished(Direction direction) { return dimensionFinished[direction.ordinal()]; }
+
+    /**
+     * sets the direction as finished
+     * adds points in function of the drone location
+     * throws an exception is the points couldn't be added
+     * @param direction
+     * @param numberOfPoints
+     * @throws AddPointsException
+     */
+    public void setOutOfRange(Direction direction, int numberOfPoints) throws AddPointsException
+    {
+        addPoints(direction, numberOfPoints);
+        dimensionFinished[direction.ordinal()]=true;
+    }
+
+    /**
+     * informs if the map is finished
+     * @return boolean type, true if island Map Is Finished and false otherwise
+     */
+    public boolean isFinished()
+    {
+        boolean test=true;
+
+        for(int i = 0; i<dimensionFinished.length; i++)
+        {
+            if(!dimensionFinished[i])
+            {
+                test=false;
+                break;
+            }
+        }
+
+        return test;
+    }
+
+    /**
+     * adds points in function of the drone location plus 1 that contains ground element
+     * throws an exception is the points couldn't be added
+     * @param direction
+     * @param numberOfPoints
+     * @throws AddPointsException
+     */
+    public void ground(Direction direction, int numberOfPoints) throws AddPointsException
+    {
+        numberOfPoints++;
+
+        if(!isDirectionFinished(direction)) addPoints(direction, numberOfPoints);
+
+        switch(direction)
+        {
+            case N:
+                matrix.set(droneCoordinates[0]-numberOfPoints, droneCoordinates[1], Element.GROUND.ordinal());
+                break;
+            case S:
+                matrix.set(droneCoordinates[0]+numberOfPoints, droneCoordinates[1], Element.GROUND.ordinal());
+                break;
+            case E:
+                matrix.set(droneCoordinates[0], droneCoordinates[1]+numberOfPoints, Element.GROUND.ordinal());
+                break;
+            case W:
+                matrix.set(droneCoordinates[0], droneCoordinates[1]-numberOfPoints, Element.GROUND.ordinal());
+                break;
+        }
+    }
+
+    /**
+     * returns the number of available points
+     * @param direction
+     * @return integer type
+     */
+    public int getNumberOfAvailablePoints(Direction direction)
+    {
+        int distance=0;
+
+        switch(direction)
+        {
+            case N:
+                distance=droneCoordinates[0];
+                break;
+            case S:
+                distance=getVerticalDimension()-droneCoordinates[0]-1;
+                break;
+            case E:
+                distance=getHorizontalDimension()-droneCoordinates[1]-1;
+                break;
+            case W:
+                distance=droneCoordinates[1];
+                break;
+        }
+
+        return distance;
+    }
+
+    /**
+     * returns horizontal dimension of the map
      * @return an integer
      */
     public int getHorizontalDimension() { return matrix.getNumberOfColumns(); }
 
     /**
-     * get vertical dimension of the map
+     * returns vertical dimension of the map
      * @return an integer
      */
     public int getVerticalDimension() { return matrix.getNumberOfLines(); }
 
     /**
-     * receive a direction
-     * add points in the map
-     * each time a point is created, set OCEAN as default resource
-     * @param matrix
+     * sets an element at the Drone coordinates
+     * stops the program if bad coordinates and print an error message
+     * @param element
      */
-    public void addPoints(Direction direction, int numberOfpoints)
-    {
-        switch(direction)
-        {
-            case N:
-                matrix.addLines(0, numberOfpoints);
-                coordinatesStartDrone[1]+=numberOfpoints;
-                break;
-            case S:
-                matrix.addLines(-1, numberOfpoints);
-                break;
-            case E:
-                matrix.addColumns(-1, numberOfpoints);
-                break;
-            case W:
-                matrix.addColumns(-1, numberOfpoints);
-                coordinatesStartDrone[0]+=numberOfpoints;
-                break;
-        }
-    }
+    public void setElement(Element element) { matrix.set(droneCoordinates[0], droneCoordinates[1], element.ordinal()); }
 
     /**
-     * set an element at a the coordinates of a point
-     * stop the program if bad coordinates and print an error message
-     * @param matrix
-     */
-    public void setElement(int x, int y, Element element)
-    {
-        if(x>=0 && x<getHorizontalDimension() && y>=0 && y<getVerticalDimension()) matrix.set(y, x, element.ordinal());
-        else System.err.println("1 Coordinates out of range");
-    }
-
-    /**
-     * get an element at a the coordinates of a point
-     * stop the program if bad coordinates and print an error message
+     * returns the element at this point the coordinates
+     * stops the program if bad coordinates and print an error message
      * @return element found
      */
-    public Element getElement(int x, int y)
+    public Element getElement(int x, int y) throws AddPointsException
     {
-        Element element=Element.NEW_ELEMENT;
-
         if(x>=0 && x<getHorizontalDimension() && y>=0 && y<getVerticalDimension())
         {
             for(Element currentElement:Element.values())
                 if(currentElement.ordinal()==matrix.get(y, x))
-                    element=currentElement;
+                    return currentElement;
         }
 
-        if(element==Element.NEW_ELEMENT) System.err.println("Coordinates out of range");
+        else throw new AddPointsException();
 
-        return element;
+        return null;
     }
 
     /**
-     * check if there is an element at point coordinates
+     * checks if there is an element at point coordinates
      * @return true if there is the element
      * @return false otherwise
      */
-    public boolean hasElement(int x, int y, Element element)
+    public boolean hasElement(int x, int y, Element element) throws AddPointsException
     {
         boolean test=false;
 
@@ -143,15 +289,16 @@ public class IslandMap
                 test=true;
         }
 
-        else System.err.println("Coordinates out of range");
+        else throw new AddPointsException();
 
         return test;
     }
 
     /**
-     * @return an integer of the number of occurrences of the element in the map
+     * returns the number of occurrences of the element
+     * @return integer type
      */
-    public int numberOfOccurrencesOfTheElement(Element element)
+    public int numberOfOccurrencesOfTheElement(Element element) throws AddPointsException
     {
         int count=0;
 
@@ -164,7 +311,7 @@ public class IslandMap
     }
 
     /**
-     * print the current map
+     * prints the current map
      */
     public void printStatement()
     {

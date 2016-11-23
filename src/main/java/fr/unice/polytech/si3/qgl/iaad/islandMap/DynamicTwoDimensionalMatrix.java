@@ -4,7 +4,6 @@ package fr.unice.polytech.si3.qgl.iaad.islandMap;
  * Created by romain on 15/11/16.
  */
 
-
 /**
  * Matrix 2*2 of integers for maps
  */
@@ -23,13 +22,14 @@ public class DynamicTwoDimensionalMatrix
 
     /**
      * default constructor
-     * create a matrix of only one element
-     * @param matrix
+     * creates a matrix of only one element
      */
     public DynamicTwoDimensionalMatrix() { this(1, 1); }
 
     /**
-     * constructor to create a null matrix with specific dimensions
+     * constructor that creates a new matrix with specific dimensions
+     * @param lines
+     * @param cols
      */
     private DynamicTwoDimensionalMatrix(int lines, int cols)
     {
@@ -39,33 +39,36 @@ public class DynamicTwoDimensionalMatrix
     }
 
     /**
-     * get number of lines
-     * @return an integer
+     * returns the number of lines
+     * @return integer type
      */
     public int getNumberOfLines() { return lines; }
 
     /**
-     * get number of columns
-     * @return an integer
+     * returns number of columns
+     * @return integer type
      */
     public int getNumberOfColumns() { return cols; }
 
     /**
-     * get an element of the matrix
+     * returns the element
      * suppose no index error
      * @return an integer
      */
     public int get(int line, int col) {	return array[line][col]; }
 
     /**
-     * set an element in the matrix
-     * suppose no index error
-     * @param matrix
+     * sets an element in the matrix
+     * supposes no index error
+     * @param line
+     * @param col
+     * @param value
      */
     public void set(int line, int col, int value) {	array[line][col]=value; }
 
     /**
-     * @this matrix=another matrix
+     * this=another matrix
+     * @param matrix
      */
     private void thisBecome(DynamicTwoDimensionalMatrix matrix)
     {
@@ -77,10 +80,11 @@ public class DynamicTwoDimensionalMatrix
     }
 
     /**
-     * add the number of lines at the end or at the beginning of the matrix
+     * adds the number of lines at the end or at the beginning of the matrix
      * if position=0 then added at the beginning
      * if position!=0 then added at the end
-     * @param matrix
+     * @param position
+     * @param lines
      */
     public void addLines(int position, int lines)
     {
@@ -99,7 +103,8 @@ public class DynamicTwoDimensionalMatrix
      * add the number of columns at the end or at the beginning of the matrix
      * if position=0 then added at the beginning
      * if position!=0 then added at the end
-     * @param matrix
+     * @param position
+     * @param cols
      */
     public void addColumns(int position, int cols)
     {
@@ -115,7 +120,7 @@ public class DynamicTwoDimensionalMatrix
     }
 
     /**
-     * print all the matrix
+     * prints all the matrix
      */
     public void print()
     {
