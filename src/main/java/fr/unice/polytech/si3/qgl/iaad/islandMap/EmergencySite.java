@@ -1,16 +1,29 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
+import java.util.ArrayList;
+
 /**
  * @author Théo
  */
 public class EmergencySite {
 
     public int[] coordinates = new int[2];
+    IslandMap map;
 
-    public EmergencySite(int x, int y)
+    public EmergencySite(int x, int y, IslandMap map)
     {
         this.coordinates[0]=x;
         this.coordinates[1]=y;
+        this.map = map;
+    }
+
+    public Boolean isASite(int x, int y) throws AddPointsException
+    {
+        if (this.map.hasElement(x, y, Element.EMERGENCY_SITE))
+        {
+            return true;
+        }
+        return false;
     }
 
     public int[] getCoordinates()
@@ -38,8 +51,17 @@ public class EmergencySite {
         this.coordinates[1]=y;
     }
 
-    public void FindSite(IslandMap m)
+    public int[] FindSite() throws AddPointsException
     {
-        //In progress
+        for (int j=0; j<this.map.getVerticalDimension(); j++)
+        {
+            for (int i=0; i<this.map.getHorizontalDimension(); i++)
+                if (this.map.hasElement(i, j, Element.EMERGENCY_SITE)) {
+                    this.coordinates[0]=i;
+                    this.coordinates[1]=j;
+                    return this.coordinates;
+                }
+        }
+        return null;
     }
 }
