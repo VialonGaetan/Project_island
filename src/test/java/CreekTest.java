@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * @author Théo
- */
+ **/
 
 public class CreekTest {
 

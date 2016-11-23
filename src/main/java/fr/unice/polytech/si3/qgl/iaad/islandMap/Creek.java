@@ -16,10 +16,11 @@ public class Creek {
     public Creek()
     {
         creeks = new ArrayList<>();
-    }
+    } //On verra plus tard pour l'ameliorer en tableau de longueur nopmbre de creek
 
     /*
      * Ajoute manuellement les creeks à la liste
+     * @param x,y
      */
 
     public void addCreek(int x, int y)
@@ -32,6 +33,7 @@ public class Creek {
 
     /*
      *Getter : renvoie la liste des creeks d'une map
+     * @return la liste des coordonnées des creeks de la map
      */
 
     public List<List<Integer>> getCreeks()
@@ -40,56 +42,54 @@ public class Creek {
     }
 
     /*
-    Getter : renvoie une creek à un indice particulier
+     *  Getter : renvoie une creek à un indice particulier
+     *  @return une couple de coordonnées
      */
 
     public List<Integer> getOneCreek(int i)
     {
         return this.creeks.get(i);
     }
+
     /*
     * Parcourt la map et lorsqu'il y a une map sur une case, l'ajoute dans la liste des creeks
     */
 
-    public void addAllTheCreeks(IslandMap m)
+    public void addAllTheCreeks(IslandMap m) throws AddPointsException
     {
         for (int j=0; j<m.getVerticalDimension(); j++)
         {
             for (int i=0; i<m.getHorizontalDimension(); i++)
-            {
-                if (m.hasElement(i,j, Element.CREEK))
-                {
+                if (m.hasElement(i, j, Element.CREEK)) {
                     ArrayList<Integer> temp = new ArrayList<>();
                     temp.add(i);
                     temp.add(j);
                     creeks.add(temp);
                 }
-            }
         }
 
     }
 
     /*
-    * Determines quelle creek est la plus proche du site d'urgence
+    * Determine quelle creek est la plus proche du site d'urgence
+    * @return un couple de coordonnées de la creek la plus proche du site d'urgence
      */
 
     public ArrayList<Integer> closest(double xSite, double ySite)
     {
-        double X;
-        double Y;
-        double temp;
-        double distance=-1;
-        double min=1000000000; //pas beau mais pour le moment ça ira
-        ArrayList<Integer> minCoordinates = new ArrayList<>();
         int xMin= creeks.get(0).get(0);
         int yMin = creeks.get(0).get(1);
+        double min=Math.pow(Math.abs(Math.pow(xMin,2)+Math.pow(yMin,2)),0.5);
+        ArrayList<Integer> minCoordinates = new ArrayList<>();
+        minCoordinates.add(xMin); minCoordinates.add(yMin);
+        double minInit = min;
 
         for (int i=0; i< creeks.size(); i++)
         {
-            X = Math.pow(creeks.get(i).get(0)-xSite,2);
-            Y = Math.pow(creeks.get(i).get(1)-ySite,2);
-            temp =Math.abs(X+Y);
-            distance = Math.pow(temp,0.5);
+            double X = Math.pow(creeks.get(i).get(0)-xSite,2);
+            double Y = Math.pow(creeks.get(i).get(1)-ySite,2);
+            double temp =Math.abs(X+Y);
+            double distance = Math.pow(temp,0.5);
             if (distance < min)
             {
                 min = distance;
@@ -98,13 +98,13 @@ public class Creek {
             }
         }
 
-        if (min!=1000000000)
+        if (min!=minInit)
         {
             minCoordinates.add(xMin);
             minCoordinates.add(yMin);
             return minCoordinates;
         }
-        return null;
+        return minCoordinates;
     }
 
 }

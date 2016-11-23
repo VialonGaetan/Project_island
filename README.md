@@ -18,7 +18,7 @@ Short list of the **features** available in the bot delivered for the championsh
 
 ### Week 46
 
-...
+Expected :
 
 
     
