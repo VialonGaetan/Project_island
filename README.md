@@ -14,11 +14,20 @@
 
 ### Week 45
 
-Short list of the **features** available in the bot delivered for the championship that happened at the end of week 46.
+Expected : Short list of the **features** available in the bot delivered for the championship that happened at the end of week 46.
+Results : OK
 
 ### Week 46
 
-Expected :
+Expected : Find an edge of the island
+Results : Failure
+Cause : Problem with the tag.
+
+### Week 47
+
+Expected : Find an edge of the map and try to find one creek.
+Results :
+Cause :
 
 
     
