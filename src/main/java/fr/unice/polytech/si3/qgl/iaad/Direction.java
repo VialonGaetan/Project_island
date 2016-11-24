@@ -9,4 +9,19 @@ public enum Direction {
     E,
     S,
     W;
+
+    public Direction getRight()
+    {
+        return Direction.values()[(this.ordinal() + 1) % 4];
+    }
+
+    public Direction getLeft()
+    {
+        return Direction.values()[(this.ordinal() + 3) % 4];
+    }
+
+    public Direction getBack()
+    {
+        return Direction.values()[(this.ordinal() + 2) % 4];
+    }
 }
