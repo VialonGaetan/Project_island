@@ -37,14 +37,14 @@ public class IslandMap
     /**
      * Default constructor
      * initializes matrix as an unique point with (0, 0) as coordinates
-     * initializes the coordinates of the drone at (0,0)
+     * initializes the coordinates of the drone at (0, 0)
      * initializes all the dimension as not finished
      */
     public IslandMap()
     {
-        matrix=new DynamicTwoDimensionalMatrix();
-        droneCoordinates=new int[2];
-        dimensionFinished=new boolean[4];
+        matrix = new DynamicTwoDimensionalMatrix();
+        droneCoordinates = new int[2];
+        dimensionFinished = new boolean[4];
     }
 
     /**

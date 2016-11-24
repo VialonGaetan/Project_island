@@ -1,5 +1,4 @@
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import org.junit.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

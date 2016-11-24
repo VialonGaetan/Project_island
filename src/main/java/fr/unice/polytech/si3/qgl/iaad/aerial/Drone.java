@@ -17,28 +17,20 @@ public class Drone
     private Direction direction;
     private IslandMap islandMap;
     private Action action;
-    private int test=0;
 
     public Drone(Direction heading, IslandMap islandMap, boolean start)
     {
         this.direction=heading;
         this.islandMap=islandMap;
-        if(start==false) echo();
     }
 
-    public Action doAction() { return action; }
-
-    public void stop()
+    public Action doAction()
     {
-        action = new Stop();
+        return action;
     }
 
-    public void fly() { action = new Fly(); }
-
-    public void echo() { action = new Echo(direction); }
-
-    public void getResult(String results)
+    public void getResult(String result)
     {
-        fly();
+
     }
 }
