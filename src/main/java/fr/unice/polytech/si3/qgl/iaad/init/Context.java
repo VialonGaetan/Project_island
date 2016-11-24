@@ -46,6 +46,10 @@ public class Context {
 
     public String getHeading(){ return heading; }
 
+    /**
+     *
+     * @return le nombre d'hommes(entier)
+     */
     public int getMen(){ return numberOfMen; }
 
     public int getBudget(){ return budget; }

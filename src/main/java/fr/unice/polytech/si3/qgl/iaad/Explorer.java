@@ -4,6 +4,8 @@ import eu.ace_design.island.bot.IExplorerRaid;
 import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.init.*;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.AddPointsException;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 import fr.unice.polytech.si3.qgl.iaad.result.Results;
 import java.lang.reflect.*;
@@ -12,29 +14,36 @@ import org.json.JSONObject;
 
 public class Explorer implements IExplorerRaid {
 
+    private int budget;
+    private IslandMap islandMap;
     private Context context;
     private String decision;
-    private Action action;
     private Drone drone;
 
     @Override
     public void initialize(String s) {
+        islandMap=new IslandMap();
         context = new Context(new JSONObject(s));
-        drone = new Drone(this, context.getBudget(), Direction.valueOf(context.getHeading()));
+        budget = context.getBudget();
+        drone = new Drone(Direction.valueOf(context.getHeading()), islandMap, false);
     }
 
     @Override
-    public String takeDecision() {
-        action = drone.doAction();
-        decision = action.toJSON();
+    public String takeDecision()
+    {
+        decision = drone.doAction().toJSON();
         return decision;
     }
 
+    /*
+     * decision taken
+     */
     @Override
-    public void acknowledgeResults(String s) {
-        drone.getResult(s);
-    }
+    public void acknowledgeResults(String s) { drone.getResult(s); }
 
+    /*
+     * result
+     */
     @Override
     public String deliverFinalReport() {
         return "Nous allons être riche !!";
