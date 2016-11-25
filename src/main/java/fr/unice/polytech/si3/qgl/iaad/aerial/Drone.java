@@ -103,4 +103,9 @@ public class Drone
             action=new Stop();
         }
     }
+
+    public Direction getHeading()
+    {
+        return this.direction;
+    }
 }

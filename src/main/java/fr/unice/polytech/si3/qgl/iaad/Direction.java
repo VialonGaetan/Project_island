@@ -24,4 +24,5 @@ public enum Direction {
     {
         return Direction.values()[(this.ordinal() + 2) % 4];
     }
+
 }
