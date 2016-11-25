@@ -8,6 +8,8 @@ import org.json.JSONObject;
 public abstract class AreaResult implements Results{
     String result;
 
+    public AreaResult() {}
+
     public AreaResult(String result) {
         this.result = result;
     }
@@ -33,4 +35,9 @@ public abstract class AreaResult implements Results{
     public String getCreek(){return null;}
 
     public String getSites(){return null;}
+
+    //@Override
+    public void putResult(String result) {
+        this.result = result;
+    }
 }

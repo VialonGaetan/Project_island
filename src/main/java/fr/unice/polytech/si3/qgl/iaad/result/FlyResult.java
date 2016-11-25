@@ -12,4 +12,8 @@ public class FlyResult extends AreaResult {
         super(result);
     }
 
+    @Override
+    public void putResult(String result) {
+
+    }
 }

@@ -19,19 +19,21 @@ public class Explorer implements IExplorerRaid {
     private Context context;
     private String decision;
     private Drone drone;
+    private Action action;
 
     @Override
     public void initialize(String s) {
         islandMap=new IslandMap();
         context = new Context(new JSONObject(s));
         budget = context.getBudget();
-        //drone = new Drone(Direction.valueOf(context.getHeading()), islandMap);
+        drone = new Drone(Direction.valueOf(context.getHeading()), islandMap);
     }
 
     @Override
     public String takeDecision()
     {
-        decision = drone.doAction().toJSON();
+        action = drone.doAction();
+        decision = action.toJSON();
         return decision;
     }
 
@@ -39,7 +41,9 @@ public class Explorer implements IExplorerRaid {
      * decision taken
      */
     @Override
-    public void acknowledgeResults(String s) { drone.getResult(s); }
+    public void acknowledgeResults(String s) {
+        drone.getResult(((Area)action).getResults(s));
+    }
 
     /*
      * result

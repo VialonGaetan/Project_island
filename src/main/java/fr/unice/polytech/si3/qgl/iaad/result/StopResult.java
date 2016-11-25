@@ -5,7 +5,7 @@ import org.json.JSONObject;
 /**
  * Created by user on 16/11/2016.
  */
-public class StopResult extends CommonResult{
+public class StopResult extends AreaResult{
 
 
     public StopResult(String result) {

@@ -5,10 +5,9 @@ import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Explorer;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.AddPointsException;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 import fr.unice.polytech.si3.qgl.iaad.result.EchoResult;
-import org.json.JSONObject;
 
 /**
  * @author Alexandre Clement
@@ -29,6 +28,7 @@ public class Drone
     private int numberOfFlyLeft;
     private int numberOfFlyRight;
     private int numberOfFly;
+    private AreaResult result;
 
     public Drone(Direction heading, IslandMap islandMap)
     {
@@ -39,40 +39,19 @@ public class Drone
         numberOfEcho++;
     }
 
-    public Action doAction() { return action; }
+    public Action doAction() { return new Stop(); }
 
-    public void getResult(String result)
+    public void stop()
     {
-        JSONObject jsonObject=new JSONObject(result);
+        action = new Stop();
+    }
 
-        if(jsonObject.has("cost")) cost=jsonObject.getInt("cost");
-        if(jsonObject.has("status")) status=jsonObject.getString("status");
+    public void fly() { action = new Fly(); }
 
-        switch(argAction)
-        {
-            case ECHO:
-                if(jsonObject.has("extras"))
-                {
-                    range=jsonObject.getJSONObject("extras").getInt("range");
-                    found=jsonObject.getJSONObject("extras").getString("found");
-                    if(found.equals("GROUND")) islandMap.ground(direction, range);
-                    else islandMap.setOutOfRange(direction, range);
-                }
-                break;
-            case SCAN:
-                if(jsonObject.has("extras"))
-                {
-                    biome=jsonObject.getJSONObject("extras").getString("creeks");
-                    if(biome!=null) islandMap.setElement(Element.CREEK);
-                    else if(biome.equals("BEACH")) islandMap.setElement(Element.BEACH);
-                }
-                break;
-            case FLY:
-                islandMap.moveDroneCorrectly(direction);
-                break;
-        }
 
-        strategy();
+    public void getResult(AreaResult results)
+    {
+        this.result = results;
     }
 
     public void strategy()

@@ -7,9 +7,12 @@ import org.json.JSONObject;
  */
 public class EchoResult extends AreaResult{
 
+    public EchoResult() {}
+
     public EchoResult(String result) {
         super(result);
     }
+
 
 
     @Override
@@ -21,4 +24,5 @@ public class EchoResult extends AreaResult{
     public int getRange(){
         return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getInt(ArgResult.RANGE.getName());
     }
+
 }
