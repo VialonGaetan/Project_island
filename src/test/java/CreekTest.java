@@ -7,9 +7,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @author Théo
+ * @author Romain
  **/
 
-public class CreekTest {
- //ToDo
+public class CreekTest
+{
+
 }

@@ -25,7 +25,7 @@ public class Explorer implements IExplorerRaid {
         islandMap=new IslandMap();
         context = new Context(new JSONObject(s));
         budget = context.getBudget();
-        drone = new Drone(Direction.valueOf(context.getHeading()), islandMap, false);
+        //drone = new Drone(Direction.valueOf(context.getHeading()), islandMap);
     }
 
     @Override

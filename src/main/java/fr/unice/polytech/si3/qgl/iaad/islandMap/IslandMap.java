@@ -73,10 +73,10 @@ public class IslandMap
      * @param numberOfPoints
      * @throws AddPointsException
      */
-    private void addPoints(Direction direction, int numberOfPoints) throws AddPointsException
+    private void addPoints(Direction direction, int numberOfPoints)
     {
-        if(isDirectionFinished(direction)) throw new AddPointsException();
-        if(numberOfPoints<getNumberOfAvailablePoints(direction)) throw new AddPointsException();
+        if(isDirectionFinished(direction)) System.err.println("Erreur");;
+        if(numberOfPoints<getNumberOfAvailablePoints(direction)) System.err.println("Erreur");;
 
         numberOfPoints-=getNumberOfAvailablePoints(direction);
 
@@ -152,7 +152,7 @@ public class IslandMap
      * @param numberOfPoints
      * @throws AddPointsException
      */
-    public void setOutOfRange(Direction direction, int numberOfPoints) throws AddPointsException
+    public void setOutOfRange(Direction direction, int numberOfPoints)
     {
         addPoints(direction, numberOfPoints);
         dimensionFinished[direction.ordinal()]=true;
@@ -185,7 +185,7 @@ public class IslandMap
      * @param numberOfPoints
      * @throws AddPointsException
      */
-    public void ground(Direction direction, int numberOfPoints) throws AddPointsException
+    public void ground(Direction direction, int numberOfPoints)
     {
         numberOfPoints++;
 
@@ -260,7 +260,7 @@ public class IslandMap
      * stops the program if bad coordinates and print an error message
      * @return element found
      */
-    public Element getElement(int x, int y) throws AddPointsException
+    public Element getElement(int x, int y)
     {
         if(x>=0 && x<getHorizontalDimension() && y>=0 && y<getVerticalDimension())
         {
@@ -269,7 +269,7 @@ public class IslandMap
                     return currentElement;
         }
 
-        else throw new AddPointsException();
+        else System.err.println("Erreur");;
 
         return null;
     }
@@ -279,7 +279,7 @@ public class IslandMap
      * @return true if there is the element
      * @return false otherwise
      */
-    public boolean hasElement(int x, int y, Element element) throws AddPointsException
+    public boolean hasElement(int x, int y, Element element)
     {
         boolean test=false;
 
@@ -289,7 +289,7 @@ public class IslandMap
                 test=true;
         }
 
-        else throw new AddPointsException();
+        else System.err.println("Erreur");
 
         return test;
     }
@@ -298,7 +298,7 @@ public class IslandMap
      * returns the number of occurrences of the element
      * @return integer type
      */
-    public int numberOfOccurrencesOfTheElement(Element element) throws AddPointsException
+    public int numberOfOccurrencesOfTheElement(Element element)
     {
         int count=0;
 
