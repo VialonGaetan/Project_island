@@ -44,9 +44,9 @@ public class SearchCreek implements Protocol
     {
         if ((step & 1) == 0)
             return this;
-        if (!"".equals(result.getCreek()))
-            return new Land(result.getCreek());
-        if (result.nbBiomes() != 1 || Element.valueOf(result.getBiome(0)) != Element.OCEAN)
+        if (result.nbCreeks() > 0)
+            return new Land(result.getCreeks(0));
+        if (result.nbBiomes() != 1 || Element.valueOf(result.getBiome(0)).equals(Element.OCEAN))
             return this;
         step = 0;
         direction = direction.getBack();

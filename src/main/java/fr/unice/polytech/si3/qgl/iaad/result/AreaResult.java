@@ -32,9 +32,11 @@ public abstract class AreaResult implements Results{
 
     public String getBiome(int n){return null;}
 
-    public String getCreek(){return null;}
+    public String getCreeks(int n){return null;}
 
     public String getSites(){return null;}
+
+    public int nbCreeks(){return -1;}
 
     //@Override
     public void putResult(String result) {
