@@ -8,13 +8,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Created by romain on 27/11/16.
  */
 
-//sans les tests qui marchent pas
 
 public class CreekTest
 {
@@ -62,5 +60,33 @@ public class CreekTest
             assertEquals(coordinateX, i);
             assertEquals(coordinateY, 0);
         }
+    }
+
+    @Test
+    public void addCreekTest()
+    {
+        creek=new Creek(new IslandMap());
+        creek.addCreek(5, 3);
+        assertEquals(creek.getCreeks().size(), 1);
+        int coordinateX=creek.getCreeks().get(0).get(0), coordinateY=creek.getCreeks().get(0).get(1);
+        assertEquals(coordinateX, 5);
+        assertEquals(coordinateY, 3);
+        creek.addCreek(5, 3);
+        assertEquals(creek.getCreeks().size(), 1);
+    }
+
+    @Test
+    public void getClosestTest()
+    {
+        creek=new Creek(new IslandMap());
+        creek.addCreek(0, 0);
+        creek.addCreek(0, 1);
+        creek.addCreek(1, 0);
+
+        List<Integer> creekClosest=creek.closest(2,0);
+        int creekClosestX=creekClosest.get(0), creekClosestY=creekClosest.get(1);
+
+        assertEquals(1, creekClosestX);
+        assertEquals(0, creekClosestY);
     }
 }
