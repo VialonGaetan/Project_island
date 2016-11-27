@@ -48,8 +48,8 @@ public class SearchCreek implements Protocol
             return new Land(result.getCreeks(0));
         if (result.nbBiomes() != 1 || Element.valueOf(result.getBiome(0)) != Element.OCEAN)
             return this;
-        if (step == 0)
-
+        if (step == 1)
+            return new ReturnToIsland(direction, scan);
         step = 0;
         direction = direction.getBack();
         return new HalfTurn(this, direction, scan);

@@ -19,7 +19,12 @@ public class FlyToIsland implements Protocol
 
     FlyToIsland(Direction heading, Direction target, int range)
     {
-        this.scan = heading;
+        this(heading, target, heading == target ? target.getRight() : heading, range);
+    }
+
+    FlyToIsland(Direction heading, Direction target, Direction scan, int range)
+    {
+        this.scan = scan;
         this.heading = heading;
         this.target = target;
         this.range = range;
