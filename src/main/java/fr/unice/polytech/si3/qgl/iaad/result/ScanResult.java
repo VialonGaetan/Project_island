@@ -25,8 +25,17 @@ public class ScanResult extends AreaResult {
     }
 
     @Override
-    public String getCreek(){
-        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.CREEK.getName()).getString(0);
+    public int nbCreeks(){ return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.CREEKS.getName()).length();}
+
+
+    @Override
+    public String getCreeks(int n){
+        try{
+            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.CREEKS.getName()).getString(0);
+        }
+        catch (RuntimeException e){
+            return null;
+        }
     }
 
     @Override
