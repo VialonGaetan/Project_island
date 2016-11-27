@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.iaad.actions;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 import fr.unice.polytech.si3.qgl.iaad.result.FlyResult;
 import fr.unice.polytech.si3.qgl.iaad.result.HeadingResult;
+import fr.unice.polytech.si3.qgl.iaad.result.ScanResult;
 import org.json.JSONObject;
 
 /**
@@ -22,6 +23,6 @@ public class Scan extends Area {
     @Override
     public AreaResult getResults(String result) {
         //results.putResult(result);
-        return new HeadingResult(result);
+        return new ScanResult(result);
     }
 }

@@ -42,14 +42,16 @@ public class SearchCreek implements Protocol
     @Override
     public Protocol setResult(AreaResult result)
     {
-        if ((step & 1) == 0)
+        /*if ((step & 1) == 0)
             return this;
         if (result.nbCreeks() > 0)
             return new Land(result.getCreeks(0));
-        if (result.nbBiomes() != 1 || Element.valueOf(result.getBiome(0)).equals(Element.OCEAN))
+        if (result.nbBiomes() != 1 || Element.valueOf(result.getBiome(0)) != Element.OCEAN)
             return this;
         step = 0;
         direction = direction.getBack();
         return new HalfTurn(this, direction, scan);
+        */
+        return new Land(result.getCreeks(0));
     }
 }
