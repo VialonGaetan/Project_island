@@ -13,7 +13,12 @@ public abstract class Area implements Action {
     public AreaResult results;
     public String ID;
     public int people;
+    public String rapport = "Nous allons être riche !!";
 
     public abstract AreaResult getResults(String result);
 
+    public String getRapport()
+    {
+        return rapport;
+    }
 }

@@ -17,10 +17,8 @@ public class Drone
 {
     private static final int LOW_BUDGET = 200;
 
-    private Action action;
     public Direction direction;
     private IslandMap islandMap;
-    private Results result;
     private Protocol protocol;
     private int budget;
 
@@ -37,7 +35,7 @@ public class Drone
     {
         if (budget < LOW_BUDGET)
             return new Stop();
-        return action = protocol.nextAction();
+        return protocol.nextAction();
     }
 
     public void getResult(AreaResult results)

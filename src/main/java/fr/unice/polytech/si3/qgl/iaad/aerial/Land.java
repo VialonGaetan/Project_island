@@ -19,12 +19,14 @@ public class Land implements Protocol
     }
 
     @Override
-    public Action nextAction() {
-        return new Stop();
+    public Action nextAction()
+    {
+        return new Stop("CREEK:" + creek);
     }
 
     @Override
-    public Protocol setResult(AreaResult result) {
+    public Protocol setResult(AreaResult result)
+    {
         return this;
     }
 }

@@ -20,6 +20,7 @@ public class Explorer implements IExplorerRaid {
     private String decision;
     private Drone drone;
     private Action action;
+    private String rapport;
 
     @Override
     public void initialize(String s) {
@@ -43,6 +44,7 @@ public class Explorer implements IExplorerRaid {
     @Override
     public void acknowledgeResults(String s) {
         drone.getResult(((Area)action).getResults(s));
+        rapport = ((Area) action).getRapport();
     }
 
     /*
@@ -50,7 +52,7 @@ public class Explorer implements IExplorerRaid {
      */
     @Override
     public String deliverFinalReport() {
-        return "Nous allons être riche !!";
+        return rapport;
     }
 
 }
