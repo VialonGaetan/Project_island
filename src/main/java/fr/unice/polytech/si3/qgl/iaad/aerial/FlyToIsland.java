@@ -14,10 +14,12 @@ public class FlyToIsland implements Protocol
 {
     private Direction heading;
     private Direction target;
+    private Direction scan;
     private int range;
 
     FlyToIsland(Direction heading, Direction target, int range)
     {
+        this.scan = heading;
         this.heading = heading;
         this.target = target;
         this.range = range;
@@ -37,7 +39,7 @@ public class FlyToIsland implements Protocol
     public Protocol setResult(AreaResult result)
     {
         if (range < 0)
-            return new SearchCreek(heading);
+            return new SearchCreek(heading, scan);
         return this;
     }
 }

@@ -22,7 +22,7 @@ public class SearchCreek implements Protocol
         this(direction, direction.getRight());
     }
 
-    private SearchCreek(Direction direction, Direction scan)
+    public SearchCreek(Direction direction, Direction scan)
     {
         this.direction = direction;
         this.scan = scan;
@@ -42,16 +42,16 @@ public class SearchCreek implements Protocol
     @Override
     public Protocol setResult(AreaResult result)
     {
-        /*if ((step & 1) == 0)
+        if ((step & 1) == 0)
             return this;
         if (result.nbCreeks() > 0)
             return new Land(result.getCreeks(0));
         if (result.nbBiomes() != 1 || Element.valueOf(result.getBiome(0)) != Element.OCEAN)
             return this;
+        if (step == 0)
+
         step = 0;
         direction = direction.getBack();
         return new HalfTurn(this, direction, scan);
-        */
-        return new Land(result.getCreeks(0));
     }
 }
