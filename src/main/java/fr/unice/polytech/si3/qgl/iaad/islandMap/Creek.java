@@ -10,14 +10,15 @@ import java.util.List;
 
 public class Creek {
 
-    public List<List<Integer>> creeks;   //Une liste de couple qui contient les coordonnées de toutes les creeks
-    IslandMap map;
+    private List<List<Integer>> creeks;   //Une liste de couple qui contient les coordonnées de toutes les creeks
+    private IslandMap map;
 
 
     public Creek(IslandMap map)
     {
         creeks = new ArrayList<>();
         this.map = map;
+        addAllTheCreeks();
     } //On verra plus tard pour l'ameliorer en tableau de longueur nombre de creek
 
     /*

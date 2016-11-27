@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class EmergencySite {
 
     public int[] coordinates = new int[2];
-    IslandMap map;
+    private IslandMap map;
 
     public EmergencySite(int x, int y, IslandMap map)
     {

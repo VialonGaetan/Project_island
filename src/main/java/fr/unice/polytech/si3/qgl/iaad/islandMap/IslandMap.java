@@ -317,8 +317,6 @@ public class IslandMap
                     if(currentElement.ordinal()==matrix.get(i, j)) System.out.print(""+ currentElement.toString() +"\t");
 
             System.out.println("]");
-        }
-
-        System.out.println();
+        } System.out.println();
     }
 }

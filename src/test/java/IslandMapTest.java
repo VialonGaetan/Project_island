@@ -112,7 +112,7 @@ public class IslandMapTest {
 
     // TODO: 24/11/2016
     /**
-     * On bouge puis on place un élément
+     * On place un élément
      */
     @Test
     public void setElementTest()

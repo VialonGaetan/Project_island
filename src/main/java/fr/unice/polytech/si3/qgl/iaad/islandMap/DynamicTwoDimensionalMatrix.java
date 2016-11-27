@@ -133,8 +133,6 @@ public class DynamicTwoDimensionalMatrix
             System.out.print("[\t");
             for(int j=0; j<cols; j++) System.out.print(""+array[i][j]+"\t");
             System.out.println("]");
-        }
-
-        System.out.println();
+        } System.out.println();
     }
 }
