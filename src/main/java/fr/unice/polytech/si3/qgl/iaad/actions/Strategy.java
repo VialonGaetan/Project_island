@@ -4,9 +4,7 @@ package fr.unice.polytech.si3.qgl.iaad.actions;
  * @author : Theo
  */
 
-import com.sun.xml.internal.bind.AnyTypeAdapter;
-import eu.ace_design.island.game.actions.Actions;
-import fr.unice.polytech.si3.qgl.iaad.Direction;
+
 import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
