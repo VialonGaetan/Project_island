@@ -67,7 +67,7 @@ public class DynamicTwoDimensionalMatrix
     public void set(int line, int col, int value)
     {
         if(line>=0 && line<array.length && col>=0 && col<array[0].length) array[line][col]=value;
-        else System.err.println("Erreur");
+        else System.err.println("Index out of matrix");
     }
 
     /**

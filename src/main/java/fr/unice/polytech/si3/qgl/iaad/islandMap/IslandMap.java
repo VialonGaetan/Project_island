@@ -67,16 +67,13 @@ public class IslandMap
      * adds points asked if the direction is unlocked in the map
      * each time a point is created, set UNKNOWN as default resource
      * the drone coordinates are updated
-     * throw an exception if direction is finished
-     * throw an exception if the number of points is inferior than the number of points available
      * @param direction
      * @param numberOfPoints
-     * @throws AddPointsException
      */
     private void addPoints(Direction direction, int numberOfPoints)
     {
-        if(isDirectionFinished(direction)) System.err.println("Erreur");;
-        if(numberOfPoints<getNumberOfAvailablePoints(direction)) System.err.println("Erreur");;
+        if(isDirectionFinished(direction)) System.err.println("addPoints Error : direction already finished");;
+        if(numberOfPoints<getNumberOfAvailablePoints(direction)) System.err.println("addPoints Error : numberOfPoints<getNumberOfAvailablePoints");;
 
         numberOfPoints-=getNumberOfAvailablePoints(direction);
 
@@ -147,10 +144,8 @@ public class IslandMap
     /**
      * sets the direction as finished
      * adds points in function of the drone location
-     * throws an exception is the points couldn't be added
      * @param direction
      * @param numberOfPoints
-     * @throws AddPointsException
      */
     public void setOutOfRange(Direction direction, int numberOfPoints)
     {
@@ -180,10 +175,8 @@ public class IslandMap
 
     /**
      * adds points in function of the drone location plus 1 that contains ground element
-     * throws an exception is the points couldn't be added
      * @param direction
      * @param numberOfPoints
-     * @throws AddPointsException
      */
     public void ground(Direction direction, int numberOfPoints)
     {
@@ -289,7 +282,7 @@ public class IslandMap
                 test=true;
         }
 
-        else System.err.println("Erreur");
+        else System.err.println("Coordinates out of map");
 
         return test;
     }

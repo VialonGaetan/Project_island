@@ -17,7 +17,7 @@ public class EmergencySite {
         this.map = map;
     }
 
-    public Boolean isASite(int x, int y) throws AddPointsException
+    public Boolean isASite(int x, int y)
     {
         if (this.map.hasElement(x, y, Element.EMERGENCY_SITE))
         {
@@ -51,7 +51,7 @@ public class EmergencySite {
         this.coordinates[1]=y;
     }
 
-    public int[] FindSite() throws AddPointsException
+    public int[] FindSite()
     {
         for (int j=0; j<this.map.getVerticalDimension(); j++)
         {

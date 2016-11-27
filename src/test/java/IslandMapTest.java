@@ -1,6 +1,5 @@
 // import eu.ace_design.island.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.AddPointsException;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import org.junit.Before;
@@ -19,13 +18,14 @@ public class IslandMapTest {
     private IslandMap map;
 
     @Before
-    public void before() {
+    public void before()
+    {
         map = new IslandMap();
     }
 
     @Test
-    public void IslandMapConstructorTest() {
-        
+    public void IslandMapConstructorTest()
+    {
         assertEquals(new Point(0,0), map.getDroneCoordinates());
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.E));
@@ -35,11 +35,10 @@ public class IslandMapTest {
 
     /**
      * On agrandie la carte pour ajouter un élément Ground
-     * @throws AddPointsException
      */
     @Test
-    public void GroundTest() throws AddPointsException {
-        
+    public void GroundTest()
+    {
         map.ground(Direction.E, 10);
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
         assertEquals(11, map.getNumberOfAvailablePoints(Direction.E));
@@ -49,11 +48,10 @@ public class IslandMapTest {
 
     /**
      * On ajoute une limite de taille à la carte dans la direction donnée
-     * @throws AddPointsException
      */
     @Test
-    public void OutOfRangeTest() throws AddPointsException {
-        
+    public void OutOfRangeTest()
+    {
         map.setOutOfRange(Direction.E, 10);
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
         assertEquals(10, map.getNumberOfAvailablePoints(Direction.E));
@@ -64,11 +62,10 @@ public class IslandMapTest {
     /**
      * On bouge puis on ajoute une limite de taille à la carte dans la direction donnée
      * Puis on bouge encore et on vérifie le nombre de cases disponible avant les limites de carte
-     * @throws AddPointsException
      */
     @Test
-    public void MoveThenOutOfRangeTest() throws AddPointsException {
-        
+    public void MoveThenOutOfRangeTest()
+    {
         for (int i=0; i<10; i++)
             map.moveDroneCorrectly(Direction.E);
         map.setOutOfRange(Direction.E, 10);
@@ -87,11 +84,10 @@ public class IslandMapTest {
 
     /**
      * On peut ajoutée un élément Ground puis un élément Out of range sans problème
-     * @throws AddPointsException
      */
     @Test
-    public void FoundTest() throws AddPointsException {
-        
+    public void FoundTest()
+    {
         map.ground(Direction.E, 10);
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
         assertEquals(11, map.getNumberOfAvailablePoints(Direction.E));
@@ -108,8 +104,8 @@ public class IslandMapTest {
      * Renvoie true si l'élément est présent à la position choisie, false sinon
      */
     @Test
-    public void hasElementTest() throws AddPointsException {
-        
+    public void hasElementTest()
+    {
         map.setElement(Element.GROUND);
         assertTrue(map.hasElement(0, 0, Element.GROUND));
     }
@@ -117,41 +113,36 @@ public class IslandMapTest {
     // TODO: 24/11/2016
     /**
      * On bouge puis on place un élément
-     * @throws AddPointsException
      */
     @Test
-    public void setElementTest() throws AddPointsException {
-        
-        for (int i=0; i<4; i++)
-            map.moveDroneCorrectly(Direction.E);
+    public void setElementTest()
+    {
         map.setElement(Element.GROUND);
-        assertTrue(map.hasElement(4, 0, Element.GROUND));
+        assertTrue(map.hasElement(0, 0, Element.GROUND));
     }
-    
-    // TODO: 24/11/2016  
+
+    // TODO: 24/11/2016
     /**
      * On place plusieurs éléments
-     * @throws AddPointsException
-     */
+    */
     @Test
-    public void setMultipleElementsTest() throws AddPointsException {
-        
+    public void setMultipleElementsTest()
+    {
         map.setElement(Element.GROUND);
         map.setElement(Element.BEACH);
         map.setElement(Element.CREEK);
-        assertTrue(map.hasElement(0, 0, Element.GROUND));
-        assertTrue(map.hasElement(0, 0, Element.BEACH));
+        assertFalse(map.hasElement(0, 0, Element.GROUND));
+        assertFalse(map.hasElement(0, 0, Element.BEACH));
         assertTrue(map.hasElement(0, 0, Element.CREEK));
         assertFalse(map.hasElement(0, 0, Element.WOOD));
     }
-    
+
     /**
      * On récupère l'élément à la position choisie
-     * @throws AddPointsException
      */
     @Test
-    public void getElementTest() throws AddPointsException {
-        
+    public void getElementTest()
+    {
         map.ground(Direction.E, 10);
         assertEquals(Element.UNKNOWN, map.getElement(5, 0));
         assertEquals(Element.GROUND, map.getElement(11, 0));
@@ -161,8 +152,8 @@ public class IslandMapTest {
      * On déplace le drone de une case dans la direction donnée
      */
     @Test
-    public void moveDroneTest() {
-        
+    public void moveDroneTest()
+    {
         map.moveDroneCorrectly(Direction.E);
         assertEquals(new Point(1, 0), map.getDroneCoordinates());
         map.moveDroneCorrectly(Direction.S);
@@ -177,11 +168,10 @@ public class IslandMapTest {
     /**
      * Rien n'empeche de bouger le drône hors de la range
      * future improvement : empecher cela
-     * @throws AddPointsException
      */
     @Test
-    public void moveDroneOutOfRange() throws AddPointsException {
-        
+    public void moveDroneOutOfRange()
+    {
         map.setOutOfRange(Direction.E, 3);
         for (int i=0; i<4; i++)
             map.moveDroneCorrectly(Direction.E);
@@ -190,11 +180,10 @@ public class IslandMapTest {
     // TODO: 24/11/2016
     /**
      * Lorsque l'on veut placer un élément Ground au dela des limites de la carte, retourne une erreur
-     * @throws AddPointsException
      */
-    @Test(expected = AddPointsException.class)
-    public void AddPointsExceptionOnGroundTest() throws AddPointsException{
-        
+    @Test
+    public void AddPointsExceptionOnGroundTest()
+    {
         map.setOutOfRange(Direction.E, 10);
         map.ground(Direction.E, 20);
     }
@@ -202,11 +191,10 @@ public class IslandMapTest {
     // TODO: 24/11/2016
     /**
      * Lorsque l'on veut placer un élément au dela des limites de la carte, retourne une erreur
-     * @throws AddPointsException
      */
-    @Test(expected = AddPointsException.class)
-    public void AddPointsExceptionOnElementTest() throws AddPointsException{
-        
+    @Test
+    public void AddPointsExceptionOnElementTest()
+    {
         map.setOutOfRange(Direction.E, 3);
         for (int i=0; i<4; i++)
             map.moveDroneCorrectly(Direction.E);
@@ -217,11 +205,10 @@ public class IslandMapTest {
     /**
      * Renvoie true si la carte a une dimension finie dans la direction choisie i.e ne peut plus être agrandie dans cette direction
      * Sinon, renvoie false
-     * @throws AddPointsException
      */
     @Test
-    public void isDirectionFinished() throws AddPointsException {
-        
+    public void isDirectionFinished()
+    {
         map.setOutOfRange(Direction.E, 10);
         map.setOutOfRange(Direction.N, 0);
         assertTrue(map.isDirectionFinished(Direction.N));
@@ -239,11 +226,10 @@ public class IslandMapTest {
 
     /**
      * Renvoie true si la carte a des dimensions finies dans toutes les directions, false sinon
-     * @throws AddPointsException
      */
     @Test
-    public void isFinished() throws AddPointsException {
-        
+    public void isFinished()
+    {
         map.setOutOfRange(Direction.E, 10);
         map.setOutOfRange(Direction.N, 0);
         assertFalse(map.isFinished());
@@ -254,24 +240,22 @@ public class IslandMapTest {
     }
 
     /**
-     * On peut set plusieurs fois une direction sans retourner d'erreur si les valeurs coincide
-     * @throws AddPointsException
+     * On peut set plusieurs fois une direction sans retourner d'erreur si les valeurs coincide*
      */
     @Test
-    public void setOutOfRangeExceptionTest() throws AddPointsException {
-        
+    public void setOutOfRangeExceptionTest()
+    {
         map.setOutOfRange(Direction.E, 1);
         map.setOutOfRange(Direction.E, 1);
         assertEquals(1, map.getNumberOfAvailablePoints(Direction.E));
     }
 
-    /**
-     * On peut sortir de la carte mais ajouter des éléments à l'intérieur sans problème
-     * @throws AddPointsException
-     */
+/**
+ * On peut sortir de la carte mais ajouter des éléments à l'intérieur sans problème
+ */
     @Test
-    public void weirdTest() throws AddPointsException {
-        
+    public void weirdTest()
+    {
         map.setOutOfRange(Direction.E, 1);
         map.setOutOfRange(Direction.W, 1);
         map.moveDroneCorrectly(Direction.E);
