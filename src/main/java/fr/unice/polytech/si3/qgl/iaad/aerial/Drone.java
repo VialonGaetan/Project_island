@@ -4,7 +4,6 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Explorer;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.AddPointsException;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 import fr.unice.polytech.si3.qgl.iaad.result.EchoResult;
@@ -19,11 +18,12 @@ public class Drone
     private static final int LOW_BUDGET = 200;
 
     private Action action;
-    private Direction direction;
+    public Direction direction;
     private IslandMap islandMap;
     private Results result;
     private Protocol protocol;
     private int budget;
+
 
     public Drone(int budget, Direction heading, IslandMap islandMap)
     {

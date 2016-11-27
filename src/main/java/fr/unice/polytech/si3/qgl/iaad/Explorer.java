@@ -5,7 +5,6 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.init.*;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.AddPointsException;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.*;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 import fr.unice.polytech.si3.qgl.iaad.result.Results;
