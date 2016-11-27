@@ -1,11 +1,12 @@
 package fr.unice.polytech.si3.qgl.iaad;
 
 import eu.ace_design.island.bot.IExplorerRaid;
+import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.init.*;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.AddPointsException;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.*;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 import fr.unice.polytech.si3.qgl.iaad.result.Results;
 import java.lang.reflect.*;
@@ -26,7 +27,7 @@ public class Explorer implements IExplorerRaid {
         islandMap=new IslandMap();
         context = new Context(new JSONObject(s));
         budget = context.getBudget();
-        drone = new Drone(Direction.valueOf(context.getHeading()), islandMap);
+        drone = new Drone(budget, Direction.valueOf(context.getHeading()), islandMap);
     }
 
     @Override
@@ -52,4 +53,5 @@ public class Explorer implements IExplorerRaid {
     public String deliverFinalReport() {
         return "Nous allons être riche !!";
     }
+
 }

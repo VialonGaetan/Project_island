@@ -9,7 +9,7 @@ public enum ArgResult {
     EXTRAS("extras"),
     RANGE("range"),
     BIOMES("biomes"),
-    CREEK("creek"),
+    CREEK("creeks"),
     SITES("sites"),
     FOUND("found"),
     ALTITUDE("altitude"),

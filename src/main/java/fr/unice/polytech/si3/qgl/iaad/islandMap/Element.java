@@ -10,6 +10,7 @@ package fr.unice.polytech.si3.qgl.iaad.islandMap;
 public enum Element
 {
     UNKNOWN,
+    OUT_OF_RANGE,
     OCEAN,
     CREEK,
     EMERGENCY_SITE,

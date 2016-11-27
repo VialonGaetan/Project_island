@@ -8,6 +8,7 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.AddPointsException;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 import fr.unice.polytech.si3.qgl.iaad.result.EchoResult;
+import fr.unice.polytech.si3.qgl.iaad.result.Results;
 
 /**
  * @author Alexandre Clement
@@ -15,76 +16,32 @@ import fr.unice.polytech.si3.qgl.iaad.result.EchoResult;
  */
 public class Drone
 {
+    private static final int LOW_BUDGET = 200;
+
+    private Action action;
     private Direction direction;
     private IslandMap islandMap;
-    private Action action;
-    private int cost;
-    private int range;
-    private ArgActions argAction;
-    private String found;
-    private String status;
-    private String biome;
-    private int numberOfEcho;
-    private int numberOfFlyLeft;
-    private int numberOfFlyRight;
-    private int numberOfFly;
-    private AreaResult result;
+    private Results result;
+    private Protocol protocol;
+    private int budget;
 
-    public Drone(Direction heading, IslandMap islandMap)
+    public Drone(int budget, Direction heading, IslandMap islandMap)
     {
         this.direction=heading;
         this.islandMap=islandMap;
-        action=new Echo(heading);
-        argAction=ArgActions.ECHO;
-        numberOfEcho++;
+        this.budget = budget;
+        protocol = new Initialisation(heading);
     }
 
-    public Action doAction() { return new Stop(); }
-
-    public void stop()
+    public Action doAction()
     {
-        action = new Stop();
+        if (budget < LOW_BUDGET)
+            return new Stop();
+        return action = protocol.nextAction();
     }
-
-    public void fly() { action = new Fly(); }
-
 
     public void getResult(AreaResult results)
     {
-        this.result = results;
-    }
-
-    public void strategy()
-    {
-        if(numberOfEcho<=2)
-        {
-            action=new Echo(direction.getLeft());
-            if(numberOfEcho==2) action=new Echo(direction.getRight());
-            numberOfEcho++;
-        }
-
-        else if(numberOfFly<islandMap.getNumberOfAvailablePoints(direction))
-        {
-            if(numberOfFly%2==1) numberOfEcho=0;
-            action=new Fly();
-            numberOfFly++;
-        }
-
-        else if(islandMap.getNumberOfAvailablePoints(direction.getRight())>0)
-        {
-            direction=direction.getRight();
-            action=new Stop();
-        }
-
-        else if(islandMap.getNumberOfAvailablePoints(direction.getLeft())>0)
-        {
-            direction=direction.getLeft();
-            action=new Stop();
-        }
-    }
-
-    public Direction getHeading()
-    {
-        return this.direction;
+        protocol = protocol.setResult(results);
     }
 }
