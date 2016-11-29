@@ -5,6 +5,10 @@ package fr.unice.polytech.si3.qgl.iaad.result;
  */
 public interface Results {
 
+    /**
+     * Recupere le cout d'une action
+     * @return action cost
+     */
     int getCost();
 
     String getStatus();

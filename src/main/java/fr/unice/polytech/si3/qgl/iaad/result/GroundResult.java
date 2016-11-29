@@ -3,16 +3,22 @@ package fr.unice.polytech.si3.qgl.iaad.result;
 import org.json.JSONObject;
 
 /**
- * Created by user on 16/11/2016.
+ * @author Gaetan Vialon
+ * Created the 16/11/2016.
  */
+
 public abstract class GroundResult implements Results{
 
-    String result;
+    public String result;
 
     public GroundResult(String result) {
         this.result = result;
     }
 
+    /**
+     * Recupere le cout d'une action
+     * @return action cost
+     */
     @Override
     public int getCost() {
         return new JSONObject(result).getInt(ArgResult.COST.getName());

@@ -1,28 +1,33 @@
 package fr.unice.polytech.si3.qgl.iaad.actions;
 
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
-import fr.unice.polytech.si3.qgl.iaad.result.FlyResult;
-import fr.unice.polytech.si3.qgl.iaad.result.HeadingResult;
-import fr.unice.polytech.si3.qgl.iaad.result.ScanResult;
+import fr.unice.polytech.si3.qgl.iaad.result.*;
 import org.json.JSONObject;
 
 /**
- * Created by user on 15/11/2016.
+ * @author Gaetan Vialon
+ * Created the 15/11/2016.
  */
 public class Scan extends Area {
 
 
-    public Scan() {
-    }
+    public Scan() {}
 
+    /**
+     * Créé un objet JSON avec l'action SCAN
+     * @return String of JSON
+     */
     @Override
     public String toJSON() {
         return new JSONObject().put("action" , ArgActions.SCAN.getName()).toString();
     }
 
+    /**
+     * Créé un objet ScanResult
+     * @param result de l'explorer
+     * @return ScanResult
+     */
     @Override
     public AreaResult getResults(String result) {
-        //results.putResult(result);
         return new ScanResult(result);
     }
 }

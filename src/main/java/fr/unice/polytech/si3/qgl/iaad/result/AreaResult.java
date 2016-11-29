@@ -14,6 +14,11 @@ public abstract class AreaResult implements Results{
         this.result = result;
     }
 
+
+    /**
+     * Recupere le cout d'une action
+     * @return action cost
+     */
     @Override
     public int getCost() {
         return new JSONObject(result).getInt(ArgResult.COST.getName());

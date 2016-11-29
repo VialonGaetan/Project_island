@@ -40,7 +40,12 @@ public class ScanResult extends AreaResult {
 
     @Override
     public String getSites(){
-        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.SITES.getName()).getString(0);
+        try {
+            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.SITES.getName()).getString(0);
+        }
+        catch (RuntimeException e){
+            return null;
+        }
     }
 
 

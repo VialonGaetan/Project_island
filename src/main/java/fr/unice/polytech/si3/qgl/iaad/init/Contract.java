@@ -23,6 +23,15 @@ public class Contract {
         this.resource=resource;
     }
 
+    /**
+     * Recupere le nombre de ressource que veut le client
+     * @return nombre (entier)
+     */
     public int getAmount() { return amount; }
+
+    /**
+     * Recupere le type de ressource du client
+     * @return String de la ressource
+     */
     public String getResource() { return resource; }
 }

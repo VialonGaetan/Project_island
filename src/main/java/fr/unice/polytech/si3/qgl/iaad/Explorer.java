@@ -1,14 +1,11 @@
 package fr.unice.polytech.si3.qgl.iaad;
 
+
 import eu.ace_design.island.bot.IExplorerRaid;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.*;
-import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
+import fr.unice.polytech.si3.qgl.iaad.aerial.*;
 import fr.unice.polytech.si3.qgl.iaad.init.*;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.*;
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
-import fr.unice.polytech.si3.qgl.iaad.result.Results;
-import java.lang.reflect.*;
 import org.json.JSONObject;
 
 

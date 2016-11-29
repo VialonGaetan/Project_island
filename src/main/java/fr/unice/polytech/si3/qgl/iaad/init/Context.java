@@ -1,8 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.init;
 
 import org.json.JSONObject;
-
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -36,26 +34,43 @@ public class Context {
 
         contracts=new ArrayList<>();
 
-        for(int i=0; i<jsonObject.getJSONArray("contracts").length(); i++)
+        for(int i=0; i<jsonObject.getJSONArray(ArgContext.contracts.getName()).length(); i++)
         {
-            Contract contract=new Contract(jsonObject.getJSONArray("contracts").getJSONObject(i).getInt(ArgContext.amount.getName()),jsonObject.getJSONArray("contracts").getJSONObject(i).getString(ArgContext.resource.getName()));
+            Contract contract=new Contract(jsonObject.getJSONArray(ArgContext.contracts.getName()).getJSONObject(i).getInt(ArgContext.amount.getName()),jsonObject.getJSONArray(ArgContext.contracts.getName()).getJSONObject(i).getString(ArgContext.resource.getName()));
             contracts.add(contract);
         }
 
     }
 
+    /**
+     * Recupere la direction dans laquelle se trouve le drone au depart
+     * @return direction de depart du drone(String)
+     */
     public String getHeading(){ return heading; }
 
     /**
-     *
+     * Recupere le nombre d'hommes disponible ecrit sur le contrat
      * @return le nombre d'hommes(entier)
      */
     public int getMen(){ return numberOfMen; }
 
+    /**
+     * Recupere le budget disponible ecrit sur le contrat
+     * @return budget total (entier)
+     */
     public int getBudget(){ return budget; }
 
+    /**
+     * Recupere le nombre de contrat du client
+     * @return nombre de contrat (entier)
+     */
     public int numberOfContrats(){ return contracts.size(); }
 
+    /**
+     *
+     * @param index
+     * @return
+     */
     public Contract getContract(int index) {
         if(index<0 || index >=numberOfContrats()) System.err.println("Contract out of range");
         return contracts.get(index);
