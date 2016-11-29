@@ -27,7 +27,7 @@ public class Strategy {
     * L'idée est d'appliquer en boucle ces trois prochaines fonctions
      */
 
-    /*
+    /**
     * Ici, on scan à chaque tour
     * @return un scan
      */
@@ -36,7 +36,7 @@ public class Strategy {
         return new Echo(d.direction);
     }
 
-    /*
+    /**
     * Methode permettant soit de poursuivre son chemin (Fly)
     * Soit de s'orienter afon de continuer à scanner l'île
     * Ici, j'ai dans un premier temps décider arbitrairement de tourner à gauche si jamais le drône croise de l'eau
@@ -57,12 +57,12 @@ public class Strategy {
         }
     }
 
-    /*
+    /**
     *Troisième methode à appliquer :
     * Si le resultat de l'action précédente n'était pas OUT OF RANGE
     * cela signifie que nous sommes encore sur l'île, pour au moins un tour.
     * Dans ce cas, on scan. Sinon, on ne fait rien.
-    * @param AreaResult
+    * @param result
     * @return Action
      */
     public Action scanIt(AreaResult result)

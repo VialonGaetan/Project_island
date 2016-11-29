@@ -21,7 +21,7 @@ public class Creek {
         addAllTheCreeks();
     } //On verra plus tard pour l'ameliorer en tableau de longueur nombre de creek
 
-    /*
+    /**
      * Ajoute manuellement les creeks à la liste
      * @param x,y
      */
@@ -34,7 +34,7 @@ public class Creek {
         this.creeks.add(temp);
     }
 
-    /*
+    /**
      *Getter : renvoie la liste des creeks d'une map
      * @return la liste des coordonnées des creeks de la map
      */
@@ -44,7 +44,7 @@ public class Creek {
         return this.creeks;
     }
 
-    /*
+    /**
      *  Getter : renvoie une creek à un indice particulier
      *  @return une couple de coordonnées
      */
@@ -54,7 +54,7 @@ public class Creek {
         return this.creeks.get(i);
     }
 
-    /*
+    /**
     * Parcourt la map et lorsqu'il y a une map sur une case, l'ajoute dans la liste des creeks
     */
 
@@ -73,41 +73,33 @@ public class Creek {
 
     }
 
-    /*
+    /**
     * Determine quelle creek est la plus proche du site d'urgence
     * @return un couple de coordonnées de la creek la plus proche du site d'urgence
      */
 
     public ArrayList<Integer> closest(double xSite, double ySite)
     {
-        int xMin= creeks.get(0).get(0);
-        int yMin = creeks.get(0).get(1);
-        double min=Math.pow(Math.abs(Math.pow(xMin,2)+Math.pow(yMin,2)),0.5);
-        ArrayList<Integer> minCoordinates = new ArrayList<>();
-        minCoordinates.add(xMin); minCoordinates.add(yMin);
-        double minInit = min;
+        int xMin= creeks.get(0).get(0); //On initialise le xMin
+        int yMin = creeks.get(0).get(1); //On initialise le yMin
+        double min=Math.pow(Math.abs(Math.pow(xMin-xSite,2)+Math.pow(yMin-ySite,2)),0.5); //On initialise la distance entre le site et la première creek
+        ArrayList<Integer> minCoordinates = new ArrayList<>();//On crée une liste qui contiendra les coordonnées Min et qui srra retournée
 
         for (int i=0; i< creeks.size(); i++)
         {
-            double X = Math.pow(creeks.get(i).get(0)-xSite,2);
-            double Y = Math.pow(creeks.get(i).get(1)-ySite,2);
-            double temp =Math.abs(X+Y);
-            double distance = Math.pow(temp,0.5);
+            double X = Math.pow(creeks.get(i).get(0)-xSite,2); //on calcule la norme projetée sur x
+            double Y = Math.pow(creeks.get(i).get(1)-ySite,2); // projection sur y
+            double temp =Math.abs(X+Y); //valeur absolue au cas où
+            double distance = Math.pow(temp,0.5); //on calcule la norme 2 (euclidienne)
             if (distance < min)
             {
-                min = distance;
-                xMin= creeks.get(i).get(0);
+                min = distance; //Si la distance calculée est plus petite que le dernier MIN en mémoire, on considère cette distance comme le nouveau MIN
+                xMin= creeks.get(i).get(0); //on rempli la liste avec les nouvelles coordonnées du MIN
                 yMin = creeks.get(i).get(1);
             }
         }
-
-        if (min!=minInit)
-        {
-            minCoordinates.add(xMin);
-            minCoordinates.add(yMin);
-            return minCoordinates;
-        }
-        return minCoordinates;
+        minCoordinates.add(xMin);//on rempli la liste à retourner avec les coordonnées Minimales
+        minCoordinates.add(yMin);
+        return minCoordinates; //on renvoie cette liste
     }
-
 }
