@@ -9,6 +9,14 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
  */
 public interface Protocol
 {
+    /**
+     * @return l'action a effectué
+     */
     Action nextAction();
+
+    /**
+     * @param result le résultat de l'action effectué
+     * @return le nouveau protocole en vigueur
+     */
     Protocol setResult(AreaResult result);
 }

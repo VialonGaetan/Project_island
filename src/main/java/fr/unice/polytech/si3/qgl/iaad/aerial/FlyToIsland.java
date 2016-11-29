@@ -4,47 +4,67 @@ import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
 import fr.unice.polytech.si3.qgl.iaad.actions.Heading;
+import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 
 /**
  * @author Alexandre Clement
  *         Created the 27/11/2016.
+ * Fly jusqu'à l'île
  */
 public class FlyToIsland implements Protocol
 {
+    private IslandMap map;
     private Direction heading;
     private Direction target;
-    private Direction scan;
+    private Direction sense;
     private int range;
 
-    FlyToIsland(Direction heading, Direction target, int range)
+    /**
+     * @param heading l'orientation du drone
+     * @param target la direction vers laquelle se trouve l'île
+     * @param range la distance a parcourir pour atteindre l'île
+     */
+    FlyToIsland(IslandMap map, Direction heading, Direction target, int range)
     {
-        this(heading, target, heading == target ? target.getRight() : heading, range);
-    }
-
-    FlyToIsland(Direction heading, Direction target, Direction scan, int range)
-    {
-        this.scan = scan;
+        this.map = map;
         this.heading = heading;
+        this.sense = heading;
         this.target = target;
         this.range = range;
     }
 
+    /**
+     * @return Heading si le drone n'est pas dans la bonne direction
+     *         sinon Fly
+     */
     @Override
     public Action nextAction()
     {
         range -= 1;
+        if (map.getNumberOfAvailablePoints(heading) < 1)
+            return new Stop();
+        map.moveDroneCorrectly(heading);
         if (heading == target)
             return new Fly();
+        if (map.isDirectionFinished(target) && map.getNumberOfAvailablePoints(target) < 1)
+            return new Stop();
         heading = target;
+        map.moveDroneCorrectly(heading);
         return new Heading(target);
     }
 
+    /**
+     * @param result le résultat de l'action effectué
+     * @return SearchCreek si on a atteint l'île
+     *         FlyToIsland sinon
+     */
     @Override
     public Protocol setResult(AreaResult result)
     {
         if (range < 0)
-            return new SearchCreek(heading, scan);
+            return new SearchCreek(map, heading, sense);
         return this;
     }
 }

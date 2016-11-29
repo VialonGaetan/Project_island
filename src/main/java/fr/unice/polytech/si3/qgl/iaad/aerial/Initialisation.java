@@ -3,72 +3,78 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
-import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 
 /**
  * @author Alexandre Clement
  *         Created the 27/11/2016.
+ * Initialise les dimensions de la map
  */
 public class Initialisation implements Protocol
 {
-    private int step;
-    private int[] out = new int[] {-1, -1, -1, -1};
-    private int[] ground = new int[] {-1, -1, -1, -1};
-    private Direction direction;
+    private Direction heading;
+    private Protocol protocol;
+    private IslandMap map;
 
-    Initialisation(Direction heading)
+    Initialisation(IslandMap map, Direction heading)
     {
-        step = 0;
-        this.direction = heading;
-        out[direction.getBack().ordinal()] = 0;
+        this.map = map;
+        this.heading = heading;
+        protocol = new EchoToFindLimit(heading.getLeft());
     }
+
     @Override
     public Action nextAction()
     {
-        step += 1;
-        switch (step)
-        {
-            case 1:
-                return new Echo(direction);
-            case 2:
-                return new Echo(direction.getRight());
-            case 3:
-                return new Echo(direction.getLeft());
-            default:
-                return new Stop();
-        }
+        return protocol.nextAction();
     }
 
     @Override
     public Protocol setResult(AreaResult result)
     {
-        switch (step)
-        {
-            case 1:
-                if (Element.valueOf(result.getFound()) == Element.GROUND)
-                    ground[direction.ordinal()] = result.getRange();
-                else
-                    out[direction.ordinal()] = result.getRange();
-                break;
-            case 2:
-                if (Element.valueOf(result.getFound()) == Element.GROUND)
-                    ground[direction.getRight().ordinal()] = result.getRange();
-                else
-                    out[direction.getRight().ordinal()] = result.getRange();
-                break;
-            case 3:
-                if (Element.valueOf(result.getFound()) == Element.GROUND)
-                    ground[direction.getLeft().ordinal()] = result.getRange();
-                else
-                    out[direction.getLeft().ordinal()] = result.getRange();
+        return protocol = protocol.setResult(result);
+    }
 
-                for (int i=0; i<ground.length; i++)
-                    if (ground[i] >= 0)
-                        return new FlyToIsland(direction, Direction.values()[i], ground[i]);
-                return new FindIsland(out, direction);
+    /**
+     * Fait un echo dans la direction donnée
+     */
+    private class EchoToFindLimit implements Protocol
+    {
+        private Direction direction;
+
+        private EchoToFindLimit(Direction direction)
+        {
+            this.direction = direction;
         }
-        return this;
+
+        @Override
+        public Action nextAction()
+        {
+            return new Echo(direction);
+        }
+
+        /**
+         * Si on trouve l'île, on lance le protocole FlyToIsland
+         * Sinon, on exécute ce protocole dans une autre direction
+         * Si un ECHO a été fait dans chaque direction, on lance le protocol FindIsland
+         * @param result le résultat de l'action précédente
+         * @return Le nouveau protocole a utilisé
+         */
+        @Override
+        public Protocol setResult(AreaResult result)
+        {
+            if (Element.valueOf(result.getFound()) == Element.GROUND)
+            {
+                map.ground(direction, result.getRange());
+                return new FlyToIsland(map, heading, direction, result.getRange());
+            }
+            map.setOutOfRange(direction, result.getRange());
+
+            if (direction == heading.getRight())
+                return new FindIsland(map, heading);
+            return new EchoToFindLimit(direction.getRight());
+        }
     }
 }

@@ -2,57 +2,42 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.actions.*;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 
 /**
  * @author Alexandre Clement
  *         Created the 27/11/2016.
+ * Retourne sur l'île
  */
 public class ReturnToIsland implements Protocol
 {
 
     private Protocol protocol;
-    private Direction direction;
-    private Direction scan;
-    private int step;
 
-    public ReturnToIsland(Direction direction, Direction scan)
+    /**
+     * todo improve this behaviour
+     * On tourne dans le sens de parcours puis on reprend à Initialisation
+     * @param direction orientation du drone
+     * @param sense sens de parcours de l'île
+     */
+    ReturnToIsland(IslandMap map, Direction direction, Direction sense)
     {
-
         this.protocol = protocol;
-        this.direction = direction;
-        this.scan = scan;
-        step = 0;
+        protocol = new Turn(new Initialisation(map, sense), map, direction, sense);
     }
 
     @Override
     public Action nextAction()
     {
-        step =+ 1;
-        switch (step)
-        {
-            case 1:
-                return new Echo(direction);
-            case 2:
-                return new Heading(scan.getBack());
-            case 3:
-                return new Fly();
-            case 4:
-                return new Heading(direction);
-        }
-        return new Stop();
-
+        return protocol.nextAction();
     }
 
     @Override
     public Protocol setResult(AreaResult result)
     {
-        if (step == 1 && Element.valueOf(result.getFound()) == Element.GROUND)
-            return new FlyToIsland(direction, direction, scan, result.getRange());
-        if (step == 4)
-            return new SearchCreek(direction, scan.getBack());
-        return this;
-
+        return protocol = protocol.setResult(result);
     }
+
+
 }
