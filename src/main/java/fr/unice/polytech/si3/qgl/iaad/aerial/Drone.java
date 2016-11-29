@@ -61,6 +61,8 @@ public class Drone
      */
     public void getResult(AreaResult results)
     {
+        if (budget < LOW_BUDGET)
+            return;
         budget -= results.getCost();
         protocol = protocol.setResult(results);
     }

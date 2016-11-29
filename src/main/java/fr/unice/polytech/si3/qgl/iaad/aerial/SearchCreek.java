@@ -84,8 +84,12 @@ public class SearchCreek implements Protocol
         public Protocol setResult(AreaResult result)
         {
             map.setElement(Element.valueOf(result.getBiome(0)));
+            /*
             if (result.nbCreeks() > 0)
                 return new Land(result.getCreeks(0));
+                */
+            if (result.getSites() != null)
+                return new Land();
             if (map.getNumberOfAvailablePoints(direction) < 1 && map.isDirectionFinished(direction))
                 return new Land();
             if (result.nbBiomes() != 1 || Element.valueOf(result.getBiome(0)) != Element.OCEAN)

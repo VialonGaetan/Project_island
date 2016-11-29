@@ -26,13 +26,13 @@ public class FlyToIsland implements Protocol
      * @param target la direction vers laquelle se trouve l'île
      * @param range la distance a parcourir pour atteindre l'île
      */
-    FlyToIsland(IslandMap map, Direction heading, Direction target, int range)
+    FlyToIsland(IslandMap map, Direction heading, Direction target, Direction sense, int range)
     {
         this.map = map;
         this.heading = heading;
-        this.sense = heading;
         this.target = target;
         this.range = range;
+        this.sense = sense;
     }
 
     /**
@@ -50,6 +50,8 @@ public class FlyToIsland implements Protocol
             return new Fly();
         if (map.isDirectionFinished(target) && map.getNumberOfAvailablePoints(target) < 1)
             return new Stop();
+        if (sense == null)
+            sense = heading;
         heading = target;
         map.moveDroneCorrectly(heading);
         return new Heading(target);
@@ -63,8 +65,16 @@ public class FlyToIsland implements Protocol
     @Override
     public Protocol setResult(AreaResult result)
     {
-        if (range < 0)
-            return new SearchCreek(map, heading, sense);
-        return this;
+        if (sense == null)
+            sense = heading.getRight();
+        if (range > 0)
+            return this;
+        if (sense == heading)
+            return new Turn(new SearchCreek(map, heading.getRight(), sense), map, heading, heading.getRight());
+        if (sense.getBack() == heading)
+            return new Turn(new SearchCreek(map, heading.getRight(), sense.getBack()), map, heading, heading.getRight());
+        if (range == 0)
+            return this;
+        return new SearchCreek(map, heading, sense);
     }
 }

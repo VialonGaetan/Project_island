@@ -16,15 +16,17 @@ public class FindIsland implements Protocol
     private IslandMap map;
     private Direction heading;
     private Protocol protocol;
+    private Direction sense;
 
     /**
      * @param heading l'orientation du drone
      */
-    FindIsland(IslandMap map, Direction heading)
+    FindIsland(IslandMap map, Direction heading, Direction sense)
     {
         this.map = map;
         this.heading = heading;
         protocol = new EchoToFindIsland(heading.getLeft());
+        this.sense = sense;
     }
 
     @Override
@@ -69,7 +71,7 @@ public class FindIsland implements Protocol
             if (Element.valueOf(result.getFound()) == Element.GROUND)
             {
                 map.ground(direction, result.getRange());
-                return new FlyToIsland(map, heading, direction, result.getRange());
+                return new FlyToIsland(map, heading, direction, sense, result.getRange());
             }
             if (map.getNumberOfAvailablePoints(direction.getBack()) > 0 && direction != heading.getRight())
                 return new EchoToFindIsland(direction.getBack());
@@ -88,8 +90,11 @@ public class FindIsland implements Protocol
         @Override
         public Action nextAction()
         {
-            if (map.getNumberOfAvailablePoints(heading) < 2)
-                return new Stop();
+            if (map.getNumberOfAvailablePoints(heading) < 2) {
+                if (map.getNumberOfAvailablePoints(heading.getLeft()) > map.getNumberOfAvailablePoints(heading.getRight()))
+                    return new Heading(heading = heading.getLeft());
+                return new Heading(heading = heading.getRight());
+            }
             map.moveDroneCorrectly(heading);
             return new Fly();
         }

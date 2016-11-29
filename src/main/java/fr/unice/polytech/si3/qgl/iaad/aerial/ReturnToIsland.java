@@ -23,8 +23,9 @@ public class ReturnToIsland implements Protocol
      */
     ReturnToIsland(IslandMap map, Direction direction, Direction sense)
     {
-        this.protocol = protocol;
-        protocol = new Turn(new Initialisation(map, sense), map, direction, sense);
+        protocol = new Initialisation(map, direction, sense);
+        protocol = new Turn(protocol, map, sense, direction);
+        protocol = new Turn(protocol, map, direction.getBack(), sense);
     }
 
     @Override

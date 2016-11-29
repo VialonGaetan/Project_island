@@ -16,13 +16,20 @@ public class Initialisation implements Protocol
 {
     private Direction heading;
     private Protocol protocol;
+    private Direction sense;
     private IslandMap map;
 
     Initialisation(IslandMap map, Direction heading)
     {
         this.map = map;
         this.heading = heading;
-        protocol = new EchoToFindLimit(heading.getLeft());
+        protocol = new EchoToFindLimit(heading);
+    }
+
+    Initialisation(IslandMap map, Direction heading, Direction sense)
+    {
+        this(map, heading);
+        this.sense = sense;
     }
 
     @Override
@@ -68,13 +75,15 @@ public class Initialisation implements Protocol
             if (Element.valueOf(result.getFound()) == Element.GROUND)
             {
                 map.ground(direction, result.getRange());
-                return new FlyToIsland(map, heading, direction, result.getRange());
+                return new FlyToIsland(map, heading, direction, sense, result.getRange());
             }
             map.setOutOfRange(direction, result.getRange());
 
             if (direction == heading.getRight())
-                return new FindIsland(map, heading);
-            return new EchoToFindLimit(direction.getRight());
+                return new FindIsland(map, heading, sense);
+            if (direction == heading)
+                return new EchoToFindLimit(heading.getLeft());
+            return new EchoToFindLimit(heading.getRight());
         }
     }
 }
