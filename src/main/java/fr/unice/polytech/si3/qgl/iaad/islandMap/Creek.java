@@ -22,16 +22,29 @@ public class Creek {
     } //On verra plus tard pour l'ameliorer en tableau de longueur nombre de creek
 
     /**
-     * Ajoute manuellement les creeks à la liste
-     * @param x,y
+     * @param x
+     * @param y
+     * @return True if the creek is already known, False if not
      */
-
-    public void addCreek(int x, int y)
-    {
-        List<Integer> temp = new ArrayList<Integer>();
+    public Boolean isKnown(int x,int y) {
+        List<Integer> temp = new ArrayList<>();
         temp.add(x);
         temp.add(y);
-        this.creeks.add(temp);
+        return this.creeks.contains(temp);
+    }
+
+    /**
+     * Ajoute manuellement les creeks à la liste, à condition qu'elle ne soit pas déjà connu
+     * @param x,y
+     */
+    public void addCreek(int x, int y)
+    {
+        if (!isKnown(x,y)) {
+            List<Integer> temp = new ArrayList<Integer>();
+            temp.add(x);
+            temp.add(y);
+            this.creeks.add(temp);
+        }
     }
 
     /**
