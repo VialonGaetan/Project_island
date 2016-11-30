@@ -5,9 +5,6 @@ package fr.unice.polytech.si3.qgl.iaad.init;
  * @author Gaetan VIALON
  */
 
-/**
- * Enum avec tout les éléments presents dans le contrat
- */
 enum ArgContext {
     heading("heading"),
     men("men"),

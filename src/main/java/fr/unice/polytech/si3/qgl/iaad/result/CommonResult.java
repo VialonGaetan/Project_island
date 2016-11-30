@@ -3,7 +3,8 @@ package fr.unice.polytech.si3.qgl.iaad.result;
 import org.json.JSONObject;
 
 /**
- * Created by user on 16/11/2016.
+ * @author Gaetan Vialon
+ * Created the 16/11/2016.
  */
 public abstract class CommonResult implements Results{
     String result = new String();

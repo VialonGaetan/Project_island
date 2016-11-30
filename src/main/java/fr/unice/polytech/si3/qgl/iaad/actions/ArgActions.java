@@ -5,9 +5,6 @@ package fr.unice.polytech.si3.qgl.iaad.actions;
  * @author Gaetan VIALON
  */
 
-/**
- * Enumeration avec toutes les actions possibles
- */
 public enum ArgActions {
     FLY("fly"),
     HEADING("heading"),

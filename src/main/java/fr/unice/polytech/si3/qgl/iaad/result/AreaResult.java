@@ -1,9 +1,12 @@
 package fr.unice.polytech.si3.qgl.iaad.result;
 
+import fr.unice.polytech.si3.qgl.iaad.Execption.InvalidIndexExecption;
+import fr.unice.polytech.si3.qgl.iaad.Execption.InvalidRequestExecption;
 import org.json.JSONObject;
 
 /**
- * Created by user on 15/11/2016.
+ * @author Gaetan Vialon
+ * Created the 15/11/2016.
  */
 public abstract class AreaResult implements Results{
     String result;
@@ -14,7 +17,7 @@ public abstract class AreaResult implements Results{
         this.result = result;
     }
 
-
+    // TODO: 30/11/2016 Throw execption à la place de null  
     /**
      * Recupere le cout d'une action
      * @return action cost
@@ -29,22 +32,38 @@ public abstract class AreaResult implements Results{
         return new JSONObject(result).getString(ArgResult.STATUS.getName());
     }
 
-    public String getFound(){return null;}
 
-    public int getRange(){return -1;}
-
-    public int nbBiomes(){ return -1;}
-
-    public String getBiome(int n){return null;}
-
-    public String getCreeks(int n){return null;}
-
-    public String getSites(){return null;}
-
-    public int nbCreeks(){return -1;}
-
-    //@Override
-    public void putResult(String result) {
-        this.result = result;
+    public String getFound()throws InvalidRequestExecption {
+        throw new InvalidRequestExecption(this.getClass().getSimpleName());
     }
+
+    public int getRange() throws InvalidRequestExecption {
+        throw new InvalidRequestExecption(this.getClass().getSimpleName());
+    }
+
+
+    public int nbBiomes()throws InvalidRequestExecption {
+        throw new InvalidRequestExecption(this.getClass().getSimpleName());
+    }
+
+    public String getBiome(int n)throws InvalidRequestExecption, InvalidIndexExecption {
+        throw new InvalidRequestExecption(this.getClass().getSimpleName());
+    }
+
+
+    public String getCreeks(int n)throws InvalidRequestExecption, InvalidIndexExecption {
+        throw new InvalidRequestExecption(this.getClass().getSimpleName());
+    }
+
+
+    public int nbCreeks()throws InvalidRequestExecption {
+        throw new InvalidRequestExecption(this.getClass().getSimpleName());
+    }
+
+
+    public String getSites() throws InvalidRequestExecption, InvalidIndexExecption {
+        throw new InvalidRequestExecption(this.getClass().getSimpleName());
+    }
+
+
 }

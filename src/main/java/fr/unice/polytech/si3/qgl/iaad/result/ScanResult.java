@@ -1,5 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.result;
 
+import com.sun.xml.internal.bind.v2.TODO;
+import fr.unice.polytech.si3.qgl.iaad.Execption.InvalidIndexExecption;
 import org.json.JSONObject;
 
 /**
@@ -14,37 +16,40 @@ public class ScanResult extends AreaResult {
     @Override
     public int nbBiomes(){ return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.BIOMES.getName()).length();}
 
+    // TODO: 30/11/2016 Faire des execption
     @Override
-    public String getBiome(int n){
+    public String getBiome(int n) throws InvalidIndexExecption{
         try{
             return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.BIOMES.getName()).getString(n);
         }
-        catch (RuntimeException e){
-            return null;
+        catch (Exception e){
+            throw new InvalidIndexExecption(n,this.getClass().getSimpleName());
         }
     }
 
     @Override
-    public int nbCreeks(){ return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.CREEKS.getName()).length();}
+    public int nbCreeks(){
+        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.CREEKS.getName()).length();
+    }
 
 
     @Override
-    public String getCreeks(int n){
+    public String getCreeks(int n) throws InvalidIndexExecption {
         try{
             return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.CREEKS.getName()).getString(0);
         }
-        catch (RuntimeException e){
-            return null;
+        catch (Exception e){
+            throw new InvalidIndexExecption(n,this.getClass().getSimpleName());
         }
     }
 
     @Override
-    public String getSites(){
+    public String getSites() throws InvalidIndexExecption {
         try {
             return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.SITES.getName()).getString(0);
         }
-        catch (RuntimeException e){
-            return null;
+        catch (Exception e){
+            throw new InvalidIndexExecption(0,this.getClass().getSimpleName());
         }
     }
 

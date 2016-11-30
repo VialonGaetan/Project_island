@@ -1,16 +1,11 @@
 package fr.unice.polytech.si3.qgl.iaad.init;
 
+import fr.unice.polytech.si3.qgl.iaad.Execption.InvalidIndexExecption;
 import org.json.JSONObject;
 import java.util.List;
 import java.util.ArrayList;
 
-/**
- * manage informations about :
- * men
- * budget
- * contracts
- * heading
- */
+
 /**
  * Created on 10/11/2016.
  * @author Gaetan VIALON
@@ -70,9 +65,14 @@ public class Context {
      *
      * @param index
      * @return
+     * @throws InvalidIndexExecption
      */
-    public Contract getContract(int index) {
-        if(index<0 || index >=numberOfContrats()) System.err.println("Contract out of range");
-        return contracts.get(index);
+    public Contract getContract(int index) throws InvalidIndexExecption {
+        try{
+            return contracts.get(index);
+        }
+        catch (Exception e){
+            throw new InvalidIndexExecption(index, Context.class.getSimpleName());
+        }
     }
 }

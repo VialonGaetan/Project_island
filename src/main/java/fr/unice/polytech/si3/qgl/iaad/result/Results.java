@@ -1,7 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.result;
 
 /**
- * Created by user on 15/11/2016.
+ * @author Gaetan Vialon
+ * Created the 15/11/2016.
  */
 public interface Results {
 
@@ -11,6 +12,9 @@ public interface Results {
      */
     int getCost();
 
+    /**
+     * Permet de savoir si l'action s'est bien passé
+     * @return if no problem OK else KO
+     */
     String getStatus();
-    //void putResult(String result);
 }
