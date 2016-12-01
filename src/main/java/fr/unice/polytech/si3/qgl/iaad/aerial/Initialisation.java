@@ -74,7 +74,7 @@ public class Initialisation implements Protocol
         {
             if (Element.valueOf(result.getFound()) == Element.GROUND)
             {
-                map.ground(direction, result.getRange());
+                map.setGround(direction, result.getRange());
                 return new FlyToIsland(map, heading, direction, sense, result.getRange());
             }
             map.setOutOfRange(direction, result.getRange());

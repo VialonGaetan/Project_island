@@ -1,7 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.result;
 
-import com.sun.xml.internal.bind.v2.TODO;
-import fr.unice.polytech.si3.qgl.iaad.Execption.InvalidIndexExecption;
+import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidIndexException;
 import org.json.JSONObject;
 
 /**
@@ -18,12 +17,12 @@ public class ScanResult extends AreaResult {
 
     // TODO: 30/11/2016 Faire des execption
     @Override
-    public String getBiome(int n) throws InvalidIndexExecption{
+    public String getBiome(int n) throws InvalidIndexException {
         try{
             return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.BIOMES.getName()).getString(n);
         }
         catch (Exception e){
-            throw new InvalidIndexExecption(n,this.getClass().getSimpleName());
+            throw new InvalidIndexException(n,this.getClass().getSimpleName());
         }
     }
 
@@ -34,22 +33,22 @@ public class ScanResult extends AreaResult {
 
 
     @Override
-    public String getCreeks(int n) throws InvalidIndexExecption {
+    public String getCreeks(int n) throws InvalidIndexException {
         try{
             return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.CREEKS.getName()).getString(0);
         }
         catch (Exception e){
-            throw new InvalidIndexExecption(n,this.getClass().getSimpleName());
+            throw new InvalidIndexException(n,this.getClass().getSimpleName());
         }
     }
 
     @Override
-    public String getSites() throws InvalidIndexExecption {
+    public String getSites() throws InvalidIndexException {
         try {
             return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.SITES.getName()).getString(0);
         }
         catch (Exception e){
-            throw new InvalidIndexExecption(0,this.getClass().getSimpleName());
+            throw new InvalidIndexException(0,this.getClass().getSimpleName());
         }
     }
 

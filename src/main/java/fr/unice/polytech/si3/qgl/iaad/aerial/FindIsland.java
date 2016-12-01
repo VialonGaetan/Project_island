@@ -70,7 +70,7 @@ public class FindIsland implements Protocol
         {
             if (Element.valueOf(result.getFound()) == Element.GROUND)
             {
-                map.ground(direction, result.getRange());
+                map.setGround(direction, result.getRange());
                 return new FlyToIsland(map, heading, direction, sense, result.getRange());
             }
             if (map.getNumberOfAvailablePoints(direction.getBack()) > 0 && direction != heading.getRight())
@@ -95,7 +95,7 @@ public class FindIsland implements Protocol
                     return new Heading(heading = heading.getLeft());
                 return new Heading(heading = heading.getRight());
             }
-            map.moveDroneCorrectly(heading);
+            map.moveDrone(heading);
             return new Fly();
         }
 

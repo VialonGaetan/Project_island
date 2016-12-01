@@ -19,7 +19,7 @@ public class CreekTest
     private Creek creek;
 
     /**
-     * add creeks
+     * addElement creeks
      * test coordinates and number of creeks
      */
     @Test
@@ -29,7 +29,7 @@ public class CreekTest
         creek=new Creek(islandMap);
 
         assertEquals(0, creek.getCreeks().size());
-        islandMap.setElement(Element.WOOD);
+        islandMap.addElements(Element.WOOD);
 
         creek=new Creek(islandMap);
         assertEquals(0, creek.getCreeks().size());
@@ -38,7 +38,7 @@ public class CreekTest
 
         for(int i=0; i<3; i++)
         {
-            islandMap.setElement(Element.CREEK);
+            islandMap.addElements(Element.CREEK);
             islandMap.moveDroneCorrectly(Direction.E);
         }
 
@@ -47,7 +47,7 @@ public class CreekTest
         for(int i=0; i<5; i++)
         {
             islandMap.moveDroneCorrectly(Direction.S);
-            islandMap.setElement(Element.CREEK);
+            islandMap.addElements(Element.CREEK);
         }
 
         creek=new Creek(islandMap);

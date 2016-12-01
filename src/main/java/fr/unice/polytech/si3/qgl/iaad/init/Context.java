@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.init;
 
-import fr.unice.polytech.si3.qgl.iaad.Execption.InvalidIndexExecption;
+import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidIndexException;
 import org.json.JSONObject;
 import java.util.List;
 import java.util.ArrayList;
@@ -65,14 +65,14 @@ public class Context {
      *
      * @param index
      * @return
-     * @throws InvalidIndexExecption
+     * @throws InvalidIndexException
      */
-    public Contract getContract(int index) throws InvalidIndexExecption {
+    public Contract getContract(int index) throws InvalidIndexException {
         try{
             return contracts.get(index);
         }
         catch (Exception e){
-            throw new InvalidIndexExecption(index, Context.class.getSimpleName());
+            throw new InvalidIndexException(index, Context.class.getSimpleName());
         }
     }
 }

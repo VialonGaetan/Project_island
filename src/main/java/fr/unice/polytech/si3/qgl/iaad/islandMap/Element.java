@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
+
 /**
  * Created by romain on 15/11/16.
  */
@@ -9,11 +10,8 @@ package fr.unice.polytech.si3.qgl.iaad.islandMap;
  */
 public enum Element
 {
-    UNKNOWN,
     OUT_OF_RANGE,
     OCEAN,
-    CREEK,
-    EMERGENCY_SITE,
     WOOD,
     LAKE,
     BEACH,
@@ -31,5 +29,7 @@ public enum Element
     GLACIER,
     SHRUBLAND,
     SUB_TROPICAL_DESERT,
-    GROUND;
+    GROUND,
+    CREEK,
+    EMERGENCY_SITE;
 }

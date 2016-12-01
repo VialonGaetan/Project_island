@@ -83,7 +83,7 @@ public class SearchCreek implements Protocol
         @Override
         public Protocol setResult(AreaResult result)
         {
-            map.setElement(Element.valueOf(result.getBiome(0)));
+            map.addBiomes(Element.valueOf(result.getBiome(0)));
             /*
             if (result.nbCreeks() > 0)
                 return new Land(result.getCreeks(0));

@@ -39,7 +39,7 @@ public class IslandMapTest {
     @Test
     public void GroundTest()
     {
-        map.ground(Direction.E, 10);
+        map.setGround(Direction.E, 10);
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
         assertEquals(11, map.getNumberOfAvailablePoints(Direction.E));
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.S));
@@ -88,7 +88,7 @@ public class IslandMapTest {
     @Test
     public void FoundTest()
     {
-        map.ground(Direction.E, 10);
+        map.setGround(Direction.E, 10);
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
         assertEquals(11, map.getNumberOfAvailablePoints(Direction.E));
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.S));
@@ -106,7 +106,7 @@ public class IslandMapTest {
     @Test
     public void hasElementTest()
     {
-        map.setElement(Element.GROUND);
+        map.addElements(Element.GROUND);
         assertTrue(map.hasElement(0, 0, Element.GROUND));
     }
 
@@ -117,7 +117,7 @@ public class IslandMapTest {
     @Test
     public void setElementTest()
     {
-        map.setElement(Element.GROUND);
+        map.addElements(Element.GROUND);
         assertTrue(map.hasElement(0, 0, Element.GROUND));
     }
 
@@ -128,9 +128,9 @@ public class IslandMapTest {
     @Test
     public void setMultipleElementsTest()
     {
-        map.setElement(Element.GROUND);
-        map.setElement(Element.BEACH);
-        map.setElement(Element.CREEK);
+        map.addElements(Element.GROUND);
+        map.addElements(Element.BEACH);
+        map.addElements(Element.CREEK);
         assertFalse(map.hasElement(0, 0, Element.GROUND));
         assertFalse(map.hasElement(0, 0, Element.BEACH));
         assertTrue(map.hasElement(0, 0, Element.CREEK));
@@ -143,7 +143,7 @@ public class IslandMapTest {
     @Test
     public void getElementTest()
     {
-        map.ground(Direction.E, 10);
+        map.setGround(Direction.E, 10);
         assertEquals(Element.UNKNOWN, map.getElement(5, 0));
         assertEquals(Element.GROUND, map.getElement(11, 0));
     }
@@ -185,7 +185,7 @@ public class IslandMapTest {
     public void AddPointsExceptionOnGroundTest()
     {
         map.setOutOfRange(Direction.E, 10);
-        map.ground(Direction.E, 20);
+        map.setGround(Direction.E, 20);
     }
 
     // TODO: 24/11/2016
@@ -199,7 +199,7 @@ public class IslandMapTest {
         for (int i=0; i<4; i++)
             map.moveDroneCorrectly(Direction.E);
         assertEquals(new Point(4, 0), map.getDroneCoordinates());
-        map.setElement(Element.BEACH);
+        map.addElements(Element.BEACH);
     }
 
     /**
@@ -214,7 +214,7 @@ public class IslandMapTest {
         assertTrue(map.isDirectionFinished(Direction.N));
         assertTrue(map.isDirectionFinished(Direction.E));
 
-        map.ground(Direction.S, 10);
+        map.setGround(Direction.S, 10);
 
         assertFalse(map.isDirectionFinished(Direction.S));
         assertFalse(map.isDirectionFinished(Direction.W));
@@ -240,7 +240,7 @@ public class IslandMapTest {
     }
 
     /**
-     * On peut set plusieurs fois une direction sans retourner d'erreur si les valeurs coincide*
+     * On peut addElement plusieurs fois une direction sans retourner d'erreur si les valeurs coincide*
      */
     @Test
     public void setOutOfRangeExceptionTest()
@@ -260,6 +260,6 @@ public class IslandMapTest {
         map.setOutOfRange(Direction.W, 1);
         map.moveDroneCorrectly(Direction.E);
         map.moveDroneCorrectly(Direction.E);
-        map.ground(Direction.W, 2);
+        map.setGround(Direction.W, 2);
     }
 }

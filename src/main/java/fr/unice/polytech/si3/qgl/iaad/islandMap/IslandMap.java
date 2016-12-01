@@ -1,160 +1,161 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.Exception.CoordinatesException;
+import fr.unice.polytech.si3.qgl.iaad.Exception.DirectionException;
+import fr.unice.polytech.si3.qgl.iaad.Exception.ElementException;
+
 import java.awt.Point;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by romain on 13/11/16.
  */
 
 /**
- * Build a map from every movements completed
- * Contains all resources found
- * Manage the drone coordinates
+ * Dynamic map
+ * Manage all resources found
+ * Handles the movements of the drone
  * Manage setOutOfRange
- * Manage ground
+ * Manage setGround
+ * Manage creeks
+ * Manage the emergency site
  */
 
 public class IslandMap
 {
     /**
-     * matrix is the map represented by integers
+     * Matrix that contains elements in string
      */
-    private DynamicTwoDimensionalMatrix matrix;
+    private DynamicMatrix bodyMap;
 
     /**
-     * current coordinates of the the drone
-     * i=0 <=> y ; i=1 <=> x
+     * Drone Coordinates
      */
-    private int[] droneCoordinates;
+    private Point drone;
 
     /**
-     * dimensionFinished is an array of booleans that inform if a direction is finished
-     * i=0 => N ; i=1 => E ; i=2 => S ; i=3 => W (but that depends of the order in the enumeration)
+     * Emergency site id
+     */
+    private String emergencySiteId;
+
+    /**
+     * Saves what dimensions are finished in the map
      */
     private boolean dimensionFinished[];
 
     /**
      * Default constructor
-     * initializes matrix as an unique point with (0, 0) as coordinates
-     * initializes the coordinates of the drone at (0, 0)
-     * initializes all the dimension as not finished
+     * Builds the body of the map as an unique point with (0, 0) as coordinates
+     * Sets the drone at the point (0, 0)
+     * Sets all dimensions as not finished
+     * The emergency id is a new String()
      */
     public IslandMap()
     {
-        matrix = new DynamicTwoDimensionalMatrix();
-        droneCoordinates = new int[2];
+        bodyMap = new DynamicMatrix();
+        drone = new Point();
         dimensionFinished = new boolean[4];
+        emergencySiteId = new String();
     }
 
     /**
-     * informs if the point at coordinates(line, column) exists
-     * @param i
-     * @param j
+     * Informs if the point at coordinates(x, y) exists in the map
+     * @param point
      * @return boolean type : true if the point exist, false otherwise
      */
-    private boolean pointExist(int i, int j)
-    {
-        boolean test=false;
-
-        if(i>=0 && i<matrix.getNumberOfLines() && j>=0 && j<matrix.getNumberOfColumns()) test=true;
-
-        return test;
-    }
+    public boolean pointExist(Point point) { return bodyMap.pointExist(point.y, point.x); }
 
     /**
-     * receives a direction
-     * adds points asked if the direction is unlocked in the map
-     * each time a point is created, set UNKNOWN as default resource
-     * the drone coordinates are updated
-     * @param direction
-     * @param numberOfPoints
+     * Receives a direction
+     * Changes dimensions of the map
+     * Updates elements coordinates
+     * Updates the drone coordinates
+     * @param direction, numberOfPoints
+     * @throws CoordinatesException, DirectionException
      */
-    private void addPoints(Direction direction, int numberOfPoints)
+    private void addPoints(Direction direction, int numberOfPoints) throws CoordinatesException, DirectionException
     {
-        if(isDirectionFinished(direction)) System.err.println("addPoints Error : direction already finished");;
-        if(numberOfPoints<getNumberOfAvailablePoints(direction)) System.err.println("addPoints Error : numberOfPoints<getNumberOfAvailablePoints");;
+        if(isDirectionFinished(direction)) throw new DirectionException();
 
         numberOfPoints-=getNumberOfAvailablePoints(direction);
 
         switch(direction)
         {
             case N:
-                matrix.addLines(0, numberOfPoints);
-                droneCoordinates[0]+=numberOfPoints;
+                bodyMap.addLines(0, numberOfPoints);
+                drone.move(drone.x, drone.y+numberOfPoints);
                 break;
             case S:
-                matrix.addLines(-1, numberOfPoints);
+                bodyMap.addLines(-1, numberOfPoints);
                 break;
             case E:
-                matrix.addColumns(-1, numberOfPoints);
+                bodyMap.addColumns(-1, numberOfPoints);
                 break;
             case W:
-                matrix.addColumns(0, numberOfPoints);
-                droneCoordinates[1]+=numberOfPoints;
+                bodyMap.addColumns(0, numberOfPoints);
+                drone.move(drone.x+numberOfPoints, drone.y);
                 break;
         }
     }
 
     /**
-     * returns drone coordinates
+     * Returns the drone coordinates
      * @return Point type
      */
-    public Point getDroneCoordinates() { return new Point(droneCoordinates[1], droneCoordinates[0]); }
+    public Point getDroneCoordinates() { return drone; }
 
     /**
-     * moves the drone just by one point (update its coordinates)
+     * new Fly(direction) in the map
      * @param direction
      * @return boolean type, true if the drone is still in the map and false it it left the map
+     * @throws CoordinatesException
      */
-    public boolean moveDroneCorrectly(Direction direction)
+    public void moveDrone(Direction direction) throws CoordinatesException
     {
-        boolean isAuthorizedTomove=false;
-
         switch(direction)
         {
             case N:
-                if(pointExist(droneCoordinates[0]-1, droneCoordinates[1])) isAuthorizedTomove=true;
-                droneCoordinates[0]--;
+                drone.move(drone.x, drone.y-1);
                 break;
             case S:
-                if(pointExist(droneCoordinates[0]+1, droneCoordinates[1])) isAuthorizedTomove=true;
-                droneCoordinates[0]++;
+                drone.move(drone.x, drone.y+1);
                 break;
             case E:
-                if(pointExist(droneCoordinates[0], droneCoordinates[1]+1)) isAuthorizedTomove=true;
-                droneCoordinates[1]++;
+                drone.move(drone.x+1, drone.y);
                 break;
             case W:
-                if(pointExist(droneCoordinates[0], droneCoordinates[1]-1)) isAuthorizedTomove=true;
-                droneCoordinates[1]--;
+                drone.move(drone.x-1, drone.y);
                 break;
         }
 
-        return isAuthorizedTomove;
+        if(!pointExist(drone)) throw new CoordinatesException();
     }
 
     /**
-     * informs if this direction is finished
+     * Informs if this direction is finished
      * @param direction
      * @return boolean type : true if the direction is finished, false otherwise
      */
     public boolean isDirectionFinished(Direction direction) { return dimensionFinished[direction.ordinal()]; }
 
     /**
-     * sets the direction as finished
-     * adds points in function of the drone location
-     * @param direction
-     * @param numberOfPoints
+     * Sets a direction as finished
+     * Changes dimensions of the map
+     * Updates elements coordinates
+     * Updates the drone coordinates
+     * @param direction, numberOfPoints
+     * @throws CoordinatesException, DirectionException
      */
-    public void setOutOfRange(Direction direction, int numberOfPoints)
+    public void setOutOfRange(Direction direction, int numberOfPoints) throws CoordinatesException, DirectionException
     {
         addPoints(direction, numberOfPoints);
         dimensionFinished[direction.ordinal()]=true;
     }
 
     /**
-     * informs if the map is finished
+     * Informs if the map is finished
      * @return boolean type, true if island Map Is Finished and false otherwise
      */
     public boolean isFinished()
@@ -174,35 +175,42 @@ public class IslandMap
     }
 
     /**
-     * adds points in function of the drone location plus 1 that contains ground element
-     * @param direction
-     * @param numberOfPoints
+     * Changes dimensions of the map
+     * Updates elements coordinates
+     * Updates the drone coordinates
+     * Adds Element.GROUND at numberOfPoints+1 compared to the drone location
+     * @param direction, numberOfPoints
+     * @throws CoordinatesException, DirectionException
      */
-    public void ground(Direction direction, int numberOfPoints)
+    public void setGround(Direction direction, int numberOfPoints) throws CoordinatesException, DirectionException
     {
         numberOfPoints++;
 
-        if(!isDirectionFinished(direction)) addPoints(direction, numberOfPoints);
+        if(numberOfPoints>getNumberOfAvailablePoints(direction))
+            if(!isDirectionFinished(direction))
+                addPoints(direction, numberOfPoints);
+
+        String ground=Element.GROUND.toString();
 
         switch(direction)
         {
             case N:
-                matrix.set(droneCoordinates[0]-numberOfPoints, droneCoordinates[1], Element.GROUND.ordinal());
+                addElements(new Point(drone.x, drone.y-numberOfPoints), ground);
                 break;
             case S:
-                matrix.set(droneCoordinates[0]+numberOfPoints, droneCoordinates[1], Element.GROUND.ordinal());
+                addElements(new Point(drone.x, drone.y+numberOfPoints), ground);
                 break;
             case E:
-                matrix.set(droneCoordinates[0], droneCoordinates[1]+numberOfPoints, Element.GROUND.ordinal());
+                addElements(new Point(drone.x+numberOfPoints, drone.y), ground);
                 break;
             case W:
-                matrix.set(droneCoordinates[0], droneCoordinates[1]-numberOfPoints, Element.GROUND.ordinal());
+                addElements(new Point(drone.x-numberOfPoints, drone.y), ground);
                 break;
         }
     }
 
     /**
-     * returns the number of available points
+     * Returns the number of available points in this direction compared to the drone location
      * @param direction
      * @return integer type
      */
@@ -213,16 +221,16 @@ public class IslandMap
         switch(direction)
         {
             case N:
-                distance=droneCoordinates[0];
+                distance=drone.y;
                 break;
             case S:
-                distance=getVerticalDimension()-droneCoordinates[0]-1;
+                distance=getVerticalDimension()-drone.y-1;
                 break;
             case E:
-                distance=getHorizontalDimension()-droneCoordinates[1]-1;
+                distance=getHorizontalDimension()-drone.x-1;
                 break;
             case W:
-                distance=droneCoordinates[1];
+                distance=drone.x;
                 break;
         }
 
@@ -230,75 +238,205 @@ public class IslandMap
     }
 
     /**
-     * returns horizontal dimension of the map
-     * @return an integer
-     */
-    public int getHorizontalDimension() { return matrix.getNumberOfColumns(); }
-
-    /**
-     * returns vertical dimension of the map
-     * @return an integer
-     */
-    public int getVerticalDimension() { return matrix.getNumberOfLines(); }
-
-    /**
-     * sets an element at the Drone coordinates
-     * stops the program if bad coordinates and print an error message
-     * @param element
-     */
-    public void setElement(Element element) { matrix.set(droneCoordinates[0], droneCoordinates[1], element.ordinal()); }
-
-    /**
-     * returns the element at this point the coordinates
-     * stops the program if bad coordinates and print an error message
-     * @return element found
-     */
-    public Element getElement(int x, int y)
-    {
-        if(x>=0 && x<getHorizontalDimension() && y>=0 && y<getVerticalDimension())
-        {
-            for(Element currentElement:Element.values())
-                if(currentElement.ordinal()==matrix.get(y, x))
-                    return currentElement;
-        }
-
-        else System.err.println("Erreur");;
-
-        return null;
-    }
-
-    /**
-     * checks if there is an element at point coordinates
-     * @return true if there is the element
-     * @return false otherwise
-     */
-    public boolean hasElement(int x, int y, Element element)
-    {
-        boolean test=false;
-
-        if((x>=0 && x<getHorizontalDimension()) && (y>=0 && y<getVerticalDimension()))
-        {
-            if(element==getElement(x, y))
-                test=true;
-        }
-
-        else System.err.println("Coordinates out of map");
-
-        return test;
-    }
-
-    /**
-     * returns the number of occurrences of the element
+     * Returns horizontal dimension of the map
      * @return integer type
      */
-    public int numberOfOccurrencesOfTheElement(Element element)
+    public int getHorizontalDimension() { return bodyMap.getNumberOfColumns(); }
+
+    /**
+     * Returns vertical dimension of the map
+     * @return integer type
+     */
+    public int getVerticalDimension() { return bodyMap.getNumberOfLines(); }
+
+    /**
+     * Adds elements at this point
+     * @param elements, point
+     * @throws CoordinatesException
+     */
+    private void addElements(Point point, String... elements) throws CoordinatesException
+    {
+        String elementsInString=new String();
+
+        if(!pointExist(point)) throw new CoordinatesException();
+        if(bodyMap.get(point.y, point.x).length()>0) elementsInString="__";
+
+        for(int i=0; i<elements.length-1; i++) elementsInString+=(elements[i]+"__");
+
+        elementsInString+=elements[elements.length-1];
+        bodyMap.addElement(point.y, point.x, elementsInString);
+    }
+
+    /**
+     * Adds biomes at this point
+     * @param biomes
+     * @throws CoordinatesException, DirectionException, ElementException
+     */
+    public void addBiomes(Element... biomes) throws CoordinatesException, DirectionException, ElementException
+    {
+        int i=0;
+        String all[]=new String[biomes.length];
+
+        for(Element element : biomes)
+        {
+            all[i++]=element.toString();
+            if(element==Element.CREEK || element==Element.EMERGENCY_SITE) throw new ElementException();
+        }
+        addElements(drone, all);
+    }
+
+    /**
+     * Adds a point of interest at this point
+     * @param pointInterest, ids
+     * @throws CoordinatesException, DirectionException, ElementException
+     */
+    private void addPointInterests(Element pointInterest, String... ids) throws CoordinatesException, DirectionException, ElementException
+    {
+        for(int i=0; i<ids.length; i++)
+        {
+            IllegalArgumentException elementException=null;
+
+            try { Element.valueOf(ids[i]); }
+            catch (IllegalArgumentException exception) { elementException=exception; }
+
+            if(elementException==null) throw new ElementException();
+            ids[i]=pointInterest+"__"+ids[i];
+        }
+
+        addElements(drone, ids);
+    }
+
+    /**
+     * Adds a creek at this point (the user has just to enter the id of the creek (or more if there are several creeks))
+     * @param ids
+     * @throws CoordinatesException, DirectionException, ElementException
+     */
+    public void addCreeks(String... ids) throws CoordinatesException, DirectionException, ElementException { addPointInterests(Element.CREEK, ids); }
+
+    /**
+     * Adds the emergency site at this point (the user has just to enter the id of the emergency site)
+     * @param id
+     * @throws CoordinatesException, DirectionException, ElementException
+     */
+    public void addEmergencySite(String id) throws CoordinatesException, DirectionException, ElementException
+    {
+        addElements(drone, Element.EMERGENCY_SITE.toString());
+        emergencySiteId=id;
+    }
+
+    /**
+     * get the emergency site id
+     * @return String type, return new String() if the id is not known yet
+     */
+    public String getEmergencySiteId() { return emergencySiteId; }
+
+    /**
+     * get all the creek ids collected at this point
+     * @param point
+     * @return String[] type
+     * @throws CoordinatesException
+     */
+    public String[] getCreekIds(Point point) throws CoordinatesException
+    {
+        String elements[]=bodyMap.get(point.y, point.x).split("__");
+        List<String> ids=new ArrayList<>();
+
+        for(int i=0; i<elements.length; i++)
+        {
+            try { Element.valueOf(elements[i]); }
+            catch (IllegalArgumentException e) { ids.add(elements[i]); }
+        }
+
+        String idsInArray[] = new String[ids.size()];
+        idsInArray = ids.toArray(idsInArray);
+
+        return idsInArray;
+    }
+
+    /**
+     * get all the biomes collected at this point
+     * @param point
+     * @return Element[] type
+     * @throws CoordinatesException
+     */
+    public Element[] getBiomes(Point point) throws CoordinatesException
+    {
+        if(!pointExist(point)) throw new CoordinatesException();
+
+        String elements[]=bodyMap.get(point.y, point.x).split("__");
+        List<Element> biomes=new ArrayList<>();
+
+        for(int i=0; i<elements.length; i++)
+        {
+            IllegalArgumentException exception=null;
+
+            try { Element.valueOf(elements[i]); }
+            catch (IllegalArgumentException e) { exception=e; }
+
+            if(exception==null) biomes.add(Element.valueOf(elements[i]));
+        }
+
+        Element biomesInArray[] = new Element[biomes.size()];
+        biomesInArray = biomes.toArray(biomesInArray);
+
+        return biomesInArray;
+    }
+
+    /**
+     * Deletes all the biomes occurrences at this point
+     * @param point, element
+     * @return boolean type, true if the biome has been deleted and false otherwise
+     * @throws CoordinatesException
+     */
+    public boolean deleteBiome(Point point, Element element) throws CoordinatesException
+    {
+        if(!pointExist(point)) throw new CoordinatesException();
+
+        boolean done=false;
+        String biomes=bodyMap.get(point.y, point.x);
+
+        if(biomes.contains(element.toString()))
+        {
+            String toDelete=new String();
+
+            if(biomes.contains(element.toString()+"__")) toDelete=element.toString()+"__";
+            else if(biomes.contains("__"+element.toString())) toDelete="__"+element.toString();
+            else if(biomes.contains(element.toString())) toDelete=element.toString();
+
+            bodyMap.setElement(point.y, point.x, biomes.replace(toDelete, ""));
+            done=true;
+        }
+
+        return done;
+    }
+
+    /**
+     * Returns if there is this element at this point
+     * @param point, element
+     * @return boolean type, true if there is the element, false otherwise
+     * @throws CoordinatesException
+     */
+    public boolean hasElement(Point point, Element element) throws CoordinatesException
+    {
+        if(!pointExist(point)) throw new CoordinatesException();
+        return bodyMap.get(point.y, point.x).contains(element.toString());
+    }
+
+    /**
+     * Returns the number of element occurrences
+     * @param element
+     * @return integer type
+     * @throws CoordinatesException
+     */
+    public int getNumberOfbiomes(Element element) throws CoordinatesException
     {
         int count=0;
 
-        for(int i=0; i<matrix.getNumberOfLines(); i++)
-            for(int j=0; j<matrix.getNumberOfColumns(); j++)
-                if(hasElement(j, i, element))
-                    count++;
+        for(int i=0; i<bodyMap.getNumberOfLines(); i++)
+            for(int j=0; j<bodyMap.getNumberOfColumns(); j++)
+                for(Element k:getBiomes(new Point(j, i)))
+                    if(element==k)
+                        count++;
 
         return count;
     }
@@ -306,16 +444,16 @@ public class IslandMap
     /**
      * prints the current map
      */
-    public void printStatement()
+    public void printStatement() throws CoordinatesException
     {
-        for(int i=0; i<matrix.getNumberOfLines(); i++)
+        for(int i=0; i<bodyMap.getNumberOfLines(); i++)
         {
             System.out.print("[\t");
-
-            for(int j=0; j<matrix.getNumberOfColumns(); j++)
-                for(Element currentElement:Element.values())
-                    if(currentElement.ordinal()==matrix.get(i, j)) System.out.print(""+ currentElement.toString() +"\t");
-
+            for(int j=0; j<bodyMap.getNumberOfColumns(); j++)
+            {
+                if(bodyMap.get(i, j).equals("")) System.out.print("UNKNOWN\t");
+                else System.out.print(bodyMap.get(i, j) +"\t");
+            }
             System.out.println("]");
         } System.out.println();
     }

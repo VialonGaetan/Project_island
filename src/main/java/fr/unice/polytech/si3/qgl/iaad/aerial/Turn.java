@@ -25,8 +25,8 @@ public class Turn implements Protocol
     {
         this.protocol = protocol;
         this.target = target;
-        map.moveDroneCorrectly(heading);
-        map.moveDroneCorrectly(target);
+        map.moveDrone(heading);
+        map.moveDrone(target);
     }
 
     /**

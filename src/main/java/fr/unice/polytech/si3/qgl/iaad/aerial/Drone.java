@@ -1,6 +1,7 @@
 
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
+import fr.unice.polytech.si3.qgl.iaad.Exception.DirectionException;
 import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
@@ -38,7 +39,8 @@ public class Drone
     public Drone(int budget, Direction heading, IslandMap map)
     {
         this.budget = budget;
-        map.setOutOfRange(heading.getBack(), 0);
+        try { map.setOutOfRange(heading.getBack(), 0); }
+        catch (Exception e) {}
         protocol = new Initialisation(map, heading);
     }
 

@@ -71,7 +71,7 @@ public class Creek {
     * Parcourt la map et lorsqu'il y a une map sur une case, l'ajoute dans la liste des creeks
     */
 
-    public void addAllTheCreeks()
+    private void addAllTheCreeks()
     {
         for (int j=0; j<this.map.getVerticalDimension(); j++)
         {
@@ -83,7 +83,6 @@ public class Creek {
                     creeks.add(temp);
                 }
         }
-
     }
 
     /**
