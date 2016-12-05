@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
-import fr.unice.polytech.si3.qgl.iaad.Exception.CoordinatesException;
+import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 
 /**
  * Created by romain on 15/11/16.
@@ -59,11 +59,11 @@ public class DynamicMatrix
      * Returns the string with these index
      * @return String type
      * @param line, column
-     * @throws CoordinatesException
+     * @throws InvalidMapException
      */
-    public String get(int line, int column) throws CoordinatesException
+    public String get(int line, int column) throws InvalidMapException
     {
-        if(!pointExist(line, column)) throw new CoordinatesException();
+        if(!pointExist(line, column)) throw new InvalidMapException();
         return array[line][column];
     }
 
@@ -85,22 +85,22 @@ public class DynamicMatrix
     /**
      * Adds an element at this point
      * @param line, column, value
-     * @throws CoordinatesException
+     * @throws InvalidMapException
      */
-    public void addElement(int line, int column, String value)  throws CoordinatesException
+    public void addElement(int line, int column, String value)  throws InvalidMapException
     {
-        if(!pointExist(line, column)) throw new CoordinatesException();
+        if(!pointExist(line, column)) throw new InvalidMapException();
         array[line][column]+=value;
     }
 
     /**
      * Sets an element at this point
      * @param line, col, value
-     * @throws CoordinatesException
+     * @throws InvalidMapException
      */
-    public void setElement(int line, int col, String value) throws CoordinatesException
+    public void setElement(int line, int col, String value) throws InvalidMapException
     {
-        if(!pointExist(line, col)) throw new CoordinatesException();
+        if(!pointExist(line, col)) throw new InvalidMapException();
         array[line][col]=value;
     }
 
@@ -124,9 +124,9 @@ public class DynamicMatrix
      * if position=0 then added at the beginning
      * if position!=0 then added at the end
      * @param position, numberOfLines
-     * @throws CoordinatesException
+     * @throws InvalidMapException
      */
-    public void addLines(int position, int numberOfLines) throws CoordinatesException
+    public void addLines(int position, int numberOfLines) throws InvalidMapException
     {
         DynamicMatrix newMatrix=new DynamicMatrix(this.numberOfLines +numberOfLines, numberOfColumns);
 
@@ -146,9 +146,9 @@ public class DynamicMatrix
      * if position=0 then added at the beginning
      * if position!=0 then added at the end
      * @param position, numberOfLines
-     * @throws CoordinatesException
+     * @throws InvalidMapException
      */
-    public void addColumns(int position, int numberOfColumns) throws CoordinatesException
+    public void addColumns(int position, int numberOfColumns) throws InvalidMapException
     {
         DynamicMatrix newMatrix=new DynamicMatrix(numberOfLines, this.numberOfColumns+numberOfColumns);
 

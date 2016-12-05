@@ -1,9 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.Exception.CoordinatesException;
-import fr.unice.polytech.si3.qgl.iaad.Exception.DirectionException;
-import fr.unice.polytech.si3.qgl.iaad.Exception.ElementException;
+import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 
 import java.awt.Point;
 import java.util.List;
@@ -73,11 +71,11 @@ public class IslandMap
      * Updates elements coordinates
      * Updates the drone coordinates
      * @param direction, numberOfPoints
-     * @throws CoordinatesException, DirectionException
+     * @throws InvalidMapException, DirectionException
      */
-    private void addPoints(Direction direction, int numberOfPoints) throws CoordinatesException, DirectionException
+    private void addPoints(Direction direction, int numberOfPoints) throws InvalidMapException
     {
-        if(isDirectionFinished(direction)) throw new DirectionException();
+        if(isDirectionFinished(direction)) throw new InvalidMapException();
 
         numberOfPoints-=getNumberOfAvailablePoints(direction);
 
@@ -110,9 +108,9 @@ public class IslandMap
      * new Fly(direction) in the map
      * @param direction
      * @return boolean type, true if the drone is still in the map and false it it left the map
-     * @throws CoordinatesException
+     * @throws InvalidMapException
      */
-    public void moveDrone(Direction direction) throws CoordinatesException
+    public void moveDrone(Direction direction) throws InvalidMapException
     {
         switch(direction)
         {
@@ -130,7 +128,7 @@ public class IslandMap
                 break;
         }
 
-        if(!pointExist(drone)) throw new CoordinatesException();
+        if(!pointExist(drone)) throw new InvalidMapException();
     }
 
     /**
@@ -146,9 +144,9 @@ public class IslandMap
      * Updates elements coordinates
      * Updates the drone coordinates
      * @param direction, numberOfPoints
-     * @throws CoordinatesException, DirectionException
+     * @throws InvalidMapException, DirectionException
      */
-    public void setOutOfRange(Direction direction, int numberOfPoints) throws CoordinatesException, DirectionException
+    public void setOutOfRange(Direction direction, int numberOfPoints) throws InvalidMapException
     {
         addPoints(direction, numberOfPoints);
         dimensionFinished[direction.ordinal()]=true;
@@ -180,9 +178,9 @@ public class IslandMap
      * Updates the drone coordinates
      * Adds Element.GROUND at numberOfPoints+1 compared to the drone location
      * @param direction, numberOfPoints
-     * @throws CoordinatesException, DirectionException
+     * @throws InvalidMapException, DirectionException
      */
-    public void setGround(Direction direction, int numberOfPoints) throws CoordinatesException, DirectionException
+    public void setGround(Direction direction, int numberOfPoints) throws InvalidMapException
     {
         numberOfPoints++;
 
@@ -252,13 +250,13 @@ public class IslandMap
     /**
      * Adds elements at this point
      * @param elements, point
-     * @throws CoordinatesException
+     * @throws InvalidMapException
      */
-    private void addElements(Point point, String... elements) throws CoordinatesException
+    private void addElements(Point point, String... elements) throws InvalidMapException
     {
         String elementsInString=new String();
 
-        if(!pointExist(point)) throw new CoordinatesException();
+        if(!pointExist(point)) throw new InvalidMapException();
         if(bodyMap.get(point.y, point.x).length()>0) elementsInString="__";
 
         for(int i=0; i<elements.length-1; i++) elementsInString+=(elements[i]+"__");
@@ -270,55 +268,40 @@ public class IslandMap
     /**
      * Adds biomes at this point
      * @param biomes
-     * @throws CoordinatesException, DirectionException, ElementException
+     * @throws InvalidMapException, DirectionException, ElementException
      */
-    public void addBiomes(Element... biomes) throws CoordinatesException, DirectionException, ElementException
+    public void addBiomes(Element... biomes) throws InvalidMapException
     {
         int i=0;
         String all[]=new String[biomes.length];
-
-        for(Element element : biomes)
-        {
-            all[i++]=element.toString();
-            if(element==Element.CREEK || element==Element.EMERGENCY_SITE) throw new ElementException();
-        }
+        for(Element element : biomes) all[i++]=element.toString();
         addElements(drone, all);
     }
 
     /**
      * Adds a point of interest at this point
      * @param pointInterest, ids
-     * @throws CoordinatesException, DirectionException, ElementException
+     * @throws InvalidMapException, DirectionException, ElementException
      */
-    private void addPointInterests(Element pointInterest, String... ids) throws CoordinatesException, DirectionException, ElementException
+    private void addPointInterests(Element pointInterest, String... ids) throws InvalidMapException
     {
-        for(int i=0; i<ids.length; i++)
-        {
-            IllegalArgumentException elementException=null;
-
-            try { Element.valueOf(ids[i]); }
-            catch (IllegalArgumentException exception) { elementException=exception; }
-
-            if(elementException==null) throw new ElementException();
-            ids[i]=pointInterest+"__"+ids[i];
-        }
-
+        for(int i=0; i<ids.length; i++) ids[i]=pointInterest+"__"+ids[i];
         addElements(drone, ids);
     }
 
     /**
      * Adds a creek at this point (the user has just to enter the id of the creek (or more if there are several creeks))
      * @param ids
-     * @throws CoordinatesException, DirectionException, ElementException
+     * @throws InvalidMapException, DirectionException, ElementException
      */
-    public void addCreeks(String... ids) throws CoordinatesException, DirectionException, ElementException { addPointInterests(Element.CREEK, ids); }
+    public void addCreeks(String... ids) throws InvalidMapException { addPointInterests(Element.CREEK, ids); }
 
     /**
      * Adds the emergency site at this point (the user has just to enter the id of the emergency site)
      * @param id
-     * @throws CoordinatesException, DirectionException, ElementException
+     * @throws InvalidMapException, DirectionException, ElementException
      */
-    public void addEmergencySite(String id) throws CoordinatesException, DirectionException, ElementException
+    public void addEmergencySite(String id) throws InvalidMapException
     {
         addElements(drone, Element.EMERGENCY_SITE.toString());
         emergencySiteId=id;
@@ -334,9 +317,9 @@ public class IslandMap
      * get all the creek ids collected at this point
      * @param point
      * @return String[] type
-     * @throws CoordinatesException
+     * @throws InvalidMapException
      */
-    public String[] getCreekIds(Point point) throws CoordinatesException
+    public String[] getCreekIds(Point point) throws InvalidMapException
     {
         String elements[]=bodyMap.get(point.y, point.x).split("__");
         List<String> ids=new ArrayList<>();
@@ -357,11 +340,11 @@ public class IslandMap
      * get all the biomes collected at this point
      * @param point
      * @return Element[] type
-     * @throws CoordinatesException
+     * @throws InvalidMapException
      */
-    public Element[] getBiomes(Point point) throws CoordinatesException
+    public Element[] getBiomes(Point point) throws InvalidMapException
     {
-        if(!pointExist(point)) throw new CoordinatesException();
+        if(!pointExist(point)) throw new InvalidMapException();
 
         String elements[]=bodyMap.get(point.y, point.x).split("__");
         List<Element> biomes=new ArrayList<>();
@@ -386,11 +369,11 @@ public class IslandMap
      * Deletes all the biomes occurrences at this point
      * @param point, element
      * @return boolean type, true if the biome has been deleted and false otherwise
-     * @throws CoordinatesException
+     * @throws InvalidMapException
      */
-    public boolean deleteBiome(Point point, Element element) throws CoordinatesException
+    public boolean deleteBiome(Point point, Element element) throws InvalidMapException
     {
-        if(!pointExist(point)) throw new CoordinatesException();
+        if(!pointExist(point)) throw new InvalidMapException();
 
         boolean done=false;
         String biomes=bodyMap.get(point.y, point.x);
@@ -414,11 +397,11 @@ public class IslandMap
      * Returns if there is this element at this point
      * @param point, element
      * @return boolean type, true if there is the element, false otherwise
-     * @throws CoordinatesException
+     * @throws InvalidMapException
      */
-    public boolean hasElement(Point point, Element element) throws CoordinatesException
+    public boolean hasElement(Point point, Element element) throws InvalidMapException
     {
-        if(!pointExist(point)) throw new CoordinatesException();
+        if(!pointExist(point)) throw new InvalidMapException();
         return bodyMap.get(point.y, point.x).contains(element.toString());
     }
 
@@ -426,9 +409,9 @@ public class IslandMap
      * Returns the number of element occurrences
      * @param element
      * @return integer type
-     * @throws CoordinatesException
+     * @throws InvalidMapException
      */
-    public int getNumberOfbiomes(Element element) throws CoordinatesException
+    public int getNumberOfbiomes(Element element) throws InvalidMapException
     {
         int count=0;
 
@@ -444,7 +427,7 @@ public class IslandMap
     /**
      * prints the current map
      */
-    public void printStatement() throws CoordinatesException
+    public void printStatement() throws InvalidMapException
     {
         for(int i=0; i<bodyMap.getNumberOfLines(); i++)
         {
