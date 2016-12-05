@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Heading;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
@@ -21,7 +22,7 @@ public class Turn implements Protocol
      * @param heading l'orientation du drone
      * @param target l'orientation voulue du drone
      */
-    Turn(Protocol protocol, IslandMap map, Direction heading, Direction target)
+    Turn(Protocol protocol, IslandMap map, Direction heading, Direction target) throws InvalidMapException
     {
         this.protocol = protocol;
         this.target = target;

@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.iaad;
 
 
 import eu.ace_design.island.bot.IExplorerRaid;
+import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.aerial.*;
 import fr.unice.polytech.si3.qgl.iaad.init.*;
@@ -30,7 +31,11 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String takeDecision()
     {
-        action = drone.doAction();
+        try {
+            action = drone.doAction();
+        } catch (InvalidMapException exception) {
+            action =  new Stop();
+        }
         decision = action.toJSON();
         return decision;
     }
@@ -40,7 +45,12 @@ public class Explorer implements IExplorerRaid {
      */
     @Override
     public void acknowledgeResults(String s) {
-        drone.getResult(((Area)action).getResults(s));
+
+        try {
+            drone.getResult(((Area)action).getResults(s));
+        } catch (InvalidMapException exception) {
+            // according to map designer, it's ok
+        }
         rapport = ((Area) action).getRapport();
     }
 

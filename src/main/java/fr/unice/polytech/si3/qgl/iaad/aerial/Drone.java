@@ -1,7 +1,7 @@
 
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
-import fr.unice.polytech.si3.qgl.iaad.Exception.DirectionException;
+import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
@@ -48,7 +48,7 @@ public class Drone
      * Le drone fait une action
      * @return la prochaine action du drone
      */
-    public Action doAction()
+    public Action doAction() throws InvalidMapException
     {
         // si le budget est sous le palier de budget faible, le drone s'arrete
         if (budget < LOW_BUDGET)
@@ -61,7 +61,7 @@ public class Drone
      * Renouvelle le protocole en fonction du résultat de l'action précédente
      * @param results le résultat de l'action précédente
      */
-    public void getResult(AreaResult results)
+    public void getResult(AreaResult results) throws InvalidMapException
     {
         if (budget < LOW_BUDGET)
             return;

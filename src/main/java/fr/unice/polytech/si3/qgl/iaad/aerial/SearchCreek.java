@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
 import fr.unice.polytech.si3.qgl.iaad.actions.Scan;
@@ -33,13 +34,13 @@ public class SearchCreek implements Protocol
     }
 
     @Override
-    public Action nextAction()
+    public Action nextAction() throws InvalidMapException
     {
         return protocol.nextAction();
     }
 
     @Override
-    public Protocol setResult(AreaResult result)
+    public Protocol setResult(AreaResult result) throws InvalidMapException
     {
         return protocol = protocol.setResult(result);
     }
@@ -81,7 +82,7 @@ public class SearchCreek implements Protocol
          *         ReturnToIsland sinon pour revenir sur l'île
          */
         @Override
-        public Protocol setResult(AreaResult result)
+        public Protocol setResult(AreaResult result) throws InvalidMapException
         {
             map.addBiomes(Element.valueOf(result.getBiome(0)));
             /*

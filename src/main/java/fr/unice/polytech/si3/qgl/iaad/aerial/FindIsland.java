@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
@@ -30,13 +31,13 @@ public class FindIsland implements Protocol
     }
 
     @Override
-    public Action nextAction()
+    public Action nextAction() throws InvalidMapException
     {
         return protocol.nextAction();
     }
 
     @Override
-    public Protocol setResult(AreaResult result)
+    public Protocol setResult(AreaResult result) throws InvalidMapException
     {
         return protocol = protocol.setResult(result);
     }
@@ -66,7 +67,7 @@ public class FindIsland implements Protocol
          * @return le nouveau protocole en vigueur
          */
         @Override
-        public Protocol setResult(AreaResult result)
+        public Protocol setResult(AreaResult result) throws InvalidMapException
         {
             if (Element.valueOf(result.getFound()) == Element.GROUND)
             {
@@ -88,7 +89,7 @@ public class FindIsland implements Protocol
          * @return l'action Fly si on est pas à la limite de la carte, sinon Stop
          */
         @Override
-        public Action nextAction()
+        public Action nextAction() throws InvalidMapException
         {
             if (map.getNumberOfAvailablePoints(heading) < 2) {
                 if (map.getNumberOfAvailablePoints(heading.getLeft()) > map.getNumberOfAvailablePoints(heading.getRight()))

@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
@@ -33,13 +34,13 @@ public class Initialisation implements Protocol
     }
 
     @Override
-    public Action nextAction()
+    public Action nextAction() throws InvalidMapException
     {
         return protocol.nextAction();
     }
 
     @Override
-    public Protocol setResult(AreaResult result)
+    public Protocol setResult(AreaResult result) throws InvalidMapException
     {
         return protocol = protocol.setResult(result);
     }
@@ -70,7 +71,7 @@ public class Initialisation implements Protocol
          * @return Le nouveau protocole a utilisé
          */
         @Override
-        public Protocol setResult(AreaResult result)
+        public Protocol setResult(AreaResult result) throws InvalidMapException
         {
             if (Element.valueOf(result.getFound()) == Element.GROUND)
             {
