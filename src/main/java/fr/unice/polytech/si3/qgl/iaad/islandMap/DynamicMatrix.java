@@ -126,15 +126,33 @@ public class DynamicMatrix
      * @param position, numberOfLines
      * @throws InvalidMapException
      */
-    public void addLines(int position, int numberOfLines) throws InvalidMapException
+    public void addLines(int position, int numberOfLines)
     {
         DynamicMatrix newMatrix=new DynamicMatrix(this.numberOfLines +numberOfLines, numberOfColumns);
 
         if(position==0)
-            for(int i = numberOfLines; i<(this.numberOfLines +numberOfLines); i++)	for(int j = 0; j<numberOfColumns; j++) newMatrix.setElement(i, j, array[i-numberOfLines][j]);
+        {
+            for(int i = numberOfLines; i<(this.numberOfLines +numberOfLines); i++)
+            {
+                for(int j = 0; j<numberOfColumns; j++)
+                {
+                    try { newMatrix.setElement(i, j, array[i-numberOfLines][j]); }
+                    catch (InvalidMapException e) { e.printStackTrace(); }
+                }
+            }
+        }
 
         else
-            for(int i = 0; i<this.numberOfLines; i++) for(int j = 0; j<numberOfColumns; j++) newMatrix.setElement(i, j, array[i][j]);
+        {
+            for(int i = 0; i<this.numberOfLines; i++)
+            {
+                for(int j = 0; j<numberOfColumns; j++)
+                {
+                    try { newMatrix.setElement(i, j, array[i][j]); }
+                    catch (InvalidMapException e) { e.printStackTrace(); }
+                }
+            }
+        }
 
         thisBecome(newMatrix);
     }
@@ -148,15 +166,34 @@ public class DynamicMatrix
      * @param position, numberOfLines
      * @throws InvalidMapException
      */
-    public void addColumns(int position, int numberOfColumns) throws InvalidMapException
+    public void addColumns(int position, int numberOfColumns)
     {
         DynamicMatrix newMatrix=new DynamicMatrix(numberOfLines, this.numberOfColumns+numberOfColumns);
 
         if(position==0)
-            for(int i = 0; i< numberOfLines; i++) for(int j = numberOfColumns; j<(this.numberOfColumns+numberOfColumns); j++)	newMatrix.setElement(i, j, array[i][j-numberOfColumns]);
+        {
+            for(int i = 0; i< numberOfLines; i++)
+            {
+                for(int j = numberOfColumns; j<(this.numberOfColumns+numberOfColumns); j++)
+                {
+                    try { newMatrix.setElement(i, j, array[i][j-numberOfColumns]); }
+                    catch (InvalidMapException e) { e.printStackTrace(); }
+                }
+            }
+        }
 
         else
-            for(int i = 0; i< numberOfLines; i++) for(int j = 0; j<this.numberOfColumns; j++) newMatrix.setElement(i, j, array[i][j]);
+        {
+            for(int i = 0; i< numberOfLines; i++)
+            {
+                for(int j = 0; j<this.numberOfColumns; j++)
+                {
+                    try { newMatrix.setElement(i, j, array[i][j]); }
+                    catch (InvalidMapException e) { e.printStackTrace(); }
+                }
+            }
+
+        }
 
         thisBecome(newMatrix);
     }

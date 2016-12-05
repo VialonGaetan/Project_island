@@ -73,10 +73,8 @@ public class IslandMap
      * @param direction, numberOfPoints
      * @throws InvalidMapException, DirectionException
      */
-    private void addPoints(Direction direction, int numberOfPoints) throws InvalidMapException
+    private void addPoints(Direction direction, int numberOfPoints)
     {
-        if(isDirectionFinished(direction)) throw new InvalidMapException();
-
         numberOfPoints-=getNumberOfAvailablePoints(direction);
 
         switch(direction)
@@ -144,12 +142,14 @@ public class IslandMap
      * Updates elements coordinates
      * Updates the drone coordinates
      * @param direction, numberOfPoints
-     * @throws InvalidMapException, DirectionException
      */
-    public void setOutOfRange(Direction direction, int numberOfPoints) throws InvalidMapException
+    public void setOutOfRange(Direction direction, int numberOfPoints)
     {
-        addPoints(direction, numberOfPoints);
-        dimensionFinished[direction.ordinal()]=true;
+        if(!dimensionFinished[direction.ordinal()])
+        {
+            addPoints(direction, numberOfPoints);
+            dimensionFinished[direction.ordinal()]=true;
+        }
     }
 
     /**
@@ -180,7 +180,7 @@ public class IslandMap
      * @param direction, numberOfPoints
      * @throws InvalidMapException, DirectionException
      */
-    public void setGround(Direction direction, int numberOfPoints) throws InvalidMapException
+    public void setGround(Direction direction, int numberOfPoints)
     {
         numberOfPoints++;
 
@@ -193,16 +193,20 @@ public class IslandMap
         switch(direction)
         {
             case N:
-                addElements(new Point(drone.x, drone.y-numberOfPoints), ground);
+                try { addElements(new Point(drone.x, drone.y-numberOfPoints), ground); }
+                catch (InvalidMapException e) { e.printStackTrace(); }
                 break;
             case S:
-                addElements(new Point(drone.x, drone.y+numberOfPoints), ground);
+                try { addElements(new Point(drone.x, drone.y+numberOfPoints), ground); }
+                catch (InvalidMapException e) { e.printStackTrace(); }
                 break;
             case E:
-                addElements(new Point(drone.x+numberOfPoints, drone.y), ground);
+                try { addElements(new Point(drone.x+numberOfPoints, drone.y), ground); }
+                catch (InvalidMapException e) { e.printStackTrace(); }
                 break;
             case W:
-                addElements(new Point(drone.x-numberOfPoints, drone.y), ground);
+                try { addElements(new Point(drone.x-numberOfPoints, drone.y), ground); }
+                catch (InvalidMapException e) { e.printStackTrace(); }
                 break;
         }
     }
