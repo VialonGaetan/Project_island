@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
-
-import fr.unice.polytech.si3.qgl.iaad.Exception.CoordinatesException;
+import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class EmergencySite {
      *@param : Coordonnées d'une case
      * @return : True or False
      */
-    public Boolean isASite(Point point) throws CoordinatesException {
+    public Boolean isASite(Point point) throws InvalidMapException {
         if (this.map.hasElement(point, Element.EMERGENCY_SITE))
         {
             return true;
@@ -78,7 +77,7 @@ public class EmergencySite {
      * Permet de parcourir une IslandMap et d'y trouver automatiquement le site d'urgence si il est entrée dans l'IslandMap
      * @return : un tableau contenant les coordonnées du site
      */
-    public int[] findSite() throws CoordinatesException {
+    public int[] findSite() throws InvalidMapException {
         for (int j=0; j<this.map.getVerticalDimension(); j++)
         {
             for (int i=0; i<this.map.getHorizontalDimension(); i++)

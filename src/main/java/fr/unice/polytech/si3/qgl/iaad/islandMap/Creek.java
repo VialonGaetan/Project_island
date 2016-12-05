@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
-import fr.unice.polytech.si3.qgl.iaad.Exception.CoordinatesException;
+import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 
 import java.awt.*;
 import java.lang.Math;
@@ -17,14 +17,10 @@ public class Creek {
     private IslandMap map;
 
 
-    public Creek(IslandMap map) throws CoordinatesException {
+    public Creek(IslandMap map) throws InvalidMapException {
         creeks = new ArrayList<>();
         this.map = map;
-        try {
-            addAllTheCreeks();
-        } catch (CoordinatesException e) {
-            e.printStackTrace();
-        }
+        addAllTheCreeks();
     } //On verra plus tard pour l'ameliorer en tableau de longueur nombre de creek
 
     /**
@@ -77,7 +73,7 @@ public class Creek {
      * Parcourt la map et lorsqu'il y a une map sur une case, l'ajoute dans la liste des creeks
      */
 
-    private void addAllTheCreeks() throws CoordinatesException {
+    private void addAllTheCreeks() throws InvalidMapException {
         for (int j = 0; j < this.map.getVerticalDimension(); j++) {
             for (int i = 0; i < this.map.getHorizontalDimension(); i++)
                 if (this.map.hasElement(new Point(j, i), Element.CREEK)) {
@@ -121,9 +117,8 @@ public class Creek {
      * @param x
      * @param y
      * @return l'id d'une creek à des coordonnées précises
-     * @throws CoordinatesException
      */
-    public String[] getID(int x, int y) throws CoordinatesException {
+    public String[] getID(int x, int y) throws InvalidMapException {
         Point point = new Point(x, y);
         return map.getCreekIds(point);
     }
@@ -131,12 +126,13 @@ public class Creek {
     /*
     Main d'exemple d'utilisation de Creek et EmergencySite, dans le but de retourner l'id la plus proche pour pouvoir Land.
      */
-    public static void main(String[] args) throws CoordinatesException {
+    public static void main(String[] args) throws InvalidMapException {
         IslandMap map = new IslandMap(); //init Map
         Creek creek = new Creek(map); //init creek
         EmergencySite e = new EmergencySite(map); //init emergencySite
         creek.addAllTheCreeks(); //on ajoute toutes les creek recensées dans la Map dans une liste
         ArrayList<Integer> close = creek.closest(e.getX(), e.getY()); //on determine la creek la plus proche du site d'urgence, dont on stocke ses coordonnées dans une liste
-        String[] s = creek.getID(close.get(0), close.get(1)); //On renvoie l'id de cette dernière
+        String[] idcreek = creek.getID(close.get(0), close.get(1)); //On renvoie l'id de cette dernière
+        System.out.println(idcreek);
     }
 }
