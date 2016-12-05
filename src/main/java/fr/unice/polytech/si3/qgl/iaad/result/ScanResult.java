@@ -17,13 +17,8 @@ public class ScanResult extends AreaResult {
 
     // TODO: 30/11/2016 Faire des execption
     @Override
-    public String getBiome(int n) throws InvalidIndexException {
-        try{
-            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.BIOMES.getName()).getString(n);
-        }
-        catch (Exception e){
-            throw new InvalidIndexException(n,this.getClass().getSimpleName());
-        }
+    public String getBiome(int n){
+        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.BIOMES.getName()).getString(n);
     }
 
     @Override
@@ -33,23 +28,13 @@ public class ScanResult extends AreaResult {
 
 
     @Override
-    public String getCreeks(int n) throws InvalidIndexException {
-        try{
-            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.CREEKS.getName()).getString(0);
-        }
-        catch (Exception e){
-            throw new InvalidIndexException(n,this.getClass().getSimpleName());
-        }
+    public String getCreeks(int n){
+        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.CREEKS.getName()).getString(0);
     }
 
     @Override
-    public String getSites() throws InvalidIndexException {
-        try {
-            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.SITES.getName()).getString(0);
-        }
-        catch (Exception e){
-            throw new InvalidIndexException(0,this.getClass().getSimpleName());
-        }
+    public String getSites(){
+        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.SITES.getName()).getString(0);
     }
 
 

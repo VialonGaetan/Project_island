@@ -67,12 +67,7 @@ public class Context {
      * @return
      * @throws InvalidIndexException
      */
-    public Contract getContract(int index) throws InvalidIndexException {
-        try{
-            return contracts.get(index);
-        }
-        catch (Exception e){
-            throw new InvalidIndexException(index, Context.class.getSimpleName());
-        }
+    public Contract getContract(int index){
+        return contracts.get(index);
     }
 }

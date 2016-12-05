@@ -6,12 +6,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by user on 19/11/2016.
+ * @author Gaetan Vialon
+ * Created the 19/11/2016.
  */
 public class AreaActionsTest {
-    Action action;
-    String toJSON;
-    Direction direction;
+    private Action action;
+    private String toJSON;
+    private Direction direction;
 
     @Before
     public void defineContext() {

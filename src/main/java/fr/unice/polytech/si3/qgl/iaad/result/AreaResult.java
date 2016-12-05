@@ -17,7 +17,6 @@ public abstract class AreaResult implements Results{
         this.result = result;
     }
 
-    // TODO: 30/11/2016 Throw execption à la place de null  
     /**
      * Recupere le cout d'une action
      * @return action cost
@@ -33,36 +32,36 @@ public abstract class AreaResult implements Results{
     }
 
 
-    public String getFound()throws InvalidRequestException {
-        throw new InvalidRequestException(this.getClass().getSimpleName());
+    public String getFound(){
+        return null;
     }
 
-    public int getRange() throws InvalidRequestException {
-        throw new InvalidRequestException(this.getClass().getSimpleName());
-    }
-
-
-    public int nbBiomes()throws InvalidRequestException {
-        throw new InvalidRequestException(this.getClass().getSimpleName());
-    }
-
-    public String getBiome(int n)throws InvalidRequestException, InvalidIndexException {
-        throw new InvalidRequestException(this.getClass().getSimpleName());
+    public int getRange(){
+        return -1;
     }
 
 
-    public String getCreeks(int n)throws InvalidRequestException, InvalidIndexException {
-        throw new InvalidRequestException(this.getClass().getSimpleName());
+    public int nbBiomes(){
+        return -1;
+    }
+
+    public String getBiome(int n){
+        return null;
     }
 
 
-    public int nbCreeks()throws InvalidRequestException {
-        throw new InvalidRequestException(this.getClass().getSimpleName());
+    public String getCreeks(int n) {
+        return null;
     }
 
 
-    public String getSites() throws InvalidRequestException, InvalidIndexException {
-        throw new InvalidRequestException(this.getClass().getSimpleName());
+    public int nbCreeks(){
+        return -1;
+    }
+
+
+    public String getSites(){
+        return null;
     }
 
 
