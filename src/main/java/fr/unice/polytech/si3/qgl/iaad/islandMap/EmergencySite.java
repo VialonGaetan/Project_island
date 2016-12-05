@@ -1,5 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
+import fr.unice.polytech.si3.qgl.iaad.Exception.CoordinatesException;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -10,21 +13,18 @@ public class EmergencySite {
     public int[] coordinates = new int[2];
     private IslandMap map;
 
-    public EmergencySite(int x, int y, IslandMap map)
+    public EmergencySite(IslandMap map)
     {
-        this.coordinates[0]=x;
-        this.coordinates[1]=y;
         this.map = map;
     }
 
     /**
-    * Permet de savoir si la case pointée est un site d'urgence
-    *@param : Coordonnées d'une case
-    * @return : True or False
-    */
-    public Boolean isASite(int x, int y)
-    {
-        if (this.map.hasElement(x, y, Element.EMERGENCY_SITE))
+     * Permet de savoir si la case pointée est un site d'urgence
+     *@param : Coordonnées d'une case
+     * @return : True or False
+     */
+    public Boolean isASite(Point point) throws CoordinatesException {
+        if (this.map.hasElement(point, Element.EMERGENCY_SITE))
         {
             return true;
         }
@@ -32,8 +32,8 @@ public class EmergencySite {
     }
 
     /**
-    * Permet de retourner les coordonnées du site d'urgence
-    * @return : tableau de 2 contenant les coordonnées du site
+     * Permet de retourner les coordonnées du site d'urgence
+     * @return : tableau de 2 contenant les coordonnées du site
      */
     public int[] getCoordinates()
     {
@@ -41,7 +41,7 @@ public class EmergencySite {
     }
 
     /**
-    * @return : l'abscisse du site
+     * @return : l'abscisse du site
      */
     public int getX()
     {
@@ -49,7 +49,7 @@ public class EmergencySite {
     }
 
     /**
-    *@return : l'ordonnée du site
+     *@return : l'ordonnée du site
      */
     public int getY()
     {
@@ -57,8 +57,8 @@ public class EmergencySite {
     }
 
     /**
-    * Assigne l'abscisse du site manuellement
-    * @param : un entier x
+     * Assigne l'abscisse du site manuellement
+     * @param : un entier x
      */
     public void setX(int x)
     {
@@ -78,12 +78,11 @@ public class EmergencySite {
      * Permet de parcourir une IslandMap et d'y trouver automatiquement le site d'urgence si il est entrée dans l'IslandMap
      * @return : un tableau contenant les coordonnées du site
      */
-    public int[] FindSite()
-    {
+    public int[] findSite() throws CoordinatesException {
         for (int j=0; j<this.map.getVerticalDimension(); j++)
         {
             for (int i=0; i<this.map.getHorizontalDimension(); i++)
-                if (this.map.hasElement(i, j, Element.EMERGENCY_SITE)) {
+                if (this.map.hasElement(new Point(j,i), Element.EMERGENCY_SITE)) {
                     this.coordinates[0]=i;
                     this.coordinates[1]=j;
                     return this.coordinates;
@@ -91,4 +90,14 @@ public class EmergencySite {
         }
         return null;
     }
+
+    /**
+     * retourne l'id de l'emergency site qui est stocké dans l'IslandMap
+     * @return id
+     */
+    public String getID()
+    {
+        return map.getEmergencySiteId();
+    }
+
 }
