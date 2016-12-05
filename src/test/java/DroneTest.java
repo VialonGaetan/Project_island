@@ -1,4 +1,5 @@
 import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
@@ -19,8 +20,7 @@ public class DroneTest {
     Drone drone;
 
     @Test
-    public void doActionTest()
-    {
+    public void doActionTest() throws InvalidMapException {
         direction = Direction.E;
         map = new IslandMap();
         drone = new Drone(100,direction,map);

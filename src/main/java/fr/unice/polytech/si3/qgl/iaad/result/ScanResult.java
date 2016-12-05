@@ -18,7 +18,11 @@ public class ScanResult extends AreaResult {
     // TODO: 30/11/2016 Faire des execption
     @Override
     public String getBiome(int n){
-        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.BIOMES.getName()).getString(n);
+        try{
+            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.BIOMES.getName()).getString(n);
+        }catch (RuntimeException e){
+            return null;
+        }
     }
 
     @Override
@@ -29,12 +33,20 @@ public class ScanResult extends AreaResult {
 
     @Override
     public String getCreeks(int n){
-        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.CREEKS.getName()).getString(0);
+        try{
+            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.CREEKS.getName()).getString(0);
+        }catch (RuntimeException e){
+            return null;
+        }
     }
 
     @Override
     public String getSites(){
-        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.SITES.getName()).getString(0);
+        try{
+            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.SITES.getName()).getString(0);
+        }catch (RuntimeException e){
+            return null;
+        }
     }
 
 
