@@ -9,8 +9,11 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.init.Context;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Creek;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import org.json.JSONObject;
+
+import java.awt.*;
 
 
 public class Explorer implements IExplorerRaid {
@@ -45,7 +48,6 @@ public class Explorer implements IExplorerRaid {
      */
     @Override
     public void acknowledgeResults(String s) {
-
         try {
             drone.getResult(((Area)action).getResults(s));
         } catch (InvalidMapException exception) {
@@ -61,8 +63,8 @@ public class Explorer implements IExplorerRaid {
         try {
             creek = new Creek(islandMap);
             creek.addAllTheCreeks(); //on ajoute toutes les creek recensées dans la Map dans une liste
-            rapport = "EMERGENCY SITE : "+ islandMap.getEmergencySiteId() + "\n CREEK : " + creek.getClosestID() ;
-        } catch (InvalidMapException e) {
+            rapport = "EMERGENCY SITE:"+ islandMap.getEmergencySiteId() + "\nCREEK:" + creek.getClosestID()[0];
+        } catch (InvalidMapException | ArrayIndexOutOfBoundsException e) {
             rapport = "EMERGENCY SITE : "+ islandMap.getEmergencySiteId();
         }
         return rapport;

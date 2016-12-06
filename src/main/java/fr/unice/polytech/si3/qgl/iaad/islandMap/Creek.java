@@ -75,7 +75,7 @@ public class Creek {
     public void addAllTheCreeks() throws InvalidMapException {
         for (int j = 0; j < this.map.getVerticalDimension(); j++) {
             for (int i = 0; i < this.map.getHorizontalDimension(); i++)
-                if (this.map.hasElement(new Point(j, i), Element.CREEK)) {
+                if (this.map.hasElement(new Point(i, j), Element.CREEK)) {
                     ArrayList<Integer> temp = new ArrayList<>();
                     temp.add(i);
                     temp.add(j);
@@ -117,18 +117,5 @@ public class Creek {
         }
         Point point = new Point(xMin, yMin);
         return map.getCreekIds(point);
-    }
-
-
-    /*
-    Main d'exemple d'utilisation de Creek et EmergencySite, dans le but de retourner l'id la plus proche pour pouvoir Land.
-    Dans l'hypothèse où IslandMap est complète
-     */
-    public static void main(String[] args) throws InvalidMapException {
-        IslandMap map = new IslandMap(); //init Map
-        Creek creek = new Creek(map); //init creek
-        EmergencySite e = new EmergencySite(map); //init emergencySite
-        creek.addAllTheCreeks(); //on ajoute toutes les creek recensées dans la Map dans une liste
-        System.out.println(creek.getClosestID());
     }
 }
