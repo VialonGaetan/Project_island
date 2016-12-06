@@ -3,7 +3,6 @@ package fr.unice.polytech.si3.qgl.iaad.islandMap;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 
 import java.awt.*;
-import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +72,7 @@ public class Creek {
      * Parcourt la map et lorsqu'il y a une map sur une case, l'ajoute dans la liste des creeks
      */
 
-    private void addAllTheCreeks() throws InvalidMapException {
+    public void addAllTheCreeks() throws InvalidMapException {
         for (int j = 0; j < this.map.getVerticalDimension(); j++) {
             for (int i = 0; i < this.map.getHorizontalDimension(); i++)
                 if (this.map.hasElement(new Point(j, i), Element.CREEK)) {

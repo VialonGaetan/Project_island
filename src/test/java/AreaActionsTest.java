@@ -9,7 +9,9 @@ import static org.junit.Assert.*;
  * @author Gaetan Vialon
  * Created the 19/11/2016.
  */
+
 public class AreaActionsTest {
+
     private Action action;
     private String toJSON;
     private Direction direction;
@@ -24,6 +26,8 @@ public class AreaActionsTest {
         action = new Fly();
         toJSON = action.toJSON();
         assertEquals(toJSON,"{\"action\":\"fly\"}");
+        assertEquals(action.toJSON(), new Fly().toJSON());
+        assertNotEquals(action,new Heading(Direction.W));
     }
 
     @Test
@@ -32,6 +36,9 @@ public class AreaActionsTest {
         toJSON = action.toJSON();
         assertEquals(toJSON,"{\"action\":\"echo\",\"parameters\":{\"direction\":\"S\"}}");
         assertNotEquals(toJSON,"{\"action\":\"echo\",\"parameters\":{\"direction\":\"N\"}}");
+        assertNotEquals(action,new Fly());
+        assertEquals(toJSON,new Echo(Direction.S).toJSON());
+        assertNotEquals(toJSON,new Echo(Direction.W).toJSON());
     }
 
     @Test
@@ -40,6 +47,9 @@ public class AreaActionsTest {
         toJSON = action.toJSON();
         assertEquals(toJSON,"{\"action\":\"heading\",\"parameters\":{\"direction\":\"S\"}}");
         assertNotEquals(toJSON,"{\"action\":\"heading\",\"parameters\":{\"direction\":\"N\"}}");
+        assertEquals(toJSON,new Heading(Direction.S).toJSON());
+        assertNotEquals(toJSON,new Heading(Direction.W).toJSON());
+        assertNotEquals(action,new Scan());
     }
 
     @Test
@@ -47,5 +57,16 @@ public class AreaActionsTest {
         action = new Scan();
         toJSON = action.toJSON();
         assertEquals(toJSON,"{\"action\":\"scan\"}");
+        assertEquals(toJSON,new Scan().toJSON());
+        assertNotEquals(action,new Echo(direction));
+    }
+
+    @Test
+    public void testStop(){
+        action = new Stop();
+        toJSON = action.toJSON();
+        assertEquals(toJSON,"{\"action\":\"stop\"}");
+        assertEquals(toJSON,new Stop().toJSON());
+        assertNotEquals(action,new Heading(direction));
     }
 }

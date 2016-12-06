@@ -3,10 +3,13 @@ package fr.unice.polytech.si3.qgl.iaad;
 
 import eu.ace_design.island.bot.IExplorerRaid;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.*;
-import fr.unice.polytech.si3.qgl.iaad.aerial.*;
-import fr.unice.polytech.si3.qgl.iaad.init.*;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.*;
+import fr.unice.polytech.si3.qgl.iaad.actions.Action;
+import fr.unice.polytech.si3.qgl.iaad.actions.Area;
+import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
+import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
+import fr.unice.polytech.si3.qgl.iaad.init.Context;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.Creek;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import org.json.JSONObject;
 
 
@@ -19,6 +22,7 @@ public class Explorer implements IExplorerRaid {
     private Drone drone;
     private Action action;
     private String rapport;
+    private Creek creek;
 
     @Override
     public void initialize(String s) {
@@ -47,7 +51,6 @@ public class Explorer implements IExplorerRaid {
         } catch (InvalidMapException exception) {
             // according to map designer, it's ok
         }
-        rapport = ((Area) action).getRapport();
     }
 
     /*
@@ -55,6 +58,13 @@ public class Explorer implements IExplorerRaid {
      */
     @Override
     public String deliverFinalReport() {
+        try {
+            creek = new Creek(islandMap);
+            creek.addAllTheCreeks(); //on ajoute toutes les creek recensées dans la Map dans une liste
+            rapport = "EMERGENCY SITE : "+ islandMap.getEmergencySiteId() + "\n CREEK : " + creek.getClosestID() ;
+        } catch (InvalidMapException e) {
+            rapport = "EMERGENCY SITE : "+ islandMap.getEmergencySiteId();
+        }
         return rapport;
     }
 

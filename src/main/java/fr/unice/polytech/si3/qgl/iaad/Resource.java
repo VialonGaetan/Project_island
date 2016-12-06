@@ -1,5 +1,4 @@
 package fr.unice.polytech.si3.qgl.iaad;
-import java.lang.String;
 
 /**
  * Created on 14/11/2016.

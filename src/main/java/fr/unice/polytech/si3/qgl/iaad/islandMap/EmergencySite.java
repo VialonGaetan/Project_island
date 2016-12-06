@@ -1,8 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
+
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * @author Théo

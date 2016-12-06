@@ -2,8 +2,9 @@ package fr.unice.polytech.si3.qgl.iaad.init;
 
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidIndexException;
 import org.json.JSONObject;
-import java.util.List;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**

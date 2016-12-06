@@ -3,9 +3,9 @@ package fr.unice.polytech.si3.qgl.iaad.islandMap;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 
-import java.awt.Point;
-import java.util.List;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by romain on 13/11/16.
@@ -36,7 +36,7 @@ public class IslandMap
     /**
      * Emergency site id
      */
-    private String emergencySiteId;
+    private String emergencySiteId="";
 
     /**
      * Saves what dimensions are finished in the map

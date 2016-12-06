@@ -1,7 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.result;
 
-import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidIndexException;
-import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidRequestException;
 import org.json.JSONObject;
 
 /**
