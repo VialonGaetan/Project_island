@@ -91,14 +91,23 @@ public class Creek {
      * @return ID de la creek la plus proche du site d'urgence.
      */
 
-    public String[] getClosestID(double xSite, double ySite) throws InvalidMapException {
+    public String[] getClosestID() throws InvalidMapException {
         int xMin = this.creeks.get(0).get(0); //On initialise le xMin
         int yMin = this.creeks.get(0).get(1); //On initialise le yMin
-        double min = Math.pow(Math.abs(Math.pow(xMin - xSite, 2) + Math.pow(yMin - ySite, 2)), 0.5); //On initialise la distance entre le site et la première creek
-
+        double min;
+        int[] siteCo = new int[2];
+        for (int j=0; j<this.map.getVerticalDimension(); j++)
+        {
+            for (int i=0; i<this.map.getHorizontalDimension(); i++)
+                if (this.map.hasElement(new Point(j,i), Element.EMERGENCY_SITE)) {
+                    siteCo[0]=i;
+                    siteCo[1]=j;
+                }
+        }
+        min = Math.pow(Math.abs(Math.pow(xMin - siteCo[0], 2) + Math.pow(yMin - siteCo[1], 2)), 0.5); //On initialise la distance entre le site et la première creek
         for (int i = 0; i < creeks.size(); i++) {
-            double X = Math.pow(creeks.get(i).get(0) - xSite, 2); //on calcule la norme projetée sur x
-            double Y = Math.pow(creeks.get(i).get(1) - ySite, 2); // projection sur y
+            double X = Math.pow(creeks.get(i).get(0) - siteCo[0], 2); //on calcule la norme projetée sur x
+            double Y = Math.pow(creeks.get(i).get(1) - siteCo[1], 2); // projection sur y
             double temp = Math.abs(X + Y); //valeur absolue au cas où
             double distance = Math.pow(temp, 0.5); //on calcule la norme 2 (euclidienne)
             if (distance < min) {
@@ -121,6 +130,6 @@ public class Creek {
         Creek creek = new Creek(map); //init creek
         EmergencySite e = new EmergencySite(map); //init emergencySite
         creek.addAllTheCreeks(); //on ajoute toutes les creek recensées dans la Map dans une liste
-        System.out.println(creek.getClosestID(e.getX(),e.getY()));
+        System.out.println(creek.getClosestID());
     }
 }
