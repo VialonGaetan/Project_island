@@ -43,11 +43,13 @@ public class Explorer implements IExplorerRaid {
         return decision;
     }
 
-    /*
+    /**
      * decision taken
      */
     @Override
     public void acknowledgeResults(String s) {
+        if (action instanceof Stop)
+                throw new RuntimeException(deliverFinalReport());
         try {
             drone.getResult(((Area)action).getResults(s));
         } catch (InvalidMapException exception) {
@@ -55,7 +57,7 @@ public class Explorer implements IExplorerRaid {
         }
     }
 
-    /*
+    /**
      * result
      */
     @Override
@@ -63,9 +65,9 @@ public class Explorer implements IExplorerRaid {
         try {
             creek = new Creek(islandMap);
             creek.addAllTheCreeks(); //on ajoute toutes les creek recensées dans la Map dans une liste
-            rapport = "EMERGENCY SITE:"+ islandMap.getEmergencySiteId() + "\nCREEK:" + creek.getClosestID()[0];
+            rapport = "EMERGENCY:"+ islandMap.getEmergencySiteId() + "\nCREEK:" + creek.getClosestID()[0];
         } catch (InvalidMapException | ArrayIndexOutOfBoundsException e) {
-            rapport = "EMERGENCY SITE : "+ islandMap.getEmergencySiteId();
+            rapport = "EMERGENCY:"+ islandMap.getEmergencySiteId();
         }
         return rapport;
     }
