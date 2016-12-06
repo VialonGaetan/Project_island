@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.actions;
 
-import fr.unice.polytech.si3.qgl.iaad.result.*;
+import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
+import fr.unice.polytech.si3.qgl.iaad.result.StopResult;
 import org.json.JSONObject;
 
 /**
@@ -10,10 +11,6 @@ import org.json.JSONObject;
 public class Stop extends Area {
 
     public Stop() {}
-
-    public Stop(String rapport) {
-        super.rapport = rapport;
-    }
 
     /**
      * Créé un objet JSON avec l'action STOP

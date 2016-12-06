@@ -5,15 +5,11 @@ import eu.ace_design.island.bot.IExplorerRaid;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
-import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.init.Context;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Creek;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import org.json.JSONObject;
-
-import java.awt.*;
 
 
 public class Explorer implements IExplorerRaid {
@@ -48,8 +44,6 @@ public class Explorer implements IExplorerRaid {
      */
     @Override
     public void acknowledgeResults(String s) {
-        if (action instanceof Stop)
-                throw new RuntimeException(deliverFinalReport());
         try {
             drone.getResult(((Area)action).getResults(s));
         } catch (InvalidMapException exception) {

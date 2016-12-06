@@ -14,7 +14,6 @@ public abstract class Area implements Action {
     public AreaResult results;
     public String ID;
     public int people;
-    public String rapport = "Nous allons être riche !!";
 
     /**
      * Lorsqu'une action est effectué créé un objet Result correspondant à l'action
@@ -22,13 +21,4 @@ public abstract class Area implements Action {
      * @return objet resultat avec les données
      */
     public abstract AreaResult getResults(String result);
-
-    /**
-     * Permet de retourner le emergency site et la creek la plus proche s'il a trouvé
-     * @return emergency site and creek ID
-     */
-    public String getRapport()
-    {
-        return rapport;
-    }
 }
