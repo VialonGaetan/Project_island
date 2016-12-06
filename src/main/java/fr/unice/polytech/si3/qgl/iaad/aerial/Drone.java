@@ -6,6 +6,7 @@ import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
+import fr.unice.polytech.si3.qgl.iaad.result.ScanResult;
 
 /**
  * @author Alexandre Clement
@@ -39,8 +40,7 @@ public class Drone
     public Drone(int budget, Direction heading, IslandMap map)
     {
         this.budget = budget;
-        try { map.setOutOfRange(heading.getBack(), 0); }
-        catch (Exception e) {}
+        map.setOutOfRange(heading.getBack(), 0);
         protocol = new Initialisation(map, heading);
     }
 
@@ -48,13 +48,23 @@ public class Drone
      * Le drone fait une action
      * @return la prochaine action du drone
      */
-    public Action doAction() throws InvalidMapException
+    public Action doAction()
     {
-        // si le budget est sous le palier de budget faible, le drone s'arrete
-        if (budget < LOW_BUDGET)
-            return new Stop();
-        // sinon, on effectue la prochaine action du protocole en cours
-        return protocol.nextAction();
+        Action action;
+        try
+        {
+            action = protocol.nextAction();
+            if (budget > LOW_BUDGET)
+                return action;
+            // sinon, on a plus assez de budget pour continuer
+        }
+        catch (InvalidMapException exception)
+        {
+            // on rencontre un problème avec la carte
+        }
+        // le drone a rencontré un problème: la partie s'arrête
+        protocol = new Land();
+        return new Stop();
     }
 
     /**

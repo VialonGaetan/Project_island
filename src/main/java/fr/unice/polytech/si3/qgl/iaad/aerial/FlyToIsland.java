@@ -54,7 +54,7 @@ public class FlyToIsland implements Protocol
         if (sense == null)
             sense = heading;
         heading = target;
-        map.moveDrone(heading);
+        map.moveDrone(target);
         return new Heading(target);
     }
 

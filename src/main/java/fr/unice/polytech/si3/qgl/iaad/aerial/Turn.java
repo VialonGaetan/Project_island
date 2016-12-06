@@ -15,6 +15,8 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 public class Turn implements Protocol
 {
     private Protocol protocol;
+    private IslandMap map;
+    private Direction heading;
     private Direction target;
 
     /**
@@ -25,16 +27,18 @@ public class Turn implements Protocol
     Turn(Protocol protocol, IslandMap map, Direction heading, Direction target) throws InvalidMapException
     {
         this.protocol = protocol;
+        this.map = map;
+        this.heading = heading;
         this.target = target;
-        map.moveDrone(heading);
-        map.moveDrone(target);
     }
 
     /**
      * @return Heading dans la direction voulue
      */
     @Override
-    public Action nextAction() {
+    public Action nextAction() throws InvalidMapException {
+        map.moveDrone(heading);
+        map.moveDrone(target);
         return new Heading(target);
     }
 

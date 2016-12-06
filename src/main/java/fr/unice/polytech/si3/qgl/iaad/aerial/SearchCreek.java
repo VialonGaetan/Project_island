@@ -51,8 +51,9 @@ public class SearchCreek implements Protocol
     private class FlyOnIsland implements Protocol
     {
         @Override
-        public Action nextAction()
+        public Action nextAction() throws InvalidMapException
         {
+            map.moveDrone(direction);
             return new Fly();
         }
 
@@ -84,18 +85,18 @@ public class SearchCreek implements Protocol
         @Override
         public Protocol setResult(AreaResult result) throws InvalidMapException
         {
-            map.addBiomes(Element.valueOf(result.getBiome(0)));
-            /*
-            if (result.nbCreeks() > 0)
-                return new Land(result.getCreeks(0));
-                */
+            if (map.getBiomes(map.getDroneCoordinates()).length > 1) return new Land();
+            for (int i=0; i<result.nbBiomes(); i++)
+                map.addBiomes(Element.valueOf(result.getBiome(i)));
+            for (int i=0; i<result.nbCreeks(); i++)
+                map.addCreeks(result.getCreeks(i));
             if (result.getSites() != null)
-                return new Land();
+                map.addEmergencySite(result.getSites());
+
             if (map.getNumberOfAvailablePoints(direction) < 1 && map.isDirectionFinished(direction))
                 return new Land();
-            if (result.nbBiomes() != 1 || Element.valueOf(result.getBiome(0)) != Element.OCEAN)
+            if (result.nbBiomes() > 1 || Element.valueOf(result.getBiome(0)) != Element.OCEAN)
                 return new FlyOnIsland();
-            direction = direction.getBack();
             return new ReturnToIsland(map, direction, sense);
         }
     }

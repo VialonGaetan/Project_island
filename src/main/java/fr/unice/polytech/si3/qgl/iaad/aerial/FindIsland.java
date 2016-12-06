@@ -91,12 +91,17 @@ public class FindIsland implements Protocol
         @Override
         public Action nextAction() throws InvalidMapException
         {
-            if (map.getNumberOfAvailablePoints(heading) < 2) {
+            map.moveDrone(heading);
+            if (map.getNumberOfAvailablePoints(heading) < 2)
+            {
                 if (map.getNumberOfAvailablePoints(heading.getLeft()) > map.getNumberOfAvailablePoints(heading.getRight()))
+                {
+                    map.moveDrone(heading.getLeft());
                     return new Heading(heading = heading.getLeft());
+                }
+                map.moveDrone(heading.getRight());
                 return new Heading(heading = heading.getRight());
             }
-            map.moveDrone(heading);
             return new Fly();
         }
 

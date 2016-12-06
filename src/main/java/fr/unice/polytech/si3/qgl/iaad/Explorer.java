@@ -31,11 +31,7 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String takeDecision()
     {
-        try {
-            action = drone.doAction();
-        } catch (InvalidMapException exception) {
-            action =  new Stop();
-        }
+        action = drone.doAction();
         decision = action.toJSON();
         return decision;
     }
