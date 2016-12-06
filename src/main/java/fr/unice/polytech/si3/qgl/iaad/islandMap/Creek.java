@@ -87,8 +87,8 @@ public class Creek {
 
     /**
      * Determine quelle creek est la plus proche du site d'urgence
-     *
-     * @return un couple de coordonnées de la creek la plus proche du site d'urgence
+     * Et retourne son ID
+     * @return ID de la creek la plus proche du site d'urgence.
      */
 
     public String[] getClosestID(double xSite, double ySite) throws InvalidMapException {
@@ -111,15 +111,6 @@ public class Creek {
         return map.getCreekIds(point);
     }
 
-    /**
-     * @param x
-     * @param y
-     * @return l'id d'une creek à des coordonnées précises
-     */
-    public String[] getID(int x, int y) throws InvalidMapException {
-        Point point = new Point(x, y);
-        return map.getCreekIds(point);
-    }
 
     /*
     Main d'exemple d'utilisation de Creek et EmergencySite, dans le but de retourner l'id la plus proche pour pouvoir Land.
