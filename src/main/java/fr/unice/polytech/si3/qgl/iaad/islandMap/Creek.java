@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-
+import java.awt.Point;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,110 +12,45 @@ import java.util.List;
 
 public class Creek {
 
-    private List<List<Integer>> creeks;   //Une liste de couple qui contient les coordonnées de toutes les creeks
-    private IslandMap map;
-
+    public List<Point> creeks;
+    public IslandMap map;
+    public Point emSite;
 
     public Creek(IslandMap map) throws InvalidMapException {
-        creeks = new ArrayList<>();
         this.map = map;
-        addAllTheCreeks();
-    } //On verra plus tard pour l'ameliorer en tableau de longueur nombre de creek
-
-    /**
-     * @param x
-     * @param y
-     * @return True if the creek is already known, False if not
-     */
-    public Boolean isKnown(int x, int y) {
-        List<Integer> temp = new ArrayList<>();
-        temp.add(x);
-        temp.add(y);
-        return this.creeks.contains(temp);
+        creeks = new ArrayList<Point>();
     }
 
-    /**
-     * Ajoute manuellement les creeks à la liste, à condition qu'elle ne soit pas déjà connu
-     *
-     * @param x,y
-     */
-    public void addCreek(int x, int y) {
-        if (!isKnown(x, y)) {
-            List<Integer> temp = new ArrayList<Integer>();
-            temp.add(x);
-            temp.add(y);
-            this.creeks.add(temp);
-        }
-    }
-
-    /**
-     * Getter : renvoie la liste des creeks d'une map
-     *
-     * @return la liste des coordonnées des creeks de la map
-     */
-
-    public List<List<Integer>> getCreeks() {
-        return this.creeks;
-    }
-
-    /**
-     * Getter : renvoie une creek à un indice particulier
-     *
-     * @return une couple de coordonnées
-     */
-
-    public List<Integer> getOneCreek(int i) {
-        return this.creeks.get(i);
-    }
-
-    /**
-     * Parcourt la map et lorsqu'il y a une map sur une case, l'ajoute dans la liste des creeks
-     */
-
-    public void addAllTheCreeks() throws InvalidMapException {
-        for (int j = 0; j < this.map.getVerticalDimension(); j++) {
-            for (int i = 0; i < this.map.getHorizontalDimension(); i++)
-                if (this.map.hasElement(new Point(i, j), Element.CREEK)) {
-                    ArrayList<Integer> temp = new ArrayList<>();
-                    temp.add(i);
-                    temp.add(j);
-                    this.creeks.add(temp);
-                }
-        }
-    }
-
-    /**
-     * Determine quelle creek est la plus proche du site d'urgence
-     * Et retourne son ID
-     * @return ID de la creek la plus proche du site d'urgence.
-     */
-
-    public String[] getClosestID() throws InvalidMapException {
-        int xMin = this.creeks.get(0).get(0); //On initialise le xMin
-        int yMin = this.creeks.get(0).get(1); //On initialise le yMin
-        double min;
-        int[] siteCo = new int[2];
-        for (int j=0; j<this.map.getVerticalDimension(); j++)
+    public Point getClosest(IslandMap map) throws InvalidMapException {
+        Double min;
+        Double distance;
+        Point closest;
+        int[] tempClosest = new int[2];
         {
-            for (int i=0; i<this.map.getHorizontalDimension(); i++)
-                if (this.map.hasElement(new Point(j,i), Element.EMERGENCY_SITE)) {
-                    siteCo[0]=i;
-                    siteCo[1]=j;
+            for (int j = 0; j < map.getVerticalDimension(); j++) {
+                for (int i = 0; i < this.map.getHorizontalDimension(); i++) {
+                    if (map.hasElement(new Point(i, j), Element.CREEK)) {
+                        this.creeks.add(new Point(i, j));
+                    }
+                    if (map.hasElement(new Point(i, j), Element.EMERGENCY_SITE)) {
+                        this.emSite = new Point(i, j);
+                    }
                 }
-        }
-        min = Math.pow(Math.abs(Math.pow(xMin - siteCo[0], 2) + Math.pow(yMin - siteCo[1], 2)), 0.5); //On initialise la distance entre le site et la première creek
-        for (int i = 0; i < creeks.size(); i++) {
-            double X = Math.pow(creeks.get(i).get(0) - siteCo[0], 2); //on calcule la norme projetée sur x
-            double Y = Math.pow(creeks.get(i).get(1) - siteCo[1], 2); // projection sur y
-            double temp = Math.abs(X + Y); //valeur absolue au cas où
-            double distance = Math.pow(temp, 0.5); //on calcule la norme 2 (euclidienne)
-            if (distance < min) {
-                min = distance; //Si la distance calculée est plus petite que le dernier MIN en mémoire, on considère cette distance comme le nouveau MIN
-                xMin = creeks.get(i).get(0); //on rempli la liste avec les nouvelles coordonnées du MIN
-                yMin = creeks.get(i).get(1);
             }
+            min = creeks.get(0).distance(emSite);
+            for (int i = 1; i < creeks.size(); i++) {
+                distance = creeks.get(i).distance(emSite);
+                if (distance < min) {
+                    tempClosest[0] = (int) creeks.get(i).getX();
+                    tempClosest[1] = (int) creeks.get(i).getY();
+                }
+            }
+            closest = new Point(tempClosest[0], tempClosest[1]);
+            return closest;
         }
-        Point point = new Point(xMin, yMin);
+    }
+
+    public String[] getClosestID(Point point) throws InvalidMapException {
         return map.getCreekIds(point);
     }
 }

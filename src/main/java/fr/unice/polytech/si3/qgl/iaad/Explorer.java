@@ -58,8 +58,7 @@ public class Explorer implements IExplorerRaid {
     public String deliverFinalReport() {
         try {
             creek = new Creek(islandMap);
-            creek.addAllTheCreeks(); //on ajoute toutes les creek recensées dans la Map dans une liste
-            rapport = "EMERGENCY:"+ islandMap.getEmergencySiteId() + "\nCREEK:" + creek.getClosestID()[0];
+            rapport = "EMERGENCY:"+ islandMap.getEmergencySiteId() + "\nCREEK:" + creek.getClosestID(creek.getClosest(islandMap))[0];
         } catch (InvalidMapException | ArrayIndexOutOfBoundsException e) {
             rapport = "EMERGENCY:"+ islandMap.getEmergencySiteId();
         }
