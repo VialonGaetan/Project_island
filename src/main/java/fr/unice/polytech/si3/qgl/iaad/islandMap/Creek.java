@@ -1,6 +1,9 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
+import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
+import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
+
 import java.awt.Point;
 import java.awt.*;
 import java.util.ArrayList;
@@ -41,6 +44,7 @@ public class Creek {
             for (int i = 1; i < creeks.size(); i++) {
                 distance = creeks.get(i).distance(emSite);
                 if (distance < min) {
+                    min=distance;
                     tempClosest[0] = (int) creeks.get(i).getX();
                     tempClosest[1] = (int) creeks.get(i).getY();
                 }

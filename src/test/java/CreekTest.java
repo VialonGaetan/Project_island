@@ -20,54 +20,41 @@ import static org.junit.Assert.*;
 public class CreekTest {
 
     Creek creek;
-    IslandMap map;
-    Drone drone;
+    IslandMap mymap;
 
     @Before
     public void init() throws InvalidMapException { //initialisation et création de la map
-        this.map = new IslandMap();
-        String idCreek = "JeSuisIdDeCreekLaPlusProche";
-        String idSite = "JeSuisIdDeSite";
-        this.creek = new Creek(map);
-        this.drone = new Drone(10000,Direction.E,map);
-        map.setOutOfRange(Direction.E, 4);
-        map.setOutOfRange(Direction.S, 4);
-        map.moveDrone(Direction.E);
-        map.addCreeks("Creek1");
-        map.moveDrone(Direction.E);
-        map.addCreeks("Creek2");
-        map.moveDrone(Direction.S);
-        map.addCreeks(idCreek);
-        map.moveDrone(Direction.E);
-        map.addEmergencySite(idSite);
-        //System.out.println(map.getEmergencySiteId());
-        //System.out.println(map.getCreekIds(new Point(2,1))[0]);
-       // System.out.println(map.getCreekIds(new Point(2,0))[0]);
-       // System.out.println(map.getCreekIds(new Point(1,0))[0]);
+        this.mymap = new IslandMap();
+        this.creek= new Creek(mymap);
+        mymap.setOutOfRange(Direction.E, 50);
+        mymap.setOutOfRange(Direction.S, 50);
+        mymap.moveDrone(Direction.E);
+        mymap.moveDrone(Direction.E);
+        mymap.moveDrone(Direction.S);
+        mymap.addCreeks("creek21");
+        mymap.moveDrone(Direction.E);
+        mymap.moveDrone(Direction.E);
+        mymap.moveDrone(Direction.S);
+        mymap.addCreeks("creek42");
+        mymap.moveDrone(Direction.E);
+        mymap.moveDrone(Direction.E);
+        mymap.moveDrone(Direction.S);
+        mymap.addCreeks("creek63");
+        mymap.moveDrone(Direction.E);
+        mymap.moveDrone(Direction.E);
+        mymap.moveDrone(Direction.S);
+        mymap.addCreeks("creek84");
+        mymap.addEmergencySite("site");
+        mymap.moveDrone(Direction.E);
+        mymap.moveDrone(Direction.E);
+        mymap.moveDrone(Direction.S);
+        mymap.addCreeks("creek105");
     }
 
     @Test
-    public void mapWellCreatedTest()
-    {
-        assertEquals(map.getVerticalDimension(),5);
-        assertEquals(map.getHorizontalDimension(),5);
-    }
-    @Test
-    public void getClosestTest() throws InvalidMapException {
-        assertEquals(creek.getClosest(map), new Point(2,1));
-    }
-
-    @Test
-    public void egaliteMethodeTest() throws InvalidMapException {
-        //assertEquals(new Point(2,1),creek.getClosest(map));
-        //assertEquals(map.getCreekIds(new Point(2,1))[0],map.getCreekIds(creek.getClosest(map))[0]);
-        assertEquals(creek.getClosestID(new Point(2,1)).toString(),creek.getClosestID(creek.getClosest(map)).toString());
-    }
-    @Test
-    public void getClosestIDTest() throws InvalidMapException {
-        System.out.println(creek.getClosestID(new Point(2,1)));
-        System.out.println(creek.getClosestID(creek.getClosest(map)));
-        assertEquals(creek.getClosestID(creek.getClosest(map)),"JeSuisIdDeCreekLaPlusProche");
+    public void aTest() throws InvalidMapException {
+        assertEquals(new Point(8, 4), creek.getClosest(mymap));
+        assertEquals("creek84", creek.getClosestID(creek.getClosest(mymap)));
     }
 
 }

@@ -3,6 +3,7 @@ import fr.unice.polytech.si3.qgl.iaad.Explorer;
 import fr.unice.polytech.si3.qgl.iaad.result.Results;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 
 /**
@@ -23,6 +24,4 @@ public class ExplorerTest {
     public void LastActions() {
 
     }
-
-
 }
