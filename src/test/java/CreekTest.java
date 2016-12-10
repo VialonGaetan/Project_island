@@ -54,7 +54,7 @@ public class CreekTest {
     }
     @Test
     public void getClosestTest() throws InvalidMapException {
-        assertEquals(creek.getClosest(map), new Point(1,0));
+        assertEquals(creek.getClosest(map), new Point(2,1));
     }
 
     @Test
@@ -65,8 +65,8 @@ public class CreekTest {
     }
     @Test
     public void getClosestIDTest() throws InvalidMapException {
-     //   System.out.println(creek.getClosestID(new Point(2,1)));
-       // System.out.println(creek.getClosestID(creek.getClosest(map)));
+        System.out.println(creek.getClosestID(new Point(2,1)));
+        System.out.println(creek.getClosestID(creek.getClosest(map)));
         assertEquals(creek.getClosestID(creek.getClosest(map)),"JeSuisIdDeCreekLaPlusProche");
     }
 
