@@ -31,7 +31,7 @@ public class Creek {
         int[] tempClosest = new int[2];
         {
             for (int j = 0; j < map.getVerticalDimension(); j++) {
-                for (int i = 0; i < this.map.getHorizontalDimension(); i++) {
+                for (int i = 0; i < map.getHorizontalDimension(); i++) {
                     if (map.hasElement(new Point(i, j), Element.CREEK)) {
                         this.creeks.add(new Point(i, j));
                     }
@@ -40,16 +40,18 @@ public class Creek {
                     }
                 }
             }
+            int size = creeks.size();
+            if (size == 0)
+                return null;
             min = creeks.get(0).distance(emSite);
-            for (int i = 1; i < creeks.size(); i++) {
+            closest = creeks.get(0);
+            for (int i = 1; i < size; i++) {
                 distance = creeks.get(i).distance(emSite);
                 if (distance < min) {
+                    closest = creeks.get(i);
                     min=distance;
-                    tempClosest[0] = (int) creeks.get(i).getX();
-                    tempClosest[1] = (int) creeks.get(i).getY();
                 }
             }
-            closest = new Point(tempClosest[0], tempClosest[1]);
             return closest;
         }
     }
