@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/*
  * Created by romain on 13/11/16.
  */
 
@@ -36,7 +36,7 @@ public class IslandMap
     /**
      * Emergency site id
      */
-    private String emergencySiteId="";
+    private String emergencySiteId;
 
     /**
      * Saves what dimensions are finished in the map
@@ -55,12 +55,12 @@ public class IslandMap
         bodyMap = new DynamicMatrix();
         drone = new Point();
         dimensionFinished = new boolean[4];
-        emergencySiteId = new String();
+        emergencySiteId = "";
     }
 
     /**
      * Informs if the point at coordinates(x, y) exists in the map
-     * @param point
+     * @param point, any coordinates
      * @return boolean type : true if the point exist, false otherwise
      */
     public boolean pointExist(Point point) { return bodyMap.pointExist(point.y, point.x); }
@@ -71,7 +71,6 @@ public class IslandMap
      * Updates elements coordinates
      * Updates the drone coordinates
      * @param direction, numberOfPoints
-     * @throws InvalidMapException, DirectionException
      */
     private void addPoints(Direction direction, int numberOfPoints)
     {
@@ -104,9 +103,8 @@ public class IslandMap
 
     /**
      * new Fly(direction) in the map
-     * @param direction
-     * @return boolean type, true if the drone is still in the map and false it it left the map
-     * @throws InvalidMapException
+     * @param direction, the direction where the drone has to move
+     * @throws InvalidMapException, if the drone moves on a point that does not exist
      */
     public void moveDrone(Direction direction) throws InvalidMapException
     {
@@ -131,7 +129,7 @@ public class IslandMap
 
     /**
      * Informs if this direction is finished
-     * @param direction
+     * @param direction, the direction to test
      * @return boolean type : true if the direction is finished, false otherwise
      */
     public boolean isDirectionFinished(Direction direction) { return dimensionFinished[direction.ordinal()]; }
@@ -141,7 +139,8 @@ public class IslandMap
      * Changes dimensions of the map
      * Updates elements coordinates
      * Updates the drone coordinates
-     * @param direction, numberOfPoints
+     * @param direction, Direction type
+     * @param numberOfPoints, Integer type
      */
     public void setOutOfRange(Direction direction, int numberOfPoints)
     {
@@ -177,8 +176,8 @@ public class IslandMap
      * Updates elements coordinates
      * Updates the drone coordinates
      * Adds Element.GROUND at numberOfPoints+1 compared to the drone location
-     * @param direction, numberOfPoints
-     * @throws InvalidMapException, DirectionException
+     * @param direction, direction to set ground
+     * @param numberOfPoints, number of points to add to map
      */
     public void setGround(Direction direction, int numberOfPoints)
     {
@@ -213,7 +212,7 @@ public class IslandMap
 
     /**
      * Returns the number of available points in this direction compared to the drone location
-     * @param direction
+     * @param direction, direction to test
      * @return integer type
      */
     public int getNumberOfAvailablePoints(Direction direction)
@@ -253,12 +252,13 @@ public class IslandMap
 
     /**
      * Adds elements at this point
-     * @param elements, point
-     * @throws InvalidMapException
+     * @param elements, String type, it can be biomes or creek ids
+     * @param point, point to add elements
+     * @throws InvalidMapException, if the point does not exist
      */
     private void addElements(Point point, String... elements) throws InvalidMapException
     {
-        String elementsInString=new String();
+        String elementsInString="";
 
         if(!pointExist(point)) throw new InvalidMapException();
         if(bodyMap.get(point.y, point.x).length()>0) elementsInString="__";
@@ -271,7 +271,7 @@ public class IslandMap
 
     /**
      * Adds biomes at this point
-     * @param biomes
+     * @param biomes, elements from the enum
      * @throws InvalidMapException, DirectionException, ElementException
      */
     public void addBiomes(Element... biomes) throws InvalidMapException
@@ -284,8 +284,9 @@ public class IslandMap
 
     /**
      * Adds a point of interest at this point
-     * @param pointInterest, ids
-     * @throws InvalidMapException, DirectionException, ElementException
+     * @param pointInterest, element type
+     * @param ids, several strings
+     * @throws InvalidMapException, if drone position is not correct
      */
     private void addPointInterests(Element pointInterest, String... ids) throws InvalidMapException
     {
@@ -295,15 +296,15 @@ public class IslandMap
 
     /**
      * Adds a creek at this point (the user has just to enter the id of the creek (or more if there are several creeks))
-     * @param ids
-     * @throws InvalidMapException, DirectionException, ElementException
+     * @param ids, several strings
+     * @throws InvalidMapException, if drone position is not correct
      */
     public void addCreeks(String... ids) throws InvalidMapException { addPointInterests(Element.CREEK, ids); }
 
     /**
      * Adds the emergency site at this point (the user has just to enter the id of the emergency site)
-     * @param id
-     * @throws InvalidMapException, DirectionException, ElementException
+     * @param id, String type
+     * @throws InvalidMapException, if drone position is not correct
      */
     public void addEmergencySite(String id) throws InvalidMapException
     {
@@ -319,9 +320,9 @@ public class IslandMap
 
     /**
      * get all the creek ids collected at this point
-     * @param point
+     * @param point, Point type
      * @return String[] type
-     * @throws InvalidMapException
+     * @throws InvalidMapException, if drone position is not correct
      */
     public String[] getCreekIds(Point point) throws InvalidMapException
     {
@@ -342,9 +343,9 @@ public class IslandMap
 
     /**
      * get all the biomes collected at this point
-     * @param point
+     * @param point, Point type
      * @return Element[] type
-     * @throws InvalidMapException
+     * @throws InvalidMapException, if drone position is not correct
      */
     public Element[] getBiomes(Point point) throws InvalidMapException
     {
@@ -371,9 +372,10 @@ public class IslandMap
 
     /**
      * Deletes all the biomes occurrences at this point
-     * @param point, element
+     * @param point, Point type
+     * @param element, Element type
      * @return boolean type, true if the biome has been deleted and false otherwise
-     * @throws InvalidMapException
+     * @throws InvalidMapException, if drone position is not correct
      */
     public boolean deleteBiome(Point point, Element element) throws InvalidMapException
     {
@@ -384,7 +386,7 @@ public class IslandMap
 
         if(biomes.contains(element.toString()))
         {
-            String toDelete=new String();
+            String toDelete="";
 
             if(biomes.contains(element.toString()+"__")) toDelete=element.toString()+"__";
             else if(biomes.contains("__"+element.toString())) toDelete="__"+element.toString();
@@ -399,9 +401,10 @@ public class IslandMap
 
     /**
      * Returns if there is this element at this point
-     * @param point, element
+     * @param point, Point type
+     * @param element, Element type
      * @return boolean type, true if there is the element, false otherwise
-     * @throws InvalidMapException
+     * @throws InvalidMapException, if the point does not exist
      */
     public boolean hasElement(Point point, Element element) throws InvalidMapException
     {
@@ -411,9 +414,9 @@ public class IslandMap
 
     /**
      * Returns the number of element occurrences
-     * @param element
+     * @param element, Element type
      * @return integer type
-     * @throws InvalidMapException
+     * @throws InvalidMapException, if the point does not exist
      */
     public int getNumberOfbiomes(Element element) throws InvalidMapException
     {
@@ -429,7 +432,7 @@ public class IslandMap
     }
 
     /**
-     * prints the current map
+     * prints the current map to debug
      */
     public void printStatement() throws InvalidMapException
     {
@@ -444,6 +447,4 @@ public class IslandMap
             System.out.println("]");
         } System.out.println();
     }
-
-
 }
