@@ -184,17 +184,6 @@ public class IslandMapTest
             assertFalse(map.hasElement(new Point(), element));
     }
 
-    // TODO: 24/11/2016
-    /**
-     * Lorsque l'on veut placer un élément Ground au dela des limites de la carte, rien ne se passe
-     */
-    @Test
-    public void AddPointsExceptionOnGroundTest() throws InvalidMapException
-    {
-        map.setOutOfRange(Direction.E, 10);
-        map.setGround(Direction.E, 20);
-    }
-
     /**
      * Renvoie true si la carte a une dimension finie dans la direction choisie i.e ne peut plus être agrandie dans cette direction
      * Sinon, renvoie false
