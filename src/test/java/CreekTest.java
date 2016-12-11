@@ -1,18 +1,13 @@
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Creek;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import org.junit.Before;
-import fr.unice.polytech.si3.qgl.iaad.result.*;
 import org.junit.Test;
-
-import static fr.unice.polytech.si3.qgl.iaad.Direction.N;
-import static org.junit.Assert.*;
 
 import java.awt.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Théo on 07/12/2016.

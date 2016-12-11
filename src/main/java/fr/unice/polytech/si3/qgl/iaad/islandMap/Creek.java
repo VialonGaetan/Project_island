@@ -1,10 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
-import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 
-import java.awt.Point;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;

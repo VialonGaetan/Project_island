@@ -2,7 +2,10 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.*;
+import fr.unice.polytech.si3.qgl.iaad.actions.Action;
+import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
+import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
+import fr.unice.polytech.si3.qgl.iaad.actions.Heading;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;

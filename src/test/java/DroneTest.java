@@ -3,11 +3,7 @@ import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
-import org.junit.Before;
-import fr.unice.polytech.si3.qgl.iaad.result.*;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * @author Théo

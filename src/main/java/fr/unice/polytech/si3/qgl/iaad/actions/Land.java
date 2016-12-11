@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.actions;
 
-import fr.unice.polytech.si3.qgl.iaad.result.*;
+import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
+import fr.unice.polytech.si3.qgl.iaad.result.LandResult;
 import org.json.JSONObject;
 
 /**
