@@ -1,85 +1,155 @@
-/*import eu.ace_design.island.map.IslandMap;
+import java.awt.*;
+import static org.junit.Assert.*;
+
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
-
-import static org.junit.Assert.*;
-
-/**
+/*
  * @author Alexandre Clement
  *         Created the 24/11/2016.
- *//*
-public class IslandMapTest {
+ */
 
+public class IslandMapTest
+{
     private IslandMap map;
 
     @Before
-    public void before()
-    {
-        map = new IslandMap();
-    }
+    public void before() { map = new IslandMap(); }
 
     @Test
-    public void IslandMapConstructorTest()
+    public void IslandMapConstructorTest() throws InvalidMapException
     {
+        assertEquals(1, map.getVerticalDimension());
+        assertEquals(1, map.getHorizontalDimension());
         assertEquals(new Point(0,0), map.getDroneCoordinates());
-        assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
-        assertEquals(0, map.getNumberOfAvailablePoints(Direction.E));
-        assertEquals(0, map.getNumberOfAvailablePoints(Direction.S));
-        assertEquals(0, map.getNumberOfAvailablePoints(Direction.W));
+        assertEquals(true, map.pointExist(new Point(0,0)));
+
+        for(Direction direction:Direction.values())
+        {
+            assertEquals(0, map.getNumberOfAvailablePoints(direction));
+            assertEquals(false, map.isDirectionFinished(direction));
+        }
+
+        assertEquals(false, map.isFinished());
+        assertEquals("", map.getEmergencySiteId());
+
+        for(Element element:Element.values())
+            assertEquals(false, map.hasElement(new Point(0,0), element));
+
+        assertEquals(1, map.getCreekIds(new Point(0,0)).length);
     }
 
     /**
      * On agrandie la carte pour ajouter un élément Ground
-     *//*
+     */
     @Test
-    public void GroundTest() throws InvalidMapException {
+    public void GroundTest()
+    {
         map.setGround(Direction.E, 10);
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
         assertEquals(11, map.getNumberOfAvailablePoints(Direction.E));
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.S));
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.W));
-    }
 
-    @Test
-    public void OutOfRangeTest() throws InvalidMapException {
-        map.setOutOfRange(Direction.E, 10);
+        map.setGround(Direction.E, 11);
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
-        assertEquals(10, map.getNumberOfAvailablePoints(Direction.E));
+        assertEquals(12, map.getNumberOfAvailablePoints(Direction.E));
+        assertEquals(0, map.getNumberOfAvailablePoints(Direction.S));
+        assertEquals(0, map.getNumberOfAvailablePoints(Direction.W));
+
+        map.setGround(Direction.E, 0);
+        assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
+        assertEquals(12, map.getNumberOfAvailablePoints(Direction.E));
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.S));
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.W));
     }
 
-    /**
-     * On bouge puis on ajoute une limite de taille à la carte dans la direction donnée
-     * Puis on bouge encore et on vérifie le nombre de cases disponible avant les limites de carte
-     *//*
     @Test
-    public void MoveThenOutOfRangeTest() throws InvalidMapException {
-        for (int i=0; i<10; i++)
-            map.moveDrone(Direction.E);
+    public void OutOfRangeTest()
+    {
         map.setOutOfRange(Direction.E, 10);
+
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
         assertEquals(10, map.getNumberOfAvailablePoints(Direction.E));
         assertEquals(0, map.getNumberOfAvailablePoints(Direction.S));
+        assertEquals(0, map.getNumberOfAvailablePoints(Direction.W));
+
+        map.setOutOfRange(Direction.E, 10);
+
+        assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.E));
+        assertEquals(0, map.getNumberOfAvailablePoints(Direction.S));
+        assertEquals(0, map.getNumberOfAvailablePoints(Direction.W));
+
+        map.setOutOfRange(Direction.N, 10);
+
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.N));
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.E));
+        assertEquals(0, map.getNumberOfAvailablePoints(Direction.S));
+        assertEquals(0, map.getNumberOfAvailablePoints(Direction.W));
+
+        map.setOutOfRange(Direction.N, 10);
+
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.N));
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.E));
+        assertEquals(0, map.getNumberOfAvailablePoints(Direction.S));
+        assertEquals(0, map.getNumberOfAvailablePoints(Direction.W));
+
+        map.setOutOfRange(Direction.S, 10);
+
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.N));
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.E));
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.S));
+        assertEquals(0, map.getNumberOfAvailablePoints(Direction.W));
+
+        map.setOutOfRange(Direction.S, 10);
+
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.N));
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.E));
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.S));
+        assertEquals(0, map.getNumberOfAvailablePoints(Direction.W));
+
+        map.setOutOfRange(Direction.W, 10);
+
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.N));
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.E));
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.S));
         assertEquals(10, map.getNumberOfAvailablePoints(Direction.W));
 
-        for (int i=0; i<5; i++)
-            map.moveDrone(Direction.E);
-        assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
-        assertEquals(5, map.getNumberOfAvailablePoints(Direction.E));
-        assertEquals(0, map.getNumberOfAvailablePoints(Direction.S));
-        assertEquals(15, map.getNumberOfAvailablePoints(Direction.W));
+        map.setOutOfRange(Direction.W, 10);
+
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.N));
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.E));
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.S));
+        assertEquals(10, map.getNumberOfAvailablePoints(Direction.W));
+    }
+
+    /**
+     * le drone essaie de sortir de la carte
+     */
+    @Test (expected = InvalidMapException.class)
+    public void MoveThenOutOfRangeTest() throws InvalidMapException { map.moveDrone(Direction.E); }
+
+    @Test
+    public void MoveTest() throws InvalidMapException
+    {
+        for(Direction direction:Direction.values())
+        {
+            map.setOutOfRange(direction, 10);
+            assertEquals(10, map.getNumberOfAvailablePoints(direction));
+            map.moveDrone(direction);
+            assertEquals(9, map.getNumberOfAvailablePoints(direction));
+        }
     }
 
     /**
      * On peut ajoutée un élément Ground puis un élément Out of range sans problème
-     *//*
+     */
     @Test
     public void FoundTest() throws InvalidMapException {
         map.setGround(Direction.E, 10);
@@ -96,114 +166,42 @@ public class IslandMapTest {
 
     /**
      * Renvoie true si l'élément est présent à la position choisie, false sinon
-     *//*
+     */
     @Test
-    public void hasElementTest()
+    public void hasBiomeTest() throws InvalidMapException
     {
+        for(Element element:Element.values())
+            map.addBiomes(element);
 
-        map.addElements(Element.GROUND);
-        assertTrue(map.hasElement(0, 0, Element.GROUND));
-
+        for(Element element:Element.values())
+            assertTrue(map.hasElement(new Point(), element));
     }
 
-            // TODO: 24/11/2016
-            /**
-             * On place un élément
-             *//*
     @Test
-    public void setElementTest()
+    public void hasNoBiomeTest() throws InvalidMapException
     {
-
-        map.addElements(Element.GROUND);
-        assertTrue(map.hasElement(0, 0, Element.GROUND));
-
-            }
-
-            // TODO: 24/11/2016
-            /**
-             * On place plusieurs éléments
-             *//*
-    @Test
-    public void setMultipleElementsTest()
-    {
-        map.addElements(Element.GROUND);
-        map.addElements(Element.BEACH);
-        map.addElements(Element.CREEK);
-        assertFalse(map.hasElement(0, 0, Element.GROUND));
-        assertFalse(map.hasElement(0, 0, Element.BEACH));
-        assertTrue(map.hasElement(0, 0, Element.CREEK));
-        assertFalse(map.hasElement(0, 0, Element.WOOD));
-
-            }
-
-
-/**
- * On récupère l'élément à la position choisie
- *//*
-    @Test
-    public void getElementTest()
-    {
-        map.setGround(Direction.E, 10);
-        assertEquals(Element.UNKNOWN, map.getElement(5, 0));
-        assertEquals(Element.GROUND, map.getElement(11, 0));
-    }
-
-    /*
-     * On déplace le drone de une case dans la direction donnée
-     *//*
-    @Test
-    public void moveDroneTest() throws InvalidMapException {
-        map.moveDrone(Direction.E);
-        assertEquals(new Point(1, 0), map.getDroneCoordinates());
-        map.moveDrone(Direction.S);
-        assertEquals(new Point(1, 1), map.getDroneCoordinates());
-        map.moveDrone(Direction.W);
-        assertEquals(new Point(0, 1), map.getDroneCoordinates());
-        map.moveDrone(Direction.N);
-        assertEquals(new Point(0, 0), map.getDroneCoordinates());
-    }
-
-
-    /**
-     * Rien n'empeche de bouger le drône hors de la range
-     * future improvement : empecher cela
-     *//*
-    @Test
-    public void moveDroneOutOfRange() throws InvalidMapException {
-        map.setOutOfRange(Direction.E, 3);
-        for (int i=0; i<4; i++)
-            map.moveDrone(Direction.E);
+        for(Element element:Element.values())
+            assertFalse(map.hasElement(new Point(), element));
     }
 
     // TODO: 24/11/2016
     /**
-     * Lorsque l'on veut placer un élément Ground au dela des limites de la carte, retourne une erreur
-     *//*
+     * Lorsque l'on veut placer un élément Ground au dela des limites de la carte, rien ne se passe
+     */
     @Test
-    public void AddPointsExceptionOnGroundTest() throws InvalidMapException {
+    public void AddPointsExceptionOnGroundTest() throws InvalidMapException
+    {
         map.setOutOfRange(Direction.E, 10);
         map.setGround(Direction.E, 20);
-    }
-
-    // TODO: 24/11/2016
-    /**
-     * Lorsque l'on veut placer un élément au dela des limites de la carte, retourne une erreur
-     *//*
-    @Test
-    public void AddPointsExceptionOnElementTest() throws InvalidMapException {
-        map.setOutOfRange(Direction.E, 3);
-        for (int i=0; i<4; i++)
-            map.moveDrone(Direction.E);
-        assertEquals(new Point(4, 0), map.getDroneCoordinates());
-        map.addElements(Element.BEACH);
     }
 
     /**
      * Renvoie true si la carte a une dimension finie dans la direction choisie i.e ne peut plus être agrandie dans cette direction
      * Sinon, renvoie false
-     *//*
+     */
     @Test
-    public void isDirectionFinished() throws InvalidMapException {
+    public void isDirectionFinished() throws InvalidMapException
+    {
         map.setOutOfRange(Direction.E, 10);
         map.setOutOfRange(Direction.N, 0);
         assertTrue(map.isDirectionFinished(Direction.N));
@@ -221,9 +219,10 @@ public class IslandMapTest {
 
     /**
      * Renvoie true si la carte a des dimensions finies dans toutes les directions, false sinon
-     *//*
+     */
     @Test
-    public void isFinished() throws InvalidMapException {
+    public void isFinished() throws InvalidMapException
+    {
         map.setOutOfRange(Direction.E, 10);
         map.setOutOfRange(Direction.N, 0);
         assertFalse(map.isFinished());
@@ -235,23 +234,24 @@ public class IslandMapTest {
 
     /**
      * On peut addElement plusieurs fois une direction sans retourner d'erreur si les valeurs coincide*
-     *//*
+     */
     @Test
-    public void setOutOfRangeExceptionTest() throws InvalidMapException {
+    public void setOutOfRangeExceptionTest() throws InvalidMapException
+    {
         map.setOutOfRange(Direction.E, 1);
         map.setOutOfRange(Direction.E, 1);
         assertEquals(1, map.getNumberOfAvailablePoints(Direction.E));
     }
 
 /**
- * On peut sortir de la carte mais ajouter des éléments à l'intérieur sans problème
- *//*
+ * on peut faire setOutOfRange et setGround du moment que c'est en position autorisée
+ */
     @Test
-    public void weirdTest() throws InvalidMapException {
+    public void weirdTest() throws InvalidMapException
+    {
         map.setOutOfRange(Direction.E, 1);
         map.setOutOfRange(Direction.W, 1);
         map.moveDrone(Direction.E);
-        map.moveDrone(Direction.E);
-        map.setGround(Direction.W, 2);
+        map.setGround(Direction.W, 1);
     }
-}*/
+}
