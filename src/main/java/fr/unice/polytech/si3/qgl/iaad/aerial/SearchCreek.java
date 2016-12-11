@@ -24,6 +24,10 @@ public class SearchCreek implements Protocol
     /**
      * @param direction l'orientation du drone
      * @param sense le sens dans lequel on parcours l'île
+     *              (On balaye l'île de bout en bout en suivant en sens de parcours,
+     *              puis, lorsque le drone atteint la limite de l'île,
+     *              le drone fait demi-tour en inversant le sens de parcours
+     *              Après un aller-retour, l'île a été entièrement parcourue par le drone)
      */
     SearchCreek(IslandMap map, Direction direction, Direction sense)
     {
