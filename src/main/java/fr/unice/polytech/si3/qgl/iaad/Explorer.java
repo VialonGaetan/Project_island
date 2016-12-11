@@ -9,6 +9,7 @@ import fr.unice.polytech.si3.qgl.iaad.init.Context;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Creek;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import org.json.JSONObject;
+
 public class Explorer implements IExplorerRaid {
     private int budget;
     private IslandMap islandMap;
@@ -37,8 +38,6 @@ public class Explorer implements IExplorerRaid {
      */
     @Override
     public void acknowledgeResults(String s) {
-        if (action instanceof Stop)
-            throw new RuntimeException(deliverFinalReport());
         try {
             drone.getResult(((Area)action).getResults(s));
         } catch (InvalidMapException exception) {
