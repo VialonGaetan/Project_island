@@ -31,10 +31,20 @@ Cause : Compilation problem
 
 ### Week 48
 
-Expected :
+Expected :  Find the emergency site and the closest creek
+Results : Failure
+Cause : Error in a Test
+
+### Week 49
+
+Expected : Find the emergency site and the closest creek
+Results : OK
+
+## Week 50
+
+Expected : Land on the island and start to explore it
 Results :
 Cause :
-
 
 
     

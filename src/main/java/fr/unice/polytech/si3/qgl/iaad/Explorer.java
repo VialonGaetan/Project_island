@@ -57,4 +57,5 @@ public class Explorer implements IExplorerRaid {
         }
         return rapport;
     }
+
 }
