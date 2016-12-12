@@ -16,11 +16,22 @@ public class Creek {
     public IslandMap map;
     public Point emSite;
 
+    /**
+     * Constructor of the creeks
+     * @param map
+     * @throws InvalidMapException
+     */
     public Creek(IslandMap map) throws InvalidMapException {
         this.map = map;
         creeks = new ArrayList<Point>();
     }
 
+    /**
+     * Retourne un point correspondant à la creek la plus proche de l'emergency Site
+     * @param map
+     * @return Point
+     * @throws InvalidMapException
+     */
     public Point getClosest(IslandMap map) throws InvalidMapException {
         Double min;
         Double distance;
@@ -53,6 +64,12 @@ public class Creek {
         }
     }
 
+    /**
+     * Return the id of the closest creek
+     * @param point
+     * @return String
+     * @throws InvalidMapException
+     */
     public String getClosestID(Point point) throws InvalidMapException {
         return map.getCreekIds(point)[0];
     }
