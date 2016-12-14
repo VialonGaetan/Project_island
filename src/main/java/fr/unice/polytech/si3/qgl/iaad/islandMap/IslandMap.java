@@ -193,19 +193,19 @@ public class IslandMap
         {
             case N:
                 try { addElements(new Point(drone.x, drone.y-numberOfPoints), ground); }
-                catch (InvalidMapException e) { e.printStackTrace(); }
+                catch (InvalidMapException e) { }
                 break;
             case S:
                 try { addElements(new Point(drone.x, drone.y+numberOfPoints), ground); }
-                catch (InvalidMapException e) { e.printStackTrace(); }
+                catch (InvalidMapException e) { }
                 break;
             case E:
                 try { addElements(new Point(drone.x+numberOfPoints, drone.y), ground); }
-                catch (InvalidMapException e) { e.printStackTrace(); }
+                catch (InvalidMapException e) { }
                 break;
             case W:
                 try { addElements(new Point(drone.x-numberOfPoints, drone.y), ground); }
-                catch (InvalidMapException e) { e.printStackTrace(); }
+                catch (InvalidMapException e) { }
                 break;
         }
     }
@@ -418,7 +418,7 @@ public class IslandMap
      * @return integer type
      * @throws InvalidMapException, if the point does not exist
      */
-    public int getNumberOfbiomes(Element element) throws InvalidMapException
+    public int getNumberOfBiomes(Element element) throws InvalidMapException
     {
         int count=0;
 
