@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.awt.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Created by Théo on 07/12/2016.
@@ -51,5 +52,17 @@ public class CreekTest {
         assertEquals(new Point(8, 4), creek.getClosest(mymap));
         assertEquals("creek84", creek.getClosestID(creek.getClosest(mymap)));
     }
+
+    @Test
+    public void numberOfCreekTest() throws InvalidMapException {
+        IslandMap map = new IslandMap();
+        Creek c = new Creek(map);
+        map.setOutOfRange(Direction.E, 50);
+        map.setOutOfRange(Direction.S, 50);
+        map.moveDrone(Direction.E);
+        map.addEmergencySite("site");
+        assertEquals(c.getClosest(map),null);
+    }
+
 
 }

@@ -73,6 +73,4 @@ public class Creek {
     public String getClosestID(Point point) throws InvalidMapException {
         return map.getCreekIds(point)[0];
     }
-
-
 }
