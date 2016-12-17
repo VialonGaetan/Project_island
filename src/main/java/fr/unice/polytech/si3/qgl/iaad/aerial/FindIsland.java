@@ -13,7 +13,7 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 /**
  * @author Alexandre Clement
  *         Created the 27/11/2016.
- * Cherche l'île si on ne la trouve pas lors de l'Initialisation
+ *         Cherche l'île si on ne la trouve pas lors de l'Initialisation
  */
 public class FindIsland implements Protocol
 {
@@ -66,6 +66,7 @@ public class FindIsland implements Protocol
         /**
          * Fait un echo de chaque coté
          * Si c'est déjà fait, renvoie le protocole FlyToTheLimit
+         *
          * @param result le résultat de l'action effectué
          * @return le nouveau protocole en vigueur
          */
@@ -75,7 +76,7 @@ public class FindIsland implements Protocol
             if (Element.valueOf(result.getFound()) == Element.GROUND)
             {
                 map.setGround(direction, result.getRange());
-                return new FlyToIsland(map, heading, direction, sense, result.getRange());
+                return new FlyToIsland(map, heading, direction, sense, result.getRange() - 1);
             }
             if (map.getNumberOfAvailablePoints(direction.getBack()) > 0 && direction != heading.getRight())
                 return new EchoToFindIsland(direction.getBack());
@@ -119,7 +120,7 @@ public class FindIsland implements Protocol
                 return new EchoToFindIsland(heading.getLeft());
             if (map.getNumberOfAvailablePoints(heading.getRight()) > 0)
                 return new EchoToFindIsland(heading.getRight());
-            return new Land();
+            return new StopAerial();
         }
     }
 }

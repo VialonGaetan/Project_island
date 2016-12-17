@@ -11,7 +11,7 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 /**
  * @author Alexandre Clement
  *         Created the 27/11/2016.
- * Initialise les dimensions de la map
+ *         Initialise les dimensions de la map
  */
 public class Initialisation implements Protocol
 {
@@ -67,6 +67,7 @@ public class Initialisation implements Protocol
          * Si on trouve l'île, on lance le protocole FlyToIsland
          * Sinon, on exécute ce protocole dans une autre direction
          * Si un ECHO a été fait dans chaque direction, on lance le protocol FindIsland
+         *
          * @param result le résultat de l'action précédente
          * @return Le nouveau protocole a utilisé
          */
@@ -76,7 +77,7 @@ public class Initialisation implements Protocol
             if (Element.valueOf(result.getFound()) == Element.GROUND)
             {
                 map.setGround(direction, result.getRange());
-                return new FlyToIsland(map, heading, direction, sense, result.getRange());
+                return new FlyToIsland(map, heading, direction, sense, result.getRange() - 1);
             }
             if (!map.isDirectionFinished(direction))
                 map.setOutOfRange(direction, result.getRange());

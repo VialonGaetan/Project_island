@@ -1,4 +1,3 @@
-
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
@@ -7,20 +6,24 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
+import fr.unice.polytech.si3.qgl.iaad.result.Results;
 
 /**
  * @author Alexandre Clement
  *         Created the 20/11/2016.
- *
- * Le drone doit trouver la crique la plus proche du site d'urgence
+ *         <p>
+ *         Le drone doit trouver la crique la plus proche du site d'urgence
  */
 public class Drone
 {
     /**
+     * Définit si on cherche le site d'urgence
+     */
+    static final boolean SEARCH_EMERGENCY_SITE = false;
+    /**
      * Palier de budget faible
      */
     private static final int LOW_BUDGET = 200;
-
     /**
      * Budget disponible
      */
@@ -33,9 +36,10 @@ public class Drone
 
     /**
      * Initialise le drone
-     * @param budget budget available
+     *
+     * @param budget  budget available
      * @param heading heading of the drone
-     * @param map current map
+     * @param map     current map
      */
     public Drone(int budget, Direction heading, IslandMap map)
     {
@@ -46,6 +50,7 @@ public class Drone
 
     /**
      * Le drone fait une action
+     *
      * @return la prochaine action du drone
      */
     public Action doAction()
@@ -63,19 +68,21 @@ public class Drone
             // on rencontre un problème avec la carte
         }
         // le drone a rencontré un problème: la partie s'arrête
-        protocol = new Land();
+        protocol = new StopAerial();
         return new Stop();
     }
 
     /**
      * Renouvelle le protocole en fonction du résultat de l'action précédente
+     *
      * @param results le résultat de l'action précédente
      */
-    public void getResult(AreaResult results) throws InvalidMapException
+    public void getResult(Results results) throws InvalidMapException
     {
+        AreaResult areaResult = (AreaResult) results;
         if (budget < LOW_BUDGET)
             return;
-        budget -= results.getCost();
-        protocol = protocol.setResult(results);
+        budget -= areaResult.getCost();
+        protocol = protocol.setResult(areaResult);
     }
 }

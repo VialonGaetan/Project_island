@@ -12,7 +12,7 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 /**
  * @author Alexandre Clement
  *         Created the 27/11/2016.
- * Retourne sur l'île
+ *         Retourne sur l'île
  */
 public class ReturnToIsland implements Protocol
 {
@@ -21,7 +21,6 @@ public class ReturnToIsland implements Protocol
     private IslandMap map;
 
     /**
-     * todo improve this behaviour
      * On tourne dans le sens de parcours puis on reprend à Initialisation
      *
      * @param direction orientation du drone
@@ -31,10 +30,11 @@ public class ReturnToIsland implements Protocol
     {
         this.map = map;
         /*
-        On vérifie qu'il n'y a pas un océan interne devant le drone (i.e il y a encore GROUND devant)
-        On vérifie qu'il n'y a pas de GROUND sur le coté du sens de parcours de l'ile
-        On fait demi-tour
-        On relance le protocole d'initialisation
+        On met en file 5 protocoles:
+            On vérifie qu'il n'y a pas un océan interne devant le drone (i.e il y a encore GROUND devant)
+            On vérifie qu'il n'y a pas de GROUND sur le coté du sens de parcours de l'ile
+            On fait demi-tour
+            On relance le protocole d'initialisation
          */
         protocol = new Initialisation(map, direction.getBack(), sense);
         protocol = new Turn(protocol, map, sense, direction.getBack());
@@ -84,7 +84,7 @@ public class ReturnToIsland implements Protocol
         /**
          * @param result le résultat de l'action effectué
          * @return FlyToIsland si il y a GROUND devant le drone
-         *         Le Protocol exit sinon
+         * Le Protocol exit sinon
          */
         @Override
         public Protocol setResult(AreaResult result) throws InvalidMapException
@@ -105,9 +105,9 @@ public class ReturnToIsland implements Protocol
         private Direction sense;
 
         /**
-         * @param exit le protocole de sortie
+         * @param exit    le protocole de sortie
          * @param heading l'orientation du drone
-         * @param sense le sens de parcours de l'île par le drone
+         * @param sense   le sens de parcours de l'île par le drone
          */
         private CheckGroundOnSenseSide(Protocol exit, Direction heading, Direction sense)
         {
@@ -128,17 +128,17 @@ public class ReturnToIsland implements Protocol
         /**
          * @param result le résultat de l'action effectué
          * @return Le protocole exit si il n'y a pas de GROUND sur le coté sense du drone
-         *         FlyOnIslandSide sinon
+         * FlyOnIslandSide sinon
          */
         @Override
         public Protocol setResult(AreaResult result) throws InvalidMapException
         {
             if (Element.valueOf(result.getFound()) != Element.GROUND || result.getRange() > 1)
                 return exit;
-            else if(!map.isDirectionFinished(heading))
+            else if (!map.isDirectionFinished(heading))
                 map.setOutOfRange(heading, result.getRange());
             if (map.getNumberOfAvailablePoints(heading) < 1)
-                return new Land();
+                return new StopAerial();
             return new FlyOnIslandSide(this, heading);
         }
     }
@@ -152,7 +152,7 @@ public class ReturnToIsland implements Protocol
         private Direction direction;
 
         /**
-         * @param exit le protocole de sortie
+         * @param exit      le protocole de sortie
          * @param direction l'orientation du drone
          */
         private FlyOnIslandSide(Protocol exit, Direction direction)

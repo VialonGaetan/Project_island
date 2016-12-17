@@ -1,14 +1,28 @@
 package fr.unice.polytech.si3.qgl.iaad;
 
+import java.awt.*;
+
 /**
  * Created on 14/11/2016.
  * @author Gaetan VIALON
  */
 public enum Direction {
-    N,
-    E,
-    S,
-    W;
+    N(new Point(0, -1)),
+    E(new Point(1, 0)),
+    S(new Point(0, 1)),
+    W(new Point(-1, 0));
+
+    private Point vecteur;
+
+    Direction(Point vecteur)
+    {
+        this.vecteur = vecteur;
+    }
+
+    public Point getVecteur()
+    {
+        return vecteur;
+    }
 
     public Direction getRight()
     {

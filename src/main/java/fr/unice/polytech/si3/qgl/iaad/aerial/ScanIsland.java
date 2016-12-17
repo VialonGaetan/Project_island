@@ -12,9 +12,9 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 /**
  * @author Alexandre Clement
  *         Created the 27/11/2016.
- * Parcours l'île pour trouver une crique
+ *         Parcours l'île pour trouver une crique
  */
-public class SearchCreek implements Protocol
+public class ScanIsland implements Protocol
 {
     private IslandMap map;
     private Direction direction;
@@ -23,13 +23,13 @@ public class SearchCreek implements Protocol
 
     /**
      * @param direction l'orientation du drone
-     * @param sense le sens dans lequel on parcours l'île
-     *              (On balaye l'île de bout en bout en suivant en sens de parcours,
-     *              puis, lorsque le drone atteint la limite de l'île,
-     *              le drone fait demi-tour en inversant le sens de parcours
-     *              Après un aller-retour, l'île a été entièrement parcourue par le drone)
+     * @param sense     le sens dans lequel on parcours l'île
+     *                  (On balaye l'île de bout en bout en suivant en sens de parcours,
+     *                  puis, lorsque le drone atteint la limite de l'île,
+     *                  le drone fait demi-tour en inversant le sens de parcours
+     *                  Après un aller-retour, l'île a été entièrement parcourue par le drone)
      */
-    SearchCreek(IslandMap map, Direction direction, Direction sense)
+    ScanIsland(IslandMap map, Direction direction, Direction sense)
     {
         this.map = map;
         this.direction = direction;
@@ -81,26 +81,37 @@ public class SearchCreek implements Protocol
 
         /**
          * On ajoute les éléments trouver à la map
+         *
          * @param result le résultat de l'action effectué
          * @return Land si on trouve une crique
-         *         FlyOnIsland si on est toujours sur l'île
-         *         ReturnToIsland sinon pour revenir sur l'île
+         * FlyOnIsland si on est toujours sur l'île
+         * ReturnToIsland sinon pour revenir sur l'île
          */
         @Override
         public Protocol setResult(AreaResult result) throws InvalidMapException
         {
-            if (map.getBiomes(map.getDroneCoordinates()).length > 1) return new Land();
-            for (int i=0; i<result.nbBiomes(); i++)
+            // Si on est déjà passer sur cette tuile
+            if (map.getBiomes(map.getDroneCoordinates()).length > 1) return new StopAerial();
+            // Sinon, on ajoute les biomes
+            for (int i = 0; i < result.nbBiomes(); i++)
                 map.addBiomes(Element.valueOf(result.getBiome(i)));
-            for (int i=0; i<result.nbCreeks(); i++)
+            // On ajoute les criques
+            for (int i = 0; i < result.nbCreeks(); i++)
                 map.addCreeks(result.getCreeks(i));
+            // On ajout le site d'urgence
             if (result.getSites() != null)
                 map.addEmergencySite(result.getSites());
 
+            // Si on est en limite de carte, on arrête la partie
             if (map.getNumberOfAvailablePoints(direction) < 1 && map.isDirectionFinished(direction))
-                return new Land();
+                return new StopAerial();
+
+            // Si la tuile contient un autre biome que le biome OCEAN, on continue de parcourir l'île
             if (result.nbBiomes() > 1 || Element.valueOf(result.getBiome(0)) != Element.OCEAN)
                 return new FlyOnIsland();
+            // Sinon, la tuile ne contient que le biome OCEAN
+            // Alors on est en dehors de l'île
+            // On lance le protocole ReturnToIsland pour y revenir
             return new ReturnToIsland(map, direction, sense);
         }
     }

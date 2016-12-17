@@ -12,7 +12,7 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 /**
  * @author Alexandre Clement
  *         Created the 27/11/2016.
- * Fly jusqu'à l'île
+ *         Fly jusqu'à l'île
  */
 public class FlyToIsland implements Protocol
 {
@@ -24,8 +24,8 @@ public class FlyToIsland implements Protocol
 
     /**
      * @param heading l'orientation du drone
-     * @param target la direction vers laquelle se trouve l'île
-     * @param range la distance a parcourir pour atteindre l'île
+     * @param target  la direction vers laquelle se trouve l'île
+     * @param range   la distance a parcourir pour atteindre l'île
      */
     FlyToIsland(IslandMap map, Direction heading, Direction target, Direction sense, int range)
     {
@@ -38,7 +38,7 @@ public class FlyToIsland implements Protocol
 
     /**
      * @return Heading si le drone n'est pas dans la bonne direction
-     *         sinon Fly
+     * sinon Fly
      */
     @Override
     public Action nextAction() throws InvalidMapException
@@ -60,8 +60,8 @@ public class FlyToIsland implements Protocol
 
     /**
      * @param result le résultat de l'action effectué
-     * @return SearchCreek si on a atteint l'île
-     *         FlyToIsland sinon
+     * @return ScanIsland si on a atteint l'île
+     * FlyToIsland sinon
      */
     @Override
     public Protocol setResult(AreaResult result) throws InvalidMapException
@@ -71,11 +71,13 @@ public class FlyToIsland implements Protocol
         if (range > 0)
             return this;
         if (sense == heading)
-            return new Turn(new SearchCreek(map, heading.getRight(), sense), map, heading, heading.getRight());
+            return new Turn(new ScanIsland(map, heading.getRight(), sense), map, heading, heading.getRight());
         if (sense.getBack() == heading)
-            return new Turn(new SearchCreek(map, heading.getRight(), sense.getBack()), map, heading, heading.getRight());
+            return new Turn(new ScanIsland(map, heading.getRight(), sense.getBack()), map, heading, heading.getRight());
         if (range == 0)
             return this;
-        return new SearchCreek(map, heading, sense);
+        if (Drone.SEARCH_EMERGENCY_SITE)
+            return new ScanIsland(map, heading, sense);
+        return new ScanBeach(map, heading, sense);
     }
 }
