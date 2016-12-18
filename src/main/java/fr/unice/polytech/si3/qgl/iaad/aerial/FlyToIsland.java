@@ -12,14 +12,30 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 /**
  * @author Alexandre Clement
  *         Created the 27/11/2016.
- *         Fly jusqu'à l'île
+ *         <p>
+ *         Vol jusqu'à l'île
  */
-public class FlyToIsland implements Protocol
+class FlyToIsland implements Protocol
 {
+    /**
+     * La carte utilisée
+     */
     private IslandMap map;
+    /**
+     * L'orientation du drone
+     */
     private Direction heading;
+    /**
+     * Direction vers laquelle se trouve l'île
+     */
     private Direction target;
+    /**
+     * Conservation du sens de parcours de la carte pour l'exploration de l'île
+     */
     private Direction sense;
+    /**
+     * la distance séparant le drone et l'île
+     */
     private int range;
 
     /**

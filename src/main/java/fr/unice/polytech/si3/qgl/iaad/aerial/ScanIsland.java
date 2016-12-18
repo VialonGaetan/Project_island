@@ -12,22 +12,36 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 /**
  * @author Alexandre Clement
  *         Created the 27/11/2016.
+ *         <p>
  *         Parcours l'île pour trouver une crique
  */
-public class ScanIsland implements Protocol
+class ScanIsland implements Protocol
 {
+    /**
+     * La carte utilisée
+     */
     private IslandMap map;
+    /**
+     * L'orientation du drone
+     */
     private Direction direction;
-    private Direction sense;
+    /**
+     * Le sous-protocole en cours d'utilisation
+     */
     private Protocol protocol;
+    /**
+     * Le sens de parcours de l'île
+     * <p>
+     * On balaye l'île de bout en bout en suivant un sens de parcours,
+     * puis, lorsque le drone atteint la limite de l'île,
+     * le drone fait demi-tour en inversant le sens de parcours
+     * Après un aller-retour, l'île a été entièrement parcourue par le drone
+     */
+    private Direction sense;
 
     /**
      * @param direction l'orientation du drone
      * @param sense     le sens dans lequel on parcours l'île
-     *                  (On balaye l'île de bout en bout en suivant en sens de parcours,
-     *                  puis, lorsque le drone atteint la limite de l'île,
-     *                  le drone fait demi-tour en inversant le sens de parcours
-     *                  Après un aller-retour, l'île a été entièrement parcourue par le drone)
      */
     ScanIsland(IslandMap map, Direction direction, Direction sense)
     {
@@ -69,7 +83,7 @@ public class ScanIsland implements Protocol
     }
 
     /**
-     * On Scan pour trouver une crique
+     * On Scan pour trouver le site d'urgence et les criques présentent sur l'île
      */
     private class ScanToFindCreek implements Protocol
     {

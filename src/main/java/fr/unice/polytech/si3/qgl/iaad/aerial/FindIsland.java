@@ -13,17 +13,32 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 /**
  * @author Alexandre Clement
  *         Created the 27/11/2016.
+ *         <p>
  *         Cherche l'île si on ne la trouve pas lors de l'Initialisation
  */
-public class FindIsland implements Protocol
+class FindIsland implements Protocol
 {
+    /**
+     * La carte utilisée
+     */
     private IslandMap map;
+    /**
+     * L'orientation du drone
+     */
     private Direction heading;
+    /**
+     * Le sous-protocole en cours d'utilisation
+     */
     private Protocol protocol;
+    /**
+     * Conservation du sens de parcours de la carte pour l'exploration de l'île
+     */
     private Direction sense;
 
     /**
+     * @param map     la carte actuelle
      * @param heading l'orientation du drone
+     * @param sense   le sens de parcours
      */
     FindIsland(IslandMap map, Direction heading, Direction sense)
     {

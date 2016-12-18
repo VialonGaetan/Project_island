@@ -12,16 +12,22 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 /**
  * @author Alexandre Clement
  *         Created the 27/11/2016.
+ *         <p>
  *         Retourne sur l'île
  */
-public class ReturnToIsland implements Protocol
+class ReturnToIsland implements Protocol
 {
-
-    private Protocol protocol;
+    /**
+     * La carte utilisée
+     */
     private IslandMap map;
+    /**
+     * Le sous-protocole en cours d'utilisation
+     */
+    private Protocol protocol;
 
     /**
-     * On tourne dans le sens de parcours puis on reprend à Initialisation
+     * On tourne dans le sens de parcours puis on relance une Initialisation en conservant l'actuelle sens de parcours
      *
      * @param direction orientation du drone
      * @param sense     sens de parcours de l'île
@@ -30,7 +36,7 @@ public class ReturnToIsland implements Protocol
     {
         this.map = map;
         /*
-        On met en file 5 protocoles:
+        On met en file 5 sous-protocoles:
             On vérifie qu'il n'y a pas un océan interne devant le drone (i.e il y a encore GROUND devant)
             On vérifie qu'il n'y a pas de GROUND sur le coté du sens de parcours de l'ile
             On fait demi-tour
@@ -61,10 +67,24 @@ public class ReturnToIsland implements Protocol
      */
     private class CheckInnerOcean implements Protocol
     {
+        /**
+         * Le protocole a faire après avoir exécuté celui-ci
+         */
         private Protocol exit;
+        /**
+         * L'orientation du drone
+         */
         private Direction heading;
+        /**
+         * Le sens de parcours de l'île
+         */
         private Direction sense;
 
+        /**
+         * @param exit    le protocole a faire après avoir exécuté celui-ci
+         * @param heading l'orientation du drone
+         * @param sense   le sens de parcours de l'île
+         */
         private CheckInnerOcean(Protocol exit, Direction heading, Direction sense)
         {
             this.exit = exit;
@@ -100,8 +120,17 @@ public class ReturnToIsland implements Protocol
      */
     private class CheckGroundOnSenseSide implements Protocol
     {
+        /**
+         * Le protocole a faire après avoir exécuté celui-ci
+         */
         private Protocol exit;
+        /**
+         * L'orientation du drone
+         */
         private Direction heading;
+        /**
+         * Le sens de parcours de l'île
+         */
         private Direction sense;
 
         /**
@@ -145,10 +174,18 @@ public class ReturnToIsland implements Protocol
 
     /**
      * Le Drone longe les côtes de l'île
+     * <p>
+     * Empêche de faire demi-tour dans le milieu d'une côte
      */
     private class FlyOnIslandSide implements Protocol
     {
+        /**
+         * Le protocole a faire après avoir exécuté celui-ci
+         */
         private Protocol exit;
+        /**
+         * L'orientation du drone
+         */
         private Direction direction;
 
         /**

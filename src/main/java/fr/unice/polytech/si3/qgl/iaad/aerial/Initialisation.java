@@ -11,15 +11,34 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 /**
  * @author Alexandre Clement
  *         Created the 27/11/2016.
+ *         <p>
  *         Initialise les dimensions de la map
  */
-public class Initialisation implements Protocol
+class Initialisation implements Protocol
 {
-    private Direction heading;
-    private Protocol protocol;
-    private Direction sense;
+    /**
+     * La carte utilisée
+     */
     private IslandMap map;
+    /**
+     * L'orientation du drone
+     */
+    private Direction heading;
+    /**
+     * Le sous-protocole en cours d'utilisation
+     */
+    private Protocol protocol;
+    /**
+     * Conservation du sens de parcours de la carte pour l'exploration de l'île
+     */
+    private Direction sense;
 
+    /**
+     * Initialise le drone dans la carte
+     *
+     * @param map     la carte utilisée par le drone
+     * @param heading l'orientation du drone
+     */
     Initialisation(IslandMap map, Direction heading)
     {
         this.map = map;
@@ -27,6 +46,13 @@ public class Initialisation implements Protocol
         protocol = new EchoToFindLimit(heading);
     }
 
+    /**
+     * Re-initialise le drone avec conservation du précédent sens de parcours de la carte
+     *
+     * @param map     la carte utilisée par le drone
+     * @param heading l'orientation du drone
+     * @param sense   le sens de parcours de la carte si on a déjà parcourus la carte
+     */
     Initialisation(IslandMap map, Direction heading, Direction sense)
     {
         this(map, heading);
@@ -46,12 +72,15 @@ public class Initialisation implements Protocol
     }
 
     /**
-     * Fait un echo dans la direction donnée
+     * Fait un ECHO dans la direction donnée
      */
     private class EchoToFindLimit implements Protocol
     {
         private Direction direction;
 
+        /**
+         * @param direction la direction selon laquelle on veut faire un ECHO
+         */
         private EchoToFindLimit(Direction direction)
         {
             this.direction = direction;

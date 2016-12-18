@@ -11,13 +11,26 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 /**
  * @author Alexandre Clement
  *         Created the 29/11/2016.
+ *         <p>
  *         Tourne le drone
  */
-public class Turn implements Protocol
+class Turn implements Protocol
 {
-    private Protocol protocol;
+    /**
+     * La carte utilisée
+     */
     private IslandMap map;
+    /**
+     * L'orientation du drone
+     */
     private Direction heading;
+    /**
+     * Le sous-protocole en cours d'utilisation
+     */
+    private Protocol protocol;
+    /**
+     * L'orientation voulue du drone
+     */
     private Direction target;
 
     /**

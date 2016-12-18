@@ -8,7 +8,7 @@ import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
  * @author Alexandre Clement
  *         Created the 27/11/2016.
  */
-public interface Protocol
+interface Protocol
 {
     /**
      * @return l'action a effectué
