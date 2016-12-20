@@ -3,10 +3,10 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
+import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Heading;
 import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 
 /**
  * @author Alexandre Clement
@@ -64,7 +64,7 @@ class Turn implements Protocol
      * @return le protocol donnée
      */
     @Override
-    public Protocol setResult(AreaResult result)
+    public Protocol setResult(Area result)
     {
         return protocol;
     }

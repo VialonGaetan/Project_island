@@ -3,10 +3,9 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
+import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
-import fr.unice.polytech.si3.qgl.iaad.result.Results;
 
 /**
  * @author Alexandre Clement
@@ -77,9 +76,9 @@ public class Drone
      *
      * @param results le résultat de l'action précédente
      */
-    public void getResult(Results results) throws InvalidMapException
+    public void getResult(Area results) throws InvalidMapException
     {
-        AreaResult areaResult = (AreaResult) results;
+        Area areaResult = (Area) results;
         if (budget < LOW_BUDGET)
             return;
         budget -= areaResult.getCost();

@@ -3,11 +3,11 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
+import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
 import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 
 /**
  * @author Alexandre Clement
@@ -56,7 +56,7 @@ class ReturnToIsland implements Protocol
     }
 
     @Override
-    public Protocol setResult(AreaResult result) throws InvalidMapException
+    public Protocol setResult(Area result) throws InvalidMapException
     {
         return protocol = protocol.setResult(result);
     }
@@ -107,7 +107,7 @@ class ReturnToIsland implements Protocol
          * Le Protocol exit sinon
          */
         @Override
-        public Protocol setResult(AreaResult result) throws InvalidMapException
+        public Protocol setResult(Area result) throws InvalidMapException
         {
             if (Element.valueOf(result.getFound()) == Element.GROUND)
                 return new FlyToIsland(map, heading, heading, sense, result.getRange());
@@ -160,7 +160,7 @@ class ReturnToIsland implements Protocol
          * FlyOnIslandSide sinon
          */
         @Override
-        public Protocol setResult(AreaResult result) throws InvalidMapException
+        public Protocol setResult(Area result) throws InvalidMapException
         {
             if (Element.valueOf(result.getFound()) != Element.GROUND || result.getRange() > 1)
                 return exit;
@@ -213,7 +213,7 @@ class ReturnToIsland implements Protocol
          * @return le protocole de sortie
          */
         @Override
-        public Protocol setResult(AreaResult result) throws InvalidMapException
+        public Protocol setResult(Area result) throws InvalidMapException
         {
             return exit;
         }

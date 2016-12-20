@@ -2,13 +2,9 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
-import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
-import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
-import fr.unice.polytech.si3.qgl.iaad.actions.Heading;
+import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 
 /**
  * @author Alexandre Clement
@@ -55,7 +51,7 @@ class FindIsland implements Protocol
     }
 
     @Override
-    public Protocol setResult(AreaResult result) throws InvalidMapException
+    public Protocol setResult(Area result) throws InvalidMapException
     {
         return protocol = protocol.setResult(result);
     }
@@ -86,7 +82,7 @@ class FindIsland implements Protocol
          * @return le nouveau protocole en vigueur
          */
         @Override
-        public Protocol setResult(AreaResult result) throws InvalidMapException
+        public Protocol setResult(Area result) throws InvalidMapException
         {
             if (Element.valueOf(result.getFound()) == Element.GROUND)
             {
@@ -129,7 +125,7 @@ class FindIsland implements Protocol
          * @return EchoToFindIsland dans une direction de dimension non nulle
          */
         @Override
-        public Protocol setResult(AreaResult result)
+        public Protocol setResult(Area result)
         {
             if (map.getNumberOfAvailablePoints(heading.getLeft()) > 0)
                 return new EchoToFindIsland(heading.getLeft());

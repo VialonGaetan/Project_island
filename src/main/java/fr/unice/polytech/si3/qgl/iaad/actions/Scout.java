@@ -20,4 +20,28 @@ public class Scout extends Ground {
     public String toJSON() {
         return new JSONObject().put("action" , ArgActions.SCOUT.getName()).put("parameters", new JSONObject().put("direction", direction.toString())).toString();
     }
+
+    @Override
+    public int nbResources(){ return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.RESOURCES.getName()).length();}
+
+    @Override
+    public String getResource(int n){
+        try{
+            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.RESOURCES.getName()).getString(n);
+        }
+        catch (RuntimeException e){
+            return null;
+        }
+    }
+
+    @Override
+    public int getAltitude(){
+        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getInt(ArgResult.ALTITUDE.getName());
+    }
+
+    @Override
+    public Ground putResults(String result) {
+        this.result = result;
+        return this;
+    }
 }

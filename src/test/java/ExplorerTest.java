@@ -1,6 +1,5 @@
 import fr.unice.polytech.si3.qgl.iaad.Explorer;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
-import fr.unice.polytech.si3.qgl.iaad.result.Results;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +10,6 @@ import org.junit.Test;
 public class ExplorerTest {
 
     private Action action;
-    private Results resultsAction;
     private Explorer explorer;
 
     @Before

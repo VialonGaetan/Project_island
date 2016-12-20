@@ -2,12 +2,8 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
-import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
-import fr.unice.polytech.si3.qgl.iaad.actions.Heading;
-import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
+import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 
 /**
  * @author Alexandre Clement
@@ -80,7 +76,7 @@ class FlyToIsland implements Protocol
      * FlyToIsland sinon
      */
     @Override
-    public Protocol setResult(AreaResult result) throws InvalidMapException
+    public Protocol setResult(Area result) throws InvalidMapException
     {
         if (sense == null)
             sense = heading.getRight();

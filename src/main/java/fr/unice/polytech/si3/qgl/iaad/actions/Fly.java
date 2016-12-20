@@ -1,7 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.actions;
 
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
-import fr.unice.polytech.si3.qgl.iaad.result.FlyResult;
 import org.json.JSONObject;
 
 /**
@@ -28,7 +26,8 @@ public class Fly extends Area{
      * @return FlyResult
      */
     @Override
-    public AreaResult getResults(String result) {
-        return new FlyResult(result);
+    public Area putResults(String result) {
+        this.result = result;
+        return this;
     }
 }

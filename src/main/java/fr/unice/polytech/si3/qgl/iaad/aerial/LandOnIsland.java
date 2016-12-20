@@ -2,9 +2,9 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
+import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Land;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 
 import java.awt.*;
 
@@ -52,7 +52,7 @@ class LandOnIsland implements Protocol
      * @return l'initialisation de la phase terrestre
      */
     @Override
-    public Protocol setResult(AreaResult result)
+    public Protocol setResult(Area result)
     {
         // Passage en phase terrestre
         return new StopAerial();

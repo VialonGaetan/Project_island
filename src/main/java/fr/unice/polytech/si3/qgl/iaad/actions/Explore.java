@@ -18,4 +18,10 @@ public class Explore extends Ground {
     public String toJSON() {
         return new JSONObject().put("action" , ArgActions.EXPLORE.getName()).toString();
     }
+
+    @Override
+    public Ground putResults(String result) {
+        this.result = result;
+        return this;
+    }
 }

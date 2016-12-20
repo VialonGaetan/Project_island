@@ -1,8 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.actions;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
-import fr.unice.polytech.si3.qgl.iaad.result.HeadingResult;
 import org.json.JSONObject;
 
 /**
@@ -30,7 +28,8 @@ public class Heading extends Area{
      * @return HeadingResult
      */
     @Override
-    public AreaResult getResults(String result) {
-        return new HeadingResult(result);
+    public Area putResults(String result) {
+        this.result = result;
+        return this;
     }
 }

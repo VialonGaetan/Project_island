@@ -2,7 +2,7 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
+import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 
 /**
  * @author Alexandre Clement
@@ -19,5 +19,5 @@ interface Protocol
      * @param result le résultat de l'action effectué
      * @return le nouveau protocole en vigueur
      */
-    Protocol setResult(AreaResult result) throws InvalidMapException;
+    Protocol setResult(Area result) throws InvalidMapException;
 }

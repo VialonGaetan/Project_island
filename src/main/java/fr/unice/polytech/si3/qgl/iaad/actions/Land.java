@@ -1,7 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.actions;
 
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
-import fr.unice.polytech.si3.qgl.iaad.result.LandResult;
 import org.json.JSONObject;
 
 /**
@@ -29,7 +27,8 @@ public class Land extends Area {
      * @return LandResult
      */
     @Override
-    public AreaResult getResults(String result) {
-        return new LandResult(result);
+    public Area putResults(String result) {
+        this.result = result;
+        return this;
     }
 }

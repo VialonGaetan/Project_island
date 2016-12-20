@@ -3,11 +3,11 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
+import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
 import fr.unice.polytech.si3.qgl.iaad.actions.Scan;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 
 /**
  * @author Alexandre Clement
@@ -58,7 +58,7 @@ class ScanIsland implements Protocol
     }
 
     @Override
-    public Protocol setResult(AreaResult result) throws InvalidMapException
+    public Protocol setResult(Area result) throws InvalidMapException
     {
         return protocol = protocol.setResult(result);
     }
@@ -76,7 +76,7 @@ class ScanIsland implements Protocol
         }
 
         @Override
-        public Protocol setResult(AreaResult result)
+        public Protocol setResult(Area result)
         {
             return new ScanToFindCreek();
         }
@@ -102,7 +102,7 @@ class ScanIsland implements Protocol
          * ReturnToIsland sinon pour revenir sur l'île
          */
         @Override
-        public Protocol setResult(AreaResult result) throws InvalidMapException
+        public Protocol setResult(Area result) throws InvalidMapException
         {
             // Si on est déjà passer sur cette tuile
             if (map.getBiomes(map.getDroneCoordinates()).length > 1) return new StopAerial();

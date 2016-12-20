@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad.result;
+package fr.unice.polytech.si3.qgl.iaad.actions;
 
 /**
  * @author Gaetan Vialon
@@ -14,7 +14,15 @@ public enum ArgResult {
     SITES("sites"),
     FOUND("found"),
     ALTITUDE("altitude"),
-    RESOURCES("resources");
+    RESOURCES("resources"),
+    RESOURCE("resource"),
+    ASKED_RANGE("asked_range"),
+    REPORT("report"),
+    AMOUNT("amount"),
+    COND("found"),
+    POIS("pois"),
+    PRODUCTION("production"),
+    KIND("kind");
 
     private String name;
 

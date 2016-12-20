@@ -1,8 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.actions;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
-import fr.unice.polytech.si3.qgl.iaad.result.EchoResult;
 import org.json.JSONObject;
 
 /**
@@ -14,7 +12,7 @@ public class Echo extends Area {
 
     public Echo(Direction direction) {
         this.direction = direction;
-        results = new EchoResult();
+        //results = new EchoResult();
     }
 
     /**
@@ -32,7 +30,26 @@ public class Echo extends Area {
      * @return EchoResult
      */
     @Override
-    public AreaResult getResults(String result) {
-        return new EchoResult(result);
+    public Area putResults(String result) {
+        this.result = result;
+        return this;
+    }
+
+    /**
+     * Permet de recuperer la reponse d'un echo
+     * @return out_of_bounds or ground
+     */
+    @Override
+    public String getFound(){
+        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getString(ArgResult.FOUND.getName());
+    }
+
+    /**
+     * Permet de recuperer la distance d'un echo
+     * @return range
+     */
+    @Override
+    public int getRange(){
+        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getInt(ArgResult.RANGE.getName());
     }
 }

@@ -1,14 +1,14 @@
 package fr.unice.polytech.si3.qgl.iaad.actions;
 
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
-import fr.unice.polytech.si3.qgl.iaad.result.StopResult;
 import org.json.JSONObject;
 
 /**
  * @author Gaetan Vialon
  * Created the 15/11/2016.
  */
-public class Stop extends Area {
+public class Stop extends Area{
+
+    private String result;
 
     public Stop() {}
 
@@ -26,8 +26,18 @@ public class Stop extends Area {
      * @param result de l'explorer
      * @return FlyResult
      */
+    public Area putResults(String result) {
+        this.result = result;
+        return this;
+    }
+
     @Override
-    public AreaResult getResults(String result) {
-        return new StopResult(result);
+    public int getCost() {
+        return new JSONObject(result).getInt(ArgResult.COST.getName());
+    }
+
+    @Override
+    public String getStatus() {
+        return new JSONObject(result).getString(ArgResult.STATUS.getName());
     }
 }

@@ -1,3 +1,5 @@
+package areaPhase;
+
 /**
  * @author Théo
  */

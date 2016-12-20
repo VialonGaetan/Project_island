@@ -3,10 +3,10 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
+import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 
 /**
  * @author Alexandre Clement
@@ -66,7 +66,7 @@ class Initialisation implements Protocol
     }
 
     @Override
-    public Protocol setResult(AreaResult result) throws InvalidMapException
+    public Protocol setResult(Area result) throws InvalidMapException
     {
         return protocol = protocol.setResult(result);
     }
@@ -101,7 +101,7 @@ class Initialisation implements Protocol
          * @return Le nouveau protocole a utilisé
          */
         @Override
-        public Protocol setResult(AreaResult result) throws InvalidMapException
+        public Protocol setResult(Area result) throws InvalidMapException
         {
             if (Element.valueOf(result.getFound()) == Element.GROUND)
             {

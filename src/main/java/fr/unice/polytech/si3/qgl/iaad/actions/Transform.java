@@ -23,4 +23,21 @@ public class Transform extends Ground{
     public String toJSON() {
         return new JSONObject().put("action" , ArgActions.TRANSFORM.getName()).put("parameters", new JSONObject().put(resource.getName(), nbResource).put(resource1.getName(), nbResource1)).toString();
     }
+
+    @Override
+    public Ground putResults(String result) {
+        this.result = result;
+        return this;
+    }
+
+    @Override
+    public String getKind(){
+        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getString(ArgResult.KIND.getName());
+    }
+
+
+    @Override
+    public int getProduction(){
+        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getInt(ArgResult.PRODUCTION.getName());
+    }
 }

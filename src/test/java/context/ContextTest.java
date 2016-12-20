@@ -1,3 +1,5 @@
+package context;
+
 import fr.unice.polytech.si3.qgl.iaad.init.Context;
 import org.json.JSONObject;
 import org.junit.Before;

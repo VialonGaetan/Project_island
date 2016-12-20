@@ -20,4 +20,10 @@ public class Move_to extends Ground {
     public String toJSON() {
         return new JSONObject().put("action" , ArgActions.MOVE_TO.getName()).put("parameters", new JSONObject().put("direction", direction.toString())).toString();
     }
+
+    @Override
+    public Ground putResults(String result) {
+        this.result = result;
+        return this;
+    }
 }

@@ -2,13 +2,9 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
-import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
-import fr.unice.polytech.si3.qgl.iaad.actions.Scan;
-import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
+import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.result.AreaResult;
 
 import java.awt.*;
 
@@ -60,7 +56,7 @@ class ScanBeach implements Protocol
     }
 
     @Override
-    public Protocol setResult(AreaResult result) throws InvalidMapException
+    public Protocol setResult(Area result) throws InvalidMapException
     {
         return protocol = protocol.setResult(result);
     }
@@ -126,7 +122,7 @@ class ScanBeach implements Protocol
          * @return On reprend le protocole ScanBeach
          */
         @Override
-        public Protocol setResult(AreaResult result)
+        public Protocol setResult(Area result)
         {
             return new ScanBeach(map, heading, sense);
         }
@@ -155,7 +151,7 @@ class ScanBeach implements Protocol
          * Sinon, turn pour revenir vers les côtes
          */
         @Override
-        public Protocol setResult(AreaResult result) throws InvalidMapException
+        public Protocol setResult(Area result) throws InvalidMapException
         {
             // on ajoute les biomes à la carte
             for (int i = 0; i < result.nbBiomes(); i++)

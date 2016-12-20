@@ -22,4 +22,10 @@ public class Glimpse extends Ground{
         return new JSONObject().put("action" , ArgActions.GLIMPSE.getName()).put("parameters", new JSONObject().put("direction", direction.toString()).put("range", range)).toString();
     }
 
+    @Override
+    public Ground putResults(String result) {
+        this.result = result;
+        return this;
+    }
+
 }
