@@ -31,5 +31,5 @@ public enum Element
     SUB_TROPICAL_DESERT,
     GROUND,
     CREEK,
-    EMERGENCY_SITE;
+    EMERGENCY_SITE
 }

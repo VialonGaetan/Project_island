@@ -50,12 +50,36 @@ public class IslandMap
      * Sets all dimensions as not finished
      * The emergency id is a new String()
      */
-    public IslandMap()
+    public IslandMap() { this(new DynamicMatrix(), new Point(), new boolean[4], ""); }
+
+    private IslandMap(DynamicMatrix bodyMap, Point drone, boolean[] dimensionFinished, String emergencySiteId)
     {
-        bodyMap = new DynamicMatrix();
-        drone = new Point();
-        dimensionFinished = new boolean[4];
-        emergencySiteId = "";
+        this.bodyMap = bodyMap;
+        this.drone = drone;
+        this.dimensionFinished = dimensionFinished;
+        this.emergencySiteId = emergencySiteId;
+    }
+
+    /**
+     * Converts the aerial map in land map
+     */
+    public void zoom()
+    {
+        IslandMap oldMap = new IslandMap(bodyMap, drone, dimensionFinished, emergencySiteId);
+
+        bodyMap = new DynamicMatrix(oldMap.bodyMap.getNumberOfLines()*3, oldMap.bodyMap.getNumberOfColumns()*3);
+        drone = new Point(oldMap.drone.x*3, oldMap.drone.y*3);
+
+        try
+        {
+            for(int x=0, x_oldMap=0; x<getHorizontalDimension(); x+=3, x_oldMap++)
+                for(int y=0, y_oldMap=0; y<getVerticalDimension(); y+=3, y_oldMap++)
+                    for(int x_bloc=0; x_bloc<3; x_bloc++)
+                        for(int y_bloc=0; y_bloc<3; y_bloc++)
+                            bodyMap.setElement(y+y_bloc, x+x_bloc, oldMap.bodyMap.get(y_oldMap, x_oldMap));
+        }
+
+        catch(Exception exception) { }
     }
 
     /**

@@ -32,7 +32,7 @@ class DynamicMatrix
      * @param numberOfLines, Integer type
      * @param numberOfColumns, Integer type
      */
-    private DynamicMatrix(int numberOfLines, int numberOfColumns)
+    DynamicMatrix(int numberOfLines, int numberOfColumns)
     {
         this.numberOfLines =numberOfLines;
         this.numberOfColumns=numberOfColumns;
