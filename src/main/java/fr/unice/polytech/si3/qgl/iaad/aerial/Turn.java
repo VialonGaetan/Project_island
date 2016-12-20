@@ -54,8 +54,8 @@ class Turn implements Protocol
     {
         if (map.getNumberOfAvailablePoints(heading) < 1 || map.getNumberOfAvailablePoints(target) < 1)
             return new Stop();
-        map.moveDrone(heading);
-        map.moveDrone(target);
+        map.moveLocation(heading);
+        map.moveLocation(target);
         return new Heading(target);
     }
 

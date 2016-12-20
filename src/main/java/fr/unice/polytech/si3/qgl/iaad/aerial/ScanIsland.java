@@ -71,7 +71,7 @@ class ScanIsland implements Protocol
         @Override
         public Action nextAction() throws InvalidMapException
         {
-            map.moveDrone(direction);
+            map.moveLocation(direction);
             return new Fly();
         }
 

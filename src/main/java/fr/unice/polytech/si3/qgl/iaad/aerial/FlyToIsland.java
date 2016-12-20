@@ -58,7 +58,7 @@ class FlyToIsland implements Protocol
         range -= 1;
         if (map.getNumberOfAvailablePoints(heading) < 1)
             return new Stop();
-        map.moveDrone(heading);
+        map.moveLocation(heading);
         if (heading == target)
             return new Fly();
         if (map.isDirectionFinished(target) && map.getNumberOfAvailablePoints(target) < 1)
@@ -66,7 +66,7 @@ class FlyToIsland implements Protocol
         if (sense == null)
             sense = heading;
         heading = target;
-        map.moveDrone(target);
+        map.moveLocation(target);
         return new Heading(target);
     }
 

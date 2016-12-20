@@ -157,7 +157,7 @@ public class IslandMapTest
     }
 
     /**
-     * checks the drone coordinates when drone move
+     * checks the drone coordinates when drone moveLocation
      */
     @Test
     public void moveDroneTest() throws InvalidMapException
@@ -167,22 +167,22 @@ public class IslandMapTest
         map.setGround(Direction.E, 5);
         map.setGround(Direction.S, 5);
 
-        map.moveDrone(Direction.E);
+        map.moveLocation(Direction.E);
         assertEquals(new Point(1,0), map.getDroneCoordinates());
-        map.moveDrone(Direction.S);
+        map.moveLocation(Direction.S);
         assertEquals(new Point(1,1), map.getDroneCoordinates());
-        map.moveDrone(Direction.W);
+        map.moveLocation(Direction.W);
         assertEquals(new Point(0, 1), map.getDroneCoordinates());
-        map.moveDrone(Direction.N);
+        map.moveLocation(Direction.N);
         assertEquals(new Point(), map.getDroneCoordinates());
 
-        // tries to move out the map :
+        // tries to moveLocation out the map :
 
         for(Direction direction : Direction.values())
         {
             InvalidMapException positionException=null; map=new IslandMap();
 
-            try { map.moveDrone(direction); }
+            try { map.moveLocation(direction); }
             catch(InvalidMapException exception) { positionException=exception; }
             assertNotNull(positionException);
         }
@@ -211,7 +211,7 @@ public class IslandMapTest
         }
 
         // checks if old elements are still in the same point after the drone moved
-        map.moveDrone(Direction.E);
+        map.moveLocation(Direction.E);
 
         for(Element element:Element.values())
         {
@@ -268,8 +268,8 @@ public class IslandMapTest
         map.addEmergencySite("id");
         map.addCreeks("id1", "id2");
 
-        map.moveDrone(Direction.E);
-        map.moveDrone(Direction.N);
+        map.moveLocation(Direction.E);
+        map.moveLocation(Direction.N);
 
         assertEquals(1, map.getNumberOfBiomes(Element.ALPINE));
         assertEquals(1, map.getNumberOfBiomes(Element.BEACH));

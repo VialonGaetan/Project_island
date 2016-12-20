@@ -113,7 +113,7 @@ class ScanBeach implements Protocol
         {
             if (map.getNumberOfAvailablePoints(heading) < 1)
                 return new Stop();
-            map.moveDrone(heading);
+            map.moveLocation(heading);
             return new Fly();
         }
 
