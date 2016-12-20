@@ -24,26 +24,26 @@ public class CreekTest {
         this.creek= new Creek(mymap);
         mymap.setOutOfRange(Direction.E, 50);
         mymap.setOutOfRange(Direction.S, 50);
-        mymap.moveDrone(Direction.E);
-        mymap.moveDrone(Direction.E);
-        mymap.moveDrone(Direction.S);
+        mymap.moveLocation(Direction.E);
+        mymap.moveLocation(Direction.E);
+        mymap.moveLocation(Direction.S);
         mymap.addCreeks("creek21");
-        mymap.moveDrone(Direction.E);
-        mymap.moveDrone(Direction.E);
-        mymap.moveDrone(Direction.S);
+        mymap.moveLocation(Direction.E);
+        mymap.moveLocation(Direction.E);
+        mymap.moveLocation(Direction.S);
         mymap.addCreeks("creek42");
-        mymap.moveDrone(Direction.E);
-        mymap.moveDrone(Direction.E);
-        mymap.moveDrone(Direction.S);
+        mymap.moveLocation(Direction.E);
+        mymap.moveLocation(Direction.E);
+        mymap.moveLocation(Direction.S);
         mymap.addCreeks("creek63");
-        mymap.moveDrone(Direction.E);
-        mymap.moveDrone(Direction.E);
-        mymap.moveDrone(Direction.S);
+        mymap.moveLocation(Direction.E);
+        mymap.moveLocation(Direction.E);
+        mymap.moveLocation(Direction.S);
         mymap.addCreeks("creek84");
         mymap.addEmergencySite("site");
-        mymap.moveDrone(Direction.E);
-        mymap.moveDrone(Direction.E);
-        mymap.moveDrone(Direction.S);
+        mymap.moveLocation(Direction.E);
+        mymap.moveLocation(Direction.E);
+        mymap.moveLocation(Direction.S);
         mymap.addCreeks("creek105");
     }
 
@@ -59,7 +59,7 @@ public class CreekTest {
         Creek c = new Creek(map);
         map.setOutOfRange(Direction.E, 50);
         map.setOutOfRange(Direction.S, 50);
-        map.moveDrone(Direction.E);
+        map.moveLocation(Direction.E);
         map.addEmergencySite("site");
         assertEquals(c.getClosest(map),null);
     }

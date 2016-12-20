@@ -2,8 +2,9 @@ package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 
-/*
- * Created by romain on 15/11/16.
+/**
+ * @author romain
+ * Created on 15/11/16.
  */
 
 /**

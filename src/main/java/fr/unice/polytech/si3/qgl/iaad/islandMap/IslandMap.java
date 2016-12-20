@@ -7,14 +7,15 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * Created by romain on 13/11/16.
+/**
+ * @author romain
+ * Created on 13/11/16.
  */
 
 /**
  * Dynamic map
  * Manage all resources found
- * Handles the movements of the drone
+ * Handles the movements of the location
  * Manage setOutOfRange
  * Manage setGround
  * Manage creeks
@@ -29,9 +30,9 @@ public class IslandMap
     private DynamicMatrix bodyMap;
 
     /**
-     * Drone Coordinates
+     * Our location in the map
      */
-    private Point drone;
+    private Point location;
 
     /**
      * Emergency site id
@@ -46,7 +47,7 @@ public class IslandMap
     /**
      * Default constructor
      * Builds the body of the map as an unique point with (0, 0) as coordinates
-     * Sets the drone at the point (0, 0)
+     * Sets the location at the point (0, 0)
      * Sets all dimensions as not finished
      * The emergency id is a new String()
      */
@@ -55,7 +56,7 @@ public class IslandMap
     private IslandMap(DynamicMatrix bodyMap, Point drone, boolean[] dimensionFinished, String emergencySiteId)
     {
         this.bodyMap = bodyMap;
-        this.drone = drone;
+        this.location = drone;
         this.dimensionFinished = dimensionFinished;
         this.emergencySiteId = emergencySiteId;
     }
@@ -65,10 +66,10 @@ public class IslandMap
      */
     public void zoom()
     {
-        IslandMap oldMap = new IslandMap(bodyMap, drone, dimensionFinished, emergencySiteId);
+        IslandMap oldMap = new IslandMap(bodyMap, location, dimensionFinished, emergencySiteId);
 
         bodyMap = new DynamicMatrix(oldMap.bodyMap.getNumberOfLines()*3, oldMap.bodyMap.getNumberOfColumns()*3);
-        drone = new Point(oldMap.drone.x*3+1, oldMap.drone.y*3+1);
+        location = new Point(oldMap.location.x*3+1, oldMap.location.y*3+1);
 
         try
         {
@@ -93,7 +94,7 @@ public class IslandMap
      * Receives a direction
      * Changes dimensions of the map
      * Updates elements coordinates
-     * Updates the drone coordinates
+     * Updates the location coordinates
      * @param direction, numberOfPoints
      */
     private void addPoints(Direction direction, int numberOfPoints)
@@ -104,7 +105,7 @@ public class IslandMap
         {
             case N:
                 bodyMap.addLines(0, numberOfPoints);
-                drone.move(drone.x, drone.y+numberOfPoints);
+                location.move(location.x, location.y+numberOfPoints);
                 break;
             case S:
                 bodyMap.addLines(-1, numberOfPoints);
@@ -114,41 +115,41 @@ public class IslandMap
                 break;
             case W:
                 bodyMap.addColumns(0, numberOfPoints);
-                drone.move(drone.x+numberOfPoints, drone.y);
+                location.move(location.x+numberOfPoints, location.y);
                 break;
         }
     }
 
     /**
-     * Returns the drone coordinates
+     * Returns the location coordinates
      * @return Point type
      */
-    public Point getDroneCoordinates() { return drone; }
+    public Point getDroneCoordinates() { return location; }
 
     /**
      * new Fly(direction) in the map
-     * @param direction, the direction where the drone has to move
-     * @throws InvalidMapException, if the drone moves on a point that does not exist
+     * @param direction, the direction where the location has to moveLocation
+     * @throws InvalidMapException, if the location moves on a point that does not exist
      */
-    public void moveDrone(Direction direction) throws InvalidMapException
+    public void moveLocation(Direction direction) throws InvalidMapException
     {
         switch(direction)
         {
             case N:
-                drone.move(drone.x, drone.y-1);
+                location.move(location.x, location.y-1);
                 break;
             case S:
-                drone.move(drone.x, drone.y+1);
+                location.move(location.x, location.y+1);
                 break;
             case E:
-                drone.move(drone.x+1, drone.y);
+                location.move(location.x+1, location.y);
                 break;
             case W:
-                drone.move(drone.x-1, drone.y);
+                location.move(location.x-1, location.y);
                 break;
         }
 
-        if(!pointExist(drone)) throw new InvalidMapException();
+        if(!pointExist(location)) throw new InvalidMapException();
     }
 
     /**
@@ -162,7 +163,7 @@ public class IslandMap
      * Sets a direction as finished
      * Changes dimensions of the map
      * Updates elements coordinates
-     * Updates the drone coordinates
+     * Updates the location coordinates
      * @param direction, Direction type
      * @param numberOfPoints, Integer type
      */
@@ -198,8 +199,8 @@ public class IslandMap
     /**
      * Changes dimensions of the map
      * Updates elements coordinates
-     * Updates the drone coordinates
-     * Adds Element.GROUND at numberOfPoints+1 compared to the drone location
+     * Updates the location coordinates
+     * Adds Element.GROUND at numberOfPoints+1 compared to the location location
      * @param direction, direction to set ground
      * @param numberOfPoints, number of points to add to map
      */
@@ -216,26 +217,26 @@ public class IslandMap
         switch(direction)
         {
             case N:
-                try { addElements(new Point(drone.x, drone.y-numberOfPoints), ground); }
+                try { addElements(new Point(location.x, location.y-numberOfPoints), ground); }
                 catch (InvalidMapException e) { }
                 break;
             case S:
-                try { addElements(new Point(drone.x, drone.y+numberOfPoints), ground); }
+                try { addElements(new Point(location.x, location.y+numberOfPoints), ground); }
                 catch (InvalidMapException e) { }
                 break;
             case E:
-                try { addElements(new Point(drone.x+numberOfPoints, drone.y), ground); }
+                try { addElements(new Point(location.x+numberOfPoints, location.y), ground); }
                 catch (InvalidMapException e) { }
                 break;
             case W:
-                try { addElements(new Point(drone.x-numberOfPoints, drone.y), ground); }
+                try { addElements(new Point(location.x-numberOfPoints, location.y), ground); }
                 catch (InvalidMapException e) { }
                 break;
         }
     }
 
     /**
-     * Returns the number of available points in this direction compared to the drone location
+     * Returns the number of available points in this direction compared to the location location
      * @param direction, direction to test
      * @return integer type
      */
@@ -246,16 +247,16 @@ public class IslandMap
         switch(direction)
         {
             case N:
-                distance=drone.y;
+                distance= location.y;
                 break;
             case S:
-                distance=getVerticalDimension()-drone.y-1;
+                distance=getVerticalDimension()- location.y-1;
                 break;
             case E:
-                distance=getHorizontalDimension()-drone.x-1;
+                distance=getHorizontalDimension()- location.x-1;
                 break;
             case W:
-                distance=drone.x;
+                distance= location.x;
                 break;
         }
 
@@ -303,36 +304,36 @@ public class IslandMap
         int i=0;
         String all[]=new String[biomes.length];
         for(Element element : biomes) all[i++]=element.toString();
-        addElements(drone, all);
+        addElements(location, all);
     }
 
     /**
      * Adds a point of interest at this point
      * @param pointInterest, element type
      * @param ids, several strings
-     * @throws InvalidMapException, if drone position is not correct
+     * @throws InvalidMapException, if location position is not correct
      */
     private void addPointInterests(Element pointInterest, String... ids) throws InvalidMapException
     {
         for(int i=0; i<ids.length; i++) ids[i]=pointInterest+"__"+ids[i];
-        addElements(drone, ids);
+        addElements(location, ids);
     }
 
     /**
      * Adds a creek at this point (the user has just to enter the id of the creek (or more if there are several creeks))
      * @param ids, several strings
-     * @throws InvalidMapException, if drone position is not correct
+     * @throws InvalidMapException, if location position is not correct
      */
     public void addCreeks(String... ids) throws InvalidMapException { addPointInterests(Element.CREEK, ids); }
 
     /**
      * Adds the emergency site at this point (the user has just to enter the id of the emergency site)
      * @param id, String type
-     * @throws InvalidMapException, if drone position is not correct
+     * @throws InvalidMapException, if location position is not correct
      */
     public void addEmergencySite(String id) throws InvalidMapException
     {
-        addElements(drone, Element.EMERGENCY_SITE.toString());
+        addElements(location, Element.EMERGENCY_SITE.toString());
         emergencySiteId=id;
     }
 
@@ -346,7 +347,7 @@ public class IslandMap
      * get all the creek ids collected at this point
      * @param point, Point type
      * @return String[] type
-     * @throws InvalidMapException, if drone position is not correct
+     * @throws InvalidMapException, if location position is not correct
      */
     public String[] getCreekIds(Point point) throws InvalidMapException
     {
@@ -369,7 +370,7 @@ public class IslandMap
      * get all the biomes collected at this point
      * @param point, Point type
      * @return Element[] type
-     * @throws InvalidMapException, if drone position is not correct
+     * @throws InvalidMapException, if location position is not correct
      */
     public Element[] getBiomes(Point point) throws InvalidMapException
     {
@@ -399,7 +400,7 @@ public class IslandMap
      * @param point, Point type
      * @param element, Element type
      * @return boolean type, true if the biome has been deleted and false otherwise
-     * @throws InvalidMapException, if drone position is not correct
+     * @throws InvalidMapException, if location position is not correct
      */
     public boolean deleteBiome(Point point, Element element) throws InvalidMapException
     {
@@ -453,22 +454,5 @@ public class IslandMap
                         count++;
 
         return count;
-    }
-
-    /**
-     * prints the current map to debug
-     */
-    public void printStatement() throws InvalidMapException
-    {
-        for(int i=0; i<bodyMap.getNumberOfLines(); i++)
-        {
-            System.out.print("[\t");
-            for(int j=0; j<bodyMap.getNumberOfColumns(); j++)
-            {
-                if(bodyMap.get(i, j).equals("")) System.out.print("UNKNOWN\t");
-                else System.out.print(bodyMap.get(i, j) +"\t");
-            }
-            System.out.println("]");
-        } System.out.println();
     }
 }
