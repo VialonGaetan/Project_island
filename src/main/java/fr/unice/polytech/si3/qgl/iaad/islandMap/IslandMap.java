@@ -68,7 +68,7 @@ public class IslandMap
         IslandMap oldMap = new IslandMap(bodyMap, drone, dimensionFinished, emergencySiteId);
 
         bodyMap = new DynamicMatrix(oldMap.bodyMap.getNumberOfLines()*3, oldMap.bodyMap.getNumberOfColumns()*3);
-        drone = new Point(oldMap.drone.x*3, oldMap.drone.y*3);
+        drone = new Point(oldMap.drone.x*3+1, oldMap.drone.y*3+1);
 
         try
         {
