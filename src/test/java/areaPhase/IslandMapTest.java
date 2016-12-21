@@ -32,7 +32,7 @@ public class IslandMapTest
     {
         assertEquals(1, map.getVerticalDimension());
         assertEquals(1, map.getHorizontalDimension());
-        assertEquals(new Point(), map.getDroneCoordinates());
+        assertEquals(new Point(), map.getLocation());
         assertTrue(map.pointExist(new Point(0,0)));
         assertFalse(map.isFinished());
     }
@@ -168,13 +168,13 @@ public class IslandMapTest
         map.setGround(Direction.S, 5);
 
         map.moveLocation(Direction.E);
-        assertEquals(new Point(1,0), map.getDroneCoordinates());
+        assertEquals(new Point(1,0), map.getLocation());
         map.moveLocation(Direction.S);
-        assertEquals(new Point(1,1), map.getDroneCoordinates());
+        assertEquals(new Point(1,1), map.getLocation());
         map.moveLocation(Direction.W);
-        assertEquals(new Point(0, 1), map.getDroneCoordinates());
+        assertEquals(new Point(0, 1), map.getLocation());
         map.moveLocation(Direction.N);
-        assertEquals(new Point(), map.getDroneCoordinates());
+        assertEquals(new Point(), map.getLocation());
 
         // tries to moveLocation out the map :
 
@@ -198,13 +198,13 @@ public class IslandMapTest
 
         for(Element element:Element.values())
         {
-            assertFalse(map.hasElement(map.getDroneCoordinates(), element));
+            assertFalse(map.hasElement(map.getLocation(), element));
             map.addBiomes(element);
         }
 
         for(Element element:Element.values())
         {
-            assertTrue(map.hasElement(map.getDroneCoordinates(), element));
+            assertTrue(map.hasElement(map.getLocation(), element));
 
             if(element!=Element.GROUND) assertEquals(1, map.getNumberOfBiomes(element));
             else assertEquals(2, map.getNumberOfBiomes(element));
@@ -235,12 +235,12 @@ public class IslandMapTest
         // repeats the operation at the new drone coordinates
         for(Element element:Element.values())
         {
-            assertFalse(map.hasElement(map.getDroneCoordinates(), element));
+            assertFalse(map.hasElement(map.getLocation(), element));
             map.addBiomes(element);
         }
 
         for(Element element:Element.values())
-            assertTrue(map.hasElement(map.getDroneCoordinates(), element));
+            assertTrue(map.hasElement(map.getLocation(), element));
     }
 
     @Test

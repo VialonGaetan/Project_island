@@ -73,14 +73,14 @@ class ScanBeach implements Protocol
     {
         // On vérifie que l'on est pas déjà aller sur la tuile cibler
         Point position;
-        position = new Point(map.getDroneCoordinates());
+        position = new Point(map.getLocation());
         position.translate(heading.getVecteur().x, heading.getVecteur().y);
         position.translate(target.getVecteur().x, target.getVecteur().y);
         // Si on est jamais passer dessus, et si la tuile n'est pas hors carte, alors on tourne vers celle-ci
         if (map.getNumberOfAvailablePoints(heading) > 0 && map.getNumberOfAvailablePoints(target) > 1 && map.getBiomes(position).length == 0)
             return new Turn(new ScanBeach(map, target, sense), map, heading, target);
         // Sinon, on vérifie que l'on est pas déjà aller sur la tuile dans le sens opposé
-        position = new Point(map.getDroneCoordinates());
+        position = new Point(map.getLocation());
         position.translate(heading.getVecteur().x, heading.getVecteur().y);
         position.translate(target.getBack().getVecteur().x, target.getBack().getVecteur().y);
         // Si on est jamais passer dessus, et si la tuile n'est pas hors carte, alors on tourne vers celle-ci
@@ -162,7 +162,7 @@ class ScanBeach implements Protocol
             if (result.nbCreeks() > 0)
             {
                 map.addCreeks(result.getCreeks(0));
-                return new LandOnIsland(map, map.getDroneCoordinates());
+                return new LandOnIsland(map, map.getLocation());
             }
             // Si il n'y a que de l'OCEAN, alors on tourne pour revenir vers une côte
             if (result.nbBiomes() == 1 && Element.valueOf(result.getBiome(0)) == Element.OCEAN)

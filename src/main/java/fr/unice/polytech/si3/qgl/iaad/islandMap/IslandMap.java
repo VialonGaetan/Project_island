@@ -121,10 +121,41 @@ public class IslandMap
     }
 
     /**
+     * test if there is the ocean the point just next our location
+     * @param direction
+     * @return true if there is ocean, false otherwise
+     */
+    public boolean isOcean(Direction direction)
+    {
+        boolean test=false;
+
+        if(getNumberOfAvailablePoints(direction)>0)
+        {
+            switch(direction)
+            {
+                case N:
+                    try { if(hasElement(new Point(location.x, location.y-1), Element.OCEAN)) test=true; } catch(Exception exception) { }
+                    break;
+                case E:
+                    try { if(hasElement(new Point(location.x+1, location.y), Element.OCEAN)) test=true; } catch(Exception exception) { }
+                    break;
+                case S:
+                    try { if(hasElement(new Point(location.x, location.y+1), Element.OCEAN)) test=true; } catch(Exception exception) { }
+                    break;
+                case W:
+                    try { if(hasElement(new Point(location.x-1, location.y), Element.OCEAN)) test=true; } catch(Exception exception) { }
+                    break;
+            }
+        }
+
+        return test;
+    }
+
+    /**
      * Returns the location coordinates
      * @return Point type
      */
-    public Point getDroneCoordinates() { return location; }
+    public Point getLocation() { return location; }
 
     /**
      * new Fly(direction) in the map

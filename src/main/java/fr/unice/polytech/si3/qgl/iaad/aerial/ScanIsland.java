@@ -105,7 +105,7 @@ class ScanIsland implements Protocol
         public Protocol setResult(Area result) throws InvalidMapException
         {
             // Si on est déjà passer sur cette tuile
-            if (map.getBiomes(map.getDroneCoordinates()).length > 1) return new StopAerial();
+            if (map.getBiomes(map.getLocation()).length > 1) return new StopAerial();
             // Sinon, on ajoute les biomes
             for (int i = 0; i < result.nbBiomes(); i++)
                 map.addBiomes(Element.valueOf(result.getBiome(i)));
