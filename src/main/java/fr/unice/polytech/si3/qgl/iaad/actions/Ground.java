@@ -46,5 +46,25 @@ public abstract class Ground implements Action, Results {
 
     public int getAmountExploit(){return -1;}
 
+    public int nbResourceExplore(){return -1;}
+
+    public String getAmountExplore(int n) {return null;}
+
+    public String getRessourceExplore(int n) {return null;}
+
+    public String getCondExplore(int n) {return null;}
+
+    public String getPoisExplore() {return null;}
+
     public int getAltitude(){return -1;}
+
+    public int getRange(){return -1;}
+
+    public int nbReport(){return -1;}
+
+    public int getInfoReport(int n){ return -1;}
+
+    public String getResourceReport(int n){return null;}
+
+    public String getRessourceExploit(){return null;}
 }

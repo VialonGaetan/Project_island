@@ -28,4 +28,34 @@ public class Glimpse extends Ground{
         return this;
     }
 
+    @Override
+    public int getRange(){
+        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getInt(ArgResult.ASKED_RANGE.getName());
+    }
+
+    @Override
+    public int nbReport(){
+        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).length();
+    }
+
+    @Override
+    public String getResourceReport(int n){
+        try{
+            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).getString(n);
+        }
+        catch (RuntimeException e){
+            return null;
+        }
+    }
+
+    @Override
+    public int getInfoReport(int n){
+        try{
+            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).getInt(n);
+        }
+        catch (RuntimeException e){
+            return -1;
+        }
+    }
+
 }

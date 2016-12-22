@@ -1,15 +1,18 @@
 package result;
+
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.Resource;
 import fr.unice.polytech.si3.qgl.iaad.actions.*;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import fr.unice.polytech.si3.qgl.iaad.Resource;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-
 /**
- * @author Theo
+ * @author Gaetan Vialon
+ *         Created the 16/12/2016.
  */
 public class GroundResultTest {
 
@@ -108,6 +111,7 @@ public class GroundResultTest {
         assertEquals(result.getProduction(),-1);
         assertEquals(result.getAmountExploit(),-1);
         assertEquals(result.getAltitude(),-1);
+        assertEquals(result.nbResourceExplore(),2);
     }
 
     @Test
@@ -151,4 +155,29 @@ public class GroundResultTest {
     }
 
 
+    @Ignore
+    public void testGlimpseResult(){
+        result = new Glimpse(Direction.S,4);
+        result.putResults("{ \n" +
+                "  \"cost\": 3,\n" +
+                "  \"extras\": {\n" +
+                "    \"asked_range\": 4,\n" +
+                "    \"report\": [\n" +
+                "      [ [ \"BEACH\", 59.35 ], [ \"OCEAN\", 40.65 ] ],\n" +
+                "      [ [ \"OCEAN\", 70.2  ], [ \"BEACH\", 29.8  ] ],\n" +
+                "      [ \"OCEAN\", \"BEACH\" ],\n" +
+                "      [ \"OCEAN\" ]\n" +
+                "    ]\n" +
+                "  },\n" +
+                "  \"status\": \"OK\"\n" +
+                "}");
+        int cost = 3;
+        String status = "OK";
+        assertEquals(result.getCost(),cost);
+        assertEquals(result.getStatus(),status);
+        assertEquals(result.getRange(),4);
+        assertEquals(result.nbReport(),4);
+        assertEquals(result.getResourceReport(4),"OCEAN");
+
+    }
 }
