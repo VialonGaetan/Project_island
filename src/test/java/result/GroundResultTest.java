@@ -33,6 +33,10 @@ public class GroundResultTest {
         assertEquals(result.getProduction(),-1);
         assertEquals(result.getAmountExploit(),-1);
         assertEquals(result.getAltitude(),-1);
+        assertEquals(result.getAmountExplore(0),null);
+        assertEquals(result.getRessourceExplore(0),null);
+        assertEquals(result.getCondExplore(1),null);
+        assertEquals(result.getPoisExplore(),null);
     }
 
     @Test
@@ -53,6 +57,10 @@ public class GroundResultTest {
         assertEquals(result.getProduction(),-1);
         assertEquals(result.getAmountExploit(),-1);
         assertEquals(result.getAltitude(),altitude);
+        assertEquals(result.getAmountExplore(0),null);
+        assertEquals(result.getRessourceExplore(0),null);
+        assertEquals(result.getCondExplore(1),null);
+        assertEquals(result.getPoisExplore(),null);
     }
 
     @Test
@@ -83,6 +91,10 @@ public class GroundResultTest {
         assertEquals(result.getProduction(),-1);
         assertEquals(result.getAmountExploit(),-1);
         assertEquals(result.getAltitude(),-1);
+        assertEquals(result.getAmountExplore(0),null);
+        assertEquals(result.getRessourceExplore(0),null);
+        assertEquals(result.getCondExplore(1),null);
+        assertEquals(result.getPoisExplore(),null);
     }
 
     @Test
@@ -112,6 +124,11 @@ public class GroundResultTest {
         assertEquals(result.getAmountExploit(),-1);
         assertEquals(result.getAltitude(),-1);
         assertEquals(result.nbResourceExplore(),2);
+
+        assertEquals(result.getAmountExplore(0),"HIGH");
+        assertEquals(result.getRessourceExplore(0),"HIGH");
+        assertEquals(result.getCondExplore(1),"LOW");
+        assertEquals(result.getPoisExplore(),"creek-id");
     }
 
     @Test
@@ -131,6 +148,11 @@ public class GroundResultTest {
         assertEquals(result.getProduction(),-1);
         assertEquals(result.getAmountExploit(),amount);
         assertEquals(result.getAltitude(),-1);
+        assertEquals(result.getAmountExplore(0),null);
+        assertEquals(result.getRessourceExplore(0),null);
+        assertEquals(result.getCondExplore(1),null);
+        assertEquals(result.getPoisExplore(),null);
+
     }
 
     @Test
@@ -151,6 +173,10 @@ public class GroundResultTest {
         assertEquals(result.getProduction(),prod);
         assertEquals(result.getAmountExploit(),-1);
         assertEquals(result.getAltitude(),-1);
+        assertEquals(result.getAmountExplore(0),null);
+        assertEquals(result.getRessourceExplore(0),null);
+        assertEquals(result.getCondExplore(1),null);
+        assertEquals(result.getPoisExplore(),null);
 
     }
 
@@ -178,6 +204,10 @@ public class GroundResultTest {
         assertEquals(result.getRange(),4);
         assertEquals(result.nbReport(),4);
         assertEquals(result.getResourceReport(4),"OCEAN");
+        assertEquals(result.getAmountExplore(0),null);
+        assertEquals(result.getRessourceExplore(0),null);
+        assertEquals(result.getCondExplore(1),null);
+        assertEquals(result.getPoisExplore(),null);
 
     }
 }
