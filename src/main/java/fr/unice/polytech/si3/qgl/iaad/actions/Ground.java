@@ -15,6 +15,8 @@ public abstract class Ground implements Action, Results {
     int range, nbResource, nbResource1;
     Resource resource,resource1;
     String result;
+    public String ID;
+    public int people;
 
     public abstract Ground putResults(String result);
 

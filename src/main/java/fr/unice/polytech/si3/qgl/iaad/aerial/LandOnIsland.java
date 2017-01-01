@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
+import fr.unice.polytech.si3.qgl.iaad.Explorer;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Land;
@@ -41,6 +42,7 @@ class LandOnIsland implements Protocol
     @Override
     public Action nextAction() throws InvalidMapException
     {
+        Explorer.areaPhase = false;
         return new Land(map.getCreekIds(position)[0], 1);
     }
 

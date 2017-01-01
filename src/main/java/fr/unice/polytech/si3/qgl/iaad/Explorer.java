@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.iaad;
 import eu.ace_design.island.bot.IExplorerRaid;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
+import fr.unice.polytech.si3.qgl.iaad.actions.Explore;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.init.Context;
@@ -17,11 +18,13 @@ public class Explorer implements IExplorerRaid {
     private Context context;
     private String decision;
     private Drone drone;
-    private static boolean areaPhase = true;
+    public static boolean areaPhase = true;
     private Area areaAction;
     private Ground groundAction;
     private String rapport;
     private Creek creek;
+    private NaiveLanding naive;
+    private String resultat;
 
     @Override
     public void initialize(String s) {
@@ -29,6 +32,8 @@ public class Explorer implements IExplorerRaid {
         context = new Context(new JSONObject(s));
         budget = context.getBudget();
         drone = new Drone(budget, Direction.valueOf(context.getHeading()), islandMap);
+        naive = new NaiveLanding(context,context.getContract(0),islandMap);
+        groundAction = new Explore();
     }
 
     @Override
@@ -37,7 +42,14 @@ public class Explorer implements IExplorerRaid {
             areaAction = (Area) drone.doAction();
             decision = areaAction.toJSON();
         }
-
+        else{
+            try {
+                naive = new NaiveLanding(context,context.getContract(0),islandMap);
+                groundAction = (Ground) naive.nextAction((groundAction).putResults(resultat));
+            } catch (InvalidMapException e) {
+            }
+            decision = groundAction.toJSON();
+        }
         return decision;
     }
 
@@ -47,7 +59,13 @@ public class Explorer implements IExplorerRaid {
     @Override
     public void acknowledgeResults(String s) {
         try {
-            drone.getResult((areaAction).putResults(s));
+            if(areaPhase){
+                drone.getResult((areaAction).putResults(s));
+                resultat = s;
+            }
+            else{
+                resultat = s;
+            }
         } catch (InvalidMapException exception) {
             // according to map designer, it's ok
         }

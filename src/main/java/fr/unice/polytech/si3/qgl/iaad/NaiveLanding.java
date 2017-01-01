@@ -71,7 +71,7 @@ public class NaiveLanding {
             tmp[3] = "";
             tmp[4] = "";
             previousActions.add(tmp);
-            return new Stop();
+            return new StopGround();
         }
         if (previousActions.size() == 0) { //arbitrairement, si c'est la première action du protocol, on retourne un scout dans une direction où il n'y a pas d'océan
             scoutAround();
