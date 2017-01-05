@@ -19,7 +19,7 @@ public enum ArgResult {
     ASKED_RANGE("asked_range"),
     REPORT("report"),
     AMOUNT("amount"),
-    COND("found"),
+    COND("cond"),
     POIS("pois"),
     PRODUCTION("production"),
     KIND("kind");

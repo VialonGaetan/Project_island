@@ -28,27 +28,43 @@ public class Explore extends Ground {
     }
 
     @Override
-    public int nbResourceExplore(){
+    public int nbResourceExplore() {
         return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.RESOURCES.getName()).length();
     }
 
     @Override
     public String getAmountExplore(int n) {
-        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.RESOURCES.getName()).getJSONObject(n).getString(ArgResult.AMOUNT.getName());
+        try {
+            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.RESOURCES.getName()).getJSONObject(n).getString(ArgResult.AMOUNT.getName());
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 
     @Override
     public String getRessourceExplore(int n) {
-        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.RESOURCES.getName()).getJSONObject(n).getString(ArgResult.AMOUNT.getName());
+        try {
+            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.RESOURCES.getName()).getJSONObject(n).getString(ArgResult.RESOURCE.getName());
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 
     @Override
     public String getCondExplore(int n) {
-        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.RESOURCES.getName()).getJSONObject(n).getString(ArgResult.AMOUNT.getName());
+        try {
+            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.RESOURCES.getName()).getJSONObject(n).getString(ArgResult.COND.getName());
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 
     @Override
     public String getPoisExplore() {
-        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.POIS.getName()).getString(0);
+        try {
+            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.POIS.getName()).getString(0);
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 }

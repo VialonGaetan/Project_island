@@ -1,24 +1,21 @@
-package fr.unice.polytech.si3.qgl.iaad.aerial;
+package fr.unice.polytech.si3.qgl.iaad.ground;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
+import fr.unice.polytech.si3.qgl.iaad.Resource;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
-import fr.unice.polytech.si3.qgl.iaad.actions.Area;
-import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
+import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
+import fr.unice.polytech.si3.qgl.iaad.actions.StopGround;
+import fr.unice.polytech.si3.qgl.iaad.init.Context;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
+import java.util.HashMap;
+
 /**
- * @author Alexandre Clement
- *         Created the 20/11/2016.
- *         <p>
- *         Le drone doit trouver la crique la plus proche du site d'urgence
+ * @author Gaetan Vialon
+ *         Created the 04/01/2017.
  */
-public class Drone
-{
-    /**
-     * Définit si on cherche le site d'urgence
-     */
-    static final boolean SEARCH_EMERGENCY_SITE = false;
+public class Exploration {
     /**
      * Palier de budget faible
      */
@@ -29,22 +26,34 @@ public class Drone
     private int budget;
 
     /**
+     * Contrats disponibles
+     */
+    private Context context ;
+
+    private Direction direction;
+
+    /**
      * Le protocole actuellement utilisé par le drone
      */
-    private Protocol protocol;
+    private ProtocolGround protocol;
+
+    private HashMap<Resource,Integer> contrat = new HashMap<>();
 
     /**
      * Initialise le drone
      *
      * @param budget  budget available
-     * @param heading heading of the drone
+     * @param context context of the game
      * @param map     current map
      */
-    public Drone(int budget, Direction heading, IslandMap map)
+    public Exploration(int budget, IslandMap map, Context context)
     {
         this.budget = budget;
-        map.setOutOfRange(heading.getBack(), 0);
-        protocol = new Initialisation(map, heading);
+        this.context=context;
+        for (int i = 0; i <context.numberOfContrats() ; i++) {
+            contrat.put(Resource.valueOf(context.getContract(i).getResource()),context.getContract(i).getAmount());
+        }
+        protocol = new InitialisationGround();
     }
 
     /**
@@ -67,8 +76,8 @@ public class Drone
             // on rencontre un problème avec la carte
         }
         // le drone a rencontré un problème: la partie s'arrête
-        protocol = new StopAerial();
-        return new Stop();
+        protocol = new StopExplorer();
+        return new StopGround();
     }
 
     /**
@@ -76,16 +85,12 @@ public class Drone
      *
      * @param results le résultat de l'action précédente
      */
-    public void getResult(Area results) throws InvalidMapException
+    public void getResult(Ground results) throws InvalidMapException
     {
-        Area areaResult = (Area) results;
+        Ground groundResult = (Ground) results;
         if (budget < LOW_BUDGET)
             return;
-        budget -= areaResult.getCost();
-        protocol = protocol.setResult(areaResult);
-    }
-
-    public int getBudget(){
-        return budget;
+        budget -= groundResult.getCost();
+        protocol = protocol.setResult(groundResult);
     }
 }

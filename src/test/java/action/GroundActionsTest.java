@@ -47,16 +47,16 @@ public class GroundActionsTest {
 
     @Test
     public void testScan(){
-        action = new Scan();
+        action = new Explore();
         toJSON = action.toJSON();
-        assertEquals(toJSON,"{\"action\":\"scan\"}");
-        assertEquals(toJSON,new Scan().toJSON());
+        assertEquals(toJSON,"{\"action\":\"explore\"}");
+        assertEquals(toJSON,new Explore().toJSON());
         assertNotEquals(action,new Echo(direction));
     }
 
     @Test
     public void testStop(){
-        action = new Stop();
+        action = new StopGround();
         toJSON = action.toJSON();
         assertEquals(toJSON,"{\"action\":\"stop\"}");
         assertEquals(toJSON,new Stop().toJSON());

@@ -42,7 +42,6 @@ class LandOnIsland implements Protocol
     @Override
     public Action nextAction() throws InvalidMapException
     {
-        Explorer.areaPhase = false;
         return new Land(map.getCreekIds(position)[0], 1);
     }
 

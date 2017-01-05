@@ -126,9 +126,30 @@ public class GroundResultTest {
         assertEquals(result.nbResourceExplore(),2);
 
         assertEquals(result.getAmountExplore(0),"HIGH");
-        assertEquals(result.getRessourceExplore(0),"HIGH");
-        assertEquals(result.getCondExplore(1),"LOW");
+        assertEquals(result.getAmountExplore(1),"LOW");
+        assertEquals(result.getRessourceExplore(0),"FUR");
         assertEquals(result.getPoisExplore(),"creek-id");
+        assertEquals(result.getCondExplore(0),"FAIR");
+        assertEquals(result.getCondExplore(1),"HARSH");
+        assertEquals(result.getRessourceExplore(0),"FUR");
+        assertEquals(result.getRessourceExplore(1),"WOOD");
+        assertEquals(result.getRessourceExplore(2),null);
+
+        result.putResults("{\n" +
+                "  \"cost\": 5,\n" +
+                "  \"extras\": { \n" +
+                "  },\n" +
+                "  \"status\": \"OK\"\n" +
+                "}");
+        assertEquals(result.getAmountExplore(0),null);
+        assertEquals(result.getAmountExplore(1),null);
+        assertEquals(result.getRessourceExplore(0),null);
+        assertEquals(result.getPoisExplore(),null);
+        assertEquals(result.getCondExplore(0),null);
+        assertEquals(result.getCondExplore(1),null);
+        assertEquals(result.getRessourceExplore(0),null);
+        assertEquals(result.getRessourceExplore(1),null);
+
     }
 
     @Test
