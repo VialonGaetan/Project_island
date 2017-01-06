@@ -12,7 +12,7 @@ import java.awt.*;
 import static org.junit.Assert.*;
 
 /*
- * @author Alexandre Clement
+ * @author Romain Sumerot
  *         Created the 24/11/2016.
  */
 
@@ -320,6 +320,15 @@ public class IslandMapTest
         assertEquals(Element.ALPINE, map.getBiomes(new Point())[2]);
         assertEquals(Element.GLACIER, map.getBiomes(new Point())[3]);
         assertEquals(Element.MANGROVE, map.getBiomes(new Point())[4]);
+    }
+
+    @Test
+    public void zoomTestDimensions() throws InvalidMapException
+    {
+        map.addBiomes(Element.MANGROVE);
+        map.zoom();
+        assertEquals(3, map.getVerticalDimension());
+        assertEquals(3, map.getHorizontalDimension());
     }
 
     @Test
