@@ -323,12 +323,43 @@ public class IslandMapTest
     }
 
     @Test
-    public void zoomTestDimensions() throws InvalidMapException
+    public void zoomDimensionsTest() throws InvalidMapException
     {
         map.addBiomes(Element.MANGROVE);
         map.zoom();
         assertEquals(3, map.getVerticalDimension());
         assertEquals(3, map.getHorizontalDimension());
+    }
+
+    @Test
+    public void landLocationTest() throws InvalidMapException
+    {
+        map.addBiomes(Element.MANGROVE);
+        map.zoom();
+        assertEquals(1, (int)(map.getLocation().getX()));
+        assertEquals(1, (int)(map.getLocation().getY()));
+    }
+
+    @Test
+    public void isOceanTest() throws InvalidMapException
+    {
+        map.addBiomes(Element.OCEAN);
+        map.zoom();
+        assertTrue(map.isOcean(Direction.N));
+        assertTrue(map.isOcean(Direction.S));
+        assertTrue(map.isOcean(Direction.E));
+        assertTrue(map.isOcean(Direction.W));
+    }
+
+    @Test
+    public void notOceanTest() throws InvalidMapException
+    {
+        map.addBiomes(Element.CREEK);
+        map.zoom();
+        assertFalse(map.isOcean(Direction.N));
+        assertFalse(map.isOcean(Direction.S));
+        assertFalse(map.isOcean(Direction.E));
+        assertFalse(map.isOcean(Direction.W));
     }
 
     @Test
