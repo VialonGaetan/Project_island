@@ -80,7 +80,7 @@ public class Explorer implements IExplorerRaid {
             } catch (InvalidMapException | ArrayIndexOutOfBoundsException e) {
                 rapport = "EMERGENCY:" + islandMap.getEmergencySiteId();
             }
-        } else rapport = "Nous allons être riches !! ";
+        } else rapport = "Nous allons être riches !!  ";
         return rapport;
     }
 
