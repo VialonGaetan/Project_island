@@ -12,7 +12,7 @@ import java.awt.*;
 import static org.junit.Assert.*;
 
 /*
- * @author Alexandre Clement
+ * @author Romain Sumerot
  *         Created the 24/11/2016.
  */
 
@@ -320,6 +320,46 @@ public class IslandMapTest
         assertEquals(Element.ALPINE, map.getBiomes(new Point())[2]);
         assertEquals(Element.GLACIER, map.getBiomes(new Point())[3]);
         assertEquals(Element.MANGROVE, map.getBiomes(new Point())[4]);
+    }
+
+    @Test
+    public void zoomDimensionsTest() throws InvalidMapException
+    {
+        map.addBiomes(Element.MANGROVE);
+        map.zoom();
+        assertEquals(3, map.getVerticalDimension());
+        assertEquals(3, map.getHorizontalDimension());
+    }
+
+    @Test
+    public void landLocationTest() throws InvalidMapException
+    {
+        map.addBiomes(Element.MANGROVE);
+        map.zoom();
+        assertEquals(1, (int)(map.getLocation().getX()));
+        assertEquals(1, (int)(map.getLocation().getY()));
+    }
+
+    @Test
+    public void isOceanTest() throws InvalidMapException
+    {
+        map.addBiomes(Element.OCEAN);
+        map.zoom();
+        assertTrue(map.isOcean(Direction.N));
+        assertTrue(map.isOcean(Direction.S));
+        assertTrue(map.isOcean(Direction.E));
+        assertTrue(map.isOcean(Direction.W));
+    }
+
+    @Test
+    public void notOceanTest() throws InvalidMapException
+    {
+        map.addBiomes(Element.CREEK);
+        map.zoom();
+        assertFalse(map.isOcean(Direction.N));
+        assertFalse(map.isOcean(Direction.S));
+        assertFalse(map.isOcean(Direction.E));
+        assertFalse(map.isOcean(Direction.W));
     }
 
     @Test
