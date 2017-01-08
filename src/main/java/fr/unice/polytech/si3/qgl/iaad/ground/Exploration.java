@@ -25,6 +25,8 @@ public class Exploration {
      */
     private int budget;
 
+    public static int lasti=0;
+
     /**
      * Contrats disponibles
      */

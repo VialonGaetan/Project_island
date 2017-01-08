@@ -109,9 +109,10 @@ public class InitialisationGround implements ProtocolGround{
         public ProtocolGround setResult(Ground result) throws InvalidMapException
         {
             for (int i = 0; result.getRessourceExplore(i) != null ; i++) {
-                if (Resource.valueOf(result.getRessourceExplore(i)) == Resource.FUR)
+                if (Resource.valueOf(result.getRessourceExplore(i)) != null && i >= Exploration.lasti)
                 {
-                    return new ExploitResource(Resource.valueOf(result.getRessourceExplore(i)),3);
+                    Exploration.lasti = i+1;
+                    return new ExploitResource(Resource.valueOf(result.getRessourceExplore(i)),100);
                 }
             }
             return new StopExplorer();
