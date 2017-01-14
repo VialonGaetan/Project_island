@@ -8,10 +8,6 @@ import org.json.JSONObject;
  */
 public class Stop extends Area{
 
-    private String result;
-
-    public Stop() {}
-
     /**
      * Créé un objet JSON avec l'action STOP
      * @return String of JSON
@@ -29,15 +25,5 @@ public class Stop extends Area{
     public Area putResults(String result) {
         this.result = result;
         return this;
-    }
-
-    @Override
-    public int getCost() {
-        return new JSONObject(result).getInt(ArgResult.COST.getName());
-    }
-
-    @Override
-    public String getStatus() {
-        return new JSONObject(result).getString(ArgResult.STATUS.getName());
     }
 }

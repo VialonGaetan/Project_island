@@ -72,4 +72,21 @@ public class AreaActionsTest {
         assertEquals(toJSON,new Stop().toJSON());
         assertNotEquals(action,new Heading(direction));
     }
+
+    @Test
+    public void testLand(){
+        action = new Land("id",22);
+        toJSON = action.toJSON();
+        assertEquals(toJSON,"{\"action\":\"land\",\"parameters\":{\"creek\":\"id\",\"people\":22}}");
+        assertEquals(toJSON,new Land("id",22).toJSON());
+        assertNotEquals(toJSON,new Stop().toJSON());
+        assertNotEquals(toJSON,new Land("4532",22).toJSON());
+        assertNotEquals(action,new Heading(direction));
+        action = new Land("4532",1);
+        toJSON = action.toJSON();
+        assertEquals(toJSON,"{\"action\":\"land\",\"parameters\":{\"creek\":\"4532\",\"people\":1}}");
+        assertEquals(toJSON,new Land("4532",1).toJSON());
+        assertNotEquals(toJSON,new Land("4532",22).toJSON());
+        assertNotEquals(action,new Heading(direction));
+    }
 }

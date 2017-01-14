@@ -42,9 +42,18 @@ Results : OK
 
 ## Week 50
 
-Expected : Land on the island and start to explore it
-Results :
+Expected : Land on the island and start to explore it and modification on aerial strategy. We stay only on border of island to find one creek
+Results : We have land to island but no exploration yet
 Cause :
 
+## Week 52
 
+Expected : Land on the island and start to explore it
+Results : Failure
+Cause : Ground strategy doesn't work and crash cause nullpointeurexception
+
+
+## Week 1
     
+Expected : Land on the island and start to exploit resource in land point
+Results : OK

@@ -37,7 +37,6 @@ public class Explorer implements IExplorerRaid {
     public String takeDecision() {
         if(!areaPhase){
             groundAction = (Ground) exploration.doAction();
-            //groundAction = (Ground) new StopGround();
             decision = groundAction.toJSON();
         }
         if(areaPhase){

@@ -119,4 +119,41 @@ public class AreaResultTest {
         assertEquals(result.getCreeks(0),"idcreek");
         assertEquals(result.getSites(),null);
     }
+
+    @Test
+    public void testLandResult(){
+        result = new Land("id",12);
+        result.putResults("{ \"cost\": 15, \"extras\": { }, \"status\": \"OK\" }");
+        int cost = 15;
+        String status = "OK";
+        assertEquals(result.getCost(),cost);
+        assertEquals(result.getStatus(),status);
+        assertEquals(result.getRange(),-1);
+        assertEquals(result.getFound(),null);
+        assertEquals(result.getBiome(0),null);
+        assertEquals(result.nbBiomes(),-1);
+        assertEquals(result.nbCreeks(),-1);
+        assertEquals(result.getCreeks(1),null);
+        assertEquals(result.getSites(),null);
+    }
+
+
+    @Test
+    public void testStopResult(){
+        result = new Stop();
+        result.putResults("{ \"cost\": 32, \"extras\": { }, \"status\": \"OK\" }");
+        int cost = 32;
+        String status = "OK";
+        assertEquals(result.getCost(),cost);
+        assertEquals(result.getStatus(),status);
+        assertEquals(result.getRange(),-1);
+        assertEquals(result.getFound(),null);
+        assertEquals(result.getBiome(0),null);
+        assertEquals(result.nbBiomes(),-1);
+        assertEquals(result.nbCreeks(),-1);
+        assertEquals(result.getCreeks(1),null);
+        assertEquals(result.getSites(),null);
+    }
+
+
 }
