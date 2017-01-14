@@ -10,7 +10,7 @@ import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 /**
  * Dynamic Matrix that contains String elements
  */
-class DynamicMatrix
+public class DynamicMatrix
 {
     /**
      * Dimensions of the matrix
@@ -26,14 +26,14 @@ class DynamicMatrix
      * Default constructor
      * Creates a matrix of only one element
      */
-    DynamicMatrix() { this(1, 1); }
+    public DynamicMatrix() { this(1, 1); }
 
     /**
      * Constructor that creates a new matrix with specific dimensions
      * @param numberOfLines, Integer type
      * @param numberOfColumns, Integer type
      */
-    DynamicMatrix(int numberOfLines, int numberOfColumns)
+    public DynamicMatrix(int numberOfLines, int numberOfColumns)
     {
         this.numberOfLines =numberOfLines;
         this.numberOfColumns=numberOfColumns;
@@ -48,13 +48,13 @@ class DynamicMatrix
      * Returns the number of numberOfLines
      * @return integer type
      */
-    int getNumberOfLines() { return numberOfLines; }
+    public int getNumberOfLines() { return numberOfLines; }
 
     /**
      * Returns number of columns
      * @return integer type
      */
-    int getNumberOfColumns() { return numberOfColumns; }
+    public int getNumberOfColumns() { return numberOfColumns; }
 
     /**
      * Returns the string with these index
@@ -63,7 +63,7 @@ class DynamicMatrix
      * @param column, Integer type
      * @throws InvalidMapException, if the point does not exist
      */
-    String get(int line, int column) throws InvalidMapException
+    public String get(int line, int column) throws InvalidMapException
     {
         if(!pointExist(line, column)) throw new InvalidMapException();
         return array[line][column];
@@ -75,7 +75,7 @@ class DynamicMatrix
      * @param column, Integer type
      * @return boolean type : true if the point exist, false otherwise
      */
-    boolean pointExist(int line, int column)
+    public boolean pointExist(int line, int column)
     {
         boolean test=false;
 
@@ -92,7 +92,7 @@ class DynamicMatrix
      * @param value, String stype
      * @throws InvalidMapException, if the point does not exist
      */
-    void addElement(int line, int column, String value)  throws InvalidMapException
+    public void addElement(int line, int column, String value)  throws InvalidMapException
     {
         if(!pointExist(line, column)) throw new InvalidMapException();
         array[line][column]+=value;
@@ -105,7 +105,7 @@ class DynamicMatrix
      * @param value, String stype
      * @throws InvalidMapException, if the point does not exist
      */
-    void setElement(int line, int column, String value) throws InvalidMapException
+    public void setElement(int line, int column, String value) throws InvalidMapException
     {
         if(!pointExist(line, column)) throw new InvalidMapException();
         array[line][column]=value;
@@ -133,7 +133,7 @@ class DynamicMatrix
      * @param position, Integer type
      * @param numberOfLines, Integer type
      */
-    void addLines(int position, int numberOfLines)
+    public void addLines(int position, int numberOfLines)
     {
         DynamicMatrix newMatrix=new DynamicMatrix(this.numberOfLines +numberOfLines, numberOfColumns);
 
@@ -173,7 +173,7 @@ class DynamicMatrix
      * @param position, Integer type
      * @param numberOfColumns, Integer type
      */
-    void addColumns(int position, int numberOfColumns)
+    public void addColumns(int position, int numberOfColumns)
     {
         DynamicMatrix newMatrix=new DynamicMatrix(numberOfLines, this.numberOfColumns+numberOfColumns);
 
