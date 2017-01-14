@@ -115,7 +115,7 @@ public class DynamicMatrix
      * this = another dynamicMatrix
      * @param dynamicMatrix, DynamicMatrix type
      */
-    private void thisBecome(DynamicMatrix dynamicMatrix)
+    public void thisBecome(DynamicMatrix dynamicMatrix)
     {
         numberOfLines =dynamicMatrix.numberOfLines;
         numberOfColumns=dynamicMatrix.numberOfColumns;
