@@ -11,11 +11,10 @@ import java.awt.*;
 
 import static org.junit.Assert.*;
 
-/*
- * @author Romain Sumerot
- *         Created the 24/11/2016.
+/**
+ * @author romain
+ * Created on 24/11/2016.
  */
-
 public class IslandMapTest
 {
     private IslandMap map;
@@ -329,6 +328,22 @@ public class IslandMapTest
         map.zoom();
         assertEquals(3, map.getVerticalDimension());
         assertEquals(3, map.getHorizontalDimension());
+    }
+
+    @Test
+    public void zoomBiomesTest() throws InvalidMapException
+    {
+        map.addBiomes(Element.MANGROVE);
+        map.zoom();
+
+        for(int x=0; x<map.getHorizontalDimension(); x++)
+        {
+            for(int y=0; y<map.getVerticalDimension(); y++)
+            {
+                assertEquals(1, map.getBiomes(new Point()).length);
+                assertTrue(map.hasElement(new Point(x, y), Element.MANGROVE));
+            }
+        }
     }
 
     @Test
