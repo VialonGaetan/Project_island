@@ -33,6 +33,7 @@ public class Explorer implements IExplorerRaid {
         context = new Context(new JSONObject(s));
         budget = context.getBudget();
         drone = new Drone(budget, Direction.valueOf(context.getHeading()), islandMap);
+
     }
 
     @Override
