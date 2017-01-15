@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
  */
 public class DroneTest
 {
+    static final int TEST = 1000;
     static final String CREEK = "creek";
     private Drone drone;
     private int budget;
@@ -50,7 +51,7 @@ public class DroneTest
     @Test
     public void randomAction() throws Exception
     {
-        for (int i = 0; i < 10000; i++)
+        for (int i = 0; i < TEST; i++)
         {
             IslandMap map = new IslandMap();
             int budget = 10000;
@@ -68,6 +69,13 @@ public class DroneTest
                 action = ((Area) drone.doAction());
             }
         }
+    }
+
+    @Test
+    public void findEmergency() throws Exception
+    {
+        Drone.SEARCH_EMERGENCY_SITE = true;
+        randomAction();
     }
 
     @Test
@@ -91,11 +99,6 @@ public class DroneTest
         return createJSON(cost).put("extras", new JSONObject()
                 .put("range", range)
                 .put("found", found));
-    }
-
-    static JSONObject createScanJSON(int cost, int range, String found)
-    {
-        return createJSON(cost);
     }
 
     static IslandMap facticeMap()
@@ -146,6 +149,34 @@ public class DroneTest
                 .put("biomes", new JSONArray(Arrays.stream(Element.values()).filter(e -> random.nextBoolean()).map(Enum::toString).toArray()))
                 .put("creeks", new JSONArray(creeks))
         );
+    }
+
+    static Direction randomDirection()
+    {
+        return Direction.values()[(int) (Math.random() * 4)];
+    }
+
+    static IslandMap randomMap() throws InvalidMapException
+    {
+        IslandMap map = new IslandMap();
+        for (int i = 0; i < Direction.values().length; i++)
+        {
+            map.setOutOfRange(Direction.values()[i], (int) (Math.random() * 30));
+        }
+        Direction direction;
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 20 + Math.random() * 50; j++)
+            {
+                direction = randomDirection();
+                if (map.getNumberOfAvailablePoints(direction) > 1)
+                    map.moveLocation(direction);
+                map.addCreeks(CREEK + i);
+                if (Math.random() > 0.8)
+                    map.addEmergencySite("site");
+            }
+        }
+        return map;
     }
 
 }

@@ -31,20 +31,36 @@ public class InitialisationTest
     @Test
     public void nextAction() throws Exception
     {
-        int[] mapSize = new int[]{20, 0, 10};
-
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < DroneTest.TEST; i++)
         {
-            Area area = (Area) initialisation.nextAction();
-            assertTrue(area instanceof Echo);
-            assertNotEquals(heading.getBack(), area.direction);
-            area.putResults(DroneTest.createEchoJSON(10, mapSize[i], Element.OUT_OF_RANGE.toString()).toString());
-            initialisation = initialisation.setResult(area);
-        }
+            map = new IslandMap();
+            heading = Direction.E;
+            initialisation = new Initialisation(map, heading);
+            int range;
+            boolean ground;
+            int[] ranges = new int[4];
+            int[] grounds = new int[4];
+            while (initialisation instanceof Initialisation || initialisation instanceof Initialisation.EchoToFindLimit)
+            {
+                Area area = (Area) initialisation.nextAction();
+                assertTrue(area instanceof Echo);
+                assertNotEquals(heading.getBack(), area.direction);
+                ground = Math.random() > 0.9;
+                range = (int) (Math.random() * 40);
 
-        assertEquals(20, map.getNumberOfAvailablePoints(Direction.E));
-        assertEquals(0, map.getNumberOfAvailablePoints(Direction.N));
-        assertEquals(10, map.getNumberOfAvailablePoints(Direction.S));
+                if (ground)
+                    grounds[area.direction.ordinal()] = range + 1;
+                else
+                    ranges[area.direction.ordinal()] = range;
+
+                area.putResults(DroneTest.createEchoJSON((int) (Math.random() * 40), range, (ground ? Element.GROUND : Element.OUT_OF_RANGE).toString()).toString());
+                initialisation = initialisation.setResult(area);
+            }
+            for (int j = 0; j < 4; j++)
+            {
+                assertEquals(Math.max(ranges[j], grounds[j]), map.getNumberOfAvailablePoints(Direction.values()[j]));
+            }
+        }
     }
 
     @Test

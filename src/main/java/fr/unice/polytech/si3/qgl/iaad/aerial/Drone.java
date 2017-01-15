@@ -17,7 +17,7 @@ public class Drone
     /**
      * Définit si on cherche le site d'urgence
      */
-    static final boolean SEARCH_EMERGENCY_SITE = false;
+    static boolean SEARCH_EMERGENCY_SITE = false;
     /**
      * Palier de budget faible
      */

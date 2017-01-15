@@ -25,7 +25,7 @@ public class FindIslandTest
     @Test
     public void nextAction() throws Exception
     {
-        for (int i = 0; i < 10000; i++)
+        for (int i = 0; i < DroneTest.TEST; i++)
         {
             map = DroneTest.facticeMap();
             heading = Direction.S;
@@ -57,7 +57,7 @@ public class FindIslandTest
     @Test
     public void setResult() throws Exception
     {
-        for (int i = 0; i < 10000; i++)
+        for (int i = 0; i < DroneTest.TEST; i++)
         {
             map = DroneTest.facticeMap();
             heading = Direction.S;
