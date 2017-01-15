@@ -202,7 +202,7 @@ public class GroundResultTest {
     }
 
 
-    @Ignore
+    @Test
     public void testGlimpseResult(){
         result = new Glimpse(Direction.S,4);
         result.putResults("{ \n" +
@@ -224,11 +224,9 @@ public class GroundResultTest {
         assertEquals(result.getStatus(),status);
         assertEquals(result.getRange(),4);
         assertEquals(result.nbReport(),4);
-        assertEquals(result.getResourceReport(4),"OCEAN");
-        assertEquals(result.getAmountExplore(0),null);
-        assertEquals(result.getRessourceExplore(0),null);
-        assertEquals(result.getCondExplore(1),null);
-        assertEquals(result.getPoisExplore(),null);
+        assertEquals(result.getResourceReport(0,0),"BEACH");
+        assertEquals(result.getResourceReport(1,0),"OCEAN");
+        assertEquals(result.getInfoReport(0,0),(double) 59.35);
 
     }
 }

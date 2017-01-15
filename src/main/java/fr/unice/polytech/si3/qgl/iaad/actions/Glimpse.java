@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.actions;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.Resource;
 import org.json.JSONObject;
 
 /**
@@ -29,8 +30,8 @@ public class Glimpse extends Ground{
     }
 
     @Override
-    public int getRange(){
-        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getInt(ArgResult.ASKED_RANGE.getName());
+    public int getRange() {
+        return range;
     }
 
     @Override
@@ -39,9 +40,10 @@ public class Glimpse extends Ground{
     }
 
     @Override
-    public String getResourceReport(int n){
+    public String getResourceReport(int inforange, int n){
         try{
-            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).getString(n);
+            if (n<2) return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).getJSONArray(inforange).getJSONArray(n).getString(0);
+            else return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).getJSONArray(inforange).getString(n);
         }
         catch (RuntimeException e){
             return null;
@@ -49,13 +51,18 @@ public class Glimpse extends Ground{
     }
 
     @Override
-    public int getInfoReport(int n){
+    public double getInfoReport(int inforange, int n){
         try{
-            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).getInt(n);
+            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).getJSONArray(inforange).getJSONArray(n).getDouble(0);
         }
         catch (RuntimeException e){
             return -1;
         }
+    }
+
+    @Override
+    public int getDistanceResource(Resource resource){
+        return 0;
     }
 
 }

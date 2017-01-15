@@ -64,9 +64,11 @@ public abstract class Ground implements Action, Results {
 
     public int nbReport(){return -1;}
 
-    public int getInfoReport(int n){ return -1;}
+    public double getInfoReport(int inforange, int n){ return -1;}
 
-    public String getResourceReport(int n){return null;}
+    public String getResourceReport(int inforange, int n){return null;}
 
     public String getRessourceExploit(){return null;}
+
+    public int getDistanceResource(Resource resource){return -1;}
 }
