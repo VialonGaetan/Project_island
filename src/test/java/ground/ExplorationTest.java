@@ -1,17 +1,10 @@
 package ground;
 
-import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.Resource;
-import fr.unice.polytech.si3.qgl.iaad.actions.Exploit;
 import fr.unice.polytech.si3.qgl.iaad.actions.Explore;
-import fr.unice.polytech.si3.qgl.iaad.actions.Move_to;
 import fr.unice.polytech.si3.qgl.iaad.actions.StopGround;
 import fr.unice.polytech.si3.qgl.iaad.ground.Exploration;
-import fr.unice.polytech.si3.qgl.iaad.ground.Move;
-import fr.unice.polytech.si3.qgl.iaad.ground.StopExplorer;
 import fr.unice.polytech.si3.qgl.iaad.init.Context;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
-import jdk.nashorn.api.scripting.JSObject;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;

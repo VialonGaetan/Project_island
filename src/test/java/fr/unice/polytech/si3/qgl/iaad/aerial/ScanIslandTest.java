@@ -7,9 +7,7 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Scan;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author Alexandre Clement

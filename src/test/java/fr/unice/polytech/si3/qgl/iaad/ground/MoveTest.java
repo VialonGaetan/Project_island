@@ -1,7 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.ground;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.actions.*;
+import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
+import fr.unice.polytech.si3.qgl.iaad.actions.Move_to;
 import org.junit.Test;
 
 import java.util.HashMap;

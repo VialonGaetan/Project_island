@@ -5,7 +5,6 @@ import fr.unice.polytech.si3.qgl.iaad.Resource;
 import fr.unice.polytech.si3.qgl.iaad.actions.Exploit;
 import fr.unice.polytech.si3.qgl.iaad.actions.Glimpse;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
-import fr.unice.polytech.si3.qgl.iaad.ground.ExploitResource;
 import fr.unice.polytech.si3.qgl.iaad.ground.FindRessource;
 import org.junit.Before;
 import org.junit.Test;
