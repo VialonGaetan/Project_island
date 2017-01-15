@@ -16,7 +16,7 @@ import java.awt.*;
  *         <p>
  *         Définition de côtes: Une tuile composée de au moins deux biomes dont un OCEAN
  */
-class ScanBeach implements Protocol
+public class ScanBeach implements Protocol
 {
     /**
      * La carte utilisée

@@ -14,7 +14,7 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
  *         <p>
  *         Tourne le drone
  */
-class Turn implements Protocol
+public class Turn implements Protocol
 {
     /**
      * La carte utilisée

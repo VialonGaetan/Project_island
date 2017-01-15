@@ -11,7 +11,7 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
  *         <p>
  *         Vol jusqu'à l'île
  */
-class FlyToIsland implements Protocol
+public class FlyToIsland implements Protocol
 {
     /**
      * La carte utilisée
@@ -39,7 +39,7 @@ class FlyToIsland implements Protocol
      * @param target  la direction vers laquelle se trouve l'île
      * @param range   la distance a parcourir pour atteindre l'île
      */
-    FlyToIsland(IslandMap map, Direction heading, Direction target, Direction sense, int range)
+    public FlyToIsland(IslandMap map, Direction heading, Direction target, Direction sense, int range)
     {
         this.map = map;
         this.heading = heading;
