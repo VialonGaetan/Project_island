@@ -24,7 +24,7 @@ public class StopExplorer implements ProtocolGround{
      * @return Stop
      */
     @Override
-    public Action nextAction() throws InvalidMapException
+    public Action nextAction()
     {
         return new StopGround();
     }
@@ -34,7 +34,7 @@ public class StopExplorer implements ProtocolGround{
      * @return null
      */
     @Override
-    public ProtocolGround setResult(Ground result) throws InvalidMapException
+    public ProtocolGround setResult(Ground result)
     {
         return new StopExplorer();
     }

@@ -13,11 +13,11 @@ public interface ProtocolGround {
     /**
      * @return l'action a effectué
      */
-    Action nextAction() throws InvalidMapException;
+    Action nextAction();
 
     /**
      * @param result le résultat de l'action effectué
      * @return le nouveau protocole en vigueur
      */
-    ProtocolGround setResult(Ground result) throws InvalidMapException;
+    ProtocolGround setResult(Ground result);
 }

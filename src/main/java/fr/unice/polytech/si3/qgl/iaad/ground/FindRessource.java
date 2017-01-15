@@ -3,11 +3,8 @@ package fr.unice.polytech.si3.qgl.iaad.ground;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.Resource;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
-import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
-import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
+import fr.unice.polytech.si3.qgl.iaad.actions.*;
 
-import fr.unice.polytech.si3.qgl.iaad.actions.Scout;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
@@ -51,13 +48,13 @@ public class FindRessource implements ProtocolGround {
     }
 
     @Override
-    public Action nextAction() throws InvalidMapException
+    public Action nextAction()
     {
         return protocol.nextAction();
     }
 
     @Override
-    public ProtocolGround setResult(Ground result) throws InvalidMapException
+    public ProtocolGround setResult(Ground result)
     {
         return protocol = protocol.setResult(result);
     }
@@ -66,19 +63,21 @@ public class FindRessource implements ProtocolGround {
     /**
      * Fait un ECHO de chaque coté du drone pour trouver l'île
      */
-    private class ScoutToFindRessource implements ProtocolGround
+    private class GlimpseToFindRessource implements ProtocolGround
     {
         private Direction direction;
+        private int range;
 
-        private ScoutToFindRessource(Direction direction)
+        private GlimpseToFindRessource(Direction direction, int range)
         {
             this.direction = direction;
+            this.range = range;
         }
 
         @Override
         public Action nextAction()
         {
-            return new Scout(direction);
+            return new Glimpse(direction,range);
         }
 
         /**
@@ -89,9 +88,10 @@ public class FindRessource implements ProtocolGround {
          * @return le nouveau protocole en vigueur
          */
         @Override
-        public ProtocolGround setResult(Ground result) throws InvalidMapException
+        public ProtocolGround setResult(Ground result)
         {
-            /*if (Element.valueOf(result.getFound()) == Element.GROUND)
+            /*
+            if (Element.valueOf(result.getFound()) == Element.GROUND)
             {
                 map.setGround(direction, result.getRange());
                 return new FlyToIsland(map, heading, direction, sense, result.getRange() - 1);

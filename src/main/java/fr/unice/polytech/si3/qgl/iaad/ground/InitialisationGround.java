@@ -37,44 +37,21 @@ public class InitialisationGround implements ProtocolGround{
 
     private HashMap<Resource,Integer> contrat;
 
-    InitialisationGround()
-    {
-        protocol = new ExploreToFindRessource();
-    }
-    /**
-     * Initialise le drone dans la carte
-     *
-     * @param contrat     la carte utilisée par le drone
-     * @param heading l'orientation du drone
-     */
-    InitialisationGround(HashMap contrat, Direction heading)
-    {
-        this.map = map;
-        this.heading = heading;
-        protocol = new ExploreToFindRessource();
-    }
 
-    /**
-     * Re-initialise le drone avec conservation du précédent sens de parcours de la carte
-     *
-     * @param map     la carte utilisée par le drone
-     * @param heading l'orientation du drone
-     * @param sense   le sens de parcours de la carte si on a déjà parcourus la carte
-     */
-    InitialisationGround(HashMap map, Direction heading, Direction sense)
+    InitialisationGround(HashMap contrat)
     {
-        this(map, heading);
-        this.sense = sense;
+        this.contrat=contrat;
+        protocol = new ExploreToFindRessource(contrat);
     }
 
     @Override
-    public Action nextAction() throws InvalidMapException
+    public Action nextAction()
     {
         return protocol.nextAction();
     }
 
     @Override
-    public ProtocolGround setResult(Ground result) throws InvalidMapException
+    public ProtocolGround setResult(Ground result)
     {
         return protocol = protocol.setResult(result);
     }
@@ -86,9 +63,11 @@ public class InitialisationGround implements ProtocolGround{
     {
         private Direction direction;
 
+        private HashMap<Resource,Integer> contrat;
 
-        private ExploreToFindRessource()
+        private ExploreToFindRessource(HashMap contrat)
         {
+            this.contrat=contrat;
         }
 
         @Override
@@ -106,16 +85,16 @@ public class InitialisationGround implements ProtocolGround{
          * @return Le nouveau protocole a utilisé
          */
         @Override
-        public ProtocolGround setResult(Ground result) throws InvalidMapException
+        public ProtocolGround setResult(Ground result)
         {
             for (int i = 0; result.getRessourceExplore(i) != null ; i++) {
-                if (Resource.valueOf(result.getRessourceExplore(i)) != null && i >= Exploration.lasti)
+                if (contrat.containsKey(Resource.valueOf(result.getRessourceExplore(i))))
                 {
-                    Exploration.lasti = i+1;
-                    return new ExploitResource(Resource.valueOf(result.getRessourceExplore(i)),100);
+                    return new ExploitResource(Resource.valueOf(result.getRessourceExplore(i)),100,contrat);
                 }
             }
             return new StopExplorer();
+
         }
     }
 }
