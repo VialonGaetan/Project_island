@@ -21,13 +21,20 @@ public class FindRessource implements ProtocolGround {
      * Le sous-protocole en cours d'utilisation
      */
     private ProtocolGround protocol;
+    private int range;
 
     private HashMap<Resource, Integer> contrat;
 
 
-    FindRessource(HashMap contrat, Direction heading) {
+    public FindRessource(HashMap contrat, Direction heading) {
         this.contrat = contrat;
         protocol = new GlimpseToFindRessource(heading, 4, contrat);
+    }
+
+    public FindRessource(HashMap contrat, Direction headingn, int range) {
+        this.contrat = contrat;
+        this.range = range;
+        protocol = new GlimpseToFindRessource(heading, range, contrat);
     }
 
     @Override

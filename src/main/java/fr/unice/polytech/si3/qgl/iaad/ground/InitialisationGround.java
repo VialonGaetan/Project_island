@@ -23,7 +23,7 @@ public class InitialisationGround implements ProtocolGround{
     private HashMap<Resource,Integer> contrat;
 
 
-    InitialisationGround(HashMap contrat)
+    public InitialisationGround(HashMap contrat)
     {
         this.contrat=contrat;
         protocol = new ExploreToFindRessource(contrat);

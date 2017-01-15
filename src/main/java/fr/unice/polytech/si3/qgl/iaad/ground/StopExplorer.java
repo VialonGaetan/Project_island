@@ -11,10 +11,6 @@ import fr.unice.polytech.si3.qgl.iaad.actions.StopGround;
  */
 public class StopExplorer implements ProtocolGround{
 
-
-    StopExplorer()
-    {
-    }
     /**
      * @return Stop
      */
@@ -31,6 +27,6 @@ public class StopExplorer implements ProtocolGround{
     @Override
     public ProtocolGround setResult(Ground result)
     {
-        return new StopExplorer();
+        return null;
     }
 }
