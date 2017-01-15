@@ -76,7 +76,7 @@ class Initialisation implements Protocol
     /**
      * Fait un ECHO dans la direction donnée
      */
-    private class EchoToFindLimit implements Protocol
+    class EchoToFindLimit implements Protocol
     {
         private Direction direction;
 
