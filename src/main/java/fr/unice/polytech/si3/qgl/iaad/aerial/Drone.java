@@ -8,10 +8,9 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
 /**
+ * Le drone doit trouver la crique la plus proche du site d'urgence.
+ *
  * @author Alexandre Clement
- *         Created the 20/11/2016.
- *         <p>
- *         Le drone doit trouver la crique la plus proche du site d'urgence
  */
 public class Drone
 {
@@ -22,7 +21,7 @@ public class Drone
     /**
      * Palier de budget faible
      */
-    private static final int LOW_BUDGET = 50;
+    static final int LOW_BUDGET = 50;
     /**
      * Budget disponible
      */
@@ -60,15 +59,16 @@ public class Drone
             action = protocol.nextAction();
             if (budget > LOW_BUDGET)
                 return action;
-            // sinon, on a plus assez de budget pour continuer
+            // On a plus assez de budget
+            protocol = new StopAerial();
+            return new Stop();
         }
         catch (InvalidMapException exception)
         {
-            // on rencontre un problème avec la carte
+            // Une erreur s'est produite
+            protocol = new StopAerial();
+            return new Stop();
         }
-        // le drone a rencontré un problème: la partie s'arrête
-        protocol = new StopAerial();
-        return new Stop();
     }
 
     /**
@@ -78,11 +78,10 @@ public class Drone
      */
     public void getResult(Area results) throws InvalidMapException
     {
-        Area areaResult = (Area) results;
         if (budget < LOW_BUDGET)
             return;
-        budget -= areaResult.getCost();
-        protocol = protocol.setResult(areaResult);
+        budget -= results.getCost();
+        protocol = protocol.setResult(results);
     }
 
     public int getBudget(){

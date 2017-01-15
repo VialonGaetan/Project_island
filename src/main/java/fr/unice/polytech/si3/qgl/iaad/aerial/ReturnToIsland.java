@@ -10,10 +10,11 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
 /**
+ * Retourne sur l'île.
+ * <p>
+ * Created the 27/11/2016.
+ *
  * @author Alexandre Clement
- *         Created the 27/11/2016.
- *         <p>
- *         Retourne sur l'île
  */
 class ReturnToIsland implements Protocol
 {
@@ -58,7 +59,8 @@ class ReturnToIsland implements Protocol
     @Override
     public Protocol setResult(Area result) throws InvalidMapException
     {
-        return protocol = protocol.setResult(result);
+        protocol = protocol.setResult(result);
+        return protocol;
     }
 
     /**

@@ -10,10 +10,11 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
 /**
+ * Parcours l'île pour trouver une crique.
+ * <p>
+ * Created the 27/11/2016.
+ *
  * @author Alexandre Clement
- *         Created the 27/11/2016.
- *         <p>
- *         Parcours l'île pour trouver une crique
  */
 class ScanIsland implements Protocol
 {
@@ -60,7 +61,8 @@ class ScanIsland implements Protocol
     @Override
     public Protocol setResult(Area result) throws InvalidMapException
     {
-        return protocol = protocol.setResult(result);
+        protocol = protocol.setResult(result);
+        return protocol;
     }
 
     /**
@@ -105,7 +107,8 @@ class ScanIsland implements Protocol
         public Protocol setResult(Area result) throws InvalidMapException
         {
             // Si on est déjà passer sur cette tuile
-            if (map.getBiomes(map.getLocation()).length > 1) return new StopAerial();
+            if (map.getBiomes(map.getLocation()).length > 1)
+                return new StopAerial();
             // Sinon, on ajoute les biomes
             for (int i = 0; i < result.nbBiomes(); i++)
                 map.addBiomes(Element.valueOf(result.getBiome(i)));

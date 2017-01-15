@@ -10,10 +10,11 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import java.awt.*;
 
 /**
+ * Accoste sur l'île.
+ * <p>
+ * Created the 27/11/2016.
+ *
  * @author Alexandre Clement
- *         Created the 27/11/2016.
- *         <p>
- *         Accoste sur l'île
  */
 class LandOnIsland implements Protocol
 {
@@ -42,6 +43,7 @@ class LandOnIsland implements Protocol
     @Override
     public Action nextAction() throws InvalidMapException
     {
+        Explorer.areaPhase = false;
         return new Land(map.getCreekIds(position)[0], 1);
     }
 

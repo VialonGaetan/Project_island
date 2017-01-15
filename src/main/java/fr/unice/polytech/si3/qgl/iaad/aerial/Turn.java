@@ -9,10 +9,11 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
 /**
+ * Tourne le drone.
+ * <p>
+ * Created the 29/11/2016.
+ *
  * @author Alexandre Clement
- *         Created the 29/11/2016.
- *         <p>
- *         Tourne le drone
  */
 public class Turn implements Protocol
 {

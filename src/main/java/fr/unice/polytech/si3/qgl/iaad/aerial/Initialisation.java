@@ -9,10 +9,11 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
 /**
+ * Initialise les dimensions de la map.
+ * <p>
+ * Created the 27/11/2016.
+ *
  * @author Alexandre Clement
- *         Created the 27/11/2016.
- *         <p>
- *         Initialise les dimensions de la map
  */
 class Initialisation implements Protocol
 {
@@ -68,7 +69,8 @@ class Initialisation implements Protocol
     @Override
     public Protocol setResult(Area result) throws InvalidMapException
     {
-        return protocol = protocol.setResult(result);
+        protocol = protocol.setResult(result);
+        return protocol;
     }
 
     /**

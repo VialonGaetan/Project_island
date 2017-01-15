@@ -6,10 +6,11 @@ import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
 /**
+ * Vol jusqu'à l'île.
+ * <p>
+ * Created the 27/11/2016.
+ *
  * @author Alexandre Clement
- *         Created the 27/11/2016.
- *         <p>
- *         Vol jusqu'à l'île
  */
 public class FlyToIsland implements Protocol
 {

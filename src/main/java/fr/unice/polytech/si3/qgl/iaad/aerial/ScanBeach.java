@@ -9,12 +9,12 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import java.awt.*;
 
 /**
+ * Le drone longe les côtes de l'île pour trouver une crique.
+ * Définition de côtes: Une tuile composée de au moins deux biomes dont un OCEAN.
+ * <p>
+ * Created the 16/12/2016.
+ *
  * @author Alexandre Clement
- *         Created the 16/12/2016.
- *         <p>
- *         On longe les côtes de l'île pour trouver une crique
- *         <p>
- *         Définition de côtes: Une tuile composée de au moins deux biomes dont un OCEAN
  */
 public class ScanBeach implements Protocol
 {
@@ -36,7 +36,6 @@ public class ScanBeach implements Protocol
     private Direction sense;
 
     /**
-     * todo: ne pas SCAN si cela a déjà été fait
      * @param map     la map actuelle
      * @param heading l'orientation du drone
      * @param sense   le sens de recherche
@@ -58,45 +57,8 @@ public class ScanBeach implements Protocol
     @Override
     public Protocol setResult(Area result) throws InvalidMapException
     {
-        return protocol = protocol.setResult(result);
-    }
-
-    /**
-     * Tourne dans le direction voulue, si possible et si cela n'a pas déjà été fait
-     *
-     * @param target la direction cibler
-     * @param sense  le sens de recherche après avoir tournée
-     * @return le nouveau protocole
-     * @throws InvalidMapException si on sort de la carte
-     */
-    private Protocol turn(Direction target, Direction sense) throws InvalidMapException
-    {
-        // On vérifie que l'on est pas déjà aller sur la tuile cibler
-        Point position;
-        position = new Point(map.getLocation());
-        position.translate(heading.getVecteur().x, heading.getVecteur().y);
-        position.translate(target.getVecteur().x, target.getVecteur().y);
-        // Si on est jamais passer dessus, et si la tuile n'est pas hors carte, alors on tourne vers celle-ci
-        if (map.getNumberOfAvailablePoints(heading) > 0 && map.getNumberOfAvailablePoints(target) > 1 && map.getBiomes(position).length == 0)
-            return new Turn(new ScanBeach(map, target, sense), map, heading, target);
-        // Sinon, on vérifie que l'on est pas déjà aller sur la tuile dans le sens opposé
-        position = new Point(map.getLocation());
-        position.translate(heading.getVecteur().x, heading.getVecteur().y);
-        position.translate(target.getBack().getVecteur().x, target.getBack().getVecteur().y);
-        // Si on est jamais passer dessus, et si la tuile n'est pas hors carte, alors on tourne vers celle-ci
-        if (map.getNumberOfAvailablePoints(heading) > 0 && map.getNumberOfAvailablePoints(target.getBack()) > 1 && map.getBiomes(position).length == 0)
-            return new Turn(new ScanBeach(map, target.getBack(), sense.getBack()), map, heading, target.getBack());
-        // Sinon, si on a au moins deux tuiles devant le drone, on continue tout droit
-        if (map.getNumberOfAvailablePoints(heading) > 1)
-            return new FlyOnBeach();
-        // Sinon, on tourne vers la direction initialement cibler mais sans la SCAN
-        if (map.getNumberOfAvailablePoints(heading) > 0 && map.getNumberOfAvailablePoints(target) > 1)
-            return new Turn(new ScanBeach(map, target, sense), map, heading, target);
-        // Sinon, on tourne vers la direction opposé mais sans la SCAN
-        if (map.getNumberOfAvailablePoints(heading) > 0 && map.getNumberOfAvailablePoints(target.getBack()) > 1)
-            return new Turn(new ScanBeach(map, target.getBack(), sense.getBack()), map, heading, target.getBack());
-        // Sinon, le drone est bloquer, on arrête la partie
-        return new StopAerial();
+        protocol = protocol.setResult(result);
+        return protocol;
     }
 
     /**
@@ -175,6 +137,88 @@ public class ScanBeach implements Protocol
             }
             // Sinon, on est au dessus de l'île, sans OCEAN et donc, on tourne pour revenir vers une côte
             return turn(sense.getBack(), heading);
+        }
+
+        /**
+         * Tourne dans le direction voulue, si possible et si cela n'a pas déjà été fait
+         *
+         * @param target la direction cibler
+         * @param sense  le sens de recherche après avoir tournée
+         * @return le nouveau protocole
+         * @throws InvalidMapException si on sort de la carte
+         */
+        private Protocol turn(Direction target, Direction sense) throws InvalidMapException
+        {
+            if (canDroneMoveToAndNotAlreadyVisited(target))
+                return turnBuilder(target, sense);
+
+            if (canDroneMoveToAndNotAlreadyVisited(target.getBack()))
+                return turnBuilder(target.getBack(), sense.getBack());
+
+            if (map.getNumberOfAvailablePoints(heading) > 1)
+                return new FlyOnBeach();
+
+            if (canDroneMoveTo(target))
+                return turnBuilder(target, sense);
+
+            if (canDroneMoveTo(target.getBack()))
+                return turnBuilder(target.getBack(), sense.getBack());
+
+            return new StopAerial();
+        }
+
+        /**
+         * Calcule la position sur laquelle le drone se situera après avoir tourner dans la direction donnée.
+         *
+         * @param direction la direction vers laquelle tourne le drone.
+         * @return la position d'arrivée.
+         */
+        private Point turnTo(Direction direction)
+        {
+            Point position = new Point(map.getLocation());
+            position.translate(heading.getVecteur().x, heading.getVecteur().y);
+            position.translate(direction.getVecteur().x, direction.getVecteur().y);
+            return position;
+        }
+
+        /**
+         * Vérifie si le drone peut tourner dans la direction donnée.
+         *
+         * @param direction la direction vers laquelle tourne le drone.
+         * @return true si le drone peut tourner dans la direction donnée, false sinon.
+         */
+        private boolean canDroneMoveTo(Direction direction)
+        {
+
+            return map.getNumberOfAvailablePoints(heading) > 0 && map.getNumberOfAvailablePoints(direction) > 1;
+        }
+
+        /**
+         * Vérifie si une case a déjà été visitée.
+         *
+         * @param position la position a vérifié.
+         * @return true si la position a déjà été visité, false sinon.
+         */
+        private boolean alreadyVisited(Point position) throws InvalidMapException
+        {
+            return map.getBiomes(position).length != 0;
+        }
+
+        /**
+         * Vérifie si le drone peut tourner dans la direction donnée et si la case n'a pas déjà été visitée.
+         *
+         * @param direction la direction vers laquelle le drone tourne.
+         * @return true si le drone peut tourner vers la case qui n'a pas encore été visitée, false sinon.
+         */
+        private boolean canDroneMoveToAndNotAlreadyVisited(Direction direction) throws InvalidMapException
+        {
+            Point position = turnTo(direction);
+            return canDroneMoveTo(direction) && !alreadyVisited(position);
+        }
+
+        private Turn turnBuilder(Direction target, Direction sense) throws InvalidMapException
+        {
+            return new Turn(new ScanBeach(map, target, sense), map, heading, target);
         }
     }
 }

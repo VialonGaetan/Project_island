@@ -7,10 +7,11 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
 /**
+ * Cherche l'île si on ne la trouve pas lors de l'Initialisation.
+ * <p>
+ * Created the 27/11/2016.
+ *
  * @author Alexandre Clement
- *         Created the 27/11/2016.
- *         <p>
- *         Cherche l'île si on ne la trouve pas lors de l'Initialisation
  */
 class FindIsland implements Protocol
 {
@@ -53,7 +54,8 @@ class FindIsland implements Protocol
     @Override
     public Protocol setResult(Area result) throws InvalidMapException
     {
-        return protocol = protocol.setResult(result);
+        protocol = protocol.setResult(result);
+        return protocol;
     }
 
     /**
@@ -112,10 +114,12 @@ class FindIsland implements Protocol
                 if (map.getNumberOfAvailablePoints(heading.getLeft()) > map.getNumberOfAvailablePoints(heading.getRight()))
                 {
                     map.moveLocation(heading.getLeft());
-                    return new Heading(heading = heading.getLeft());
+                    heading = heading.getLeft();
+                    return new Heading(heading);
                 }
                 map.moveLocation(heading.getRight());
-                return new Heading(heading = heading.getRight());
+                heading = heading.getRight();
+                return new Heading(heading);
             }
             return new Fly();
         }
