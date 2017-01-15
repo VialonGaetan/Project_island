@@ -31,7 +31,7 @@ public class Move implements ProtocolGround{
     private HashMap<Resource,Integer> contrat;
 
 
-    Move(int distance, Direction direction, HashMap contrat)
+    public Move(int distance, Direction direction, HashMap contrat)
     {
         this.direction=direction;
         this.distance = distance;
