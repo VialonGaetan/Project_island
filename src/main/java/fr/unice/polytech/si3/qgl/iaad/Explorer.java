@@ -2,7 +2,9 @@ package fr.unice.polytech.si3.qgl.iaad;
 
 import eu.ace_design.island.bot.IExplorerRaid;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.*;
+import fr.unice.polytech.si3.qgl.iaad.actions.Area;
+import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
+import fr.unice.polytech.si3.qgl.iaad.actions.Land;
 import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.ground.Exploration;
 import fr.unice.polytech.si3.qgl.iaad.init.Context;

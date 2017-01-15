@@ -1,14 +1,11 @@
 package result;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.actions.*;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
 import fr.unice.polytech.si3.qgl.iaad.Resource;
+import fr.unice.polytech.si3.qgl.iaad.actions.*;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 /**
  * @author Gaetan Vialon
@@ -210,8 +207,8 @@ public class GroundResultTest {
                 "  \"extras\": {\n" +
                 "    \"asked_range\": 4,\n" +
                 "    \"report\": [\n" +
-                "      [ [ \"BEACH\", 59.35 ], [ \"OCEAN\", 40.65 ] ],\n" +
-                "      [ [ \"OCEAN\", 70.2  ], [ \"BEACH\", 29.8  ] ],\n" +
+                "      [ [ \"OCEAN\", 59.35 ], [ \"OCEAN\", 40.65 ], [ \"TEMPERATE_DESERT\", 40.65 ] ],\n" +
+                "      [ [ \"OCEAN\", 70.2  ], [ \"SNOW\", 29.8  ] ],\n" +
                 "      [ \"OCEAN\", \"BEACH\" ],\n" +
                 "      [ \"OCEAN\" ]\n" +
                 "    ]\n" +
@@ -224,9 +221,11 @@ public class GroundResultTest {
         assertEquals(result.getStatus(),status);
         assertEquals(result.getRange(),4);
         assertEquals(result.nbReport(),4);
-        assertEquals(result.getResourceReport(0,0),"BEACH");
+        assertEquals(result.getResourceReport(2,1),"BEACH");
         assertEquals(result.getResourceReport(1,0),"OCEAN");
-        assertEquals(result.getInfoReport(0,0),(double) 59.35);
-
+        //assertEquals(result.getDistanceResource(Resource.ORE),2);
+        assertEquals(result.getDistanceResource(Resource.FISH),1);
+        assertEquals(result.getDistanceResource(Resource.QUARTZ),1);
+        assertEquals(result.getDistanceResource(Resource.FRUITS),-1);
     }
 }

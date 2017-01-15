@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.ground;
 
-import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.Resource;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
@@ -28,6 +27,9 @@ public class Exploration {
      */
     private int budget;
 
+    /**
+     * Pour l'instant c'est pas très propre mais ça permet de ne pas tourner en rond en attend la map
+     */
     public static int lasti = 0;
 
     /**
@@ -43,7 +45,6 @@ public class Exploration {
     /**
      * Hashmap avec tous les contrats
      * en clé nous avons les resources et en value le nombre de resource necessaire
-     *
      */
     private HashMap<Resource, Integer> contrat = new HashMap<>();
 
@@ -66,9 +67,10 @@ public class Exploration {
         action = protocol.nextAction();
         if (budget > LOW_BUDGET)
             return action;
-
-        protocol = new StopExplorer();
-        return new StopGround();
+        else{
+            protocol = new StopExplorer();
+            return new StopGround();
+        }
     }
 
     /**
@@ -77,7 +79,7 @@ public class Exploration {
      * @param results le résultat de l'action précédente
      */
 
-    public void getResult(Ground results) throws InvalidMapException {
+    public void getResult(Ground results){
         Ground groundResult = (Ground) results;
         if (budget < LOW_BUDGET)
             return;

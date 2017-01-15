@@ -1,14 +1,10 @@
 package fr.unice.polytech.si3.qgl.iaad.ground;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.Resource;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
-import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
 import fr.unice.polytech.si3.qgl.iaad.actions.Explore;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
 import java.util.HashMap;
 
@@ -18,22 +14,11 @@ import java.util.HashMap;
  */
 public class InitialisationGround implements ProtocolGround{
 
-    /**
-     * La carte utilisée
-     */
-    private IslandMap map;
-    /**
-     * L'orientation du drone
-     */
-    private Direction heading;
+
     /**
      * Le sous-protocole en cours d'utilisation
      */
     private ProtocolGround protocol;
-    /**
-     * Conservation du sens de parcours de la carte pour l'exploration de l'île
-     */
-    private Direction sense;
 
     private HashMap<Resource,Integer> contrat;
 
@@ -56,16 +41,14 @@ public class InitialisationGround implements ProtocolGround{
         return protocol = protocol.setResult(result);
     }
 
-    /**
-     * Fait un ECHO dans la direction donnée
-     */
+
     private class ExploreToFindRessource implements ProtocolGround
     {
-        private Direction direction;
+        private Direction direction=Direction.N;
 
-        private HashMap<Resource,Integer> contrat;
+        private HashMap<Resource,Integer>contrat;
 
-        private ExploreToFindRessource(HashMap contrat)
+        ExploreToFindRessource(HashMap contrat)
         {
             this.contrat=contrat;
         }
@@ -76,24 +59,20 @@ public class InitialisationGround implements ProtocolGround{
             return new Explore();
         }
 
-        /**
-         * Si on trouve l'île, on lance le protocole FlyToIsland
-         * Sinon, on exécute ce protocole dans une autre direction
-         * Si un ECHO a été fait dans chaque direction, on lance le protocol FindIsland
-         *
-         * @param result le résultat de l'action précédente
-         * @return Le nouveau protocole a utilisé
-         */
         @Override
         public ProtocolGround setResult(Ground result)
         {
-            for (int i = 0; result.getRessourceExplore(i) != null ; i++) {
-                if (contrat.containsKey(Resource.valueOf(result.getRessourceExplore(i))))
+
+            for (int i = 0; result.getRessourceExplore(i) != null; i++) {
+                if (contrat.containsKey(Resource.valueOf(result.getRessourceExplore(i)))&& i>=Exploration.lasti)
                 {
-                    return new ExploitResource(Resource.valueOf(result.getRessourceExplore(i)),100,contrat);
+                    Exploration.lasti = i+1;
+                    return new ExploitResource(Resource.valueOf(result.getRessourceExplore(i)),contrat.get(Resource.valueOf(result.getRessourceExplore(i))),contrat);
                 }
             }
-            return new StopExplorer();
+            Exploration.lasti = 0;
+
+            return new FindRessource(contrat,direction);
 
         }
     }

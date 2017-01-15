@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.actions;
 
+import fr.unice.polytech.si3.qgl.iaad.Biomes;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Resource;
 import org.json.JSONObject;
@@ -42,7 +43,7 @@ public class Glimpse extends Ground{
     @Override
     public String getResourceReport(int inforange, int n){
         try{
-            if (n<2) return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).getJSONArray(inforange).getJSONArray(n).getString(0);
+            if (inforange<2) return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).getJSONArray(inforange).getJSONArray(n).getString(0);
             else return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).getJSONArray(inforange).getString(n);
         }
         catch (RuntimeException e){
@@ -50,19 +51,27 @@ public class Glimpse extends Ground{
         }
     }
 
+    /**
+     * On ne l'utilise pas pour l'instant
+     * @param inforange
+     * @param n
+     * @return
+     */
     @Override
     public double getInfoReport(int inforange, int n){
-        try{
-            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).getJSONArray(inforange).getJSONArray(n).getDouble(0);
-        }
-        catch (RuntimeException e){
-            return -1;
-        }
+        return -1;
     }
 
     @Override
     public int getDistanceResource(Resource resource){
-        return 0;
+        for (int i = 0; getResourceReport(i,0) != null; i++) {
+            for (int j = 0; getResourceReport(i,j)!=null ; j++) {
+                if(Biomes.valueOf(getResourceReport(i,j)).getAssociateResources().contains(resource)){
+                    return i+1;
+                }
+            }
+        }
+        return -1;
     }
 
 }

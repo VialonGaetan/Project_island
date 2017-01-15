@@ -10,7 +10,8 @@ import org.junit.Test;
 
 import java.awt.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Alexandre Clement

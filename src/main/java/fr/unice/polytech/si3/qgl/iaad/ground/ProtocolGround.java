@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.ground;
 
-import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 

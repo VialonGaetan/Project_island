@@ -1,13 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.ground;
 
-import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
-import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.actions.StopGround;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
-
-import java.awt.*;
 
 
 /**

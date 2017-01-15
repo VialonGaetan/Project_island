@@ -2,15 +2,13 @@ package aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
+import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author romain
