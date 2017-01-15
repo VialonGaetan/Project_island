@@ -57,8 +57,7 @@ public class ScanBeach implements Protocol
     @Override
     public Protocol setResult(Area result) throws InvalidMapException
     {
-        protocol = protocol.setResult(result);
-        return protocol;
+        return protocol.setResult(result);
     }
 
     /**

@@ -2,15 +2,16 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
-import fr.unice.polytech.si3.qgl.iaad.actions.Area;
-import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
+import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.Random;
 
 import static org.junit.Assert.*;
 
@@ -44,6 +45,29 @@ public class DroneTest
         assertNotNull(action);
         assertTrue(action instanceof Area);
         assertTrue(droneWithoutBudget.doAction() instanceof Stop);
+    }
+
+    @Test
+    public void randomAction() throws Exception
+    {
+        for (int i = 0; i < 10000; i++)
+        {
+            IslandMap map = new IslandMap();
+            int budget = 10000;
+            JSONObject jsonObject;
+            Drone drone = new Drone(budget, Direction.E, map);
+            Area action = ((Area) drone.doAction());
+
+            while (!(action instanceof Stop))
+            {
+                jsonObject = randomJSON();
+                action.putResults(jsonObject.toString());
+                drone.getResult(action);
+                budget -= (int) jsonObject.get("cost");
+                assertEquals(budget, drone.getBudget());
+                action = ((Area) drone.doAction());
+            }
+        }
     }
 
     @Test
@@ -82,10 +106,10 @@ public class DroneTest
         map.setGround(Direction.E, 12);
         try
         {
-            for (int i=0; i<12; i++)
+            for (int i = 0; i < 12; i++)
                 map.moveLocation(Direction.E);
             map.addCreeks("creek");
-            for (int i=0; i<12; i++)
+            for (int i = 0; i < 12; i++)
                 map.moveLocation(Direction.W);
         }
         catch (InvalidMapException e)
@@ -106,6 +130,22 @@ public class DroneTest
                                 .put(CREEK))
                         .put("sites", new JSONArray()
                                 .put("site")));
+    }
+
+    static JSONObject randomJSON()
+    {
+        Random random = new Random();
+        String[] creeks = new String[(int) Math.abs(random.nextGaussian() / 16)];
+        for (int i = 0; i < creeks.length; i++)
+        {
+            creeks[i] = CREEK + i;
+        }
+        return createJSON((int) (2 + Math.random() * 30)).put("extras", new JSONObject()
+                .put("range", (int) (Math.random() * 20))
+                .put("found", random.nextBoolean() ? Element.OUT_OF_RANGE : Element.GROUND)
+                .put("biomes", new JSONArray(Arrays.stream(Element.values()).filter(e -> random.nextBoolean()).map(Enum::toString).toArray()))
+                .put("creeks", new JSONArray(creeks))
+        );
     }
 
 }
