@@ -83,6 +83,19 @@ public class FlyToIslandTest
                 return null;
             }
         }) instanceof FlyToIsland);
+
+        flyToIsland = new FlyToIsland(new IslandMap(), Direction.E, Direction.W, null, 0);
+        assertTrue(flyToIsland.setResult(new Area() {
+            @Override
+            public Area putResults(String result) {
+                return null;
+            }
+
+            @Override
+            public String toJSON() {
+                return null;
+            }
+        }) instanceof FlyToIsland);
     }
 
     /**
@@ -93,6 +106,19 @@ public class FlyToIslandTest
     public void turnSetResult() throws InvalidMapException
     {
         flyToIsland = new FlyToIsland(new IslandMap(), Direction.E, Direction.W, Direction.E, 0);
+        assertTrue(flyToIsland.setResult(new Area() {
+            @Override
+            public Area putResults(String result) {
+                return null;
+            }
+
+            @Override
+            public String toJSON() {
+                return null;
+            }
+        }) instanceof Turn);
+
+        flyToIsland = new FlyToIsland(new IslandMap(), Direction.E, Direction.W, Direction.W, 0);
         assertTrue(flyToIsland.setResult(new Area() {
             @Override
             public Area putResults(String result) {
