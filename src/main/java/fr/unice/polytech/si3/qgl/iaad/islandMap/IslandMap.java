@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
+import fr.unice.polytech.si3.qgl.iaad.Biomes;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 
@@ -10,16 +11,6 @@ import java.util.List;
 /**
  * @author romain
  * Created on 13/11/16.
- */
-
-/**
- * Dynamic map
- * Manage all resources found
- * Handles the movements of the location
- * Manage setOutOfRange
- * Manage setGround
- * Manage creeks
- * Manage the emergency site
  */
 
 public class IslandMap
@@ -64,8 +55,10 @@ public class IslandMap
     /**
      * Converts the aerial map in land map
      */
-    public void zoom()
+    public boolean zoom()
     {
+        boolean done = true;
+
         IslandMap oldMap = new IslandMap(bodyMap, location, dimensionFinished, emergencySiteId);
 
         bodyMap = new DynamicMatrix(oldMap.bodyMap.getNumberOfLines()*3, oldMap.bodyMap.getNumberOfColumns()*3);
@@ -80,7 +73,9 @@ public class IslandMap
                             bodyMap.setElement(y+y_bloc, x+x_bloc, oldMap.bodyMap.get(y_oldMap, x_oldMap));
         }
 
-        catch(Exception exception) { }
+        catch(Exception exception) { done = false; }
+
+        return done;
     }
 
     /**
@@ -122,31 +117,36 @@ public class IslandMap
 
     /**
      * test if there is the ocean the point just next our location
-     * @param direction
+     * @param direction, direction to test
      * @return true if there is ocean, false otherwise
      */
     public boolean isOcean(Direction direction)
     {
         boolean test=false;
 
-        if(getNumberOfAvailablePoints(direction)>0)
+        try
         {
-            switch(direction)
+            if(getNumberOfAvailablePoints(direction)>0)
             {
-                case N:
-                    try { if(hasElement(new Point(location.x, location.y-1), Element.OCEAN)) test=true; } catch(Exception exception) { }
-                    break;
-                case E:
-                    try { if(hasElement(new Point(location.x+1, location.y), Element.OCEAN)) test=true; } catch(Exception exception) { }
-                    break;
-                case S:
-                    try { if(hasElement(new Point(location.x, location.y+1), Element.OCEAN)) test=true; } catch(Exception exception) { }
-                    break;
-                case W:
-                    try { if(hasElement(new Point(location.x-1, location.y), Element.OCEAN)) test=true; } catch(Exception exception) { }
-                    break;
+                switch (direction)
+                {
+                    case N:
+                        if (hasBiome(new Point(location.x, location.y - 1), Biomes.OCEAN)) test = true;
+                        break;
+                    case E:
+                        if (hasBiome(new Point(location.x + 1, location.y), Biomes.OCEAN)) test = true;
+                        break;
+                    case S:
+                        if (hasBiome(new Point(location.x, location.y + 1), Biomes.OCEAN)) test = true;
+                        break;
+                    case W:
+                        if (hasBiome(new Point(location.x - 1, location.y), Biomes.OCEAN)) test = true;
+                        break;
+                }
             }
         }
+
+        catch(InvalidMapException exception) { test = false; }
 
         return test;
     }
@@ -215,9 +215,9 @@ public class IslandMap
     {
         boolean test=true;
 
-        for(int i = 0; i<dimensionFinished.length; i++)
+        for(boolean currentDimensionFinished : dimensionFinished)
         {
-            if(!dimensionFinished[i])
+            if(!currentDimensionFinished)
             {
                 test=false;
                 break;
@@ -235,8 +235,10 @@ public class IslandMap
      * @param direction, direction to set ground
      * @param numberOfPoints, number of points to add to map
      */
-    public void setGround(Direction direction, int numberOfPoints)
+    public boolean setGround(Direction direction, int numberOfPoints)
     {
+        boolean done = true;
+
         numberOfPoints++;
 
         if(numberOfPoints>getNumberOfAvailablePoints(direction))
@@ -245,25 +247,28 @@ public class IslandMap
 
         String ground=Element.GROUND.toString();
 
+        Point point = new Point();
+
         switch(direction)
         {
             case N:
-                try { addElements(new Point(location.x, location.y-numberOfPoints), ground); }
-                catch (InvalidMapException e) { }
+                point = new Point(location.x, location.y-numberOfPoints);
                 break;
             case S:
-                try { addElements(new Point(location.x, location.y+numberOfPoints), ground); }
-                catch (InvalidMapException e) { }
+                point = new Point(location.x, location.y+numberOfPoints);
                 break;
             case E:
-                try { addElements(new Point(location.x+numberOfPoints, location.y), ground); }
-                catch (InvalidMapException e) { }
+                point = new Point(location.x+numberOfPoints, location.y);
                 break;
             case W:
-                try { addElements(new Point(location.x-numberOfPoints, location.y), ground); }
-                catch (InvalidMapException e) { }
+                point = new Point(location.x-numberOfPoints, location.y);
                 break;
         }
+
+        try { addElements(point, ground); }
+        catch(InvalidMapException exception) { done = false; }
+
+        return done;
     }
 
     /**
@@ -314,14 +319,18 @@ public class IslandMap
      */
     private void addElements(Point point, String... elements) throws InvalidMapException
     {
-        String elementsInString="";
+        String elementsInString = "";
 
-        if(!pointExist(point)) throw new InvalidMapException();
-        if(bodyMap.get(point.y, point.x).length()>0) elementsInString="__";
+        if(!pointExist(point))
+            throw new InvalidMapException();
 
-        for(int i=0; i<elements.length-1; i++) elementsInString+=(elements[i]+"__");
+        if(bodyMap.get(point.y, point.x).length()>0)
+            elementsInString = "__";
 
-        elementsInString+=elements[elements.length-1];
+        for(int i=0; i<elements.length-1; i++)
+            elementsInString += (elements[i]+"__");
+
+        elementsInString += elements[elements.length-1];
         bodyMap.addElement(point.y, point.x, elementsInString);
     }
 
@@ -330,11 +339,16 @@ public class IslandMap
      * @param biomes, elements from the enum
      * @throws InvalidMapException, DirectionException, ElementException
      */
-    public void addBiomes(Element... biomes) throws InvalidMapException
+    public void addBiomes(Biomes... biomes) throws InvalidMapException
     {
         int i=0;
         String all[]=new String[biomes.length];
-        for(Element element : biomes) all[i++]=element.toString();
+
+        for(Biomes biome : biomes)
+        {
+            all[i++]=biome.toString();
+        }
+
         addElements(location, all);
     }
 
@@ -385,10 +399,10 @@ public class IslandMap
         String elements[]=bodyMap.get(point.y, point.x).split("__");
         List<String> ids=new ArrayList<>();
 
-        for(int i=0; i<elements.length; i++)
+        for(String element : elements)
         {
-            try { Element.valueOf(elements[i]); }
-            catch (IllegalArgumentException e) { ids.add(elements[i]); }
+            try { Element.valueOf(element); }
+            catch (IllegalArgumentException e) { ids.add(element); }
         }
 
         String idsInArray[] = new String[ids.size()];
@@ -403,50 +417,69 @@ public class IslandMap
      * @return Element[] type
      * @throws InvalidMapException, if location position is not correct
      */
-    public Element[] getBiomes(Point point) throws InvalidMapException
+    public Biomes[] getBiomes(Point point) throws InvalidMapException
     {
         if(!pointExist(point)) throw new InvalidMapException();
 
-        String elements[]=bodyMap.get(point.y, point.x).split("__");
-        List<Element> biomes=new ArrayList<>();
+        String elements[] = bodyMap.get(point.y, point.x).split("__");
+        List<Biomes> biomes = new ArrayList<>();
 
-        for(int i=0; i<elements.length; i++)
+        for(String element : elements)
         {
-            IllegalArgumentException exception=null;
+            try { Biomes.valueOf(element); }
+            catch (IllegalArgumentException e) { continue; }
 
-            try { Element.valueOf(elements[i]); }
-            catch (IllegalArgumentException e) { exception=e; }
-
-            if(exception==null) biomes.add(Element.valueOf(elements[i]));
+            biomes.add(Biomes.valueOf(element));
         }
 
-        Element biomesInArray[] = new Element[biomes.size()];
+        Biomes biomesInArray[] = new Biomes[biomes.size()];
         biomesInArray = biomes.toArray(biomesInArray);
 
         return biomesInArray;
     }
 
+    private Element[] getElements(Point point) throws InvalidMapException
+    {
+        if(!pointExist(point)) throw new InvalidMapException();
+
+        String elementsArray[] = bodyMap.get(point.y, point.x).split("__");
+        List<Element> elements = new ArrayList<>();
+
+        for(String element : elementsArray)
+        {
+            try { Element.valueOf(element); }
+            catch (IllegalArgumentException e) { continue; }
+
+            elements.add(Element.valueOf(element));
+        }
+
+        Element elementsInArray[] = new Element[elements.size()];
+        elementsInArray = elements.toArray(elementsInArray);
+
+        return elementsInArray;
+    }
+
     /**
      * Deletes all the biomes occurrences at this point
      * @param point, Point type
-     * @param element, Element type
+     * @param biome, Element type
      * @return boolean type, true if the biome has been deleted and false otherwise
      * @throws InvalidMapException, if location position is not correct
      */
-    public boolean deleteBiome(Point point, Element element) throws InvalidMapException
+    public boolean deleteBiome(Point point, Biomes biome) throws InvalidMapException
     {
         if(!pointExist(point)) throw new InvalidMapException();
 
         boolean done=false;
         String biomes=bodyMap.get(point.y, point.x);
 
-        if(biomes.contains(element.toString()))
+        if(biomes.contains(biome.toString()))
         {
             String toDelete="";
 
-            if(biomes.contains(element.toString()+"__")) toDelete=element.toString()+"__";
-            else if(biomes.contains("__"+element.toString())) toDelete="__"+element.toString();
-            else if(biomes.contains(element.toString())) toDelete=element.toString();
+            if(biomes.contains(biome.toString()+"__")) toDelete=biome.toString()+"__";
+            else if(biomes.contains("__"+biome.toString())) toDelete="__"+biome.toString();
+            else if(biomes.contains(biome.toString())) toDelete=biome.toString();
 
             bodyMap.setElement(point.y, point.x, biomes.replace(toDelete, ""));
             done=true;
@@ -458,10 +491,16 @@ public class IslandMap
     /**
      * Returns if there is this element at this point
      * @param point, Point type
-     * @param element, Element type
+     * @param biome, Element type
      * @return boolean type, true if there is the element, false otherwise
      * @throws InvalidMapException, if the point does not exist
      */
+    public boolean hasBiome(Point point, Biomes biome) throws InvalidMapException
+    {
+        if(!pointExist(point)) throw new InvalidMapException();
+        return bodyMap.get(point.y, point.x).contains(biome.toString());
+    }
+
     public boolean hasElement(Point point, Element element) throws InvalidMapException
     {
         if(!pointExist(point)) throw new InvalidMapException();
@@ -470,17 +509,30 @@ public class IslandMap
 
     /**
      * Returns the number of element occurrences
-     * @param element, Element type
+     * @param biome, Element type
      * @return integer type
      * @throws InvalidMapException, if the point does not exist
      */
-    public int getNumberOfBiomes(Element element) throws InvalidMapException
+    public int getNumberOfBiomes(Biomes biome) throws InvalidMapException
     {
         int count=0;
 
         for(int i=0; i<bodyMap.getNumberOfLines(); i++)
             for(int j=0; j<bodyMap.getNumberOfColumns(); j++)
-                for(Element k:getBiomes(new Point(j, i)))
+                for(Biomes k:getBiomes(new Point(j, i)))
+                    if(biome==k)
+                        count++;
+
+        return count;
+    }
+
+    public int getNumberOfElements(Element element) throws InvalidMapException
+    {
+        int count=0;
+
+        for(int i=0; i<bodyMap.getNumberOfLines(); i++)
+            for(int j=0; j<bodyMap.getNumberOfColumns(); j++)
+                for(Element k:getElements(new Point(j, i)))
                     if(element==k)
                         count++;
 

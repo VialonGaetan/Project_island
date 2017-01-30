@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
+import fr.unice.polytech.si3.qgl.iaad.Biomes;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
@@ -117,7 +118,7 @@ public class DroneTest
                         .put("range", 1)
                         .put("found", Element.GROUND.toString())
                         .put("biomes", new JSONArray()
-                                .put(Element.OCEAN.toString()))
+                                .put(Biomes.OCEAN.toString()))
                         .put("creeks", new JSONArray()
                                 .put(CREEK))
                         .put("sites", new JSONArray()

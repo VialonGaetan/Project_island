@@ -1,5 +1,6 @@
 package areaPhase;
 
+import fr.unice.polytech.si3.qgl.iaad.Biomes;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.DynamicMatrix;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
@@ -60,8 +61,8 @@ public class DynamicMatrixTest
     @Test
     public void setElement() throws InvalidMapException
     {
-        dynamicMatrix.setElement(0, 0, Element.MANGROVE.toString());
-        assertEquals(Element.MANGROVE.toString(), dynamicMatrix.get(0, 0));
+        dynamicMatrix.setElement(0, 0, Biomes.MANGROVE.toString());
+        assertEquals(Biomes.MANGROVE.toString(), dynamicMatrix.get(0, 0));
         dynamicMatrix.setElement(0, 0, Element.CREEK.toString());
         assertEquals(Element.CREEK.toString(), dynamicMatrix.get(0, 0));
     }
@@ -73,7 +74,7 @@ public class DynamicMatrixTest
     @Test(expected=InvalidMapException.class)
     public void setElementException() throws InvalidMapException
     {
-        dynamicMatrix.setElement(1, 0, Element.MANGROVE.toString());
+        dynamicMatrix.setElement(1, 0, Biomes.MANGROVE.toString());
     }
 
     /**
@@ -84,10 +85,10 @@ public class DynamicMatrixTest
     @Test
     public void addElement() throws InvalidMapException
     {
-        dynamicMatrix.setElement(0, 0, Element.MANGROVE.toString());
-        assertEquals(Element.MANGROVE.toString(), dynamicMatrix.get(0, 0));
+        dynamicMatrix.setElement(0, 0, Biomes.MANGROVE.toString());
+        assertEquals(Biomes.MANGROVE.toString(), dynamicMatrix.get(0, 0));
         dynamicMatrix.addElement(0, 0, Element.CREEK.toString());
-        assertTrue(dynamicMatrix.get(0, 0).contains(Element.MANGROVE.toString()));
+        assertTrue(dynamicMatrix.get(0, 0).contains(Biomes.MANGROVE.toString()));
         assertTrue(dynamicMatrix.get(0, 0).contains(Element.CREEK.toString()));
     }
 
@@ -98,7 +99,7 @@ public class DynamicMatrixTest
     @Test(expected=InvalidMapException.class)
     public void addElementException() throws InvalidMapException
     {
-        dynamicMatrix.addElement(1, 0, Element.MANGROVE.toString());
+        dynamicMatrix.addElement(1, 0, Biomes.MANGROVE.toString());
     }
 
     /**
@@ -130,7 +131,7 @@ public class DynamicMatrixTest
     @Test
     public void thisBecome() throws InvalidMapException
     {
-        dynamicMatrix.setElement(0,0, Element.BEACH.toString());
+        dynamicMatrix.setElement(0,0, Biomes.BEACH.toString());
         dynamicMatrix.addLines(-1, 2);
         dynamicMatrix.addColumns(0, 1);
         dynamicMatrix.setElement(0,0, Element.CREEK.toString());
@@ -142,7 +143,7 @@ public class DynamicMatrixTest
         assertEquals(dynamicMatrix.getNumberOfLines(), other.getNumberOfLines());
 
         assertEquals(Element.CREEK.toString(), other.get(0, 0));
-        assertEquals(Element.BEACH.toString(), other.get(0, 1));
+        assertEquals(Biomes.BEACH.toString(), other.get(0, 1));
 
         for(int i=1; i<other.getNumberOfLines(); i++)
         {
@@ -175,13 +176,13 @@ public class DynamicMatrixTest
     @Test
     public void addLinesElementAtEnd() throws InvalidMapException
     {
-        dynamicMatrix.setElement(0, 0, Element.ALPINE.toString());
+        dynamicMatrix.setElement(0, 0, Biomes.ALPINE.toString());
         dynamicMatrix.addLines(-1, 2);
-        assertEquals(Element.ALPINE.toString(), dynamicMatrix.get(0, 0));
+        assertEquals(Biomes.ALPINE.toString(), dynamicMatrix.get(0, 0));
         assertEquals("", dynamicMatrix.get(2, 0));
         dynamicMatrix.setElement(2, 0, Element.CREEK.toString());
         assertEquals(Element.CREEK.toString(), dynamicMatrix.get(2, 0));
-        assertEquals(Element.ALPINE.toString(), dynamicMatrix.get(0, 0));
+        assertEquals(Biomes.ALPINE.toString(), dynamicMatrix.get(0, 0));
     }
 
     /**
@@ -192,13 +193,13 @@ public class DynamicMatrixTest
     @Test
     public void addLinesElementAtBeginning() throws InvalidMapException
     {
-        dynamicMatrix.setElement(0, 0, Element.ALPINE.toString());
+        dynamicMatrix.setElement(0, 0, Biomes.ALPINE.toString());
         dynamicMatrix.addLines(0, 2);
-        assertEquals(Element.ALPINE.toString(), dynamicMatrix.get(2, 0));
+        assertEquals(Biomes.ALPINE.toString(), dynamicMatrix.get(2, 0));
         assertEquals("", dynamicMatrix.get(0, 0));
         dynamicMatrix.setElement(0, 0, Element.CREEK.toString());
         assertEquals(Element.CREEK.toString(), dynamicMatrix.get(0, 0));
-        assertEquals(Element.ALPINE.toString(), dynamicMatrix.get(2, 0));
+        assertEquals(Biomes.ALPINE.toString(), dynamicMatrix.get(2, 0));
     }
 
     /**
@@ -223,13 +224,13 @@ public class DynamicMatrixTest
     @Test
     public void addColumnsElementAtEnd() throws InvalidMapException
     {
-        dynamicMatrix.setElement(0, 0, Element.ALPINE.toString());
+        dynamicMatrix.setElement(0, 0, Biomes.ALPINE.toString());
         dynamicMatrix.addColumns(-1, 2);
-        assertEquals(Element.ALPINE.toString(), dynamicMatrix.get(0, 0));
+        assertEquals(Biomes.ALPINE.toString(), dynamicMatrix.get(0, 0));
         assertEquals("", dynamicMatrix.get(0, 2));
         dynamicMatrix.setElement(0, 2, Element.CREEK.toString());
         assertEquals(Element.CREEK.toString(), dynamicMatrix.get(0, 2));
-        assertEquals(Element.ALPINE.toString(), dynamicMatrix.get(0, 0));
+        assertEquals(Biomes.ALPINE.toString(), dynamicMatrix.get(0, 0));
     }
 
     /**
@@ -240,12 +241,12 @@ public class DynamicMatrixTest
     @Test
     public void addColumnsElementAtBeginning() throws InvalidMapException
     {
-        dynamicMatrix.setElement(0, 0, Element.ALPINE.toString());
+        dynamicMatrix.setElement(0, 0, Biomes.ALPINE.toString());
         dynamicMatrix.addColumns(0, 2);
-        assertEquals(Element.ALPINE.toString(), dynamicMatrix.get(0, 2));
+        assertEquals(Biomes.ALPINE.toString(), dynamicMatrix.get(0, 2));
         assertEquals("", dynamicMatrix.get(0, 0));
         dynamicMatrix.setElement(0, 0, Element.CREEK.toString());
         assertEquals(Element.CREEK.toString(), dynamicMatrix.get(0, 0));
-        assertEquals(Element.ALPINE.toString(), dynamicMatrix.get(0, 2));
+        assertEquals(Biomes.ALPINE.toString(), dynamicMatrix.get(0, 2));
     }
 }

@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
+import fr.unice.polytech.si3.qgl.iaad.Biomes;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
@@ -45,7 +46,7 @@ class ScanToFindCreek extends Oriented implements Protocol
         // on ajoute les biomes à la carte
         for (int i = 0; i < result.nbBiomes(); i++)
         {
-            getMap().addBiomes(Element.valueOf(result.getBiome(i)));
+            getMap().addBiomes(Biomes.valueOf(result.getBiome(i)));
         }
         // Si on trouve une crique, on Land dessus
         if (result.nbCreeks() > 0)
@@ -54,12 +55,12 @@ class ScanToFindCreek extends Oriented implements Protocol
             return new LandOnIsland(getMap(), getMap().getLocation());
         }
         // Si il n'y a que de l'OCEAN, alors on tourne pour revenir vers une côte
-        if (result.nbBiomes() == 1 && Element.valueOf(result.getBiome(0)) == Element.OCEAN)
+        if (result.nbBiomes() == 1 && Biomes.valueOf(result.getBiome(0)) == Biomes.OCEAN)
             return turn(getSense(), getHeading().getBack());
         // Si il y a au moins deux biomes dont un OCEAN, alors on est sur une côte
         for (int i = 0; i < result.nbBiomes(); i++)
         {
-            if (Element.valueOf(result.getBiome(i)) == Element.OCEAN)
+            if (Biomes.valueOf(result.getBiome(i)) == Biomes.OCEAN)
                 return new FlyOnBeach(getMap(), getHeading(), getSense());
         }
         // Sinon, on est au dessus de l'île, sans OCEAN et donc, on tourne pour revenir vers une côte
