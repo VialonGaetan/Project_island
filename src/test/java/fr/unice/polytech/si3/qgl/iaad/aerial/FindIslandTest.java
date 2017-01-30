@@ -33,7 +33,7 @@ public class FindIslandTest
             Point position;
             while (findIsland instanceof FindIsland)
             {
-                position = map.getLocation();
+                position = new Point(map.getLocation());
                 Area area = (Area) findIsland.nextAction();
                 if (area instanceof Echo || area instanceof Heading)
                 {

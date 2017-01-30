@@ -46,7 +46,6 @@ class LandOnIsland implements Protocol
     }
 
     /**
-     * todo: Ajouter l'initialisation de la phase terrestre
      * On lance la phase terrestre
      *
      * @param result le résultat de l'action effectué
@@ -55,7 +54,6 @@ class LandOnIsland implements Protocol
     @Override
     public Protocol setResult(Area result)
     {
-        // Passage en phase terrestre
         return new StopAerial();
     }
 }

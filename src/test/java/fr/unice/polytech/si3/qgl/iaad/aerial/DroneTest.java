@@ -74,13 +74,6 @@ public class DroneTest
     }
 
     @Test
-    public void findEmergency() throws Exception
-    {
-        Drone.SEARCH_EMERGENCY_SITE = true;
-        randomAction();
-    }
-
-    @Test
     public void getResult() throws Exception
     {
         int cost = 10;
@@ -103,23 +96,17 @@ public class DroneTest
                 .put("found", found));
     }
 
-    static IslandMap facticeMap()
+    static IslandMap facticeMap() throws InvalidMapException
     {
         IslandMap map = new IslandMap();
         map.setOutOfRange(Direction.N, 0);
         map.setOutOfRange(Direction.S, 20);
         map.setGround(Direction.E, 12);
-        try
-        {
-            for (int i = 0; i < 12; i++)
-                map.moveLocation(Direction.E);
-            map.addCreeks("creek");
-            for (int i = 0; i < 12; i++)
-                map.moveLocation(Direction.W);
-        }
-        catch (InvalidMapException e)
-        {
-        }
+        for (int i = 0; i < 12; i++)
+            map.moveLocation(Direction.E);
+        map.addCreeks("creek");
+        for (int i = 0; i < 12; i++)
+            map.moveLocation(Direction.W);
         return map;
     }
 

@@ -40,7 +40,7 @@ public class InitialisationTest
             boolean ground;
             int[] ranges = new int[4];
             int[] grounds = new int[4];
-            while (initialisation instanceof Initialisation || initialisation instanceof Initialisation.EchoToFindLimit)
+            while (initialisation instanceof Initialisation || initialisation instanceof EchoToFindLimit)
             {
                 Area area = (Area) initialisation.nextAction();
                 assertTrue(area instanceof Echo);
@@ -69,7 +69,7 @@ public class InitialisationTest
         Area area = (Area) initialisation.nextAction();
         area.putResults(DroneTest.createEchoJSON(10, 20, Element.OUT_OF_RANGE.toString()).toString());
         initialisation = initialisation.setResult(area);
-        assertTrue(initialisation instanceof Initialisation.EchoToFindLimit);
+        assertTrue(initialisation instanceof EchoToFindLimit);
 
         area.putResults(DroneTest.createEchoJSON(10, 12, Element.GROUND.toString()).toString());
         initialisation = initialisation.setResult(area);
@@ -82,12 +82,12 @@ public class InitialisationTest
         Area area = (Area) initialisation.nextAction();
         area.putResults(DroneTest.createEchoJSON(10, 20, Element.OUT_OF_RANGE.toString()).toString());
         initialisation = initialisation.setResult(area);
-        assertTrue(initialisation instanceof Initialisation.EchoToFindLimit);
+        assertTrue(initialisation instanceof EchoToFindLimit);
 
         area = (Area) initialisation.nextAction();
         area.putResults(DroneTest.createEchoJSON(10, 20, Element.OUT_OF_RANGE.toString()).toString());
         initialisation = initialisation.setResult(area);
-        assertTrue(initialisation instanceof Initialisation.EchoToFindLimit);
+        assertTrue(initialisation instanceof EchoToFindLimit);
 
         area = (Area) initialisation.nextAction();
         area.putResults(DroneTest.createEchoJSON(10, 20, Element.OUT_OF_RANGE.toString()).toString());

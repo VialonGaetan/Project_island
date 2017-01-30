@@ -1,4 +1,4 @@
-package aerial;
+package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
@@ -6,19 +6,16 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
 import fr.unice.polytech.si3.qgl.iaad.actions.Heading;
 import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
-import fr.unice.polytech.si3.qgl.iaad.aerial.FlyToIsland;
-import fr.unice.polytech.si3.qgl.iaad.aerial.Turn;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-
 /**
  * @author romain
  * Created on 15/01/2017.
  */
-public class FlyToIslandTest
+public class FlyToIslandTest2
 {
     private FlyToIsland flyToIsland;
 

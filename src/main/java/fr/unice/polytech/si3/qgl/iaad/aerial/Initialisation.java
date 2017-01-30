@@ -4,8 +4,6 @@ import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
-import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
 /**
@@ -17,14 +15,6 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
  */
 class Initialisation implements Protocol
 {
-    /**
-     * La carte utilisée
-     */
-    private IslandMap map;
-    /**
-     * L'orientation du drone
-     */
-    private Direction heading;
     /**
      * Le sous-protocole en cours d'utilisation
      */
@@ -42,9 +32,7 @@ class Initialisation implements Protocol
      */
     Initialisation(IslandMap map, Direction heading)
     {
-        this.map = map;
-        this.heading = heading;
-        protocol = new EchoToFindLimit(heading);
+        protocol = new EchoToFindLimit(map, heading, sense, heading);
     }
 
     /**
@@ -70,53 +58,5 @@ class Initialisation implements Protocol
     public Protocol setResult(Area result) throws InvalidMapException
     {
         return protocol.setResult(result);
-    }
-
-    /**
-     * Fait un ECHO dans la direction donnée
-     */
-    class EchoToFindLimit implements Protocol
-    {
-        private Direction direction;
-
-        /**
-         * @param direction la direction selon laquelle on veut faire un ECHO
-         */
-        private EchoToFindLimit(Direction direction)
-        {
-            this.direction = direction;
-        }
-
-        @Override
-        public Action nextAction()
-        {
-            return new Echo(direction);
-        }
-
-        /**
-         * Si on trouve l'île, on lance le protocole FlyToIsland
-         * Sinon, on exécute ce protocole dans une autre direction
-         * Si un ECHO a été fait dans chaque direction, on lance le protocol FindIsland
-         *
-         * @param result le résultat de l'action précédente
-         * @return Le nouveau protocole a utilisé
-         */
-        @Override
-        public Protocol setResult(Area result) throws InvalidMapException
-        {
-            if (Element.valueOf(result.getFound()) == Element.GROUND)
-            {
-                map.setGround(direction, result.getRange());
-                return new FlyToIsland(map, heading, direction, sense, result.getRange() - 1);
-            }
-            if (!map.isDirectionFinished(direction))
-                map.setOutOfRange(direction, result.getRange());
-
-            if (direction == heading.getRight())
-                return new FindIsland(map, heading, sense);
-            if (direction == heading)
-                return new EchoToFindLimit(heading.getLeft());
-            return new EchoToFindLimit(heading.getRight());
-        }
     }
 }

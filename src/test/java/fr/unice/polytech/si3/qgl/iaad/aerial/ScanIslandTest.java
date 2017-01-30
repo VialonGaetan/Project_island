@@ -36,9 +36,9 @@ public class ScanIslandTest
                 if (area instanceof Fly)
                 {
                     Oriented oriented = (Oriented) scanIsland;
-                    assertNotNull(oriented.getDirection());
-                    assertNotEquals(oriented.getDirection().getBack(), area.direction);
-                    assertTrue(map.getNumberOfAvailablePoints(oriented.direction) >= 0);
+                    assertNotNull(oriented.getHeading());
+                    assertNotEquals(oriented.getHeading().getBack(), area.direction);
+                    assertTrue(map.getNumberOfAvailablePoints(oriented.getHeading()) >= 0);
                 }
             }
         }

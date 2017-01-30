@@ -15,24 +15,9 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
  *
  * @author Alexandre Clement
  */
-public class Turn implements Protocol
+class Turn extends Oriented implements Protocol
 {
-    /**
-     * La carte utilisée
-     */
-    private IslandMap map;
-    /**
-     * L'orientation du drone
-     */
-    private Direction heading;
-    /**
-     * Le sous-protocole en cours d'utilisation
-     */
-    private Protocol protocol;
-    /**
-     * L'orientation voulue du drone
-     */
-    private Direction target;
+    private final Protocol protocol;
 
     /**
      * @param protocol le protocol a exécuté après avoir tourné le drone
@@ -41,10 +26,8 @@ public class Turn implements Protocol
      */
     Turn(Protocol protocol, IslandMap map, Direction heading, Direction target) throws InvalidMapException
     {
+        super(map, heading, null, target);
         this.protocol = protocol;
-        this.map = map;
-        this.heading = heading;
-        this.target = target;
     }
 
     /**
@@ -53,11 +36,11 @@ public class Turn implements Protocol
     @Override
     public Action nextAction() throws InvalidMapException
     {
-        if (map.getNumberOfAvailablePoints(heading) < 1 || map.getNumberOfAvailablePoints(target) < 1)
+        if (getMap().getNumberOfAvailablePoints(getHeading()) < 1 || getMap().getNumberOfAvailablePoints(getDirection()) < 1)
             return new Stop();
-        map.moveLocation(heading);
-        map.moveLocation(target);
-        return new Heading(target);
+        getMap().moveLocation(getHeading());
+        getMap().moveLocation(getDirection());
+        return new Heading(getDirection());
     }
 
     /**

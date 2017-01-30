@@ -12,63 +12,41 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
  *
  * @author Alexandre Clement
  */
-public class FlyToIsland implements Protocol
+class FlyToIsland extends Oriented implements Protocol
 {
-    /**
-     * La carte utilisée
-     */
-    private IslandMap map;
-    /**
-     * L'orientation du drone
-     */
-    private Direction heading;
-    /**
-     * Direction vers laquelle se trouve l'île
-     */
-    private Direction target;
-    /**
-     * Conservation du sens de parcours de la carte pour l'exploration de l'île
-     */
-    private Direction sense;
-    /**
-     * la distance séparant le drone et l'île
-     */
     private int range;
 
     /**
      * @param heading l'orientation du drone
-     * @param target  la direction vers laquelle se trouve l'île
+     * @param direction  la direction vers laquelle se trouve l'île
      * @param range   la distance a parcourir pour atteindre l'île
      */
-    public FlyToIsland(IslandMap map, Direction heading, Direction target, Direction sense, int range)
+    FlyToIsland(IslandMap map, Direction heading, Direction direction, Direction sense, int range)
     {
-        this.map = map;
-        this.heading = heading;
-        this.target = target;
+        super(map, heading, sense, direction);
         this.range = range;
-        this.sense = sense;
     }
 
     /**
-     * @return Heading si le drone n'est pas dans la bonne direction
+     * @return getHeading() si le drone n'est pas dans la bonne direction
      * sinon Fly
      */
     @Override
     public Action nextAction() throws InvalidMapException
     {
         range -= 1;
-        if (map.getNumberOfAvailablePoints(heading) < 1)
+        if (getMap().getNumberOfAvailablePoints(getHeading()) < 1)
             return new Stop();
-        map.moveLocation(heading);
-        if (heading == target)
+        getMap().moveLocation(getHeading());
+        if (getHeading() == getDirection())
             return new Fly();
-        if (map.isDirectionFinished(target) && map.getNumberOfAvailablePoints(target) < 1)
+        if (getMap().isDirectionFinished(getDirection()) && getMap().getNumberOfAvailablePoints(getDirection()) < 1)
             return new Stop();
-        if (sense == null)
-            sense = heading;
-        heading = target;
-        map.moveLocation(target);
-        return new Heading(target);
+        if (getSense() == null)
+            setSense(getHeading());
+        setHeading(getDirection());
+        getMap().moveLocation(getDirection());
+        return new Heading(getDirection());
     }
 
     /**
@@ -79,18 +57,18 @@ public class FlyToIsland implements Protocol
     @Override
     public Protocol setResult(Area result) throws InvalidMapException
     {
-        if (sense == null)
-            sense = heading.getRight();
+        if (getSense() == null)
+            setSense(getHeading().getRight());
         if (range > 0)
             return this;
-        if (sense == heading)
-            return new Turn(new ScanIsland(map, heading.getRight(), sense), map, heading, heading.getRight());
-        if (sense.getBack() == heading)
-            return new Turn(new ScanIsland(map, heading.getRight(), sense.getBack()), map, heading, heading.getRight());
+        if (getSense() == getHeading())
+            return new Turn(new ScanIsland(getMap(), getHeading().getRight(), getSense()), getMap(), getHeading(), getHeading().getRight());
+        if (getSense().getBack() == getHeading())
+            return new Turn(new ScanIsland(getMap(), getHeading().getRight(), getSense().getBack()), getMap(), getHeading(), getHeading().getRight());
         if (range == 0)
             return this;
-        if (Drone.SEARCH_EMERGENCY_SITE)
-            return new ScanIsland(map, heading, sense);
-        return new ScanBeach(map, heading, sense);
+        if (Drone.searchEmergencySite)
+            return new ScanIsland(getMap(), getHeading(), getSense());
+        return new ScanBeach(getMap(), getHeading(), getSense());
     }
 }

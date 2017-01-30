@@ -16,15 +16,11 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
  */
 class ScanToFindCreekAndSite extends Oriented implements Protocol
 {
-    private IslandMap map;
-    private Direction sense;
-
     ScanToFindCreekAndSite(IslandMap map, Direction direction, Direction sense)
     {
-        super(direction);
-        this.map = map;
-        this.sense = sense;
+        super(map, direction, sense);
     }
+
     @Override
     public Action nextAction()
     {
@@ -43,28 +39,28 @@ class ScanToFindCreekAndSite extends Oriented implements Protocol
     public Protocol setResult(Area result) throws InvalidMapException
     {
         // Si on est déjà passer sur cette tuile
-        if (map.getBiomes(map.getLocation()).length > 1)
+        if (getMap().getBiomes(getMap().getLocation()).length > 1)
             return new StopAerial();
         // Sinon, on ajoute les biomes
         for (int i = 0; i < result.nbBiomes(); i++)
-            map.addBiomes(Element.valueOf(result.getBiome(i)));
+            getMap().addBiomes(Element.valueOf(result.getBiome(i)));
         // On ajoute les criques
         for (int i = 0; i < result.nbCreeks(); i++)
-            map.addCreeks(result.getCreeks(i));
+            getMap().addCreeks(result.getCreeks(i));
         // On ajout le site d'urgence
         if (result.getSites() != null)
-            map.addEmergencySite(result.getSites());
+            getMap().addEmergencySite(result.getSites());
 
         // Si on est en limite de carte, on arrête la partie
-        if (map.getNumberOfAvailablePoints(direction) < 1 && map.isDirectionFinished(direction))
+        if (getMap().getNumberOfAvailablePoints(getHeading()) < 1 && getMap().isDirectionFinished(getHeading()))
             return new StopAerial();
 
         // Si la tuile contient un autre biome que le biome OCEAN, on continue de parcourir l'île
         if (result.nbBiomes() > 1 || Element.valueOf(result.getBiome(0)) != Element.OCEAN)
-            return new FlyOnIsland(map, direction, sense);
+            return new FlyOnIsland(getMap(), getHeading(), getSense());
         // Sinon, la tuile ne contient que le biome OCEAN
         // Alors on est en dehors de l'île
         // On lance le protocole ReturnToIsland pour y revenir
-        return new ReturnToIsland(map, direction, sense);
+        return new ReturnToIsland(getMap(), getHeading(), getSense());
     }
 }

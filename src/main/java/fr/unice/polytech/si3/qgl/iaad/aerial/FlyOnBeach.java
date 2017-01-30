@@ -5,31 +5,43 @@ import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
+import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
 /**
- * On Fly au dessus de l'île.
+ * On Fly au dessus des côtes.
  *
  * @author Alexandre Clement
- * @since 15/01/2017.
+ * @since 30/01/2017.
  */
-class FlyOnIsland extends Oriented implements Protocol
+class FlyOnBeach extends Oriented implements Protocol
 {
-    FlyOnIsland(IslandMap map, Direction heading, Direction sense)
+
+    FlyOnBeach(IslandMap map, Direction heading, Direction sense)
     {
         super(map, heading, sense);
     }
 
+    /**
+     * @return Fly
+     * @throws InvalidMapException si on sort de la carte
+     */
     @Override
     public Action nextAction() throws InvalidMapException
     {
+        if (getMap().getNumberOfAvailablePoints(getHeading()) < 1)
+            return new Stop();
         getMap().moveLocation(getHeading());
         return new Fly();
     }
 
+    /**
+     * @param result le résultat de l'action effectué
+     * @return On reprend le protocole ScanBeach
+     */
     @Override
     public Protocol setResult(Area result)
     {
-        return new ScanToFindCreekAndSite(getMap(), getHeading(), getSense());
+        return new ScanBeach(getMap(), getHeading(), getSense());
     }
 }

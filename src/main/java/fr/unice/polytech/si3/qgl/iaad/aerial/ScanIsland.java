@@ -13,35 +13,23 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
  *
  * @author Alexandre Clement
  */
-class ScanIsland extends Oriented implements Protocol
+class ScanIsland implements Protocol
 {
-    /**
-     * La carte utilisée
-     */
-    private IslandMap map;
     /**
      * Le sous-protocole en cours d'utilisation
      */
     private Protocol protocol;
-    /**
-     * Le sens de parcours de l'île
-     * <p>
-     * On balaye l'île de bout en bout en suivant un sens de parcours,
-     * puis, lorsque le drone atteint la limite de l'île,
-     * le drone fait demi-tour en inversant le sens de parcours
-     * Après un aller-retour, l'île a été entièrement parcourue par le drone
-     */
-    private Direction sense;
 
     /**
      * @param direction l'orientation du drone
-     * @param sense     le sens dans lequel on parcours l'île
+     * @param sense     le sens dans lequel on parcours l'île.
+     *                  On balaye l'île de bout en bout en suivant un sens de parcours,
+     *                  puis, lorsque le drone atteint la limite de l'île,
+     *                  le drone fait demi-tour en inversant le sens de parcours
+     *                  Après un aller-retour, l'île a été entièrement parcourue par le drone
      */
     ScanIsland(IslandMap map, Direction direction, Direction sense)
     {
-        super(direction);
-        this.map = map;
-        this.sense = sense;
         protocol = new ScanToFindCreekAndSite(map, direction, sense);
     }
 
