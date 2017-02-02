@@ -7,7 +7,7 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
 /**
- * Initialise les dimensions de la map.
+ * Initialise les dimensions de la islandMap.
  * <p>
  * Created the 27/11/2016.
  *

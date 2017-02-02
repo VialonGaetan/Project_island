@@ -7,22 +7,51 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
+import java.awt.Point;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Théo on 07/12/2016.
+ * @author Théo
+ * Created on 07/12/2016.
  */
 public class CreekTest {
 
-    Creek creek;
-    IslandMap mymap;
+    private Creek creek;
+    private IslandMap mymap;
 
     @Before
-    public void init() throws InvalidMapException { //initialisation et création de la map
-        this.mymap = new IslandMap();
-        this.creek= new Creek(mymap);
+    public void init() { mymap = new IslandMap(); }
+
+    @Test
+    public void oneCreek() throws InvalidMapException
+    {
+        mymap.addCreeks("id1");
+        mymap.setOutOfRange(Direction.E, 2);
+        mymap.moveLocation(Direction.E);
+        mymap.addEmergencySite("emgcy");
+
+        creek = new Creek(mymap);
+
+        assertEquals(creek.getClosestCreekId(), "id1");
+    }
+
+    @Test
+    public void twoCreeksOnSameSquare() throws InvalidMapException
+    {
+        mymap.addCreeks("id1", "id2");
+        mymap.setOutOfRange(Direction.E, 2);
+        mymap.moveLocation(Direction.E);
+        mymap.addEmergencySite("emgcy");
+
+        creek = new Creek(mymap);
+
+        assertEquals(creek.getClosestCreekId(), "id1");
+    }
+
+    @Test
+    public void creekAndEmergencySiteOnSameSquare() throws InvalidMapException
+    {
         mymap.setOutOfRange(Direction.E, 50);
         mymap.setOutOfRange(Direction.S, 50);
         mymap.moveLocation(Direction.E);
@@ -46,24 +75,48 @@ public class CreekTest {
         mymap.moveLocation(Direction.E);
         mymap.moveLocation(Direction.S);
         mymap.addCreeks("creek105");
+
+        creek = new Creek(mymap);
+        assertEquals(new Point(8, 4), creek.getClosestCreekLocation());
+        assertEquals("creek84", creek.getClosestCreekId());
     }
 
     @Test
-    public void aTest() throws InvalidMapException {
-        assertEquals(new Point(8, 4), creek.getClosest(mymap));
-        assertEquals("creek84", creek.getClosestID(creek.getClosest(mymap)));
+    public void severalCreeks() throws InvalidMapException
+    {
+        mymap.addEmergencySite("00");
+        mymap.setOutOfRange(Direction.E, 10);
+        mymap.setOutOfRange(Direction.S, 10);
+        mymap.moveLocation(Direction.S);
+        mymap.addCreeks("01");
+        mymap.moveLocation(Direction.N);
+        mymap.moveLocation(Direction.E);
+        mymap.addCreeks("10");
+
+        creek = new Creek(mymap);
+        assertEquals("01", creek.getClosestCreekId());
     }
 
-    @Test
-    public void numberOfCreekTest() throws InvalidMapException {
-        IslandMap map = new IslandMap();
-        Creek c = new Creek(map);
-        map.setOutOfRange(Direction.E, 50);
-        map.setOutOfRange(Direction.S, 50);
-        map.moveLocation(Direction.E);
-        map.addEmergencySite("site");
-        assertEquals(c.getClosest(map),null);
+    @Test(expected=InvalidMapException.class)
+    public void noCreekTest() throws InvalidMapException
+    {
+        mymap.addEmergencySite("site");
+        Creek creek = new Creek(mymap);
+        creek.getClosestCreekId();
     }
 
+    @Test(expected=InvalidMapException.class)
+    public void noEmergencySiteTest() throws InvalidMapException
+    {
+        mymap.addCreeks("creek");
+        Creek creek = new Creek(mymap);
+        creek.getClosestCreekId();
+    }
 
+    @Test(expected=InvalidMapException.class)
+    public void nothingTest() throws InvalidMapException
+    {
+        Creek creek = new Creek(mymap);
+        creek.getClosestCreekId();
+    }
 }

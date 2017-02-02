@@ -28,7 +28,7 @@ public class Exploration {
     private int budget;
 
     /**
-     * Pour l'instant c'est pas très propre mais ça permet de ne pas tourner en rond en attend la map
+     * Pour l'instant c'est pas très propre mais ça permet de ne pas tourner en rond en attend la islandMap
      */
     public static int lasti = 0;
 

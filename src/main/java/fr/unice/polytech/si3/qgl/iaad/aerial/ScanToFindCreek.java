@@ -33,7 +33,7 @@ class ScanToFindCreek extends Oriented implements Protocol
     }
 
     /**
-     * On ajoute les éléments trouver à la map
+     * On ajoute les éléments trouver à la islandMap
      *
      * @param result le résultat de l'action effectué
      * @return Land si on trouve une crique

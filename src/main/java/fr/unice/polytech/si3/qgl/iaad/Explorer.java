@@ -66,7 +66,7 @@ public class Explorer implements IExplorerRaid {
                 exploration = new Exploration(drone.getBudget(),islandMap,context);
             }
         } catch (InvalidMapException exception) {
-            // according to map designer, it's ok
+            // according to islandMap designer, it's ok
         }
     }
 
@@ -78,7 +78,7 @@ public class Explorer implements IExplorerRaid {
         if (false) {
             try {
                 creek = new Creek(islandMap);
-                rapport = "EMERGENCY:" + islandMap.getEmergencySiteId() + "\nCREEK:" + creek.getClosestID(creek.getClosest(islandMap));
+                rapport = "EMERGENCY:" + islandMap.getEmergencySiteId() + "\nCREEK:" + creek.getClosestCreekId();
             } catch (InvalidMapException | ArrayIndexOutOfBoundsException e) {
                 rapport = "EMERGENCY:" + islandMap.getEmergencySiteId();
             }

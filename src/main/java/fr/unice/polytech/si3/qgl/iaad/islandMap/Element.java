@@ -6,7 +6,7 @@ package fr.unice.polytech.si3.qgl.iaad.islandMap;
  */
 
 /**
- * Contains Elements of the map
+ * Contains Elements of the islandMap
  */
 public enum Element
 {

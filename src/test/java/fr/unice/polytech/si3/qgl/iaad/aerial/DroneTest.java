@@ -119,7 +119,7 @@ public class DroneTest
                         .put("found", Element.GROUND.toString())
                         .put("biomes", new JSONArray()
                                 .put(Biomes.OCEAN.toString()))
-                        .put("creeks", new JSONArray()
+                        .put("creekLocations", new JSONArray()
                                 .put(CREEK))
                         .put("sites", new JSONArray()
                                 .put("site")));
@@ -137,7 +137,7 @@ public class DroneTest
                 .put("range", (int) (Math.random() * 20))
                 .put("found", random.nextBoolean() ? Element.OUT_OF_RANGE : Element.GROUND)
                 .put("biomes", new JSONArray(Arrays.stream(Element.values()).filter(e -> random.nextBoolean()).map(Enum::toString).toArray()))
-                .put("creeks", new JSONArray(creeks))
+                .put("creekLocations", new JSONArray(creeks))
         );
     }
 

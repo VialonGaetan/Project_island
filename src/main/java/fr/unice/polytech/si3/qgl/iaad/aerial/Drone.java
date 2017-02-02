@@ -37,7 +37,7 @@ public class Drone
      *
      * @param budget  budget available
      * @param heading heading of the drone
-     * @param map     current map
+     * @param map     current islandMap
      */
     public Drone(int budget, Direction heading, IslandMap map)
     {

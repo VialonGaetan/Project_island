@@ -22,7 +22,7 @@ class ScanBeach implements Protocol
     private Protocol protocol;
 
     /**
-     * @param map     la map actuelle
+     * @param map     la islandMap actuelle
      * @param heading l'orientation du drone
      * @param sense   le sens de recherche
      */

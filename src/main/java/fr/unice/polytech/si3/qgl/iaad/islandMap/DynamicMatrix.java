@@ -7,54 +7,52 @@ import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
  * Created on 15/11/16.
  */
 
-/**
- * Dynamic Matrix that contains String elements
- */
-public class DynamicMatrix
+class DynamicMatrix
 {
     /**
      * Dimensions of the matrix
      */
-    private int numberOfLines, numberOfColumns;
+    private int numberOfLines;
+    private int numberOfColumns;
 
     /**
      * String array
      */
-    private String array[][];
+    private Square squares[][];
 
     /**
      * Default constructor
      * Creates a matrix of only one element
      */
-    public DynamicMatrix() { this(1, 1); }
+    DynamicMatrix() { this(1, 1); }
 
     /**
      * Constructor that creates a new matrix with specific dimensions
      * @param numberOfLines, Integer type
      * @param numberOfColumns, Integer type
      */
-    public DynamicMatrix(int numberOfLines, int numberOfColumns)
+    DynamicMatrix(int numberOfLines, int numberOfColumns)
     {
-        this.numberOfLines =numberOfLines;
-        this.numberOfColumns=numberOfColumns;
-        array=new String[numberOfLines][numberOfColumns];
+        this.numberOfLines = numberOfLines;
+        this.numberOfColumns = numberOfColumns;
+        squares = new Square[numberOfLines][numberOfColumns];
 
         for(int i=0; i<numberOfLines; i++)
             for(int j=0; j<numberOfColumns; j++)
-                array[i][j]="";
+                squares[i][j] = new Square();
     }
 
     /**
      * Returns the number of numberOfLines
      * @return integer type
      */
-    public int getNumberOfLines() { return numberOfLines; }
+    int getNumberOfLines() { return numberOfLines; }
 
     /**
      * Returns number of columns
      * @return integer type
      */
-    public int getNumberOfColumns() { return numberOfColumns; }
+    int getNumberOfColumns() { return numberOfColumns; }
 
     /**
      * Returns the string with these index
@@ -63,10 +61,14 @@ public class DynamicMatrix
      * @param column, Integer type
      * @throws InvalidMapException, if the point does not exist
      */
-    public String get(int line, int column) throws InvalidMapException
+    Square getSquare(int line, int column) throws InvalidMapException
     {
-        if(!pointExist(line, column)) throw new InvalidMapException();
-        return array[line][column];
+        if(!pointExist(line, column))
+        {
+            throw new InvalidMapException();
+        }
+
+        return squares[line][column];
     }
 
     /**
@@ -75,53 +77,40 @@ public class DynamicMatrix
      * @param column, Integer type
      * @return boolean type : true if the point exist, false otherwise
      */
-    public boolean pointExist(int line, int column)
+    boolean pointExist(int line, int column)
     {
         boolean test=false;
 
-        if(line>=0 && line<array.length && column>=0 && column<array[0].length)
-            test=true;
+        if(line>=0 && line<squares.length && column>=0 && column<squares[0].length)
+        {
+            test = true;
+        }
 
         return test;
     }
 
-    /**
-     * Adds an element at this point
-     * @param line, Integer type
-     * @param column, Integer type
-     * @param value, String stype
-     * @throws InvalidMapException, if the point does not exist
-     */
-    public void addElement(int line, int column, String value)  throws InvalidMapException
-    {
-        if(!pointExist(line, column)) throw new InvalidMapException();
-        array[line][column]+=value;
-    }
 
-    /**
-     * Sets an element at this point
-     * @param line, Integer type
-     * @param column, Integer type
-     * @param value, String stype
-     * @throws InvalidMapException, if the point does not exist
-     */
-    public void setElement(int line, int column, String value) throws InvalidMapException
+    void updateSquare(int line, int column, Square newSquare)  throws InvalidMapException
     {
-        if(!pointExist(line, column)) throw new InvalidMapException();
-        array[line][column]=value;
+        if(!pointExist(line, column))
+        {
+            throw new InvalidMapException();
+        }
+
+        squares[line][column] = new Square(newSquare);
     }
 
     /**
      * this = another dynamicMatrix
      * @param dynamicMatrix, DynamicMatrix type
      */
-    public void thisBecome(DynamicMatrix dynamicMatrix)
+    private void thisBecome(DynamicMatrix dynamicMatrix)
     {
-        numberOfLines =dynamicMatrix.numberOfLines;
-        numberOfColumns=dynamicMatrix.numberOfColumns;
-        array=new String[numberOfLines][numberOfColumns];
+        numberOfLines = dynamicMatrix.numberOfLines;
+        numberOfColumns = dynamicMatrix.numberOfColumns;
+        squares = new Square[numberOfLines][numberOfColumns];
 
-        System.arraycopy(dynamicMatrix.array, 0, array, 0, numberOfLines);
+        System.arraycopy(dynamicMatrix.squares, 0, squares, 0, numberOfLines);
     }
 
     /**
@@ -133,18 +122,18 @@ public class DynamicMatrix
      * @param position, Integer type
      * @param numberOfLines, Integer type
      */
-    public void addLines(int position, int numberOfLines)
+    void addLines(int position, int numberOfLines)
     {
-        DynamicMatrix newMatrix=new DynamicMatrix(this.numberOfLines +numberOfLines, numberOfColumns);
+        DynamicMatrix newMatrix = new DynamicMatrix(this.numberOfLines+numberOfLines, numberOfColumns);
 
         if(position==0)
         {
-            for(int i = numberOfLines; i<(this.numberOfLines +numberOfLines); i++)
+            for(int i = numberOfLines; i<(this.numberOfLines+numberOfLines); i++)
             {
                 for(int j = 0; j<numberOfColumns; j++)
                 {
-                    try { newMatrix.setElement(i, j, array[i-numberOfLines][j]); }
-                    catch (InvalidMapException e) { e.printStackTrace(); }
+                    try { newMatrix.updateSquare(i, j, squares[i-numberOfLines][j]); }
+                    catch (InvalidMapException e) { return; }
                 }
             }
         }
@@ -155,8 +144,8 @@ public class DynamicMatrix
             {
                 for(int j = 0; j<numberOfColumns; j++)
                 {
-                    try { newMatrix.setElement(i, j, array[i][j]); }
-                    catch (InvalidMapException e) { e.printStackTrace(); }
+                    try { newMatrix.updateSquare(i, j, squares[i][j]); }
+                    catch (InvalidMapException e) { return; }
                 }
             }
         }
@@ -173,7 +162,7 @@ public class DynamicMatrix
      * @param position, Integer type
      * @param numberOfColumns, Integer type
      */
-    public void addColumns(int position, int numberOfColumns)
+    void addColumns(int position, int numberOfColumns)
     {
         DynamicMatrix newMatrix=new DynamicMatrix(numberOfLines, this.numberOfColumns+numberOfColumns);
 
@@ -183,8 +172,8 @@ public class DynamicMatrix
             {
                 for(int j = numberOfColumns; j<(this.numberOfColumns+numberOfColumns); j++)
                 {
-                    try { newMatrix.setElement(i, j, array[i][j-numberOfColumns]); }
-                    catch (InvalidMapException e) { e.printStackTrace(); }
+                    try { newMatrix.updateSquare(i, j, squares[i][j-numberOfColumns]); }
+                    catch (InvalidMapException e) { return; }
                 }
             }
         }
@@ -195,8 +184,8 @@ public class DynamicMatrix
             {
                 for(int j = 0; j<this.numberOfColumns; j++)
                 {
-                    try { newMatrix.setElement(i, j, array[i][j]); }
-                    catch (InvalidMapException e) { e.printStackTrace(); }
+                    try { newMatrix.updateSquare(i, j, squares[i][j]); }
+                    catch (InvalidMapException e) { return; }
                 }
             }
 
