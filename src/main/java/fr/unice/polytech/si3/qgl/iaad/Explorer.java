@@ -20,7 +20,7 @@ public class Explorer implements IExplorerRaid {
     private String decision;
     private Drone drone;
     private Exploration exploration;
-    public static boolean areaPhase = true;
+    public static boolean areaPhase;
     private Area areaAction;
     private Ground groundAction;
     private String rapport;
@@ -33,6 +33,7 @@ public class Explorer implements IExplorerRaid {
         context = new Context(new JSONObject(s));
         budget = context.getBudget();
         drone = new Drone(budget, Direction.valueOf(context.getHeading()), islandMap);
+        areaPhase = true;
 
     }
 

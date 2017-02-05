@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.ground;
 
+import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Resource;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
@@ -7,7 +8,9 @@ import fr.unice.polytech.si3.qgl.iaad.actions.StopGround;
 import fr.unice.polytech.si3.qgl.iaad.init.Context;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
+import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Gaetan Vialon
@@ -20,7 +23,7 @@ public class Exploration {
      * Palier de budget minium
      * si on arrive à ce pallier nous arretons la partie pour ne pas crash
      */
-    private static final int LOW_BUDGET = 50;
+    private static final int LOW_BUDGET = 200;
 
     /**
      * Budget disponible
@@ -46,7 +49,7 @@ public class Exploration {
      * Hashmap avec tous les contrats
      * en clé nous avons les resources et en value le nombre de resource necessaire
      */
-    private HashMap<Resource, Integer> contrat = new HashMap<>();
+    private Map<Resource, Integer> contrat = new HashMap<Resource, Integer>();
 
     public Exploration(int budget, IslandMap map, Context context) {
         this.budget = budget;
@@ -54,7 +57,7 @@ public class Exploration {
         for (int i = 0; i < context.numberOfContrats(); i++) {
             contrat.put(Resource.valueOf(context.getContract(i).getResource()), context.getContract(i).getAmount());
         }
-        protocol = new InitialisationGround(contrat);
+        protocol = new InitialisationGround(contrat, Direction.N);
     }
 
     /**

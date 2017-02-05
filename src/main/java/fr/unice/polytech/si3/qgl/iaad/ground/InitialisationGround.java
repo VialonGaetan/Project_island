@@ -7,6 +7,7 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Explore;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Gaetan Vialon
@@ -20,13 +21,15 @@ public class InitialisationGround implements ProtocolGround{
      */
     private ProtocolGround protocol;
 
-    private HashMap<Resource,Integer> contrat;
+    private Map<Resource,Integer> contrat;
 
+    private Direction direction;
 
-    public InitialisationGround(HashMap contrat)
+    public InitialisationGround(Map contrat, Direction direction)
     {
         this.contrat=contrat;
-        protocol = new ExploreToFindRessource(contrat);
+        this.direction=direction;
+        protocol = new ExploreToFindRessource(contrat,direction);
     }
 
     @Override
@@ -44,13 +47,14 @@ public class InitialisationGround implements ProtocolGround{
 
     private class ExploreToFindRessource implements ProtocolGround
     {
-        private Direction direction=Direction.N;
+        private Direction direction;
 
-        private HashMap<Resource,Integer>contrat;
+        private Map<Resource,Integer>contrat;
 
-        ExploreToFindRessource(HashMap contrat)
+        ExploreToFindRessource(Map contrat, Direction direction)
         {
             this.contrat=contrat;
+            this.direction=direction;
         }
 
         @Override
@@ -71,7 +75,6 @@ public class InitialisationGround implements ProtocolGround{
                 }
             }
             Exploration.lasti = 0;
-
             return new FindRessource(contrat,direction);
 
         }

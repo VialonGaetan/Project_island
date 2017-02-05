@@ -41,7 +41,7 @@ public class Glimpse extends Ground{
     }
 
     @Override
-    public String getResourceReport(int inforange, int n){
+    public String getBiomeReport(int inforange, int n){
         try{
             if (inforange<2) return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).getJSONArray(inforange).getJSONArray(n).getString(0);
             else return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.REPORT.getName()).getJSONArray(inforange).getString(n);
@@ -64,14 +64,26 @@ public class Glimpse extends Ground{
 
     @Override
     public int getDistanceResource(Resource resource){
-        for (int i = 0; getResourceReport(i,0) != null; i++) {
-            for (int j = 0; getResourceReport(i,j)!=null ; j++) {
-                if(Biomes.valueOf(getResourceReport(i,j)).getAssociateResources().contains(resource)){
+        for (int i = 0; getBiomeReport(i,0) != null; i++) {
+            for (int j = 0; getBiomeReport(i,j)!=null ; j++) {
+                if(Biomes.valueOf(getBiomeReport(i,j)).getAssociateResources().contains(resource)){
                     return i+1;
                 }
             }
         }
         return -1;
+    }
+
+    @Override
+    public boolean biomeIsPresent(Biomes biomes){
+        for (int i = 0; getBiomeReport(i,0) != null; i++) {
+            for (int j = 0; getBiomeReport(i,j)!=null ; j++) {
+                if(biomes.equals(Biomes.valueOf(getBiomeReport(i,j)))){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

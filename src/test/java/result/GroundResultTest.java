@@ -1,11 +1,14 @@
 package result;
 
+import fr.unice.polytech.si3.qgl.iaad.Biomes;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Resource;
 import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Gaetan Vialon
@@ -221,8 +224,10 @@ public class GroundResultTest {
         assertEquals(result.getStatus(),status);
         assertEquals(result.getRange(),4);
         assertEquals(result.nbReport(),4);
-        assertEquals(result.getResourceReport(2,1),"BEACH");
-        assertEquals(result.getResourceReport(1,0),"OCEAN");
+        assertEquals(result.getBiomeReport(2,1),"BEACH");
+        assertEquals(result.getBiomeReport(1,0),"OCEAN");
+        assertTrue(result.biomeIsPresent(Biomes.OCEAN));
+        assertFalse(result.biomeIsPresent(Biomes.ALPINE));
         //assertEquals(result.getDistanceResource(Resource.ORE),2);
         assertEquals(result.getDistanceResource(Resource.FISH),1);
         assertEquals(result.getDistanceResource(Resource.QUARTZ),1);

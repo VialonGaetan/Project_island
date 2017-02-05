@@ -6,52 +6,50 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 import fr.unice.polytech.si3.qgl.iaad.actions.Move_to;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author Gaetan Vialon
- *         Created the 15/01/2017.
+ *         Created the 05/02/2017.
  */
-public class Move implements ProtocolGround{
+public class UTurn implements ProtocolGround {
     /**
      * Direction des actions des marins
      */
-    private Direction direction;
+    private Direction turnsens, actual;
     /**
      * Le sous-protocole en cours d'utilisation
      */
     private ProtocolGround protocol;
 
-    private Resource resource;
-
-    private int nbofResource;
-
-    private int distance;
-
     private Map<Resource,Integer> contrat;
 
 
-    public Move(int distance, Direction direction, Map contrat)
+    /**
+     *
+     * @param actual direction actuel
+     * @param turnsens sens de demi tour vers la droite ou gauche
+     * @param contrat
+     */
+    public UTurn(Direction actual,Direction turnsens, Map contrat)
     {
-        this.direction=direction;
-        this.distance = distance;
+        this.turnsens=turnsens;
+        this.actual = actual;
         this.contrat=contrat;
     }
 
     @Override
     public Action nextAction()
     {
-        return new Move_to(direction);
+        return new Move_to(turnsens);
     }
 
     @Override
     public ProtocolGround setResult(Ground result)
     {
-        if(distance == 0) {
-            Exploration.lasti = 0;
-            return new InitialisationGround(contrat,direction);
+        if(actual.equals(turnsens)) {
+            return new ExploreResource(actual.getBack(),contrat);
         }
-        else return new Move(distance-1,direction,contrat);
+        return new UTurn(actual,actual.getBack(),contrat);
     }
 }

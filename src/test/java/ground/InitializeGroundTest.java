@@ -1,5 +1,6 @@
 package ground;
 
+import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Resource;
 import fr.unice.polytech.si3.qgl.iaad.actions.Explore;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
@@ -23,7 +24,7 @@ public class InitializeGroundTest{
 
         @Before
         public void Init(){
-            init = new InitialisationGround(contrat);
+            init = new InitialisationGround(contrat, Direction.N);
         }
 
         @Test

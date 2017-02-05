@@ -7,6 +7,7 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Glimpse;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Gaetan Vialon
@@ -23,15 +24,17 @@ public class FindRessource implements ProtocolGround {
     private ProtocolGround protocol;
     private int range;
 
-    private HashMap<Resource, Integer> contrat;
+    private Map<Resource, Integer> contrat;
 
 
-    public FindRessource(HashMap contrat, Direction heading) {
+    public FindRessource(Map contrat, Direction heading) {
         this.contrat = contrat;
+        this.heading=heading;
         protocol = new GlimpseToFindRessource(heading, 4, contrat);
     }
 
-    public FindRessource(HashMap contrat, Direction headingn, int range) {
+    public FindRessource(HashMap contrat, Direction heading, int range) {
+        this.heading=heading;
         this.contrat = contrat;
         this.range = range;
         protocol = new GlimpseToFindRessource(heading, range, contrat);
@@ -55,9 +58,9 @@ public class FindRessource implements ProtocolGround {
         private Direction direction;
         private int range;
         private int distance;
-        private HashMap<Resource, Integer> contrat;
+        private Map<Resource, Integer> contrat;
 
-        private GlimpseToFindRessource(Direction direction, int range, HashMap contrat) {
+        private GlimpseToFindRessource(Direction direction, int range, Map contrat) {
             this.direction = direction;
             this.range = range;
             this.contrat = contrat;
@@ -78,11 +81,12 @@ public class FindRessource implements ProtocolGround {
                 }
             }
             if (Exploration.lasti < 4) {
-
                 return new GlimpseToFindRessource(direction.getRight(), 4, contrat);
             }
-            Exploration.lasti = 0;
-           return new StopExplorer();
+            else{
+                Exploration.lasti = 0;
+                return new Move(1,direction,contrat);
+            }
         }
     }
 }

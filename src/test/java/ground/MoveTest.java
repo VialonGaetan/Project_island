@@ -48,7 +48,7 @@ public class MoveTest {
         distance=0;
         move = new Move(distance, direction,contrat);
         move.nextAction();
-        assertEquals(move.setResult((ground).putResults("")).getClass(),new InitialisationGround(contrat).getClass());
+        assertEquals(move.setResult((ground).putResults("")).getClass(),new InitialisationGround(contrat,Direction.N).getClass());
 
     }
 }
