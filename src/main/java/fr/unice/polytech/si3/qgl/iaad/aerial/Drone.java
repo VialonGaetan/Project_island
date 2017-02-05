@@ -15,13 +15,13 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 public class Drone
 {
     /**
-     * Définit si on cherche le site d'urgence
-     */
-    static boolean searchEmergencySite = false;
-    /**
      * Palier de budget faible
      */
     static final int LOW_BUDGET = 50;
+    /**
+     * Définit si on cherche le site d'urgence
+     */
+    static boolean searchEmergencySite = false;
     /**
      * Budget disponible
      */
@@ -84,7 +84,8 @@ public class Drone
         protocol = protocol.setResult(results);
     }
 
-    public int getBudget(){
+    public int getBudget()
+    {
         return budget;
     }
 }

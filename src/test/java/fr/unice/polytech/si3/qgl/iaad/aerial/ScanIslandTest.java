@@ -28,7 +28,7 @@ public class ScanIslandTest
             map = DroneTest.randomMap();
             direction = DroneTest.randomDirection();
             scanIsland = new ScanIsland(map, direction, direction.getRight());
-            while (scanIsland instanceof ScanIsland || scanIsland instanceof FlyOnIsland || scanIsland instanceof ScanToFindCreekAndSite)
+            while (scanIsland instanceof ScanIsland || scanIsland instanceof FlyOnIsland || scanIsland instanceof ScanIsland)
             {
                 Area area = (Area) scanIsland.nextAction();
                 area = area.putResults(DroneTest.randomJSON().toString());
@@ -53,7 +53,7 @@ public class ScanIslandTest
             map = DroneTest.randomMap();
             direction = DroneTest.randomDirection();
             scanIsland = new ScanIsland(map, direction, direction.getRight());
-            while (scanIsland instanceof ScanIsland || scanIsland instanceof FlyOnIsland || scanIsland instanceof ScanToFindCreekAndSite)
+            while (scanIsland instanceof ScanIsland || scanIsland instanceof FlyOnIsland || scanIsland instanceof ScanIsland)
             {
                 Area area = (Area) scanIsland.nextAction();
                 JSONObject jsonObject = DroneTest.randomJSON();

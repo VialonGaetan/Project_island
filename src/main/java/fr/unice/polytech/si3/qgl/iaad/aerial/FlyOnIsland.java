@@ -30,6 +30,6 @@ class FlyOnIsland extends Oriented implements Protocol
     @Override
     public Protocol setResult(Area result)
     {
-        return new ScanToFindCreekAndSite(getMap(), getHeading(), getSense());
+        return new ScanIsland(getMap(), getHeading(), getSense());
     }
 }

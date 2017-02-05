@@ -42,5 +42,5 @@ class FindIsland implements Protocol
         protocol = protocol.setResult(result);
         return protocol;
     }
-    
+
 }

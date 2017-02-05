@@ -17,9 +17,9 @@ class FlyToIsland extends Oriented implements Protocol
     private int range;
 
     /**
-     * @param heading l'orientation du drone
-     * @param direction  la direction vers laquelle se trouve l'île
-     * @param range   la distance a parcourir pour atteindre l'île
+     * @param heading   l'orientation du drone
+     * @param direction la direction vers laquelle se trouve l'île
+     * @param range     la distance a parcourir pour atteindre l'île
      */
     FlyToIsland(IslandMap map, Direction heading, Direction direction, Direction sense, int range)
     {

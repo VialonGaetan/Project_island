@@ -54,24 +54,24 @@ class Oriented
         return heading;
     }
 
-    public Direction getSense()
-    {
-        return sense;
-    }
-
-    public Direction getDirection()
-    {
-        return direction;
-    }
-
     public void setHeading(Direction heading)
     {
         this.heading = heading;
     }
 
+    public Direction getSense()
+    {
+        return sense;
+    }
+
     public void setSense(Direction sense)
     {
         this.sense = sense;
+    }
+
+    public Direction getDirection()
+    {
+        return direction;
     }
 
     public void setDirection(Direction direction)
