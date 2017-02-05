@@ -13,7 +13,9 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import static org.junit.Assert.*;
@@ -133,11 +135,21 @@ public class DroneTest
         {
             creeks[i] = CREEK + i;
         }
+        JSONArray biomes = new JSONArray();
+        List<Biomes> biomeArray = new ArrayList<>(Arrays.asList(Biomes.values()));
+
+        for (int i = 0; i < 1 + Math.random() * 3; i++)
+        {
+            int r = (int) (Math.random() * biomeArray.size());
+            biomes.put(biomeArray.get(r));
+            biomeArray.remove(r);
+        }
+
         return createJSON((int) (2 + Math.random() * 30)).put("extras", new JSONObject()
                 .put("range", (int) (Math.random() * 20))
                 .put("found", random.nextBoolean() ? Element.OUT_OF_RANGE : Element.GROUND)
-                .put("biomes", new JSONArray(Arrays.stream(Element.values()).filter(e -> random.nextBoolean()).map(Enum::toString).toArray()))
-                .put("creekLocations", new JSONArray(creeks))
+                .put("biomes", biomes)
+                .put("creeks", new JSONArray(creeks))
         );
     }
 

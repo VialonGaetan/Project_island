@@ -12,7 +12,7 @@ class Oriented
     /**
      * La carte utilisée
      */
-    private IslandMap map;
+    private final IslandMap map;
     /**
      * L'orientation du drone
      */

@@ -5,6 +5,7 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
 import fr.unice.polytech.si3.qgl.iaad.actions.Scan;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -44,8 +45,6 @@ public class ScanIslandTest
         }
     }
 
-
-
     @Test
     public void setResult() throws Exception
     {
@@ -57,7 +56,8 @@ public class ScanIslandTest
             while (scanIsland instanceof ScanIsland || scanIsland instanceof FlyOnIsland || scanIsland instanceof ScanToFindCreekAndSite)
             {
                 Area area = (Area) scanIsland.nextAction();
-                area = area.putResults(DroneTest.randomJSON().toString());
+                JSONObject jsonObject = DroneTest.randomJSON();
+                area = area.putResults(jsonObject.toString());
                 scanIsland = scanIsland.setResult(area);
             }
             assertTrue(scanIsland instanceof StopAerial || scanIsland instanceof ReturnToIsland);

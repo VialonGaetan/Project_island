@@ -6,13 +6,13 @@ import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Scan;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
 import java.awt.*;
 
 /**
  * On Scan pour trouver une crique.
+ *
  * @author Alexandre Clement
  * @since 30/01/2017.
  */
@@ -117,7 +117,6 @@ class ScanToFindCreek extends Oriented implements Protocol
      */
     private boolean canDroneMoveTo(Direction direction)
     {
-
         return getMap().getNumberOfAvailablePoints(getHeading()) > 0 && getMap().getNumberOfAvailablePoints(direction) > 1;
     }
 

@@ -93,7 +93,7 @@ public class AreaResultTest {
     @Test
     public void testScanResult(){
         result = new Scan();
-        result.putResults("{\"cost\": 2, \"extras\": { \"biomes\": [\"BEACH\"], \"creekLocations\": [], \"sites\": [\"idsite\"]}, \"status\": \"OK\"}");
+        result.putResults("{\"cost\": 2, \"extras\": { \"biomes\": [\"BEACH\"], \"creeks\": [], \"sites\": [\"idsite\"]}, \"status\": \"OK\"}");
         int cost = 2;
         String status = "OK";
         assertEquals(result.getCost(),cost);
@@ -105,7 +105,7 @@ public class AreaResultTest {
         assertEquals(result.nbCreeks(),0);
         assertEquals(result.getCreeks(1),null);
         assertEquals(result.getSites(),"idsite");
-        result.putResults("{\"cost\": 5, \"extras\": { \"biomes\": [\"SNOW\"], \"creekLocations\": [\"idcreek\"], \"sites\": []}, \"status\": \"OK\"}");
+        result.putResults("{\"cost\": 5, \"extras\": { \"biomes\": [\"SNOW\"], \"creeks\": [\"idcreek\"], \"sites\": []}, \"status\": \"OK\"}");
         int cost2 = 5;
         assertEquals(result.getCost(),cost2);
         assertEquals(result.getStatus(),status);
