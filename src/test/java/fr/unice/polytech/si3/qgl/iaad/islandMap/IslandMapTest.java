@@ -162,10 +162,8 @@ public class IslandMapTest
     public void emergencySiteTest() throws InvalidMapException
     {
         assertEquals(map.getEmergencySiteId(), "");
-        assertEquals(map.getEmergencySiteLocation(), null);
         map.addEmergencySite("toto");
         assertEquals(map.getEmergencySiteId(), "toto");
-        assertEquals(map.getEmergencySiteLocation(), new Point());
         map.addEmergencySite("titi");
         assertEquals(map.getEmergencySiteId(), "toto");
     }

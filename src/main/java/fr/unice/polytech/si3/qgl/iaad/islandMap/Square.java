@@ -14,7 +14,6 @@ class Square
     private List<Element> elements;
     private List<Biome> biomes;
     private List<String> creekIds;
-    private boolean hasEmergencySite;
     private boolean isAnOldLocation;
 
     Square()
@@ -24,12 +23,12 @@ class Square
         creekIds = new ArrayList<>();
     }
 
-    Square(Square square)
+    void copy(Square square)
     {
         elements = new ArrayList<>(square.elements);
         biomes = new ArrayList<>(square.biomes);
         creekIds = new ArrayList<>(square.creekIds);
-        hasEmergencySite = square.hasEmergencySite;
+        isAnOldLocation = square.isAnOldLocation;
     }
 
     void setAsOldLocation() { isAnOldLocation = true; }
@@ -38,11 +37,6 @@ class Square
 
     void addElement(Element element)
     {
-        if(element == Element.EMERGENCY_SITE)
-        {
-            hasEmergencySite = true;
-        }
-
         for(Element current : elements)
         {
             if(current == element)
@@ -53,8 +47,6 @@ class Square
 
         elements.add(element);
     }
-
-    boolean hasEmergencySite() { return hasEmergencySite; }
 
     void addElements(Element... elements)
     {

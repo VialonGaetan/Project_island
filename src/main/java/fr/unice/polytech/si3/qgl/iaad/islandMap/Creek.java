@@ -27,7 +27,23 @@ public class Creek
     {
         this.islandMap = islandMap;
         creekLocations = getCreekLocations();
-        emergencySiteLocation = islandMap.getEmergencySiteLocation();
+        emergencySiteLocation = null;
+
+        for(int x=0; x<islandMap.getHorizontalDimension(); x++)
+        {
+            for (int y = 0; y < islandMap.getVerticalDimension(); y++)
+            {
+                try
+                {
+                    if (islandMap.hasElement(new Point(x, y), Element.EMERGENCY_SITE))
+                    {
+                        emergencySiteLocation = new Point(x, y);
+                    }
+                }
+
+                catch (InvalidMapException exception) { emergencySiteLocation = null; }
+            }
+        }
     }
 
     private List<Point> getCreekLocations()

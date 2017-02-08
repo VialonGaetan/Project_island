@@ -1,5 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
+import java.awt.Point;
+
 /**
  * @author romain
  * Created on 02/02/17.
@@ -7,10 +9,17 @@ package fr.unice.polytech.si3.qgl.iaad.islandMap;
 class EmergencySite
 {
     private String id;
+    private boolean isFound;
 
-    EmergencySite(String id) { this.id = ""+id; }
+    EmergencySite(String id)
+    {
+        this.id = "" + id;
+        isFound = true;
+    }
 
-    EmergencySite(EmergencySite newEmergencySite) { this(newEmergencySite.getId()); }
+    EmergencySite() { id = ""; }
 
     String getId() { return id; }
+
+    boolean isFound() { return isFound; }
 }

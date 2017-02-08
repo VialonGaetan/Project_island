@@ -2,6 +2,8 @@ package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 
+import java.awt.Point;
+
 /**
  * @author romain
  * Created on 15/11/16.
@@ -59,48 +61,25 @@ class DynamicMatrix
     /**
      * Returns the string with these index
      * @return String type
-     * @param line, Integer type
-     * @param column, Integer type
+     * @param point, a point
      * @throws InvalidMapException, if the point does not exist
      */
-    Square getSquare(int line, int column) throws InvalidMapException
+    Square getSquare(Point point) throws InvalidMapException
     {
-        if(!pointExist(line, column))
+        if(!pointExist(point))
         {
             throw new InvalidMapException();
         }
 
-        return squares[line][column];
+        return squares[point.y][point.x];
     }
 
     /**
      * Informs if the point with these index exists in the matrix
-     * @param line, Integer type
-     * @param column, Integer type
+     * @param point, a point
      * @return boolean type : true if the point exist, false otherwise
      */
-    boolean pointExist(int line, int column)
-    {
-        boolean test=false;
-
-        if(line>=0 && line<squares.length && column>=0 && column<squares[0].length)
-        {
-            test = true;
-        }
-
-        return test;
-    }
-
-
-    void updateSquare(int line, int column, Square newSquare)  throws InvalidMapException
-    {
-        if(!pointExist(line, column))
-        {
-            throw new InvalidMapException();
-        }
-
-        squares[line][column] = new Square(newSquare);
-    }
+    boolean pointExist(Point point) { return (point.y>=0 && point.y<squares.length && point.x>=0 && point.x<squares[0].length); }
 
     /**
      * this = another dynamicMatrix
@@ -111,7 +90,6 @@ class DynamicMatrix
         numberOfLines = dynamicMatrix.numberOfLines;
         numberOfColumns = dynamicMatrix.numberOfColumns;
         squares = new Square[numberOfLines][numberOfColumns];
-
         System.arraycopy(dynamicMatrix.squares, 0, squares, 0, numberOfLines);
     }
 
@@ -134,8 +112,7 @@ class DynamicMatrix
             {
                 for(int j = 0; j<numberOfColumns; j++)
                 {
-                    try { newMatrix.updateSquare(i, j, squares[i-numberOfLines][j]); }
-                    catch (InvalidMapException e) { return; }
+                    newMatrix.squares[i][j] = squares[i-numberOfLines][j];
                 }
             }
         }
@@ -146,8 +123,7 @@ class DynamicMatrix
             {
                 for(int j = 0; j<numberOfColumns; j++)
                 {
-                    try { newMatrix.updateSquare(i, j, squares[i][j]); }
-                    catch (InvalidMapException e) { return; }
+                    newMatrix.squares[i][j] = squares[i][j];
                 }
             }
         }
@@ -166,7 +142,7 @@ class DynamicMatrix
      */
     void addColumns(int position, int numberOfColumns)
     {
-        DynamicMatrix newMatrix=new DynamicMatrix(numberOfLines, this.numberOfColumns+numberOfColumns);
+        DynamicMatrix newMatrix = new DynamicMatrix(numberOfLines, this.numberOfColumns+numberOfColumns);
 
         if(position==0)
         {
@@ -174,8 +150,7 @@ class DynamicMatrix
             {
                 for(int j = numberOfColumns; j<(this.numberOfColumns+numberOfColumns); j++)
                 {
-                    try { newMatrix.updateSquare(i, j, squares[i][j-numberOfColumns]); }
-                    catch (InvalidMapException e) { return; }
+                    newMatrix.squares[i][j] = squares[i][j - numberOfColumns];
                 }
             }
         }
@@ -186,8 +161,7 @@ class DynamicMatrix
             {
                 for(int j = 0; j<this.numberOfColumns; j++)
                 {
-                    try { newMatrix.updateSquare(i, j, squares[i][j]); }
-                    catch (InvalidMapException e) { return; }
+                    newMatrix.squares[i][j] = squares[i][j];
                 }
             }
 

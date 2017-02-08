@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -20,7 +21,7 @@ public class EmergencyTest
 
         assertEquals(emergencySite.getId(), id);
 
-        EmergencySite emergencySite = new EmergencySite(this.emergencySite);
+        EmergencySite emergencySite = new EmergencySite(this.emergencySite.getId());
         assertEquals(emergencySite.getId(), this.emergencySite.getId());
     }
 }

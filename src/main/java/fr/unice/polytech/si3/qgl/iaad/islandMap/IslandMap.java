@@ -33,14 +33,14 @@ public class IslandMap
      * Sets all dimensions as not finished
      * The emergency has an empty id and a null position
      */
-    public IslandMap()  { this(new DynamicMatrix(), new Point(), new boolean[4], new EmergencySite("")); }
+    public IslandMap()  { this(new DynamicMatrix(), new Point(), new boolean[4], new EmergencySite()); }
 
     private IslandMap(DynamicMatrix bodyMap, Point location, boolean[] dimensionFinished, EmergencySite emergencySite)
     {
         this.bodyMap = bodyMap;
         this.location = location;
         this.dimensionFinished = dimensionFinished;
-        this.emergencySite = new EmergencySite(emergencySite);
+        this.emergencySite = emergencySite;
     }
 
     /**
@@ -58,10 +58,19 @@ public class IslandMap
         try
         {
             for(int x=0, x_oldMap=0; x<getHorizontalDimension(); x+=3, x_oldMap++)
+            {
                 for(int y=0, y_oldMap=0; y<getVerticalDimension(); y+=3, y_oldMap++)
+                {
                     for(int x_bloc=0; x_bloc<3; x_bloc++)
+                    {
                         for(int y_bloc=0; y_bloc<3; y_bloc++)
-                            bodyMap.updateSquare(y+y_bloc, x+x_bloc, oldMap.bodyMap.getSquare(y_oldMap, x_oldMap));
+                        {
+                            bodyMap.getSquare(new Point(x+x_bloc, y+y_bloc)).copy(oldMap.bodyMap.getSquare(new Point(x_oldMap, y_oldMap)));
+                        }
+                    }
+                }
+            }
+
         }
 
         catch(Exception exception) { done = false; }
@@ -74,7 +83,7 @@ public class IslandMap
      * @param point, any coordinates
      * @return boolean type : true if the point exist, false otherwise
      */
-    boolean pointExist(Point point) { return bodyMap.pointExist(point.y, point.x); }
+    boolean pointExist(Point point) { return bodyMap.pointExist(point); }
 
     /**
      * Receives a direction
@@ -135,12 +144,10 @@ public class IslandMap
                 break;
         }
 
-        Square square = bodyMap.getSquare(location.y, location.x);
-        square.setAsOldLocation();
-        bodyMap.updateSquare(location.y, location.x, square);
+        bodyMap.getSquare(location).setAsOldLocation();
     }
 
-    public boolean isAnOldLocation(Point point) throws InvalidMapException { return bodyMap.getSquare(point.y, point.x).oldLocationStatus(); }
+    public boolean isAnOldLocation(Point point) throws InvalidMapException { return bodyMap.getSquare(point).oldLocationStatus(); }
 
     /**
      * Informs if this direction is finished
@@ -162,7 +169,7 @@ public class IslandMap
         if(!dimensionFinished[direction.ordinal()])
         {
             addPoints(direction, numberOfPoints);
-            dimensionFinished[direction.ordinal()]=true;
+            dimensionFinished[direction.ordinal()] = true;
         }
     }
 
@@ -172,13 +179,13 @@ public class IslandMap
      */
     public boolean isFinished()
     {
-        boolean test=true;
+        boolean test = true;
 
         for(boolean currentDimensionFinished : dimensionFinished)
         {
             if(!currentDimensionFinished)
             {
-                test=false;
+                test = false;
                 break;
             }
         }
@@ -222,13 +229,7 @@ public class IslandMap
                 break;
         }
 
-        try
-        {
-            Square square = bodyMap.getSquare(point.y, point.x);
-            square.addElement(Element.GROUND);
-            bodyMap.updateSquare(point.y, point.x, square);
-        }
-
+        try { bodyMap.getSquare(point).addElement(Element.GROUND); }
         catch(InvalidMapException exception) { done = false; }
 
         return done;
@@ -241,21 +242,21 @@ public class IslandMap
      */
     public int getNumberOfAvailablePoints(Direction direction)
     {
-        int distance=0;
+        int distance = 0;
 
         switch(direction)
         {
             case N:
-                distance= location.y;
+                distance = location.y;
                 break;
             case S:
-                distance=getVerticalDimension()- location.y-1;
+                distance = getVerticalDimension()- location.y-1;
                 break;
             case E:
-                distance=getHorizontalDimension()- location.x-1;
+                distance = getHorizontalDimension()- location.x-1;
                 break;
             case W:
-                distance= location.x;
+                distance = location.x;
                 break;
         }
 
@@ -266,19 +267,9 @@ public class IslandMap
 
     public int getVerticalDimension() { return bodyMap.getNumberOfLines(); }
 
-    public void addBiomes(Biome... biomes) throws InvalidMapException
-    {
-        Square square = new Square(bodyMap.getSquare(location.y, location.x));
-        square.addBiomes(biomes);
-        bodyMap.updateSquare(location.y, location.x, square);
-    }
+    public void addBiomes(Biome... biomes) throws InvalidMapException { bodyMap.getSquare(location).addBiomes(biomes); }
 
-    public void addCreeks(String... ids) throws InvalidMapException
-    {
-        Square square = new Square(bodyMap.getSquare(location.y, location.x));
-        square.addCreeks(ids);
-        bodyMap.updateSquare(location.y, location.x, square);
-    }
+    public void addCreeks(String... ids) throws InvalidMapException { bodyMap.getSquare(location).addCreeks(ids); }
 
     public boolean addEmergencySite(String id)
     {
@@ -286,12 +277,15 @@ public class IslandMap
 
         try
         {
-            if(emergencySite.getId().equals(""))
+            if(!emergencySite.isFound())
             {
                 emergencySite = new EmergencySite(id);
-                Square square = bodyMap.getSquare(location.y, location.x);
-                square.addElement(Element.EMERGENCY_SITE);
-                bodyMap.updateSquare(location.y, location.x, square);
+                bodyMap.getSquare(location).addElement(Element.EMERGENCY_SITE);
+            }
+
+            else
+            {
+                done = false;
             }
         }
 
@@ -300,43 +294,15 @@ public class IslandMap
         return done;
     }
 
-    Point getEmergencySiteLocation()
-    {
-        for(int x=0; x<getHorizontalDimension(); x++)
-        {
-            for(int y=0; y<getVerticalDimension(); y++)
-            {
-                try
-                {
-                    if(bodyMap.getSquare(y, x).hasEmergencySite())
-                    {
-                        return new Point(x, y);
-                    }
-                }
-
-                catch(InvalidMapException exception) {
-                    return null; }
-            }
-        }
-
-        return null;
-    }
-
     public String getEmergencySiteId() { return emergencySite.getId(); }
 
-    public String[] getCreekIds(Point point) throws InvalidMapException { return bodyMap.getSquare(point.y, point.x).getCreekIds(); }
+    public String[] getCreekIds(Point point) throws InvalidMapException { return bodyMap.getSquare(point).getCreekIds(); }
 
-    public Biome[] getBiomes(Point point) throws InvalidMapException { return bodyMap.getSquare(point.y, point.x).getBiomes(); }
+    public Biome[] getBiomes(Point point) throws InvalidMapException { return bodyMap.getSquare(point).getBiomes(); }
 
-    private Element[] getElements(Point point) throws InvalidMapException { return bodyMap.getSquare(point.y, point.x).getElements(); }
+    private Element[] getElements(Point point) throws InvalidMapException { return bodyMap.getSquare(point).getElements(); }
 
-    void deleteBiomes(Point point, Biome... biomes) throws InvalidMapException
-    {
-        Square square = new Square(bodyMap.getSquare(location.y, location.x));
-
-        square.deleteBiomes(biomes);
-        bodyMap.updateSquare(point.y, point.x, square);
-    }
+    void deleteBiomes(Point point, Biome... biomes) throws InvalidMapException { bodyMap.getSquare(point).deleteBiomes(biomes); }
 
     boolean hasBiome(Point point, Biome biome) throws InvalidMapException
     {
