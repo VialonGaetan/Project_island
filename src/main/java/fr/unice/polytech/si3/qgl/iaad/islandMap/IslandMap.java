@@ -10,7 +10,6 @@ import java.awt.Point;
  * @author romain
  * Created on 13/11/16.
  */
-
 public class IslandMap
 {
     private DynamicMatrix bodyMap;
@@ -47,7 +46,7 @@ public class IslandMap
     /**
      * Converts the aerial islandMap in land islandMap
      */
-    public boolean zoom()
+    boolean zoom()
     {
         boolean done = true;
 
@@ -75,7 +74,7 @@ public class IslandMap
      * @param point, any coordinates
      * @return boolean type : true if the point exist, false otherwise
      */
-    public boolean pointExist(Point point) { return bodyMap.pointExist(point.y, point.x); }
+    boolean pointExist(Point point) { return bodyMap.pointExist(point.y, point.x); }
 
     /**
      * Receives a direction
@@ -280,8 +279,10 @@ public class IslandMap
         bodyMap.updateSquare(location.y, location.x, square);
     }
 
-    public void addEmergencySite(String id)
+    public boolean addEmergencySite(String id)
     {
+        boolean done = true;
+
         try
         {
             if(emergencySite.getId().equals(""))
@@ -293,10 +294,12 @@ public class IslandMap
             }
         }
 
-        catch(InvalidMapException exception) { }
+        catch(InvalidMapException exception) { done = false; }
+
+        return done;
     }
 
-    public Point getEmergencySiteLocation()
+    Point getEmergencySiteLocation()
     {
         for(int x=0; x<getHorizontalDimension(); x++)
         {
@@ -324,9 +327,9 @@ public class IslandMap
 
     public Biome[] getBiomes(Point point) throws InvalidMapException { return bodyMap.getSquare(point.y, point.x).getBiomes(); }
 
-    public Element[] getElements(Point point) throws InvalidMapException { return bodyMap.getSquare(point.y, point.x).getElements(); }
+    private Element[] getElements(Point point) throws InvalidMapException { return bodyMap.getSquare(point.y, point.x).getElements(); }
 
-    public void deleteBiomes(Point point, Biome... biomes) throws InvalidMapException
+    void deleteBiomes(Point point, Biome... biomes) throws InvalidMapException
     {
         Square square = new Square(bodyMap.getSquare(location.y, location.x));
 
@@ -334,7 +337,7 @@ public class IslandMap
         bodyMap.updateSquare(point.y, point.x, square);
     }
 
-    public boolean hasBiome(Point point, Biome biome) throws InvalidMapException
+    boolean hasBiome(Point point, Biome biome) throws InvalidMapException
     {
         boolean test = false;
 
@@ -350,7 +353,7 @@ public class IslandMap
         return test;
     }
 
-    public boolean hasElement(Point point, Element element) throws InvalidMapException
+    boolean hasElement(Point point, Element element) throws InvalidMapException
     {
         boolean test = false;
 
