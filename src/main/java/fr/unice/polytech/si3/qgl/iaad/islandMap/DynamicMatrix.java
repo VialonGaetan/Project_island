@@ -40,6 +40,8 @@ class DynamicMatrix
         for(int i=0; i<numberOfLines; i++)
             for(int j=0; j<numberOfColumns; j++)
                 squares[i][j] = new Square();
+
+        squares[0][0].setAsOldLocation();
     }
 
     /**

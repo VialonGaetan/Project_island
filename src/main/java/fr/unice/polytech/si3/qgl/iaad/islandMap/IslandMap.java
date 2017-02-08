@@ -33,7 +33,7 @@ public class IslandMap
      * Sets all dimensions as not finished
      * The emergency has an empty id and a null position
      */
-    public IslandMap() { this(new DynamicMatrix(), new Point(), new boolean[4], new EmergencySite("")); }
+    public IslandMap()  { this(new DynamicMatrix(), new Point(), new boolean[4], new EmergencySite("")); }
 
     private IslandMap(DynamicMatrix bodyMap, Point location, boolean[] dimensionFinished, EmergencySite emergencySite)
     {
@@ -135,11 +135,12 @@ public class IslandMap
                 break;
         }
 
-        if(!pointExist(location))
-        {
-            throw new InvalidMapException();
-        }
+        Square square = bodyMap.getSquare(location.y, location.x);
+        square.setAsOldLocation();
+        bodyMap.updateSquare(location.y, location.x, square);
     }
+
+    public boolean isAnOldLocation() throws InvalidMapException { return bodyMap.getSquare(location.y, location.x).oldLocationStatus(); }
 
     /**
      * Informs if this direction is finished
