@@ -140,7 +140,7 @@ public class IslandMap
         bodyMap.updateSquare(location.y, location.x, square);
     }
 
-    public boolean isAnOldLocation() throws InvalidMapException { return bodyMap.getSquare(location.y, location.x).oldLocationStatus(); }
+    public boolean isAnOldLocation(Point point) throws InvalidMapException { return bodyMap.getSquare(point.y, point.x).oldLocationStatus(); }
 
     /**
      * Informs if this direction is finished
