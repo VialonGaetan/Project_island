@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.actions;
 
-import fr.unice.polytech.si3.qgl.iaad.Biomes;
+import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Resource;
 import org.json.JSONObject;
@@ -69,7 +69,7 @@ public abstract class Ground implements Action, Results {
 
     public String getBiomeReport(int inforange, int n){return null;}
 
-    public boolean biomeIsPresent(Biomes biomes){return false;}
+    public boolean biomeIsPresent(Biome biome){return false;}
 
     public String getRessourceExploit(){return null;}
 

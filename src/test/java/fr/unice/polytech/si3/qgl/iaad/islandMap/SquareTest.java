@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
-import fr.unice.polytech.si3.qgl.iaad.Biomes;
+import fr.unice.polytech.si3.qgl.iaad.Biome;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -36,18 +36,18 @@ public class SquareTest
     @Test
     public void addBiomes()
     {
-        square.addBiomes(Biomes.ALPINE, Biomes.ALPINE);
+        square.addBiomes(Biome.ALPINE, Biome.ALPINE);
         assertEquals(square.getBiomes().length, 1);
-        assertEquals(square.getBiomes()[0], Biomes.ALPINE);
+        assertEquals(square.getBiomes()[0], Biome.ALPINE);
     }
 
     @Test
     public void getBiomes()
     {
-        square.addBiomes(Biomes.ALPINE, Biomes.BEACH);
+        square.addBiomes(Biome.ALPINE, Biome.BEACH);
         assertEquals(square.getBiomes().length, 2);
-        assertEquals(square.getBiomes()[0], Biomes.ALPINE);
-        assertEquals(square.getBiomes()[1], Biomes.BEACH);
+        assertEquals(square.getBiomes()[0], Biome.ALPINE);
+        assertEquals(square.getBiomes()[1], Biome.BEACH);
     }
 
     @Test
@@ -70,14 +70,14 @@ public class SquareTest
     @Test
     public void deleteBiome()
     {
-        square.addBiomes(Biomes.ALPINE, Biomes.BEACH);
-        square.deleteBiomes(Biomes.ALPINE);
+        square.addBiomes(Biome.ALPINE, Biome.BEACH);
+        square.deleteBiomes(Biome.ALPINE);
 
         assertEquals(square.getBiomes().length, 1);
-        assertEquals(square.getBiomes()[0], Biomes.BEACH);
-        square.deleteBiomes(Biomes.BEACH);
+        assertEquals(square.getBiomes()[0], Biome.BEACH);
+        square.deleteBiomes(Biome.BEACH);
         assertEquals(square.getBiomes().length, 0);
-        square.deleteBiomes(Biomes.BEACH);
+        square.deleteBiomes(Biome.BEACH);
         assertEquals(square.getBiomes().length, 0);
     }
 }

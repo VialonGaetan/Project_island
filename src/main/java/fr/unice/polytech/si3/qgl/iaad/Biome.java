@@ -7,7 +7,7 @@ import java.util.List;
  * @author Gaetan Vialon
  *         Created the 15/01/2017.
  */
-public enum Biomes {
+public enum Biome {
     OCEAN(Resource.FISH),
     LAKE(Resource.FISH),
     BEACH(Resource.QUARTZ),
@@ -27,12 +27,12 @@ public enum Biomes {
 
     private List<Resource> resources;
 
-    Biomes(Resource... resources) {
+    Biome(Resource... resources) {
         this.resources = Arrays.asList(resources);
     }
 
-    public  List<Resource> getAssociateResources(Biomes biomes) {
-        return biomes.resources;
+    public  List<Resource> getAssociateResources(Biome biome) {
+        return biome.resources;
     }
     public  List<Resource> getAssociateResources() {
         return this.resources;

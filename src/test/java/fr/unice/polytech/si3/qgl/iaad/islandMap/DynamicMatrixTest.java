@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
-import fr.unice.polytech.si3.qgl.iaad.Biomes;
+import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,18 +30,18 @@ public class DynamicMatrixTest
     {
         Square square = new Square();
 
-        square.addBiomes(Biomes.ALPINE);
+        square.addBiomes(Biome.ALPINE);
         dynamicMatrix.updateSquare(0, 0, square);
 
         assertNotEquals(square, dynamicMatrix.getSquare(0, 0));
-        assertEquals(dynamicMatrix.getSquare(0, 0).getBiomes()[0], Biomes.ALPINE);
+        assertEquals(dynamicMatrix.getSquare(0, 0).getBiomes()[0], Biome.ALPINE);
     }
 
     @Test(expected=InvalidMapException.class)
     public void updateSquareException() throws InvalidMapException
     {
         Square square = new Square();
-        square.addBiomes(Biomes.ALPINE);
+        square.addBiomes(Biome.ALPINE);
         dynamicMatrix.updateSquare(1, 0, square);
     }
 
@@ -74,36 +74,36 @@ public class DynamicMatrixTest
     public void addLinesElementAtEnd() throws InvalidMapException
     {
         Square square = new Square();
-        square.addBiomes(Biomes.ALPINE);
+        square.addBiomes(Biome.ALPINE);
 
         dynamicMatrix.updateSquare(0, 0, square);
         dynamicMatrix.addLines(-1, 2);
 
-        assertEquals(Biomes.ALPINE, dynamicMatrix.getSquare(0, 0).getBiomes()[0]);
+        assertEquals(Biome.ALPINE, dynamicMatrix.getSquare(0, 0).getBiomes()[0]);
         assertEquals(0, dynamicMatrix.getSquare(2, 0).getBiomes().length);
 
         square.addElement(Element.CREEK);
         dynamicMatrix.updateSquare(2, 0, square);
 
         assertEquals(Element.CREEK, dynamicMatrix.getSquare(2, 0).getElements()[0]);
-        assertEquals(Biomes.ALPINE, dynamicMatrix.getSquare(0, 0).getBiomes()[0]);
+        assertEquals(Biome.ALPINE, dynamicMatrix.getSquare(0, 0).getBiomes()[0]);
     }
 
     @Test
     public void addLinesElementAtBeginning() throws InvalidMapException
     {
         Square square = new Square();
-        square.addBiomes(Biomes.ALPINE);
+        square.addBiomes(Biome.ALPINE);
 
         dynamicMatrix.updateSquare(0, 0, square);
         dynamicMatrix.addLines(0, 2);
-        assertEquals(Biomes.ALPINE, dynamicMatrix.getSquare(2, 0).getBiomes()[0]);
+        assertEquals(Biome.ALPINE, dynamicMatrix.getSquare(2, 0).getBiomes()[0]);
         assertEquals(0, dynamicMatrix.getSquare(0, 0).getBiomes().length);
 
         square.addElement(Element.CREEK);
         dynamicMatrix.updateSquare(0, 0, square);
         assertEquals(Element.CREEK, dynamicMatrix.getSquare(0, 0).getElements()[0]);
-        assertEquals(Biomes.ALPINE, dynamicMatrix.getSquare(2, 0).getBiomes()[0]);
+        assertEquals(Biome.ALPINE, dynamicMatrix.getSquare(2, 0).getBiomes()[0]);
     }
 
     @Test
@@ -119,37 +119,37 @@ public class DynamicMatrixTest
     public void addColumnsElementAtEnd() throws InvalidMapException
     {
         Square square = new Square();
-        square.addBiomes(Biomes.ALPINE);
+        square.addBiomes(Biome.ALPINE);
 
         dynamicMatrix.updateSquare(0, 0, square);
         dynamicMatrix.addColumns(-1, 2);
 
-        assertEquals(Biomes.ALPINE, dynamicMatrix.getSquare(0, 0).getBiomes()[0]);
+        assertEquals(Biome.ALPINE, dynamicMatrix.getSquare(0, 0).getBiomes()[0]);
         assertEquals(0, dynamicMatrix.getSquare(0, 2).getBiomes().length);
 
         square.addElement(Element.CREEK);
         dynamicMatrix.updateSquare(0, 2, square);
 
         assertEquals(Element.CREEK, dynamicMatrix.getSquare(0, 2).getElements()[0]);
-        assertEquals(Biomes.ALPINE, dynamicMatrix.getSquare(0, 0).getBiomes()[0]);
+        assertEquals(Biome.ALPINE, dynamicMatrix.getSquare(0, 0).getBiomes()[0]);
     }
 
     @Test
     public void addColumnsElementAtBeginning() throws InvalidMapException
     {
         Square square = new Square();
-        square.addBiomes(Biomes.ALPINE);
+        square.addBiomes(Biome.ALPINE);
 
         dynamicMatrix.updateSquare(0, 0, square);
         dynamicMatrix.addColumns(0, 2);
 
-        assertEquals(Biomes.ALPINE, dynamicMatrix.getSquare(0, 2).getBiomes()[0]);
+        assertEquals(Biome.ALPINE, dynamicMatrix.getSquare(0, 2).getBiomes()[0]);
         assertEquals(0, dynamicMatrix.getSquare(0, 0).getBiomes().length);
 
         square.addElement(Element.CREEK);
         dynamicMatrix.updateSquare(0, 0, square);
 
         assertEquals(Element.CREEK, dynamicMatrix.getSquare(0, 0).getElements()[0]);
-        assertEquals(Biomes.ALPINE, dynamicMatrix.getSquare(0, 2).getBiomes()[0]);
+        assertEquals(Biome.ALPINE, dynamicMatrix.getSquare(0, 2).getBiomes()[0]);
     }
 }

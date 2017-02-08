@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
-import fr.unice.polytech.si3.qgl.iaad.Biomes;
+import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
@@ -120,7 +120,7 @@ public class DroneTest
                         .put("range", 1)
                         .put("found", Element.GROUND.toString())
                         .put("biomes", new JSONArray()
-                                .put(Biomes.OCEAN.toString()))
+                                .put(Biome.OCEAN.toString()))
                         .put("creekLocations", new JSONArray()
                                 .put(CREEK))
                         .put("sites", new JSONArray()
@@ -136,7 +136,7 @@ public class DroneTest
             creeks[i] = CREEK + i;
         }
         JSONArray biomes = new JSONArray();
-        List<Biomes> biomeArray = new ArrayList<>(Arrays.asList(Biomes.values()));
+        List<Biome> biomeArray = new ArrayList<>(Arrays.asList(Biome.values()));
 
         for (int i = 0; i < 1 + Math.random() * 3; i++)
         {

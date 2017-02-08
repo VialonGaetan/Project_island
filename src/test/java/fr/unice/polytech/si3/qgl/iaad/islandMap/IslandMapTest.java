@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
-import fr.unice.polytech.si3.qgl.iaad.Biomes;
+import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import org.junit.Before;
@@ -173,7 +173,7 @@ public class IslandMapTest
     @Test
     public void zoomDimensionsTest() throws InvalidMapException
     {
-        map.addBiomes(Biomes.MANGROVE);
+        map.addBiomes(Biome.MANGROVE);
         map.zoom();
         assertEquals(3, map.getVerticalDimension());
         assertEquals(3, map.getHorizontalDimension());
@@ -182,7 +182,7 @@ public class IslandMapTest
     @Test
     public void zoomBiomesTest() throws InvalidMapException
     {
-        map.addBiomes(Biomes.MANGROVE);
+        map.addBiomes(Biome.MANGROVE);
         map.zoom();
 
         for(int x=0; x<map.getHorizontalDimension(); x++)
@@ -190,7 +190,7 @@ public class IslandMapTest
             for(int y=0; y<map.getVerticalDimension(); y++)
             {
                 assertEquals(1, map.getBiomes(new Point()).length);
-                assertTrue(map.hasBiome(new Point(x, y), Biomes.MANGROVE));
+                assertTrue(map.hasBiome(new Point(x, y), Biome.MANGROVE));
             }
         }
     }
@@ -198,7 +198,7 @@ public class IslandMapTest
     @Test
     public void landLocationTest() throws InvalidMapException
     {
-        map.addBiomes(Biomes.MANGROVE);
+        map.addBiomes(Biome.MANGROVE);
         map.zoom();
         assertEquals(1, (int)(map.getLocation().getX()));
         assertEquals(1, (int)(map.getLocation().getY()));
@@ -207,36 +207,36 @@ public class IslandMapTest
     @Test
     public void getBiomesTest() throws InvalidMapException
     {
-        map.addBiomes(Biomes.ALPINE, Biomes.BEACH);
+        map.addBiomes(Biome.ALPINE, Biome.BEACH);
         map.setOutOfRange(Direction.E, 10);
         map.setOutOfRange(Direction.S, 10);
 
         assertEquals(2, map.getBiomes(new Point()).length);
-        assertEquals(Biomes.ALPINE, map.getBiomes(new Point())[0]);
-        assertEquals(Biomes.BEACH, map.getBiomes(new Point())[1]);
+        assertEquals(Biome.ALPINE, map.getBiomes(new Point())[0]);
+        assertEquals(Biome.BEACH, map.getBiomes(new Point())[1]);
 
         map.moveLocation(Direction.E);
         map.moveLocation(Direction.S);
 
-        map.addBiomes(Biomes.GLACIER);
+        map.addBiomes(Biome.GLACIER);
         assertEquals(1, map.getBiomes(map.getLocation()).length);
-        assertEquals(Biomes.GLACIER, map.getBiomes(map.getLocation())[0]);
+        assertEquals(Biome.GLACIER, map.getBiomes(map.getLocation())[0]);
     }
 
     @Test
     public void hasTest() throws InvalidMapException
     {
-        assertFalse(map.hasBiome(new Point(), Biomes.ALPINE));
+        assertFalse(map.hasBiome(new Point(), Biome.ALPINE));
         assertFalse(map.hasElement(new Point(), Element.CREEK));
 
-        map.addBiomes(Biomes.BEACH);
+        map.addBiomes(Biome.BEACH);
 
-        assertTrue(map.hasBiome(new Point(), Biomes.BEACH));
+        assertTrue(map.hasBiome(new Point(), Biome.BEACH));
         assertFalse(map.hasElement(new Point(), Element.CREEK));
 
         map.addCreeks("id1");
 
-        assertTrue(map.hasBiome(new Point(), Biomes.BEACH));
+        assertTrue(map.hasBiome(new Point(), Biome.BEACH));
         assertTrue(map.hasElement(new Point(), Element.CREEK));
     }
 
@@ -254,17 +254,17 @@ public class IslandMapTest
     @Test
     public void deleteBiomeTest() throws InvalidMapException
     {
-        map.addBiomes(Biomes.BEACH, Biomes.GLACIER);
-        map.deleteBiomes(new Point(), Biomes.ALPINE);
+        map.addBiomes(Biome.BEACH, Biome.GLACIER);
+        map.deleteBiomes(new Point(), Biome.ALPINE);
         assertEquals(2, map.getBiomes(new Point()).length);
-        map.deleteBiomes(new Point(), Biomes.BEACH);
+        map.deleteBiomes(new Point(), Biome.BEACH);
         assertEquals(1, map.getBiomes(new Point()).length);
-        assertEquals(Biomes.GLACIER, map.getBiomes(new Point())[0]);
+        assertEquals(Biome.GLACIER, map.getBiomes(new Point())[0]);
 
-        map.deleteBiomes(new Point(), Biomes.GLACIER);
+        map.deleteBiomes(new Point(), Biome.GLACIER);
         assertEquals(0, map.getBiomes(new Point()).length);
 
-        map.deleteBiomes(new Point(), Biomes.GLACIER);
+        map.deleteBiomes(new Point(), Biome.GLACIER);
         assertEquals(0, map.getBiomes(new Point()).length);
     }
 }

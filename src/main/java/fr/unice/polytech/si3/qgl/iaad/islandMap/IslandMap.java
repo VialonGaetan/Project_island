@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
-import fr.unice.polytech.si3.qgl.iaad.Biomes;
+import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 
@@ -36,10 +36,10 @@ public class IslandMap
      */
     public IslandMap() { this(new DynamicMatrix(), new Point(), new boolean[4], new EmergencySite("")); }
 
-    private IslandMap(DynamicMatrix bodyMap, Point drone, boolean[] dimensionFinished, EmergencySite emergencySite)
+    private IslandMap(DynamicMatrix bodyMap, Point location, boolean[] dimensionFinished, EmergencySite emergencySite)
     {
         this.bodyMap = bodyMap;
-        this.location = drone;
+        this.location = location;
         this.dimensionFinished = dimensionFinished;
         this.emergencySite = new EmergencySite(emergencySite);
     }
@@ -266,7 +266,7 @@ public class IslandMap
 
     public int getVerticalDimension() { return bodyMap.getNumberOfLines(); }
 
-    public void addBiomes(Biomes... biomes) throws InvalidMapException
+    public void addBiomes(Biome... biomes) throws InvalidMapException
     {
         Square square = new Square(bodyMap.getSquare(location.y, location.x));
         square.addBiomes(biomes);
@@ -293,7 +293,7 @@ public class IslandMap
             }
         }
 
-        catch(InvalidMapException exception) { return; }
+        catch(InvalidMapException exception) { }
     }
 
     public Point getEmergencySiteLocation()
@@ -322,11 +322,11 @@ public class IslandMap
 
     public String[] getCreekIds(Point point) throws InvalidMapException { return bodyMap.getSquare(point.y, point.x).getCreekIds(); }
 
-    public Biomes[] getBiomes(Point point) throws InvalidMapException { return bodyMap.getSquare(point.y, point.x).getBiomes(); }
+    public Biome[] getBiomes(Point point) throws InvalidMapException { return bodyMap.getSquare(point.y, point.x).getBiomes(); }
 
     public Element[] getElements(Point point) throws InvalidMapException { return bodyMap.getSquare(point.y, point.x).getElements(); }
 
-    public void deleteBiomes(Point point, Biomes... biomes) throws InvalidMapException
+    public void deleteBiomes(Point point, Biome... biomes) throws InvalidMapException
     {
         Square square = new Square(bodyMap.getSquare(location.y, location.x));
 
@@ -334,11 +334,11 @@ public class IslandMap
         bodyMap.updateSquare(point.y, point.x, square);
     }
 
-    public boolean hasBiome(Point point, Biomes biome) throws InvalidMapException
+    public boolean hasBiome(Point point, Biome biome) throws InvalidMapException
     {
         boolean test = false;
 
-        for(Biomes current : getBiomes(point))
+        for(Biome current : getBiomes(point))
         {
             if(current == biome)
             {

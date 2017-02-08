@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
-import fr.unice.polytech.si3.qgl.iaad.Biomes;
+import fr.unice.polytech.si3.qgl.iaad.Biome;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 class Square
 {
     private List<Element> elements;
-    private List<Biomes> biomes;
+    private List<Biome> biomes;
     private List<String> creekIds;
     private boolean hasEmergencySite;
 
@@ -72,9 +72,9 @@ class Square
         return elements;
     }
 
-    private void addBiome(Biomes biome)
+    private void addBiome(Biome biome)
     {
-        for(Biomes current : biomes)
+        for(Biome current : biomes)
         {
             if(current == biome)
             {
@@ -85,17 +85,17 @@ class Square
         biomes.add(biome);
     }
 
-    void addBiomes(Biomes... biomes)
+    void addBiomes(Biome... biomes)
     {
-        for(Biomes biome : biomes)
+        for(Biome biome : biomes)
         {
             addBiome(biome);
         }
     }
 
-    Biomes[] getBiomes()
+    Biome[] getBiomes()
     {
-        Biomes[] biomes = new Biomes[this.biomes.size()];
+        Biome[] biomes = new Biome[this.biomes.size()];
 
         for(int i=0; i<biomes.length; i++)
         {
@@ -139,9 +139,9 @@ class Square
         return creekIds;
     }
 
-    void deleteBiomes(Biomes... biomes)
+    void deleteBiomes(Biome... biomes)
     {
-        for(Biomes current : biomes)
+        for(Biome current : biomes)
         {
             if(this.biomes.size() == 0)
             {

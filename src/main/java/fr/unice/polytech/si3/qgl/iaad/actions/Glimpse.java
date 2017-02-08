@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.actions;
 
-import fr.unice.polytech.si3.qgl.iaad.Biomes;
+import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Resource;
 import org.json.JSONObject;
@@ -66,7 +66,7 @@ public class Glimpse extends Ground{
     public int getDistanceResource(Resource resource){
         for (int i = 0; getBiomeReport(i,0) != null; i++) {
             for (int j = 0; getBiomeReport(i,j)!=null ; j++) {
-                if(Biomes.valueOf(getBiomeReport(i,j)).getAssociateResources().contains(resource)){
+                if(Biome.valueOf(getBiomeReport(i,j)).getAssociateResources().contains(resource)){
                     return i+1;
                 }
             }
@@ -75,10 +75,10 @@ public class Glimpse extends Ground{
     }
 
     @Override
-    public boolean biomeIsPresent(Biomes biomes){
+    public boolean biomeIsPresent(Biome biome){
         for (int i = 0; getBiomeReport(i,0) != null; i++) {
             for (int j = 0; getBiomeReport(i,j)!=null ; j++) {
-                if(biomes.equals(Biomes.valueOf(getBiomeReport(i,j)))){
+                if(biome.equals(Biome.valueOf(getBiomeReport(i,j)))){
                     return true;
                 }
             }

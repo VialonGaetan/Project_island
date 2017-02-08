@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
-import fr.unice.polytech.si3.qgl.iaad.Biomes;
+import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
@@ -51,7 +51,7 @@ class ScanIsland extends Oriented implements Protocol
             return new StopAerial();
         // Sinon, on ajoute les biomes
         for (int i = 0; i < result.nbBiomes(); i++)
-            getMap().addBiomes(Biomes.valueOf(result.getBiome(i)));
+            getMap().addBiomes(Biome.valueOf(result.getBiome(i)));
         // On ajoute les criques
         for (int i = 0; i < result.nbCreeks(); i++)
             getMap().addCreeks(result.getCreeks(i));
@@ -64,7 +64,7 @@ class ScanIsland extends Oriented implements Protocol
             return new StopAerial();
 
         // Si la tuile contient un autre biome que le biome OCEAN, on continue de parcourir l'île
-        if (result.nbBiomes() > 1 || Biomes.valueOf(result.getBiome(0)) != Biomes.OCEAN)
+        if (result.nbBiomes() > 1 || Biome.valueOf(result.getBiome(0)) != Biome.OCEAN)
             return new FlyOnIsland(getMap(), getHeading(), getSense());
         // Sinon, la tuile ne contient que le biome OCEAN
         // Alors on est en dehors de l'île
