@@ -13,7 +13,6 @@ public class Explore extends Ground {
 
     /**
      * Créé un objet JSON avec l'action ECHO
-     *
      * @return String of JSON
      */
     @Override

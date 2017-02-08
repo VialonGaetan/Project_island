@@ -9,7 +9,6 @@ import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
 /**
  * Le drone doit trouver la crique la plus proche du site d'urgence.
- *
  * @author Alexandre Clement
  */
 public class Drone

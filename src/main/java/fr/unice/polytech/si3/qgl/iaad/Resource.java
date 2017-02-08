@@ -29,4 +29,5 @@ public enum Resource {
     Resource(String name) {
         this.name = name;
     }
+
 }
