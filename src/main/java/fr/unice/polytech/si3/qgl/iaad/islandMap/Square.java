@@ -14,7 +14,8 @@ class Square
     private List<Element> elements;
     private List<Biome> biomes;
     private List<String> creekIds;
-    private boolean isAnOldLocation;
+    private boolean isAnOldGroundLocation;
+    private boolean isAnOldAerialLocation;
 
     Square()
     {
@@ -28,12 +29,17 @@ class Square
         elements = new ArrayList<>(square.elements);
         biomes = new ArrayList<>(square.biomes);
         creekIds = new ArrayList<>(square.creekIds);
-        isAnOldLocation = square.isAnOldLocation;
+        isAnOldGroundLocation = square.isAnOldGroundLocation;
+        isAnOldAerialLocation = square.isAnOldAerialLocation;
     }
 
-    void setAsOldLocation() { isAnOldLocation = true; }
+    void setAsOldAerialLocation() { isAnOldAerialLocation = true; }
 
-    boolean oldLocationStatus() { return isAnOldLocation; }
+    void setAsOldGroundLocation() { isAnOldGroundLocation = true; }
+
+    boolean isAnOldAerialLocation() { return isAnOldAerialLocation; }
+
+    boolean isAnOldGroundLocation() { return isAnOldGroundLocation; }
 
     void addElement(Element element)
     {

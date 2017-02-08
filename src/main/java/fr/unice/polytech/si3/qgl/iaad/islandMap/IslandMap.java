@@ -26,6 +26,8 @@ public class IslandMap
      */
     private boolean dimensionFinished[];
 
+    private boolean groundMode;
+
     /**
      * Default constructor
      * Builds the body of the islandMap as an unique point with (0, 0) as coordinates
@@ -50,30 +52,36 @@ public class IslandMap
     {
         boolean done = true;
 
-        IslandMap oldMap = new IslandMap(bodyMap, location, dimensionFinished, emergencySite);
-
-        bodyMap = new DynamicMatrix(oldMap.bodyMap.getNumberOfLines()*3, oldMap.bodyMap.getNumberOfColumns()*3);
-        location = new Point(oldMap.location.x*3+1, oldMap.location.y*3+1);
-
-        try
+        if(!groundMode)
         {
-            for(int x=0, x_oldMap=0; x<getHorizontalDimension(); x+=3, x_oldMap++)
+            IslandMap oldMap = new IslandMap(bodyMap, location, dimensionFinished, emergencySite);
+
+            bodyMap = new DynamicMatrix(oldMap.bodyMap.getNumberOfLines()*3, oldMap.bodyMap.getNumberOfColumns()*3);
+
+            try
             {
-                for(int y=0, y_oldMap=0; y<getVerticalDimension(); y+=3, y_oldMap++)
+                for(int x=0, x_oldMap=0; x<getHorizontalDimension(); x+=3, x_oldMap++)
                 {
-                    for(int x_bloc=0; x_bloc<3; x_bloc++)
+                    for(int y=0, y_oldMap=0; y<getVerticalDimension(); y+=3, y_oldMap++)
                     {
-                        for(int y_bloc=0; y_bloc<3; y_bloc++)
+                        for(int x_bloc=0; x_bloc<3; x_bloc++)
                         {
-                            bodyMap.getSquare(new Point(x+x_bloc, y+y_bloc)).copy(oldMap.bodyMap.getSquare(new Point(x_oldMap, y_oldMap)));
+                            for(int y_bloc=0; y_bloc<3; y_bloc++)
+                            {
+                                bodyMap.getSquare(new Point(x+x_bloc, y+y_bloc)).copy(oldMap.bodyMap.getSquare(new Point(x_oldMap, y_oldMap)));
+                            }
                         }
                     }
                 }
+
+                location = new Point(oldMap.location.x*3+1, oldMap.location.y*3+1);
+                bodyMap.getSquare(location).setAsOldGroundLocation();
             }
 
-        }
+            catch(InvalidMapException exception) { done = false; }
 
-        catch(Exception exception) { done = false; }
+            groundMode = true;
+        }
 
         return done;
     }
@@ -144,10 +152,20 @@ public class IslandMap
                 break;
         }
 
-        bodyMap.getSquare(location).setAsOldLocation();
+        if(groundMode)
+        {
+            bodyMap.getSquare(location).setAsOldGroundLocation();
+        }
+
+        else
+        {
+            bodyMap.getSquare(location).setAsOldAerialLocation();
+        }
     }
 
-    public boolean isAnOldLocation(Point point) throws InvalidMapException { return bodyMap.getSquare(point).oldLocationStatus(); }
+    public boolean isAnOldAerialLocation(Point point) throws InvalidMapException { return bodyMap.getSquare(point).isAnOldAerialLocation(); }
+
+    public boolean isAnOldGroundLocation(Point point) throws InvalidMapException { return bodyMap.getSquare(point).isAnOldGroundLocation(); }
 
     /**
      * Informs if this direction is finished
@@ -300,7 +318,7 @@ public class IslandMap
 
     public Biome[] getBiomes(Point point) throws InvalidMapException { return bodyMap.getSquare(point).getBiomes(); }
 
-    private Element[] getElements(Point point) throws InvalidMapException { return bodyMap.getSquare(point).getElements(); }
+    public Element[] getElements(Point point) throws InvalidMapException { return bodyMap.getSquare(point).getElements(); }
 
     void deleteBiomes(Point point, Biome... biomes) throws InvalidMapException { bodyMap.getSquare(point).deleteBiomes(biomes); }
 

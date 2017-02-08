@@ -31,6 +31,10 @@ public class IslandMapTest
         assertFalse(map.isFinished());
     }
 
+    /**
+     * number of points available between the current location and the limit of the map
+     * depends of the direction
+     */
     @Test
     public void getNumberOfAvailablePoints()
     {
@@ -130,7 +134,7 @@ public class IslandMapTest
     }
 
     @Test
-    public void moveDroneTest() throws InvalidMapException
+    public void moveLocationTest() throws InvalidMapException
     {
         // moves in the islandMap :
 
@@ -158,6 +162,11 @@ public class IslandMapTest
         }
     }
 
+    /**
+     * check if the emergency site is unique
+     * check if the emergency site is correctly added
+     * @throws InvalidMapException if bad coordinates
+     */
     @Test
     public void emergencySiteTest() throws InvalidMapException
     {
@@ -166,8 +175,15 @@ public class IslandMapTest
         assertEquals(map.getEmergencySiteId(), "toto");
         map.addEmergencySite("titi");
         assertEquals(map.getEmergencySiteId(), "toto");
+
+        assertEquals(1, map.getElements(new Point()).length);
+        assertEquals(Element.EMERGENCY_SITE, map.getElements(new Point())[0]);
     }
 
+    /**
+     * check map dimensions after zoom
+     * @throws InvalidMapException if bad coordinates
+     */
     @Test
     public void zoomDimensionsTest() throws InvalidMapException
     {
@@ -175,8 +191,16 @@ public class IslandMapTest
         map.zoom();
         assertEquals(3, map.getVerticalDimension());
         assertEquals(3, map.getHorizontalDimension());
+
+        map.zoom();
+        assertEquals(3, map.getVerticalDimension());
+        assertEquals(3, map.getHorizontalDimension());
     }
 
+    /**
+     * check data in the map after zoom
+     * @throws InvalidMapException if bad coordinates
+     */
     @Test
     public void zoomBiomesTest() throws InvalidMapException
     {
@@ -191,8 +215,23 @@ public class IslandMapTest
                 assertTrue(map.hasBiome(new Point(x, y), Biome.MANGROVE));
             }
         }
+
+        map.zoom();
+
+        for(int x=0; x<map.getHorizontalDimension(); x++)
+        {
+            for(int y=0; y<map.getVerticalDimension(); y++)
+            {
+                assertEquals(1, map.getBiomes(new Point()).length);
+                assertTrue(map.hasBiome(new Point(x, y), Biome.MANGROVE));
+            }
+        }
     }
 
+    /**
+     * check location just after zoom
+     * @throws InvalidMapException if bad coordinates
+     */
     @Test
     public void landLocationTest() throws InvalidMapException
     {
@@ -221,6 +260,11 @@ public class IslandMapTest
         assertEquals(Biome.GLACIER, map.getBiomes(map.getLocation())[0]);
     }
 
+    /**
+     * test hasBiome
+     * test hasElement
+     * @throws InvalidMapException if bad coordinates
+     */
     @Test
     public void hasTest() throws InvalidMapException
     {
@@ -264,5 +308,39 @@ public class IslandMapTest
 
         map.deleteBiomes(new Point(), Biome.GLACIER);
         assertEquals(0, map.getBiomes(new Point()).length);
+    }
+
+    /**
+     * check previous locations
+     * map in ground mode
+     * @throws InvalidMapException id bad coordinates
+     */
+    @Test
+    public void isAnOldGroundLocationTest() throws InvalidMapException
+    {
+        assertFalse(map.isAnOldGroundLocation(new Point()));
+        map.zoom();
+        assertFalse(map.isAnOldGroundLocation(new Point()));
+        assertTrue(map.isAnOldGroundLocation(new Point(1, 1)));
+        map.moveLocation(Direction.S);
+        assertTrue(map.isAnOldGroundLocation(new Point(1, 2)));
+    }
+
+    /**
+     * check previous locations
+     * map in aerial mode
+     * @throws InvalidMapException if bad coordinates
+     */
+    @Test
+    public void isAnOldAerialLocationTest() throws InvalidMapException
+    {
+        assertTrue(map.isAnOldAerialLocation(new Point()));
+        map.zoom();
+        assertTrue(map.isAnOldAerialLocation(new Point()));
+        assertTrue(map.isAnOldAerialLocation(new Point(1, 1)));
+        map.moveLocation(Direction.S);
+        map.setOutOfRange(Direction.S, 2);
+        map.moveLocation(Direction.S);
+        assertFalse(map.isAnOldAerialLocation(new Point(1, 3)));
     }
 }
