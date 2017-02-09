@@ -41,4 +41,38 @@ public class TracerTest {
         assertTrue(tracer.isAnOldPosition(map,new Point(3,3)));
         assertTrue(tracer.isAnOldPosition(map,new Point(4,4)));
     }
+
+
+    @Test
+    public void isTopAnOldPositionTest() throws InvalidMapException {
+        assertFalse(tracer.isTopAnOldPosition(map, new Point(5,6)));
+        assertFalse(tracer.isTopAnOldPosition(map, new Point(5,7)));
+        assertTrue(tracer.isTopAnOldPosition(map, new Point(4,5)));
+        assertEquals(null, tracer.isTopAnOldPosition(map, new Point(0,0)));
+    }
+
+    @Test
+    public void isBottomAnOldPositionTest() throws InvalidMapException {
+        assertFalse(tracer.isTopAnOldPosition(map, new Point(5,6)));
+        assertFalse(tracer.isTopAnOldPosition(map, new Point(6,7)));
+        assertTrue(tracer.isBottomAnOldPosition(map, new Point(4,3)));
+        assertEquals(null, tracer.isBottomAnOldPosition(map, new Point(0,map.getVerticalDimension())));
+    }
+
+    @Test
+    public void isLeftAnOldPositionTest() throws InvalidMapException {
+        assertFalse(tracer.isLeftAnOldPosition(map, new Point(10,10)));
+        assertFalse(tracer.isLeftAnOldPosition(map, new Point(55,55)));
+        assertTrue(tracer.isLeftAnOldPosition(map, new Point(5,4)));
+        assertEquals(null, tracer.isLeftAnOldPosition(map, new Point(0,0)));
+    }
+
+    @Test
+    public void isRightAnOldPositionTest() throws InvalidMapException {
+        assertFalse(tracer.isRightAnOldPosition(map, new Point(10,10)));
+        assertFalse(tracer.isRightAnOldPosition(map, new Point(55,55)));
+        assertTrue(tracer.isRightAnOldPosition(map, new Point(3,4)));
+        assertEquals(null, tracer.isRightAnOldPosition(map, new Point(map.getHorizontalDimension(),0)));
+    }
+
 }
