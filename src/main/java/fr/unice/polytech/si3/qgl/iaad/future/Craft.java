@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.future;
 
-import fr.unice.polytech.si3.qgl.iaad.Resource;
+import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
 
 import java.util.Map;
 

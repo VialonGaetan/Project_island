@@ -1,4 +1,8 @@
-package fr.unice.polytech.si3.qgl.iaad.future;
+package fr.unice.polytech.si3.qgl.iaad.engine;
+
+import fr.unice.polytech.si3.qgl.iaad.format.Context;
+import fr.unice.polytech.si3.qgl.iaad.format.Result;
+import fr.unice.polytech.si3.qgl.iaad.future.Decision;
 
 /**
  * @author Alexandre Clement

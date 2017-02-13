@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad;
+package fr.unice.polytech.si3.qgl.iaad.resource;
 
 /**
  * Created on 14/11/2016.

@@ -1,5 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad;
 
+import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
+
 import java.util.Arrays;
 import java.util.List;
 

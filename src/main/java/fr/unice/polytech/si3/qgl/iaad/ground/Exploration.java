@@ -1,14 +1,13 @@
 package fr.unice.polytech.si3.qgl.iaad.ground;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.Resource;
+import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 import fr.unice.polytech.si3.qgl.iaad.actions.StopGround;
 import fr.unice.polytech.si3.qgl.iaad.init.Context;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 

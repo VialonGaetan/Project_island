@@ -2,7 +2,7 @@ package fr.unice.polytech.si3.qgl.iaad.actions;
 
 import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.Resource;
+import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
 import org.json.JSONObject;
 
 /**

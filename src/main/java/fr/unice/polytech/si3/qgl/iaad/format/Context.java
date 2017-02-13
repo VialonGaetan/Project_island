@@ -1,6 +1,7 @@
-package fr.unice.polytech.si3.qgl.iaad.future;
+package fr.unice.polytech.si3.qgl.iaad.format;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.future.Contract;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface Context
 {
-    int getPeople();
+    int getNumberOfMen();
 
     int getBudget();
 

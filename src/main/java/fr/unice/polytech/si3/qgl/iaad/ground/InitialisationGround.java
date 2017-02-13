@@ -1,12 +1,11 @@
 package fr.unice.polytech.si3.qgl.iaad.ground;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.Resource;
+import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
 import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Explore;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

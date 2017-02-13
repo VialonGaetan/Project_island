@@ -1,11 +1,12 @@
-package fr.unice.polytech.si3.qgl.iaad.future;
+package fr.unice.polytech.si3.qgl.iaad.format;
 
 import fr.unice.polytech.si3.qgl.iaad.Biome;
-import fr.unice.polytech.si3.qgl.iaad.Resource;
+import fr.unice.polytech.si3.qgl.iaad.future.Creek;
+import fr.unice.polytech.si3.qgl.iaad.future.EmergencySite;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
+import fr.unice.polytech.si3.qgl.iaad.resource.ResourceInformation;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Alexandre Clement
@@ -25,7 +26,7 @@ public interface Result
 
     List<EmergencySite> getSites();
 
-    Map<Resource, Integer> getResourcesExplored();
+    List<ResourceInformation> getResourcesExplored();
 
     int getExploitAmount();
 

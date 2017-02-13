@@ -1,7 +1,7 @@
 package ground;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.Resource;
+import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
 import fr.unice.polytech.si3.qgl.iaad.actions.Exploit;
 import fr.unice.polytech.si3.qgl.iaad.actions.Glimpse;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
