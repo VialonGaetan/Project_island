@@ -14,5 +14,5 @@ public interface Board
 
     boolean isOnBoard(Point point);
 
-    Tile getTile(Point point);
+    fr.unice.polytech.si3.qgl.iaad.islandMap.Tile getTile(Point point);
 }

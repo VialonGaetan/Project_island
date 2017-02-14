@@ -1,6 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.future;
 
 import fr.unice.polytech.si3.qgl.iaad.Biome;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.EmergencySite;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.Creek;
 
 import java.util.List;
 
@@ -24,9 +26,17 @@ public interface Tile
 
     boolean isAlreadyScanned();
 
+    void setAsAlreadyScanned();
+
     boolean isAlreadyVisited();
+
+    void setAsAlreadyVisited();
 
     boolean isAlreadyScouted();
 
+    void setAsAlreadyScouted();
+
     boolean isAlreadyGlimpsed();
+
+    void setAsAlreadyGlimpsed();
 }

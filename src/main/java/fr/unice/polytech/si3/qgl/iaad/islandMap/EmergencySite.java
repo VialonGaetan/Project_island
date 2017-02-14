@@ -6,20 +6,28 @@ import java.awt.Point;
  * @author romain
  * Created on 02/02/17.
  */
-class EmergencySite
+public class EmergencySite implements fr.unice.polytech.si3.qgl.iaad.future.EmergencySite
 {
     private String id;
     private boolean isFound;
 
-    EmergencySite(String id)
+    public EmergencySite() { id = ""; }
+
+    public EmergencySite(String id)
     {
-        this.id = "" + id;
+        this.id = id;
         isFound = true;
     }
 
-    EmergencySite() { id = ""; }
+    @Override
+    public String getId() { return id; }
 
-    String getId() { return id; }
+    /*
+     * Seront supprimés dans les jours qui suivent :
+     * is Found()
+     * EmergencySite()
+     * isFound
+     */
 
     boolean isFound() { return isFound; }
 }
