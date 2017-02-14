@@ -5,7 +5,7 @@ import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
 import java.util.Map;
 
 /**
- * @author Alexandre Clement
+ * @author Theo Cholley
  * @since 13/02/2017.
  */
 public interface Craft

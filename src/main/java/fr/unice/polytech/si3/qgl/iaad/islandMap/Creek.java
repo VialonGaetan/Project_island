@@ -1,12 +1,20 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
+import fr.unice.polytech.si3.qgl.iaad.future.ICreek;
+
 /**
- * @author Théo
+ * Created by Théo on 13/02/2017.
  */
-public class Creek implements fr.unice.polytech.si3.qgl.iaad.future.Creek
-{
+public class Creek implements ICreek {
+
+    String id;
+
+    public Creek(String id){
+        this.id=id;
+    }
+
     @Override
     public String getId() {
-        return null;
+        return id;
     }
 }

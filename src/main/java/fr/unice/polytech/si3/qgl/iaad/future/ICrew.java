@@ -5,10 +5,10 @@ import fr.unice.polytech.si3.qgl.iaad.Direction;
 import java.awt.*;
 
 /**
- * @author Alexandre Clement
+ * @author Theo Cholley
  * @since 13/02/2017.
  */
-public interface Crew
+public interface ICrew
 {
     int getPeople();
 
