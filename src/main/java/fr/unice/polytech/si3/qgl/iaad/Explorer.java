@@ -8,7 +8,7 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Land;
 import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.ground.Exploration;
 import fr.unice.polytech.si3.qgl.iaad.init.Context;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Creek;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.Creeks;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import org.json.JSONObject;
 
@@ -24,7 +24,7 @@ public class Explorer implements IExplorerRaid {
     private Area areaAction;
     private Ground groundAction;
     private String rapport;
-    private Creek creek;
+    private Creeks creek;
 
 
     @Override
@@ -78,7 +78,7 @@ public class Explorer implements IExplorerRaid {
     public String deliverFinalReport() {
         if (false) {
             try {
-                creek = new Creek(islandMap);
+                creek = new Creeks(islandMap);
                 rapport = "EMERGENCY:" + islandMap.getEmergencySiteId() + "\nCREEK:" + creek.getClosestCreekId();
             } catch (InvalidMapException | ArrayIndexOutOfBoundsException e) {
                 rapport = "EMERGENCY:" + islandMap.getEmergencySiteId();

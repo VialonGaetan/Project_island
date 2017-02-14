@@ -3,6 +3,7 @@ package areaPhase;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Creek;
+import fr.unice.polytech.si3.qgl.iaad.islandMap.Creeks;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class CreekTest {
 
-    private Creek creek;
+    private Creeks creek;
     private IslandMap mymap;
 
     @Before
@@ -31,7 +32,7 @@ public class CreekTest {
         mymap.moveLocation(Direction.E);
         mymap.addEmergencySite("emgcy");
 
-        creek = new Creek(mymap);
+        creek = new Creeks(mymap);
 
         assertEquals(creek.getClosestCreekId(), "id1");
     }
@@ -44,7 +45,7 @@ public class CreekTest {
         mymap.moveLocation(Direction.E);
         mymap.addEmergencySite("emgcy");
 
-        creek = new Creek(mymap);
+        creek = new Creeks(mymap);
 
         assertEquals(creek.getClosestCreekId(), "id1");
     }
@@ -76,7 +77,7 @@ public class CreekTest {
         mymap.moveLocation(Direction.S);
         mymap.addCreeks("creek105");
 
-        creek = new Creek(mymap);
+        creek = new Creeks(mymap);
         assertEquals(new Point(8, 4), creek.getClosestCreekLocation());
         assertEquals("creek84", creek.getClosestCreekId());
     }
@@ -93,7 +94,7 @@ public class CreekTest {
         mymap.moveLocation(Direction.E);
         mymap.addCreeks("10");
 
-        creek = new Creek(mymap);
+        creek = new Creeks(mymap);
         assertEquals("01", creek.getClosestCreekId());
     }
 
@@ -101,7 +102,7 @@ public class CreekTest {
     public void noCreekTest() throws InvalidMapException
     {
         mymap.addEmergencySite("site");
-        Creek creek = new Creek(mymap);
+        Creeks creek = new Creeks(mymap);
         creek.getClosestCreekId();
     }
 
@@ -109,14 +110,14 @@ public class CreekTest {
     public void noEmergencySiteTest() throws InvalidMapException
     {
         mymap.addCreeks("creek");
-        Creek creek = new Creek(mymap);
+        Creeks creek = new Creeks(mymap);
         creek.getClosestCreekId();
     }
 
     @Test(expected=InvalidMapException.class)
     public void nothingTest() throws InvalidMapException
     {
-        Creek creek = new Creek(mymap);
+        Creeks creek = new Creeks(mymap);
         creek.getClosestCreekId();
     }
 }
