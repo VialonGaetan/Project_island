@@ -36,22 +36,21 @@ public class StandardBoard implements Board
     {
         Point vector = direction.getVecteur();
         Point extremum = new Point(vector.x * dimensions.get(direction), vector.y * dimensions.get(direction));
-        browsePerpendicular(extremum, vector, true);
-        browsePerpendicular(extremum, vector, false);
+        growSide(extremum, direction, true);
+        growSide(extremum, direction, false);
         dimensions.put(direction, dimensions.get(direction) + 1);
     }
 
-    private void browsePerpendicular(Point extremum, Point vector, boolean right)
+    private void growSide(Point extremum, Direction direction, boolean right)
     {
+        Point vector = direction.getVecteur();
         Point location = new Point(extremum);
-
-        int dx = right ? vector.x : -vector.x;
-        int dy = right ? vector.y : -vector.y;
+        Point side = right ? direction.getRight().getVecteur() : direction.getLeft().getVecteur();
 
         while (isOnBoard(location))
         {
             map.put(new Point(location.x + vector.x, location.y + vector.y), new StandardTile());
-            location.translate(dy, dx);
+            location.translate(side.x, side.y);
         }
     }
 
