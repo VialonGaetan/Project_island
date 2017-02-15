@@ -10,7 +10,11 @@ public enum Direction {
     N(new Point(0, -1)),
     E(new Point(1, 0)),
     S(new Point(0, 1)),
-    W(new Point(-1, 0));
+    W(new Point(-1, 0)),
+    SE(new Point(1, 1)),
+    NE(new Point(1, -1)),
+    NW(new Point(-1, -1)),
+    SW(new Point(-1, 1));
 
     private Point vecteur;
 
@@ -21,7 +25,7 @@ public enum Direction {
 
     public Point getVecteur()
     {
-        return vecteur;
+        return new Point(vecteur);
     }
 
     public Direction getRight()

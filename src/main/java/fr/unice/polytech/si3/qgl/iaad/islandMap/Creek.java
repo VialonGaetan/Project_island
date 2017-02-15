@@ -7,7 +7,7 @@ import fr.unice.polytech.si3.qgl.iaad.future.ICreek;
  */
 public class Creek implements ICreek {
 
-    String id;
+    private final String id;
 
     public Creek(String id){
         this.id=id;
@@ -16,5 +16,24 @@ public class Creek implements ICreek {
     @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Creek creek = (Creek) o;
+
+        return id.equals(creek.id);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return id.hashCode();
     }
 }
