@@ -86,9 +86,9 @@ public class Board implements fr.unice.polytech.si3.qgl.iaad.future.Board
      * @return null if the point is not on the Board
      */
     @Override
-    public fr.unice.polytech.si3.qgl.iaad.islandMap.Tile getTile(Point point)
+    public fr.unice.polytech.si3.qgl.iaad.future.Tile getTile(Point point)
     {
-        Tile tile = null;
+        fr.unice.polytech.si3.qgl.iaad.future.Tile tile = null;
 
         if(isOnBoard(point))
         {
@@ -133,6 +133,7 @@ public class Board implements fr.unice.polytech.si3.qgl.iaad.future.Board
     /**
      * convert the aerial map in ground map
      */
+    @Override
     public void zoom()
     {
         Map<Point, Tile> groundMap = new HashMap();
@@ -153,5 +154,6 @@ public class Board implements fr.unice.polytech.si3.qgl.iaad.future.Board
      * Get the current Map
      * @return a copy of the true Map
      */
-    public Map<Point, Tile> getMap() { return new HashMap<>(map); }
+    @Override
+    public Map<Point, fr.unice.polytech.si3.qgl.iaad.future.Tile> getMap() { return new HashMap<>(map); }
 }

@@ -11,7 +11,6 @@ import java.util.List;
  */
 public class Tile implements fr.unice.polytech.si3.qgl.iaad.future.Tile
 {
-    private List<Element> elements;
     private List<Biome> biomes;
     private List<Creek> creeks;
     private List<EmergencySite> emergencySites;
@@ -22,7 +21,6 @@ public class Tile implements fr.unice.polytech.si3.qgl.iaad.future.Tile
 
     public Tile()
     {
-        elements = new ArrayList<>();
         biomes = new ArrayList<>();
         creeks = new ArrayList<>();
         emergencySites = new ArrayList<>();
@@ -30,7 +28,9 @@ public class Tile implements fr.unice.polytech.si3.qgl.iaad.future.Tile
 
     public Tile(Tile tile)
     {
-        this();
+        biomes = new ArrayList<>(tile.biomes);
+        creeks = new ArrayList<>(tile.creeks);
+        emergencySites = new ArrayList<>(tile.emergencySites);
         isAlreadyVisited = tile.isAlreadyVisited;
         isAlreadyScanned = tile.isAlreadyScanned;
         isAlreadyScouted = tile.isAlreadyScouted;

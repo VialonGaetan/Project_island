@@ -1,7 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.islandMap;
 
-import java.awt.Point;
-
 /**
  * @author romain
  * Created on 02/02/17.
