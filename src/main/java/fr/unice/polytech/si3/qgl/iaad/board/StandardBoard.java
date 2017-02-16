@@ -57,11 +57,7 @@ public class StandardBoard implements Board
     @Override
     public boolean isOnBoard(Point point)
     {
-        boolean north = dimensions.get(Direction.N) >= -point.y;
-        boolean east = dimensions.get(Direction.E) >= point.x;
-        boolean west = dimensions.get(Direction.W) >= -point.x;
-        boolean south = dimensions.get(Direction.S) >= point.y;
-        return north && east && west && south;
+        return map.containsKey(point);
     }
 
     @Override
