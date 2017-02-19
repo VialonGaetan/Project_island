@@ -20,10 +20,22 @@ public class EmergencySite implements fr.unice.polytech.si3.qgl.iaad.future.Emer
     @Override
     public String getId() { return id; }
 
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        EmergencySite emergencySite = (EmergencySite) o;
+
+        return id.equals(emergencySite.id);
+    }
+
     /*
-     * Seront supprimés dans les jours qui suivent :
+     * Seront supprimés  :
      * is Found()
-     * EmergencySite()
      * isFound
      */
 

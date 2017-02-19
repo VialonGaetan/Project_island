@@ -147,6 +147,15 @@ public class Board implements fr.unice.polytech.si3.qgl.iaad.future.Board
             groundMap.putAll(getGroundTiles(point, map.get(point)));
         }
 
+        dimensions.get(Direction.E).x *= 3;
+        dimensions.get(Direction.E).x++;
+        dimensions.get(Direction.W).x *= 3;
+        dimensions.get(Direction.W).x--;
+        dimensions.get(Direction.N).y *= 3;
+        dimensions.get(Direction.N).y++;
+        dimensions.get(Direction.S).y *= 3;
+        dimensions.get(Direction.S).y--;
+
         map = groundMap;
     }
 

@@ -85,4 +85,34 @@ public class BoardTest
         assertEquals(0, board.getTile(new Point(1, 0)).getBiomes().size());
         assertNull(board.getTile(new Point(2, 0)));
     }
+
+    @Test
+    public void isOnBoardAfterZoom()
+    {
+        board.zoom();
+        assertTrue(board.isOnBoard(new Point(-1, 1)));
+        assertTrue(board.isOnBoard(new Point(1, 1)));
+        assertTrue(board.isOnBoard(new Point(0, 1)));
+        assertTrue(board.isOnBoard(new Point(-1, 0)));
+        assertTrue(board.isOnBoard(new Point()));
+        assertTrue(board.isOnBoard(new Point(1, 0)));
+        assertTrue(board.isOnBoard(new Point(-1, -1)));
+        assertTrue(board.isOnBoard(new Point(0, -1)));
+        assertTrue(board.isOnBoard(new Point(1, -1)));
+    }
+
+    @Test
+    public void getTileAfterZoom()
+    {
+        board.zoom();
+        assertTrue(board.getTile(new Point(-1, 1)).equals(new Tile()));
+        assertTrue(board.getTile(new Point(1, 1)).equals(new Tile()));
+        assertTrue(board.getTile(new Point(0, 1)).equals(new Tile()));
+        assertTrue(board.getTile(new Point(-1, 0)).equals(new Tile()));
+        assertTrue(board.getTile(new Point()).equals(new Tile()));
+        assertTrue(board.getTile(new Point(1, 0)).equals(new Tile()));
+        assertTrue(board.getTile(new Point(-1, -1)).equals(new Tile()));
+        assertTrue(board.getTile(new Point(0, -1)).equals(new Tile()));
+        assertTrue(board.getTile(new Point(1, -1)).equals(new Tile()));
+    }
 }

@@ -38,6 +38,28 @@ public class Tile implements fr.unice.polytech.si3.qgl.iaad.future.Tile
     }
 
     @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Tile tile = (Tile) o;
+        boolean test = false;
+
+        if(biomes.equals(tile.biomes) && creeks.equals(tile.creeks) && emergencySites.equals(tile.emergencySites))
+        {
+            if(isAlreadyVisited == tile.isAlreadyVisited && isAlreadyScanned == tile.isAlreadyScanned && isAlreadyScouted == tile.isAlreadyScouted && isAlreadyGlimpsed == tile.isAlreadyGlimpsed)
+            {
+                test = true;
+            }
+        }
+
+        return test;
+    }
+
+    @Override
     public void addBiomes(List<Biome> biomes)
     {
         for(Biome biome : biomes)
@@ -114,7 +136,7 @@ public class Tile implements fr.unice.polytech.si3.qgl.iaad.future.Tile
     {
         for(Creek current : creeks)
         {
-            if(current.getId().equals(creek.getId()))
+            if(current.equals(creek))
             {
                 return;
             }
@@ -127,7 +149,7 @@ public class Tile implements fr.unice.polytech.si3.qgl.iaad.future.Tile
     {
         for(EmergencySite current : emergencySites)
         {
-            if(current.getId().equals(emergencySite.getId()))
+            if(current.equals(emergencySite))
             {
                 return;
             }
