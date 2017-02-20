@@ -2,8 +2,8 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
@@ -46,13 +46,13 @@ public class Drone
     }
 
     /**
-     * Le drone fait une action
+     * Le drone fait une fr.unice.polytech.si3.qgl.iaad.action
      *
-     * @return la prochaine action du drone
+     * @return la prochaine fr.unice.polytech.si3.qgl.iaad.action du drone
      */
-    public Action doAction()
+    public Decision doAction()
     {
-        Action action;
+        Decision action;
         try
         {
             action = protocol.nextAction();
@@ -71,9 +71,9 @@ public class Drone
     }
 
     /**
-     * Renouvelle le protocole en fonction du résultat de l'action précédente
+     * Renouvelle le protocole en fonction du résultat de l'fr.unice.polytech.si3.qgl.iaad.action précédente
      *
-     * @param results le résultat de l'action précédente
+     * @param results le résultat de l'fr.unice.polytech.si3.qgl.iaad.action précédente
      */
     public void getResult(Area results) throws InvalidMapException
     {

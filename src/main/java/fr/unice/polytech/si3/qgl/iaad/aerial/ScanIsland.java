@@ -3,8 +3,8 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Scan;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
@@ -30,7 +30,7 @@ class ScanIsland extends Oriented implements Protocol
     }
 
     @Override
-    public Action nextAction()
+    public Decision nextAction()
     {
         return new Scan();
     }
@@ -38,7 +38,7 @@ class ScanIsland extends Oriented implements Protocol
     /**
      * On ajoute les éléments trouver à la islandMap
      *
-     * @param result le résultat de l'action effectué
+     * @param result le résultat de l'fr.unice.polytech.si3.qgl.iaad.action effectué
      * @return Land si on trouve une crique
      * FlyOnIsland si on est toujours sur l'île
      * ReturnToIsland sinon pour revenir sur l'île

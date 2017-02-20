@@ -9,13 +9,13 @@ public interface Results {
 
 
     /**
-     * Recupere le cout d'une action
-     * @return action cost
+     * Recupere le cout d'une fr.unice.polytech.si3.qgl.iaad.action
+     * @return fr.unice.polytech.si3.qgl.iaad.action cost
      */
     int getCost();
 
     /**
-     * Permet de savoir si l'action s'est bien passé
+     * Permet de savoir si l'fr.unice.polytech.si3.qgl.iaad.action s'est bien passé
      * @return if no problem OK else KO
      */
     String getStatus();

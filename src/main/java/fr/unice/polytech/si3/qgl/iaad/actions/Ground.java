@@ -10,7 +10,9 @@ import org.json.JSONObject;
  * Created the 15/11/2016.
  */
 
-public abstract class Ground implements Action, Results {
+public abstract class Ground implements Decision, Results {
+
+    ArgActions actionType;
 
     Direction direction;
     int range, nbResource, nbResource1;
@@ -21,9 +23,14 @@ public abstract class Ground implements Action, Results {
 
     public abstract Ground putResults(String result);
 
+    @Override
+    public ArgActions getActionEnum() {
+        return actionType;
+    }
+
     /**
-     * Recupere le cout d'une action
-     * @return action cost
+     * Recupere le cout d'une fr.unice.polytech.si3.qgl.iaad.action
+     * @return fr.unice.polytech.si3.qgl.iaad.action cost
      */
     @Override
     public int getCost() {

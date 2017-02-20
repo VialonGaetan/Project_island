@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.iaad.ground;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 import fr.unice.polytech.si3.qgl.iaad.actions.Move_to;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -41,7 +42,7 @@ public class MoveTest
             }
 
             @Override
-            public String toJSON() {
+            public JSONObject getJsonObject() {
                 return null;
             }
         }) instanceof InitialisationGround);
@@ -61,7 +62,7 @@ public class MoveTest
             }
 
             @Override
-            public String toJSON() {
+            public JSONObject getJsonObject() {
                 return null;
             }
         }) instanceof Move);

@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.ground;
 
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 
 /**
@@ -10,12 +10,12 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 public interface ProtocolGround {
 
     /**
-     * @return l'action a effectué
+     * @return l'fr.unice.polytech.si3.qgl.iaad.action a effectué
      */
-    Action nextAction();
+    Decision nextAction();
 
     /**
-     * @param result le résultat de l'action effectué
+     * @param result le résultat de l'fr.unice.polytech.si3.qgl.iaad.action effectué
      * @return le nouveau protocole en vigueur
      */
     ProtocolGround setResult(Ground result);

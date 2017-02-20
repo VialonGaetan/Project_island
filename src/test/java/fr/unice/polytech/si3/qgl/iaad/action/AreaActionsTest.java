@@ -1,4 +1,4 @@
-package action;
+package fr.unice.polytech.si3.qgl.iaad.action;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.actions.*;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNotEquals;
 
 public class AreaActionsTest {
 
-    private Action action;
+    private Decision action;
     private String toJSON;
     private Direction direction;
 
@@ -27,66 +27,66 @@ public class AreaActionsTest {
     @Test
     public void testFly(){
         action = new Fly();
-        toJSON = action.toJSON();
+        toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"fly\"}");
-        assertEquals(action.toJSON(), new Fly().toJSON());
+        assertEquals(action.getJsonObject().toString(), new Fly().getJsonObject().toString());
         assertNotEquals(action,new Heading(Direction.W));
     }
 
     @Test
     public void testEcho(){
         action = new Echo(direction);
-        toJSON = action.toJSON();
+        toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"echo\",\"parameters\":{\"direction\":\"S\"}}");
         assertNotEquals(toJSON,"{\"action\":\"echo\",\"parameters\":{\"direction\":\"N\"}}");
         assertNotEquals(action,new Fly());
-        assertEquals(toJSON,new Echo(Direction.S).toJSON());
-        assertNotEquals(toJSON,new Echo(Direction.W).toJSON());
+        assertEquals(toJSON,new Echo(Direction.S).getJsonObject().toString());
+        assertNotEquals(toJSON,new Echo(Direction.W).getJsonObject().toString());
     }
 
     @Test
     public void testHeading(){
         action = new Heading(direction);
-        toJSON = action.toJSON();
+        toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"heading\",\"parameters\":{\"direction\":\"S\"}}");
         assertNotEquals(toJSON,"{\"action\":\"heading\",\"parameters\":{\"direction\":\"N\"}}");
-        assertEquals(toJSON,new Heading(Direction.S).toJSON());
-        assertNotEquals(toJSON,new Heading(Direction.W).toJSON());
+        assertEquals(toJSON,new Heading(Direction.S).getJsonObject().toString());
+        assertNotEquals(toJSON,new Heading(Direction.W).getJsonObject().toString());
         assertNotEquals(action,new Scan());
     }
 
     @Test
     public void testScan(){
         action = new Scan();
-        toJSON = action.toJSON();
+        toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"scan\"}");
-        assertEquals(toJSON,new Scan().toJSON());
+        assertEquals(toJSON,new Scan().getJsonObject().toString());
         assertNotEquals(action,new Echo(direction));
     }
 
     @Test
     public void testStop(){
         action = new Stop();
-        toJSON = action.toJSON();
+        toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"stop\"}");
-        assertEquals(toJSON,new Stop().toJSON());
+        assertEquals(toJSON,new Stop().getJsonObject().toString());
         assertNotEquals(action,new Heading(direction));
     }
 
     @Test
     public void testLand(){
         action = new Land("id",22);
-        toJSON = action.toJSON();
+        toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"land\",\"parameters\":{\"creek\":\"id\",\"people\":22}}");
-        assertEquals(toJSON,new Land("id",22).toJSON());
-        assertNotEquals(toJSON,new Stop().toJSON());
-        assertNotEquals(toJSON,new Land("4532",22).toJSON());
+        assertEquals(toJSON,new Land("id",22).getJsonObject().toString());
+        assertNotEquals(toJSON,new Stop().getJsonObject().toString());
+        assertNotEquals(toJSON,new Land("4532",22).getJsonObject().toString());
         assertNotEquals(action,new Heading(direction));
         action = new Land("4532",1);
-        toJSON = action.toJSON();
+        toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"land\",\"parameters\":{\"creek\":\"4532\",\"people\":1}}");
-        assertEquals(toJSON,new Land("4532",1).toJSON());
-        assertNotEquals(toJSON,new Land("4532",22).toJSON());
+        assertEquals(toJSON,new Land("4532",1).getJsonObject().toString());
+        assertNotEquals(toJSON,new Land("4532",22).getJsonObject().toString());
         assertNotEquals(action,new Heading(direction));
     }
 }

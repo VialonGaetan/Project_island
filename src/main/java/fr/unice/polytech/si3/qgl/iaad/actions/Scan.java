@@ -9,15 +9,19 @@ import org.json.JSONObject;
 public class Scan extends Area {
 
 
-    public Scan() {}
+    ArgActions actionType;
+
+    public Scan() {
+        actionType = ArgActions.SCAN;
+    }
 
     /**
-     * Créé un objet JSON avec l'action SCAN
+     * Créé un objet JSON avec l'fr.unice.polytech.si3.qgl.iaad.action SCAN
      * @return String of JSON
      */
     @Override
-    public String toJSON() {
-        return new JSONObject().put("action" , ArgActions.SCAN.getName()).toString();
+    public JSONObject getJsonObject() {
+        return new JSONObject().put("action" , ArgActions.SCAN.getName());
     }
 
     /**

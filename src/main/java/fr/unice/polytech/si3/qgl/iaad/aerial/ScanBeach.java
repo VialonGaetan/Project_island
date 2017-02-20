@@ -3,8 +3,8 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Scan;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
@@ -33,7 +33,7 @@ class ScanBeach extends Oriented implements Protocol
      * @return Scan
      */
     @Override
-    public Action nextAction()
+    public Decision nextAction()
     {
         return new Scan();
     }
@@ -41,7 +41,7 @@ class ScanBeach extends Oriented implements Protocol
     /**
      * On ajoute les éléments trouver à la islandMap
      *
-     * @param result le résultat de l'action effectué
+     * @param result le résultat de l'fr.unice.polytech.si3.qgl.iaad.action effectué
      * @return Land si on trouve une crique
      * FlyOnBeach si on il y a au moins deux biomes dont un OCEAN
      * Sinon, turn pour revenir vers les côtes

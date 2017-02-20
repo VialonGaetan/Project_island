@@ -7,18 +7,21 @@ import org.json.JSONObject;
  * Created the 15/11/2016.
  */
 public class Land extends Area {
+
+
     public Land(String ID, int people) {
         this.ID = ID;
         this.people=people;
+        actionType = ArgActions.LAND;
     }
 
     /**
-     * Créé un objet JSON avec l'action Land
+     * Créé un objet JSON avec l'fr.unice.polytech.si3.qgl.iaad.action Land
      * @return String of JSON
      */
     @Override
-    public String toJSON() {
-        return new JSONObject().put("action" , ArgActions.LAND.getName()).put("parameters", new JSONObject().put("creek", ID.toString()).put("people", people)).toString();
+    public JSONObject getJsonObject() {
+        return new JSONObject().put("action" , ArgActions.LAND.getName()).put("parameters", new JSONObject().put("creek", ID.toString()).put("people", people));
     }
 
     /**

@@ -8,16 +8,18 @@ import org.json.JSONObject;
  */
 public class Explore extends Ground {
 
+
     public Explore() {
+        actionType = ArgActions.EXPLORE;
     }
 
     /**
-     * Créé un objet JSON avec l'action ECHO
+     * Créé un objet JSON avec l'fr.unice.polytech.si3.qgl.iaad.action ECHO
      * @return String of JSON
      */
     @Override
-    public String toJSON() {
-        return new JSONObject().put("action", ArgActions.EXPLORE.getName()).toString();
+    public JSONObject getJsonObject() {
+        return new JSONObject().put("action", ArgActions.EXPLORE.getName());
     }
 
     @Override

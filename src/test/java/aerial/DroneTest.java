@@ -53,7 +53,7 @@ public class DroneTest
     }
 
     /**
-     * test is doAction returns an action different of new Stop() if there is enough budget
+     * test is doAction returns an fr.unice.polytech.si3.qgl.iaad.action different of new Stop() if there is enough budget
      */
     @Test
     public void doAction() throws InvalidMapException

@@ -10,18 +10,21 @@ import org.json.JSONObject;
  * Created the 15/11/2016.
  */
 public class Glimpse extends Ground{
+
+
     public Glimpse(Direction direction, int range) {
         this.direction=direction;
         this.range = range;
+        actionType = ArgActions.GLIMPSE;
     }
 
     /**
-     * Créé un objet JSON avec l'action Glimpse
-     * @return String of JSON
+     * Créé un objet JSON avec l'fr.unice.polytech.si3.qgl.iaad.action Glimpse
+     * @return JSON
      */
     @Override
-    public String toJSON() {
-        return new JSONObject().put("action" , ArgActions.GLIMPSE.getName()).put("parameters", new JSONObject().put("direction", direction.toString()).put("range", range)).toString();
+    public JSONObject getJsonObject() {
+        return new JSONObject().put("action" , ArgActions.GLIMPSE.getName()).put("parameters", new JSONObject().put("direction", direction.toString()).put("range", range));
     }
 
     @Override
@@ -85,5 +88,4 @@ public class Glimpse extends Ground{
         }
         return false;
     }
-
 }

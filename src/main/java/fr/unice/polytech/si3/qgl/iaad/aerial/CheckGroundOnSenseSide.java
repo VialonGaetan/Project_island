@@ -2,8 +2,8 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
@@ -36,13 +36,13 @@ class CheckGroundOnSenseSide extends Oriented implements Protocol
      * @return ECHO dans le sens de parcours de l'île par le drone
      */
     @Override
-    public Action nextAction() throws InvalidMapException
+    public Decision nextAction() throws InvalidMapException
     {
         return new Echo(getSense());
     }
 
     /**
-     * @param result le résultat de l'action effectué
+     * @param result le résultat de l'fr.unice.polytech.si3.qgl.iaad.action effectué
      * @return Le protocole exit si il n'y a pas de GROUND sur le coté sense du drone
      * FlyOnIslandSide sinon
      */

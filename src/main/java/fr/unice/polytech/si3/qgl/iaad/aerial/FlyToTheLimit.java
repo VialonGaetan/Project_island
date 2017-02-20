@@ -2,8 +2,8 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
 import fr.unice.polytech.si3.qgl.iaad.actions.Heading;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
@@ -22,10 +22,10 @@ class FlyToTheLimit extends Oriented implements Protocol
     }
 
     /**
-     * @return l'action Fly si on est pas à la limite de la carte, sinon Stop
+     * @return l'fr.unice.polytech.si3.qgl.iaad.action Fly si on est pas à la limite de la carte, sinon Stop
      */
     @Override
-    public Action nextAction() throws InvalidMapException
+    public Decision nextAction() throws InvalidMapException
     {
         getMap().moveLocation(getHeading());
         if (getMap().getNumberOfAvailablePoints(getHeading()) < 2)
@@ -44,7 +44,7 @@ class FlyToTheLimit extends Oriented implements Protocol
     }
 
     /**
-     * @param result le résultat de l'action effectué
+     * @param result le résultat de l'fr.unice.polytech.si3.qgl.iaad.action effectué
      * @return EchoToFindIsland dans une direction de dimension non nulle
      */
     @Override

@@ -22,7 +22,7 @@ class Oriented
      */
     private Direction sense;
     /**
-     * Direction pour une action i.e direction d'un ECHO, HEADING.
+     * Direction pour une fr.unice.polytech.si3.qgl.iaad.action i.e direction d'un ECHO, HEADING.
      */
     private Direction direction;
 

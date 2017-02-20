@@ -3,7 +3,7 @@ package fr.unice.polytech.si3.qgl.iaad.format.json;
 import fr.unice.polytech.si3.qgl.iaad.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.format.Format;
 import fr.unice.polytech.si3.qgl.iaad.format.Result;
-import fr.unice.polytech.si3.qgl.iaad.future.Decision;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import org.json.JSONObject;
 
 /**

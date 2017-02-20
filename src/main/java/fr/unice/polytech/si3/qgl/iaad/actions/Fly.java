@@ -9,15 +9,7 @@ import org.json.JSONObject;
 public class Fly extends Area{
 
     public Fly() {
-    }
-
-    /**
-     * Créé un objet JSON avec l'action Fly
-     * @return String of JSON
-     */
-    @Override
-    public String toJSON() {
-        return new JSONObject().put("action" , ArgActions.FLY.getName()).toString();
+        actionType = ArgActions.FLY;
     }
 
     /**
@@ -29,5 +21,11 @@ public class Fly extends Area{
     public Area putResults(String result) {
         this.result = result;
         return this;
+    }
+
+
+    @Override
+    public JSONObject getJsonObject() {
+        return new JSONObject().put("action" , ArgActions.FLY.getName());
     }
 }

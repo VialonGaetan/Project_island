@@ -1,12 +1,12 @@
 package fr.unice.polytech.si3.qgl.iaad.ground;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 import fr.unice.polytech.si3.qgl.iaad.actions.StopGround;
 import fr.unice.polytech.si3.qgl.iaad.init.Context;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,8 +64,8 @@ public class Exploration {
      * @return next Action
      */
 
-    public Action doAction() {
-        Action action;
+    public Decision doAction() {
+        Decision action;
         action = protocol.nextAction();
         if (budget > LOW_BUDGET)
             return action;
@@ -76,9 +76,9 @@ public class Exploration {
     }
 
     /**
-     * Renouvelle le protocole en fonction du résultat de l'action précédente
+     * Renouvelle le protocole en fonction du résultat de l'fr.unice.polytech.si3.qgl.iaad.action précédente
      *
-     * @param results le résultat de l'action précédente
+     * @param results le résultat de l'fr.unice.polytech.si3.qgl.iaad.action précédente
      */
 
     public void getResult(Ground results){

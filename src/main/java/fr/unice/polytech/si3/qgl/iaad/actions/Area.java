@@ -8,23 +8,24 @@ import org.json.JSONObject;
  * Created the 15/11/2016.
  */
 
-public abstract class Area implements Action, Results {
+public abstract class Area implements Results, Decision {
 
     public Direction direction;
     public String result;
     public String ID;
     public int people;
+    ArgActions actionType;
 
     /**
-     * Lorsqu'une action est effectué créé un objet Result correspondant à l'action
+     * Lorsqu'une fr.unice.polytech.si3.qgl.iaad.action est effectué créé un objet Result correspondant à l'fr.unice.polytech.si3.qgl.iaad.action
      * @param result de l'explorer
      * @return objet resultat avec les données
      */
     public abstract Area putResults(String result);
 
     /**
-     * Recupere le cout d'une action
-     * @return action cost
+     * Recupere le cout d'une fr.unice.polytech.si3.qgl.iaad.action
+     * @return fr.unice.polytech.si3.qgl.iaad.action cost
      */
     @Override
     public int getCost() {
@@ -67,5 +68,10 @@ public abstract class Area implements Action, Results {
 
     public String getSites(){
         return null;
+    }
+
+    @Override
+    public ArgActions getActionEnum() {
+        return actionType;
     }
 }

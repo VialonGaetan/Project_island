@@ -41,11 +41,11 @@ public class Explorer implements IExplorerRaid {
     public String takeDecision() {
         if(!areaPhase){
             groundAction = (Ground) exploration.doAction();
-            decision = groundAction.toJSON();
+            decision = groundAction.getJsonObject().toString();
         }
         if(areaPhase){
             areaAction = (Area) drone.doAction();
-            decision = areaAction.toJSON();
+            decision = areaAction.getJsonObject().toString();
         }
         return decision;
     }

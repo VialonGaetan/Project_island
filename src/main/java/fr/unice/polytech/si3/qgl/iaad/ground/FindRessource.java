@@ -1,8 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.ground;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Glimpse;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 
@@ -41,7 +41,7 @@ public class FindRessource implements ProtocolGround {
     }
 
     @Override
-    public Action nextAction() {
+    public Decision nextAction() {
         return protocol.nextAction();
     }
 
@@ -67,7 +67,7 @@ public class FindRessource implements ProtocolGround {
         }
 
         @Override
-        public Action nextAction() {
+        public Decision nextAction() {
             return new Glimpse(direction, range);
         }
 

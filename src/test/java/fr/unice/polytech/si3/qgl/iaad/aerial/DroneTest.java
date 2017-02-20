@@ -3,8 +3,8 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
@@ -47,7 +47,7 @@ public class DroneTest
     @Test
     public void doAction() throws Exception
     {
-        Action action = drone.doAction();
+        Decision action = drone.doAction();
         assertNotNull(action);
         assertTrue(action instanceof Area);
         assertTrue(droneWithoutBudget.doAction() instanceof Stop);

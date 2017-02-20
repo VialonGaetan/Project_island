@@ -1,8 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
 
 /**
@@ -18,13 +18,13 @@ class StopAerial implements Protocol
      * @return Stop
      */
     @Override
-    public Action nextAction() throws InvalidMapException
+    public Decision nextAction() throws InvalidMapException
     {
         return new Stop();
     }
 
     /**
-     * @param result le résultat de l'action effectué
+     * @param result le résultat de l'fr.unice.polytech.si3.qgl.iaad.action effectué
      * @return null
      */
     @Override

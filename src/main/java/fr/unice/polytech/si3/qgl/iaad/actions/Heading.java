@@ -9,17 +9,11 @@ import org.json.JSONObject;
  */
 public class Heading extends Area{
 
-    public Heading(Direction direction) {
-        this.direction = direction;
-    }
 
-    /**
-     * Créé un objet JSON avec l'action ECHO
-     * @return String of JSON
-     */
-    @Override
-    public String toJSON() {
-        return new JSONObject().put("action" , ArgActions.HEADING.getName()).put("parameters", new JSONObject().put("direction", direction.toString())).toString();
+    public Heading(Direction direction) {
+
+        this.direction = direction;
+        actionType = ArgActions.HEADING;
     }
 
     /**
@@ -31,5 +25,15 @@ public class Heading extends Area{
     public Area putResults(String result) {
         this.result = result;
         return this;
+    }
+
+    @Override
+    public ArgActions getActionEnum() {
+        return null;
+    }
+
+    @Override
+    public JSONObject getJsonObject() {
+        return new JSONObject().put("action" , ArgActions.HEADING.getName()).put("parameters", new JSONObject().put("direction", direction.toString()));
     }
 }

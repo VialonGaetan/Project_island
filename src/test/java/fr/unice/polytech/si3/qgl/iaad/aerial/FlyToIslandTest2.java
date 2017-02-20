@@ -2,11 +2,9 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Area;
-import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
-import fr.unice.polytech.si3.qgl.iaad.actions.Heading;
-import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
+import fr.unice.polytech.si3.qgl.iaad.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -77,7 +75,7 @@ public class FlyToIslandTest2
             }
 
             @Override
-            public String toJSON() {
+            public JSONObject getJsonObject() {
                 return null;
             }
         }) instanceof FlyToIsland);
@@ -90,7 +88,7 @@ public class FlyToIslandTest2
             }
 
             @Override
-            public String toJSON() {
+            public JSONObject getJsonObject() {
                 return null;
             }
         }) instanceof FlyToIsland);
@@ -111,7 +109,7 @@ public class FlyToIslandTest2
             }
 
             @Override
-            public String toJSON() {
+            public JSONObject getJsonObject() {
                 return null;
             }
         }) instanceof Turn);
@@ -124,7 +122,7 @@ public class FlyToIslandTest2
             }
 
             @Override
-            public String toJSON() {
+            public JSONObject getJsonObject() {
                 return null;
             }
         }) instanceof Turn);

@@ -1,8 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Land;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
 
@@ -40,7 +40,7 @@ class LandOnIsland implements Protocol
      * @return Land
      */
     @Override
-    public Action nextAction() throws InvalidMapException
+    public Decision nextAction() throws InvalidMapException
     {
         return new Land(map.getCreekIds(position)[0], 1);
     }
@@ -48,7 +48,7 @@ class LandOnIsland implements Protocol
     /**
      * On lance la phase terrestre
      *
-     * @param result le résultat de l'action effectué
+     * @param result le résultat de l'fr.unice.polytech.si3.qgl.iaad.action effectué
      * @return l'initialisation de la phase terrestre
      */
     @Override

@@ -32,7 +32,7 @@ class FlyToIsland extends Oriented implements Protocol
      * sinon Fly
      */
     @Override
-    public Action nextAction() throws InvalidMapException
+    public Decision nextAction() throws InvalidMapException
     {
         range -= 1;
         if (getMap().getNumberOfAvailablePoints(getHeading()) < 1)
@@ -50,7 +50,7 @@ class FlyToIsland extends Oriented implements Protocol
     }
 
     /**
-     * @param result le résultat de l'action effectué
+     * @param result le résultat de l'fr.unice.polytech.si3.qgl.iaad.action effectué
      * @return ScanIsland si on a atteint l'île
      * FlyToIsland sinon
      */

@@ -12,18 +12,16 @@ public class Echo extends Area {
 
     public Echo(Direction direction) {
         this.direction = direction;
+        actionType = ArgActions.ECHO;
         //results = new EchoResult();
     }
 
-    /**
-     * Créé un objet JSON avec l'action ECHO
-     * @return String of JSON
-     */
-    @Override
-    public String toJSON() {
-        return new JSONObject().put("action" , ArgActions.ECHO.getName()).put("parameters", new JSONObject().put("direction", direction.toString())).toString();
-    }
 
+    @Override
+    public JSONObject getJsonObject() {
+        return new JSONObject().put("action" , ArgActions.ECHO.getName()).put("parameters", new JSONObject().put("direction", direction.toString()));
+    }
+    
     /**
      * Créé un objet EchoResult
      * @param result de l'explorer

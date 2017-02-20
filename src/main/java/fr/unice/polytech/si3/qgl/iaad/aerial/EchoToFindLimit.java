@@ -2,8 +2,8 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
 import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
@@ -26,7 +26,7 @@ class EchoToFindLimit extends Oriented implements Protocol
     }
 
     @Override
-    public Action nextAction()
+    public Decision nextAction()
     {
         return new Echo(getDirection());
     }
@@ -36,7 +36,7 @@ class EchoToFindLimit extends Oriented implements Protocol
      * Sinon, on exécute ce protocole dans une autre direction
      * Si un ECHO a été fait dans chaque direction, on lance le protocol FindIsland
      *
-     * @param result le résultat de l'action précédente
+     * @param result le résultat de l'fr.unice.polytech.si3.qgl.iaad.action précédente
      * @return Le nouveau protocole a utilisé
      */
     @Override

@@ -1,8 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.ground;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
-import fr.unice.polytech.si3.qgl.iaad.actions.Action;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 import fr.unice.polytech.si3.qgl.iaad.actions.Move_to;
 
@@ -39,7 +39,7 @@ public class UTurn implements ProtocolGround {
     }
 
     @Override
-    public Action nextAction()
+    public Decision nextAction()
     {
         return new Move_to(turnsens);
     }

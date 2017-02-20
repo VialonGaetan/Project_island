@@ -9,12 +9,12 @@ import org.json.JSONObject;
 public class StopGround extends Ground{
 
     /**
-     * Créé un objet JSON avec l'action STOP
+     * Créé un objet JSON avec l'fr.unice.polytech.si3.qgl.iaad.action STOP
      * @return String of JSON
      */
     @Override
-    public String toJSON() {
-        return new JSONObject().put("action" , ArgActions.STOP.getName()).toString();
+    public JSONObject getJsonObject() {
+        return new JSONObject().put("action" , ArgActions.STOP.getName());
     }
 
     /**
