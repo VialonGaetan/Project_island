@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Created by Théo on 14/02/2017.
@@ -40,19 +41,20 @@ public class MesurerTest {
         board=new Board();
         board.grow(Direction.E,10);
         board.grow(Direction.S,10);
-        board.getTile(new Point(1,2)).addCreeks(listCreek1);
-        System.out.println("ok");
-        board.getTile(new Point(5,5)).addCreeks(listCreek2);
+        board.getTile(new Point()).addCreeks(listCreek1);
+        board.getTile(new Point(5,0)).addCreeks(listCreek2);
         board.getTile(new Point(0,0)).addEmergencySites(emergencySites);
     }
 
-   /* @Test
+    @Test
     public void findClosestCreekTest(){
         assertEquals(Mesurer.findClosestCreek(board),creek1);
+        assertFalse(Mesurer.findClosestCreek(board).equals(creek2));
     }
 
     @Test
     public void findClosestCreekIdTest(){
-
-    } */
+        assertEquals(Mesurer.findClosestCreekId(board),"ok");
+        assertFalse(Mesurer.findClosestCreekId(board).equals("pas ok"));
+    }
 }
