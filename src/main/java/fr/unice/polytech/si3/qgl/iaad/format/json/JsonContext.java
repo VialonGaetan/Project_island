@@ -1,8 +1,11 @@
 package fr.unice.polytech.si3.qgl.iaad.format.json;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.contract.StandardContract;
 import fr.unice.polytech.si3.qgl.iaad.format.Context;
-import fr.unice.polytech.si3.qgl.iaad.future.Contract;
+import fr.unice.polytech.si3.qgl.iaad.contract.Contract;
+import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -29,7 +32,21 @@ class JsonContext implements Context
 
     private List<Contract> retrievesContracts(JSONObject jsonObject)
     {
-        return new ArrayList<>();
+        List<Contract> retrievedContracts = new ArrayList<>();
+        JSONObject jsonContract;
+        Resource resource;
+        int amount;
+        Contract contract;
+        JSONArray jsonArray = jsonObject.getJSONArray(JsonArguments.CONTRACTS.toString());
+        for (int i = 0; i < jsonArray.length(); i++)
+        {
+            jsonContract = jsonArray.getJSONObject(i);
+            resource = Resource.valueOf(jsonContract.get(JsonArguments.RESOURCE.toString()).toString());
+            amount = jsonContract.getInt(JsonArguments.AMOUNT.toString());
+            contract = new StandardContract(resource, amount);
+            retrievedContracts.add(contract);
+        }
+        return retrievedContracts;
     }
 
     @Override

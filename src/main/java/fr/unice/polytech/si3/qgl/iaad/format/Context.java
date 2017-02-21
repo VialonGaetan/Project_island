@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.format;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.future.Contract;
+import fr.unice.polytech.si3.qgl.iaad.contract.Contract;
 
 import java.util.List;
 

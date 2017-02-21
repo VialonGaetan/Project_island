@@ -57,14 +57,14 @@ class JsonResult implements Result
     public List<Creek> getCreeks()
     {
         JSONArray creeks = extras.getJSONArray(JsonArguments.CREEKS.toString());
-        return new ArrayList<>();
+        return creeks.toList().stream().map(o -> new Creek(o.toString())).collect(Collectors.toList());
     }
 
     @Override
     public List<EmergencySite> getSites()
     {
         JSONArray sites = extras.getJSONArray(JsonArguments.SITES.toString());
-        return new ArrayList<>();
+        return sites.toList().stream().map(o -> new fr.unice.polytech.si3.qgl.iaad.islandMap.EmergencySite(o.toString())).collect(Collectors.toList());
     }
 
     @Override
