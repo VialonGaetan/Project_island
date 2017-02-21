@@ -86,4 +86,22 @@ public class StandardEngineTest
         engine.acknowledgeResults(result);
         assertEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
     }
+
+    @Test
+    public void notAllContractAreCompleted() throws Exception
+    {
+        engine.setContext(context);
+        contracts.get(0).collect(1000);
+        assertNotEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
+    }
+
+    @Test
+    public void allContractsAreComplete() throws Exception
+    {
+        engine.setContext(context);
+        contracts.get(0).collect(1000);
+        contracts.get(1).collect(50);
+        assertEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
+
+    }
 }
