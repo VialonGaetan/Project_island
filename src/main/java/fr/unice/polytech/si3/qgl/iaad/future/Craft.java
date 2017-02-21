@@ -10,11 +10,11 @@ import java.util.Map;
  */
 public interface Craft
 {
-    Map<Resource, Integer> getReagent();
+    Map<Resource, Integer> getReagent(Resource resource);
 
-    Map<Resource, Integer> getProducts();
+    Map<Resource, Integer> getProducts(Resource resource);
 
-    Boolean isPrimary();
+    Boolean isPrimary(Resource resource);
 
-    String getRecipe();
+    String getRecipe(Resource resource);
 }

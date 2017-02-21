@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by Théo on 21/02/2017.
  */
-public class Craft {
+public class Craft implements fr.unice.polytech.si3.qgl.iaad.future.Craft{
 
     Map<Resource, Integer> reagent;
     Map<Resource, Integer> products;
@@ -17,7 +17,7 @@ public class Craft {
         this.products =new HashMap<>();
     }
 
-    public Boolean isPrimary(Resource resource){
+    public Boolean isPrimary(Resource resource) {
         switch (resource.getName()){
             case "FISH" : {
                 return true;
@@ -71,13 +71,14 @@ public class Craft {
 
 
 
-    public static void main(String[] args) {
-        Craft craft = new Craft();
-        System.out.println(craft.isPrimary(Resource.FISH));
-        System.out.println(craft.isPrimary(Resource.GLASS));
-        System.out.println(craft.getRecipe(Resource.FISH));
-        System.out.println(craft.getRecipe(Resource.RUM));
+    @Override
+    public Map<Resource, Integer> getReagent(Resource resource) {
+        return null;
     }
 
+    @Override
+    public Map<Resource, Integer> getProducts(Resource resource) {
+        return null;
+    }
 
 }
