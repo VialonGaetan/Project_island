@@ -1,0 +1,89 @@
+package fr.unice.polytech.si3.qgl.iaad.engine;
+
+import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.actions.ArgActions;
+import fr.unice.polytech.si3.qgl.iaad.contract.Contract;
+import fr.unice.polytech.si3.qgl.iaad.contract.StandardContract;
+import fr.unice.polytech.si3.qgl.iaad.format.Context;
+import fr.unice.polytech.si3.qgl.iaad.format.Result;
+import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.*;
+
+import static org.junit.Assert.*;
+
+/**
+ * @author Alexandre Clement
+ * @since 21/02/2017.
+ */
+public class StandardEngineTest
+{
+    private Engine engine;
+    private Context context;
+    private List<Contract> contracts;
+
+    @Before
+    public void setUp() throws Exception
+    {
+        engine = new StandardEngine();
+        context = mock(Context.class);
+        contracts = new ArrayList<>();
+        contracts.add(new StandardContract(Resource.FISH, 1000));
+        contracts.add(new StandardContract(Resource.GLASS, 50));
+
+        when(context.getBudget()).thenReturn(10000);
+        when(context.getHeading()).thenReturn(Direction.E);
+        when(context.getNumberOfMen()).thenReturn(12);
+        when(context.getContracts()).thenReturn(contracts);
+    }
+
+    @Test
+    public void decisionAreNotNullable() throws Exception
+    {
+        engine.setContext(context);
+        assertNotNull(engine.takeDecision());
+    }
+
+    @Test
+    public void notEnoughBudget() throws Exception
+    {
+        when(context.getBudget()).thenReturn(199);
+        engine.setContext(context);
+        assertEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
+    }
+
+    @Test
+    public void emptyContracts() throws Exception
+    {
+        when(context.getContracts()).thenReturn(new ArrayList<>());
+        engine.setContext(context);
+        assertEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
+    }
+
+    @Test
+    public void enoughBudgetAndAtLeastOneContract() throws Exception
+    {
+        engine.setContext(context);
+        assertNotEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
+    }
+
+    @Test
+    public void deductActionCostFromTheBudget() throws Exception
+    {
+        when(context.getBudget()).thenReturn(200);
+
+        engine.setContext(context);
+        engine.takeDecision();
+
+        Result result = mock(Result.class);
+        when(result.getCost()).thenReturn(1);
+
+        engine.acknowledgeResults(result);
+        assertEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
+    }
+}
