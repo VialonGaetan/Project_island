@@ -13,4 +13,8 @@ public interface Craft
     Map<Resource, Integer> getReagent();
 
     Map<Resource, Integer> getProducts();
+
+    Boolean isPrimary();
+
+    String getRecipe();
 }

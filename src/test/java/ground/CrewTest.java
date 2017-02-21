@@ -34,6 +34,10 @@ public class CrewTest {
         assertTrue(((int)this.crew.getLocation().getX() == 0)&&((int)this.crew.getLocation().getY()==-1));
         crew.move(Direction.S);
         assertTrue(((int)this.crew.getLocation().getX() == 0)&&((int)this.crew.getLocation().getY()==0));
+        for (int i=1; i<10; i++){
+            crew.move(Direction.S);
+            assertTrue(((int)this.crew.getLocation().getX() == 0)&&((int)this.crew.getLocation().getY()==i));
+        }
     }
 
 }
