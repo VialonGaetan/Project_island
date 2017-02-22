@@ -1,11 +1,31 @@
 package fr.unice.polytech.si3.qgl.iaad.resource;
 
 
-public interface ResourceInformation
+public class ResourceInformation
 {
-    Resource getResource();
+    private final Resource resource;
+    private final ResourceAmount resourceAmount;
+    private final ResourceCondition resourceCondition;
 
-    ResourceAmount getResourceAmount();
+    public ResourceInformation(Resource resource, ResourceAmount resourceAmount, ResourceCondition resourceCondition)
+    {
+        this.resource = resource;
+        this.resourceAmount = resourceAmount;
+        this.resourceCondition = resourceCondition;
+    }
 
-    ResourceCondition getResourceCondition();
+    public Resource getResource()
+    {
+        return resource;
+    }
+
+    public ResourceAmount getResourceAmount()
+    {
+        return resourceAmount;
+    }
+
+    public ResourceCondition getResourceCondition()
+    {
+        return resourceCondition;
+    }
 }

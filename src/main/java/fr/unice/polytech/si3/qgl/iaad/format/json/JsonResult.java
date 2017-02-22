@@ -5,6 +5,9 @@ import fr.unice.polytech.si3.qgl.iaad.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.board.Creek;
 import fr.unice.polytech.si3.qgl.iaad.board.Element;
 import fr.unice.polytech.si3.qgl.iaad.board.EmergencySite;
+import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
+import fr.unice.polytech.si3.qgl.iaad.resource.ResourceAmount;
+import fr.unice.polytech.si3.qgl.iaad.resource.ResourceCondition;
 import fr.unice.polytech.si3.qgl.iaad.resource.ResourceInformation;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -57,20 +60,24 @@ class JsonResult implements Result
     public List<Creek> getCreeks()
     {
         JSONArray creeks = extras.getJSONArray(JsonArguments.CREEKS.toString());
-        return creeks.toList().stream().map(o -> new Creek(o.toString())).collect(Collectors.toList());
+        return creeks.toList().stream().map(Object::toString).map(Creek::new).collect(Collectors.toList());
     }
 
     @Override
     public List<EmergencySite> getSites()
     {
         JSONArray sites = extras.getJSONArray(JsonArguments.SITES.toString());
-        return sites.toList().stream().map(o -> new fr.unice.polytech.si3.qgl.iaad.board.EmergencySite(o.toString())).collect(Collectors.toList());
+        return sites.toList().stream().map(Object::toString).map(EmergencySite::new).collect(Collectors.toList());
     }
 
     @Override
     public List<ResourceInformation> getResourcesExplored()
     {
-        return new ArrayList<>();
+        List<ResourceInformation> resourceInformation = new ArrayList<>();
+        JSONArray jsonArray = extras.getJSONArray(JsonArguments.RESOURCES.toString());
+        for (int i = 0; i < jsonArray.length(); i++)
+            resourceInformation.add(getResource(jsonArray.getJSONObject(i)));
+        return resourceInformation;
     }
 
     @Override
@@ -83,5 +90,13 @@ class JsonResult implements Result
     public int getTransformProduction()
     {
         return extras.getInt(JsonArguments.PRODUCTION.toString());
+    }
+
+    private ResourceInformation getResource(JSONObject jsonObject)
+    {
+        ResourceAmount resourceAmount = ResourceAmount.valueOf(jsonObject.get(JsonArguments.AMOUNT.toString()).toString());
+        Resource resource = Resource.valueOf(jsonObject.get(JsonArguments.RESOURCE.toString()).toString());
+        ResourceCondition resourceCondition = ResourceCondition.valueOf(jsonObject.get(JsonArguments.COND.toString()).toString());
+        return new ResourceInformation(resource, resourceAmount, resourceCondition);
     }
 }
