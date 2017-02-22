@@ -2,10 +2,7 @@ package fr.unice.polytech.si3.qgl.iaad.board;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import java.awt.Point;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author romain
@@ -14,7 +11,7 @@ import java.util.Set;
 public class Board
 {
     private Map<Point, Tile> map;
-    private Map<Direction, Point> dimensions;
+    private Map<Direction, Integer> dimensions;
 
     /**
      * Board constructor
@@ -26,10 +23,11 @@ public class Board
         dimensions = new HashMap<>();
 
         map.put(new Point(), new Tile());
-        dimensions.put(Direction.E, new Point());
-        dimensions.put(Direction.S, new Point());
-        dimensions.put(Direction.W, new Point());
-        dimensions.put(Direction.N, new Point());
+
+        for(Direction direction : Direction.values())
+        {
+            dimensions.put(direction, 0);
+        }
     }
 
     /**
@@ -37,26 +35,7 @@ public class Board
      * @param direction where the Board has to grow
      * @param range, the number of points
      */
-    public void grow(Direction direction, int range)
-    {
-        Point limit = dimensions.get(direction);
-
-        switch(direction)
-        {
-            case N:
-                limit.y += range;
-                break;
-            case E:
-                limit.x += range;
-                break;
-            case S:
-                limit.y -= range;
-                break;
-            case W:
-                limit.x -= range;
-                break;
-        }
-    }
+    public void grow(Direction direction, int range) { dimensions.put(direction, dimensions.get(direction)+range); }
 
     /**
      * Check if the such point is located on the Board
@@ -67,9 +46,9 @@ public class Board
     {
         boolean test = false;
 
-        if((point.x >= dimensions.get(Direction.W).x) && (point.x <= dimensions.get(Direction.E).x))
+        if((point.x >= -dimensions.get(Direction.W)) && (point.x <= dimensions.get(Direction.E)))
         {
-            if((point.y >= dimensions.get(Direction.S).y) && (point.y <= dimensions.get(Direction.N).y))
+            if((point.y >= -dimensions.get(Direction.S)) && (point.y <= dimensions.get(Direction.N)))
             {
                 test = true;
             }
@@ -128,7 +107,7 @@ public class Board
     }
 
     /**
-     * convert the aerial map in fr.unice.polytech.si3.qgl.iaad.ground map
+     * convert the aerial map in ground map
      */
     public void zoom()
     {
@@ -143,21 +122,17 @@ public class Board
             groundMap.putAll(getGroundTiles(point, map.get(point)));
         }
 
-        dimensions.get(Direction.E).x *= 3;
-        dimensions.get(Direction.E).x++;
-        dimensions.get(Direction.W).x *= 3;
-        dimensions.get(Direction.W).x--;
-        dimensions.get(Direction.N).y *= 3;
-        dimensions.get(Direction.N).y++;
-        dimensions.get(Direction.S).y *= 3;
-        dimensions.get(Direction.S).y--;
+        for(Direction direction : Direction.values())
+        {
+            dimensions.put(direction, dimensions.get(direction)*3+1);
+        }
 
         map = groundMap;
     }
 
     /**
-     * Get the current Map
-     * @return a copy of the true Map
+     * Get the points of the current Map
+     * @return Set<Point>
      */
-    public Map<Point, Tile> getMap() { return new HashMap<>(map); }
+    public Set<Point> getPoints() { return map.keySet(); }
 }

@@ -24,15 +24,15 @@ public final class Mesurer implements IMesurer{
 
 
     public static Creek findClosestCreek(Board board) {
-        Set listKeys=board.getMap().keySet();
+        Set listKeys=board.getPoints();
         Iterator iterateur=listKeys.iterator();
         while(iterateur.hasNext())
         {
             Point key= (Point) iterateur.next();
-            if (board.getMap().get(key).getCreeks().size()!=0){
+            if (board.getTile(key).getCreeks().size()!=0){
                 listCreek.add(key);
             }
-            if (board.getMap().get(key).getEmergencySites().size()!=0){
+            if (board.getTile(key).getEmergencySites().size()!=0){
                 listEmergencySite.add(key);
             }
         }
@@ -48,7 +48,7 @@ public final class Mesurer implements IMesurer{
                 closestCreekLocation = listCreek.get(i);
             }
         }
-        return board.getMap().get(closestCreekLocation).getCreeks().get(0);
+        return board.getTile(closestCreekLocation).getCreeks().get(0);
     }
 
 
