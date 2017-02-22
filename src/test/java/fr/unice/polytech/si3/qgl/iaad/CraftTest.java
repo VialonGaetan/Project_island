@@ -1,3 +1,5 @@
+package fr.unice.polytech.si3.qgl.iaad;
+
 import fr.unice.polytech.si3.qgl.iaad.Craft;
 import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
 import org.junit.Before;

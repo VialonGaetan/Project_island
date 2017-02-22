@@ -1,7 +1,6 @@
-package init;
+package fr.unice.polytech.si3.qgl.iaad.init;
 
 import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
-import fr.unice.polytech.si3.qgl.iaad.init.Context;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Ignore;

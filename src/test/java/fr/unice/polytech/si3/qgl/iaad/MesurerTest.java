@@ -1,3 +1,5 @@
+package fr.unice.polytech.si3.qgl.iaad;
+
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Mesurer;
 import fr.unice.polytech.si3.qgl.iaad.board.Board;

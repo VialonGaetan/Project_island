@@ -1,3 +1,5 @@
+package fr.unice.polytech.si3.qgl.iaad;
+
 import fr.unice.polytech.si3.qgl.iaad.Explorer;
 import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import org.junit.Before;
