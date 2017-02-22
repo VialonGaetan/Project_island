@@ -17,7 +17,7 @@ public class StandardDroneTest
     @Test
     public void moveDrone() throws Exception
     {
-        Drone drone = new StandardDrone(Direction.E);
+        Drone drone = new Drone(Direction.E);
 
         Point expected = new Point();
         assertEquals(expected, drone.getLocation());

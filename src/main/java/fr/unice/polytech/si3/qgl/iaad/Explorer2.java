@@ -2,7 +2,6 @@ package fr.unice.polytech.si3.qgl.iaad;
 
 import eu.ace_design.island.bot.IExplorerRaid;
 import fr.unice.polytech.si3.qgl.iaad.engine.Engine;
-import fr.unice.polytech.si3.qgl.iaad.engine.StandardEngine;
 import fr.unice.polytech.si3.qgl.iaad.format.Format;
 import fr.unice.polytech.si3.qgl.iaad.format.json.JsonFormat;
 
@@ -16,7 +15,7 @@ public class Explorer2 implements IExplorerRaid
     public void initialize(String string)
     {
         format = new JsonFormat();
-        engine = new StandardEngine();
+        engine = new Engine();
         engine.setContext(format.stringToContext(string));
     }
 

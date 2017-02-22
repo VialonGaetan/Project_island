@@ -30,7 +30,7 @@ public class StandardEngineTest
     @Before
     public void setUp() throws Exception
     {
-        engine = new StandardEngine();
+        engine = new Engine();
         context = mock(Context.class);
         contracts = new ArrayList<>();
         contracts.add(new StandardContract(Resource.FISH, 1000));
