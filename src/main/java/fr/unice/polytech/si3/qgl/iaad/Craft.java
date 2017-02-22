@@ -47,33 +47,38 @@ public class Craft implements fr.unice.polytech.si3.qgl.iaad.future.Craft{
 
     @Override
     public Map<Resource, Integer> getReagent(Resource resource) {
+        this.reagent=new HashMap<>();
         if (isPrimary(resource)) return null;
         switch (resource.getName()){
             case "GLASS" : {
                 this.reagent.put(Resource.QUARTZ,10);
                 this.reagent.put(Resource.WOOD,5);
+                return this.reagent;
             }
 
             case "INGOT" : {
                 this.reagent.put(resource.ORE,5);
                 this.reagent.put(Resource.WOOD,5);
+                return this.reagent;
             }
 
             case "LEATHER" : {
                 this.reagent.put(Resource.FUR,3);
+                return this.reagent;
             }
 
             case "PLANK" : {
                 this.reagent.put(Resource.WOOD,1);
+                return this.reagent;
             }
 
             case "RUM" : {
                 this.reagent.put(Resource.SUGAR_CANE,10);
                 this.reagent.put(Resource.FRUITS,1);
+                return this.reagent;
             }
+            default: return null;
         }
-
-        return this.reagent;
     }
 
 
