@@ -1,5 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.resource;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created on 14/11/2016.
  * @author Gaetan VIALON
@@ -30,4 +33,64 @@ public enum Resource {
         this.name = name;
     }
 
+    public static Boolean isPrimary(Resource resource) {
+        switch (resource.getName()){
+            case "FISH" : {
+                return true;
+            }
+            case "FLOWER" : {
+                return true;
+            }
+            case "FRUITS" : {
+                return true;
+            }
+            case "FUR" : {
+                return true;
+            }
+            case "ORE" : {
+                return true;
+            }
+            case "QUARTZ" : {
+                return true;
+            }
+            case "SUGAR_CANE" : {
+                return true;
+            }
+            default : return false;
+        }
+    }
+
+    public static Map getRecipe(Resource resource){
+        Map<Resource, Integer> recipe = new HashMap<>();
+        if (isPrimary(resource)) return null;
+        switch (resource.getName()){
+            case "GLASS" : {
+                recipe.put(Resource.QUARTZ,10);
+                recipe.put(Resource.WOOD,5);
+                return recipe;
+            }
+            case "INGOT" : {
+                recipe.put(Resource.ORE, 5);
+                recipe.put(Resource.WOOD, 5);
+                return recipe;
+
+            }
+            case "LEATHER" : {
+                recipe.put(Resource.FUR,3);
+                return recipe;
+
+            }
+            case "PLANK" : {
+                recipe.put(Resource.WOOD,1);
+                return recipe;
+            }
+            case "RUM" : {
+                recipe.put(Resource.SUGAR_CANE,10);
+                recipe.put(Resource.FRUITS,1);
+                return recipe;
+
+            }
+            default: return null;
+        }
+    }
 }

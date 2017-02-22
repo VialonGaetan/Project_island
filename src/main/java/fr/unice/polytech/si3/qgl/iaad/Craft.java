@@ -44,37 +44,38 @@ public class Craft implements fr.unice.polytech.si3.qgl.iaad.future.Craft{
         }
     }
 
-    public String getRecipe(Resource resource){
-        if (isPrimary(resource)) return null;
-        switch (resource.getName()){
-            case "GLASS" : {
-                return "10 QUARTZ + 5 WOOD";
-            }
-            case "INGOT" : {
-                return "5 ORE + 5 WOOD";
-            }
-            case "LEATHER" : {
-                return "3 FUR";
-
-            }
-            case "PLANK" : {
-                return "1 WOOD";
-
-            }
-            case "RUM" : {
-                return "10 SUGAR_CANE + 1 FRUIT";
-            }
-            default: return null;
-        }
-    }
-
-
-
 
     @Override
     public Map<Resource, Integer> getReagent(Resource resource) {
-        return null;
+        if (isPrimary(resource)) return null;
+        switch (resource.getName()){
+            case "GLASS" : {
+                this.reagent.put(Resource.QUARTZ,10);
+                this.reagent.put(Resource.WOOD,5);
+            }
+
+            case "INGOT" : {
+                this.reagent.put(resource.ORE,5);
+                this.reagent.put(Resource.WOOD,5);
+            }
+
+            case "LEATHER" : {
+                this.reagent.put(Resource.FUR,3);
+            }
+
+            case "PLANK" : {
+                this.reagent.put(Resource.WOOD,1);
+            }
+
+            case "RUM" : {
+                this.reagent.put(Resource.SUGAR_CANE,10);
+                this.reagent.put(Resource.FRUITS,1);
+            }
+        }
+
+        return this.reagent;
     }
+
 
     @Override
     public Map<Resource, Integer> getProducts(Resource resource) {
