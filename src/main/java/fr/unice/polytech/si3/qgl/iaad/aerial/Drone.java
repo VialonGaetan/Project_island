@@ -5,7 +5,7 @@ import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.board.IslandMap;
 
 /**
  * Le drone doit trouver la crique la plus proche du site d'urgence.
@@ -36,7 +36,7 @@ public class Drone
      *
      * @param budget  budget available
      * @param heading heading of the drone
-     * @param map     current islandMap
+     * @param map     current board
      */
     public Drone(int budget, Direction heading, IslandMap map)
     {

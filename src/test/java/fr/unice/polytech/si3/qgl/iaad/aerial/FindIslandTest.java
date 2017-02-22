@@ -5,7 +5,7 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
 import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
 import fr.unice.polytech.si3.qgl.iaad.actions.Heading;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.board.IslandMap;
 import org.junit.Test;
 
 import java.awt.*;

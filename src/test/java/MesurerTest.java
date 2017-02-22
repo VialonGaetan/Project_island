@@ -1,9 +1,9 @@
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.Mesurer;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Board;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Creek;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.EmergencySite;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Tile;
+import fr.unice.polytech.si3.qgl.iaad.board.Board;
+import fr.unice.polytech.si3.qgl.iaad.board.Creek;
+import fr.unice.polytech.si3.qgl.iaad.board.EmergencySite;
+import fr.unice.polytech.si3.qgl.iaad.board.Tile;
 import org.junit.Before;
 import org.junit.Test;
 

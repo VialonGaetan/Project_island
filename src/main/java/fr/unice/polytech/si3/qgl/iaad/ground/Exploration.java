@@ -5,7 +5,7 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Ground;
 import fr.unice.polytech.si3.qgl.iaad.actions.StopGround;
 import fr.unice.polytech.si3.qgl.iaad.init.Context;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.board.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
 
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class Exploration {
     private int budget;
 
     /**
-     * Pour l'instant c'est pas très propre mais ça permet de ne pas tourner en rond en attend la islandMap
+     * Pour l'instant c'est pas très propre mais ça permet de ne pas tourner en rond en attend la board
      */
     public static int lasti = 0;
 

@@ -2,7 +2,7 @@ package fr.unice.polytech.si3.qgl.iaad.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Land;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.board.IslandMap;
 import org.junit.Before;
 import org.junit.Test;
 

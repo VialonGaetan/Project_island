@@ -2,9 +2,9 @@ package fr.unice.polytech.si3.qgl.iaad.format.json;
 
 import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.format.Result;
-import fr.unice.polytech.si3.qgl.iaad.future.EmergencySite;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Creek;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
+import fr.unice.polytech.si3.qgl.iaad.board.Creek;
+import fr.unice.polytech.si3.qgl.iaad.board.Element;
+import fr.unice.polytech.si3.qgl.iaad.board.EmergencySite;
 import fr.unice.polytech.si3.qgl.iaad.resource.ResourceInformation;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -64,7 +64,7 @@ class JsonResult implements Result
     public List<EmergencySite> getSites()
     {
         JSONArray sites = extras.getJSONArray(JsonArguments.SITES.toString());
-        return sites.toList().stream().map(o -> new fr.unice.polytech.si3.qgl.iaad.islandMap.EmergencySite(o.toString())).collect(Collectors.toList());
+        return sites.toList().stream().map(o -> new fr.unice.polytech.si3.qgl.iaad.board.EmergencySite(o.toString())).collect(Collectors.toList());
     }
 
     @Override

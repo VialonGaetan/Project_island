@@ -6,7 +6,7 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Heading;
 import fr.unice.polytech.si3.qgl.iaad.actions.Stop;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.board.IslandMap;
 
 /**
  * Tourne le drone.

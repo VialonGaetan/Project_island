@@ -6,7 +6,7 @@ import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Scan;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.board.IslandMap;
 
 /**
  * On Scan pour trouver le site d'urgence et les criques présentent sur l'île.
@@ -36,7 +36,7 @@ class ScanIsland extends Oriented implements Protocol
     }
 
     /**
-     * On ajoute les éléments trouver à la islandMap
+     * On ajoute les éléments trouver à la board
      *
      * @param result le résultat de l'fr.unice.polytech.si3.qgl.iaad.action effectué
      * @return Land si on trouve une crique

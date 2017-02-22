@@ -8,8 +8,8 @@ import fr.unice.polytech.si3.qgl.iaad.actions.Land;
 import fr.unice.polytech.si3.qgl.iaad.aerial.Drone;
 import fr.unice.polytech.si3.qgl.iaad.ground.Exploration;
 import fr.unice.polytech.si3.qgl.iaad.init.Context;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Creeks;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.board.OldCreek;
+import fr.unice.polytech.si3.qgl.iaad.board.IslandMap;
 import org.json.JSONObject;
 
 public class Explorer implements IExplorerRaid {
@@ -24,7 +24,7 @@ public class Explorer implements IExplorerRaid {
     private Area areaAction;
     private Ground groundAction;
     private String rapport;
-    private Creeks creek;
+    private OldCreek oldCreek;
 
 
     @Override
@@ -67,19 +67,19 @@ public class Explorer implements IExplorerRaid {
                 exploration = new Exploration(drone.getBudget(),islandMap,context);
             }
         } catch (InvalidMapException exception) {
-            // according to islandMap designer, it's ok
+            // according to board designer, it's ok
         }
     }
 
     /**
-     * result
+     * fr.unice.polytech.si3.qgl.iaad.result
      */
     @Override
     public String deliverFinalReport() {
         if (false) {
             try {
-                creek = new Creeks(islandMap);
-                rapport = "EMERGENCY:" + islandMap.getEmergencySiteId() + "\nCREEK:" + creek.getClosestCreekId();
+                oldCreek = new OldCreek(islandMap);
+                rapport = "EMERGENCY:" + islandMap.getEmergencySiteId() + "\nCREEK:" + oldCreek.getClosestCreekId();
             } catch (InvalidMapException | ArrayIndexOutOfBoundsException e) {
                 rapport = "EMERGENCY:" + islandMap.getEmergencySiteId();
             }

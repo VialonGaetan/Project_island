@@ -5,8 +5,8 @@ import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.board.Element;
+import fr.unice.polytech.si3.qgl.iaad.board.IslandMap;
 
 /**
  * Vérifie que l'on est pas dans un océan à l'intérieur de l'île

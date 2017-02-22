@@ -1,9 +1,9 @@
 package fr.unice.polytech.si3.qgl.iaad.format;
 
 import fr.unice.polytech.si3.qgl.iaad.Biome;
-import fr.unice.polytech.si3.qgl.iaad.future.EmergencySite;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Creek;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Element;
+import fr.unice.polytech.si3.qgl.iaad.board.Creek;
+import fr.unice.polytech.si3.qgl.iaad.board.Element;
+import fr.unice.polytech.si3.qgl.iaad.board.EmergencySite;
 import fr.unice.polytech.si3.qgl.iaad.resource.ResourceInformation;
 
 import java.util.List;

@@ -4,10 +4,9 @@ import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.actions.Area;
 import fr.unice.polytech.si3.qgl.iaad.actions.Fly;
 import fr.unice.polytech.si3.qgl.iaad.actions.Scan;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.board.IslandMap;
 import org.json.JSONObject;
 import org.junit.Ignore;
-import org.junit.Test;
 
 import static org.junit.Assert.*;
 

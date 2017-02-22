@@ -1,9 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad;
 
-import fr.unice.polytech.si3.qgl.iaad.future.ICreek;
 import fr.unice.polytech.si3.qgl.iaad.future.IMesurer;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Board;
-import fr.unice.polytech.si3.qgl.iaad.islandMap.Creek;
+import fr.unice.polytech.si3.qgl.iaad.board.Board;
+import fr.unice.polytech.si3.qgl.iaad.board.Creek;
 
 import java.awt.*;
 import java.util.ArrayList;
