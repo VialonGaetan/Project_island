@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad.future;
+package fr.unice.polytech.si3.qgl.iaad.workforce;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 
@@ -12,7 +12,9 @@ public interface Drone
 {
     Point getLocation();
 
-    void fly(Direction direction);
+    Direction getHeading();
+
+    void fly();
 
     void heading(Direction direction);
 }
