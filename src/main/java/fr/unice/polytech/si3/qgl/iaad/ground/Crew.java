@@ -1,7 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.ground;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.future.ICrew;
 
 import java.awt.*;
 
@@ -9,7 +8,7 @@ import java.awt.*;
  * @Author Theo Cholley
  */
 
-public class Crew implements ICrew{
+public class Crew{
 
     private int people;
     private Point location;
@@ -19,17 +18,17 @@ public class Crew implements ICrew{
         this.location=initialLocation;
     }
 
-    @Override
+
     public int getPeople() {
         return this.people;
     }
 
-    @Override
+
     public Point getLocation() {
         return this.location;
     }
 
-    @Override
+
     public void move(Direction direction) {
         switch (direction){
 
