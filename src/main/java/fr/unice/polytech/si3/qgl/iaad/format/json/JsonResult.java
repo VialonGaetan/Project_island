@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * @author Alexandre Clement
  * @since 06/02/2017.
  */
-class JsonResult implements Result
+public class JsonResult implements Result
 {
     private final JSONObject extras;
     private final JSONObject data;
