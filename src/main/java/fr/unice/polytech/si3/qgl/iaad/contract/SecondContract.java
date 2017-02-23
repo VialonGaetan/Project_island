@@ -28,7 +28,7 @@ public class SecondContract {
 
 
     /**
-     * Forme un second contract : avec toutes les ressources primaires requises afin de satisfaire le client
+     * Forme un second contract : avec toutes les ressources primaires requises afin de satisfaire le client (+ ressources primaires qu'il faut pour crafter les manufacturées !)
      * et forme egalement une map "toBeCrafted" qui permet de recenser toutes les ressources que l'on doit crafter
      */
 
@@ -41,16 +41,21 @@ public class SecondContract {
             Resource res = (Resource) iterateur.next();
             if (!Resource.isPrimary(res)){
                 toBeCrafted.put(res, initialContract.get(res));
-                Set listReagents =initialContract.keySet();
+                Set listReagents =Resource.getRecipe(res).keySet();
                 Iterator iterator=listReagents.iterator();
                 while(iterator.hasNext())
                 {
                     reagent = (Resource) iterator.next();
-                    secondContract.put(reagent,(int) Resource.getRecipe(res).get(reagent));
+                    for (int i=0; i<this.initialContract.get(res); i++){
+                        if (this.secondContract.containsKey(reagent)) this.secondContract.put(reagent,(int) this.secondContract.get(reagent)+Resource.getRecipe(res).get(reagent));
+                        else this.secondContract.put(reagent,Resource.getRecipe(res).get(reagent));
+                    }
+
                 }
             }
             if (Resource.isPrimary(res)){
-                secondContract.put(res, initialContract.get(res));
+                if (this.secondContract.containsKey(res)) secondContract.put(res, this.secondContract.get(res)+initialContract.get(res));
+                else secondContract.put(res,initialContract.get(res));
             }
 
         }

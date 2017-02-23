@@ -56,12 +56,15 @@ public enum Resource {
             case "SUGAR_CANE" : {
                 return true;
             }
+            case "WOOD" : {
+                return true;
+            }
             default : return false;
         }
     }
 
-    public static Map getRecipe(Resource resource){
-        Map<Resource, Integer> recipe = new HashMap<>();
+    public static HashMap<Resource, Integer> getRecipe(Resource resource){
+        HashMap<Resource, Integer> recipe = new HashMap<>();
         if (isPrimary(resource)) return null;
         switch (resource.getName()){
             case "GLASS" : {

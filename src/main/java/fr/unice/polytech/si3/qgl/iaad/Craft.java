@@ -87,4 +87,9 @@ public class Craft implements fr.unice.polytech.si3.qgl.iaad.future.Craft{
         return null;
     }
 
+    public void transformTheResource(Resource resource){
+        if (isPrimary(resource)) return;
+
+    }
+
 }
