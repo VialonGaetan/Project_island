@@ -1,11 +1,9 @@
 package fr.unice.polytech.si3.qgl.iaad;
 
-import fr.unice.polytech.si3.qgl.iaad.Craft;
 import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
 import org.junit.Before;
 import org.junit.Test;
-import java.awt.*;
-import java.util.HashMap;
+
 import java.util.Iterator;
 import java.util.Set;
 
@@ -44,7 +42,7 @@ public class CraftTest {
     /**
      * Erreur introuvée .. En cours ..
      */
-   /* @Test
+    @Test
     public void getReagentTest() {
         craft=new Craft();
         Set listKeys = craft.getReagent(Resource.GLASS).keySet();
@@ -94,6 +92,4 @@ public class CraftTest {
         }
     }
 
-}
-*/
 }
