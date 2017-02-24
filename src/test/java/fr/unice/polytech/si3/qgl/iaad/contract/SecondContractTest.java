@@ -49,6 +49,7 @@ public class SecondContractTest {
         assertTrue(this.secondContract.getSecondContract().get(Resource.QUARTZ)==2000);
     }
 
+    @Test
     public void createSecondContractToBeCraftedTest(){
         Set listKeys=this.secondContract.getToBeCrafted().keySet();
         Iterator iterateur=listKeys.iterator();

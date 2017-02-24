@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad;
+package fr.unice.polytech.si3.qgl.iaad.ground;
 
 import fr.unice.polytech.si3.qgl.iaad.future.IMesurer;
 import fr.unice.polytech.si3.qgl.iaad.board.Board;
