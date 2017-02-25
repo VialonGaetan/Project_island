@@ -1,11 +1,12 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.naive;
 
+import fr.unice.polytech.si3.qgl.iaad.Direction;
 import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
-import fr.unice.polytech.si3.qgl.iaad.actions.Echo;
+import fr.unice.polytech.si3.qgl.iaad.board.Board;
 import fr.unice.polytech.si3.qgl.iaad.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.protocol.Protocol;
-import fr.unice.polytech.si3.qgl.iaad.protocol.StopExploration;
+import fr.unice.polytech.si3.qgl.iaad.workforce.Drone;
 
 /**
  * @author Alexandre Clement
@@ -13,22 +14,23 @@ import fr.unice.polytech.si3.qgl.iaad.protocol.StopExploration;
  */
 public class NaiveStrategy implements Protocol
 {
-    private final Context context;
+    private final Protocol initialisation;
 
     public NaiveStrategy(Context context)
     {
-        this.context = context;
+        Direction heading = context.getHeading();
+        initialisation = new EchoInDirection(context, new Board(), new Drone(heading), heading, heading.getRight(), heading.getLeft());
     }
 
     @Override
     public Decision takeDecision()
     {
-        return new Echo(context.getHeading());
+        return initialisation.takeDecision();
     }
 
     @Override
     public Protocol acknowledgeResults(Result result)
     {
-        return new StopExploration();
+        return initialisation.acknowledgeResults(result);
     }
 }

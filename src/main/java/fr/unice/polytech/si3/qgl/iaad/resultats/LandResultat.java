@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.resultats;
 
-import fr.unice.polytech.si3.qgl.iaad.format.json.JsonResult;
+import fr.unice.polytech.si3.qgl.iaad.format.Result;
 
 /**
  * @author Gaetan Vialon
@@ -8,9 +8,9 @@ import fr.unice.polytech.si3.qgl.iaad.format.json.JsonResult;
  */
 public class LandResultat {
 
-    JsonResult result;
+    private Result result;
 
-    LandResultat(JsonResult result) {
+    public LandResultat(Result result) {
         this.result = result;
     }
 

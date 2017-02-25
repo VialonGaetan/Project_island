@@ -1,15 +1,15 @@
 package fr.unice.polytech.si3.qgl.iaad.resultats;
 
-import fr.unice.polytech.si3.qgl.iaad.format.json.JsonResult;
+import fr.unice.polytech.si3.qgl.iaad.format.Result;
 
 /**
  * @author Gaetan Vialon
  *         Created the 23/02/2017.
  */
 public class FlyResultat {
-    JsonResult result;
+    private Result result;
 
-    FlyResultat(JsonResult result) {
+    public FlyResultat(Result result) {
         this.result = result;
     }
 

@@ -48,7 +48,7 @@ public class Board
 
         if((point.x >= -dimensions.get(Direction.W)) && (point.x <= dimensions.get(Direction.E)))
         {
-            if((point.y >= -dimensions.get(Direction.S)) && (point.y <= dimensions.get(Direction.N)))
+            if((point.y <= dimensions.get(Direction.S)) && (point.y >= -dimensions.get(Direction.N)))
             {
                 test = true;
             }
@@ -135,4 +135,9 @@ public class Board
      * @return Set<Point>
      */
     public Set<Point> getPoints() { return map.keySet(); }
+
+    public int getDimension(Direction direction)
+    {
+        return dimensions.get(direction);
+    }
 }

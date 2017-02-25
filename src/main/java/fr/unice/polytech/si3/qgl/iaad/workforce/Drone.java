@@ -13,7 +13,7 @@ public class Drone
     private final Point location;
     private Direction heading;
 
-    Drone(Direction heading)
+    public Drone(Direction heading)
     {
         this.heading = heading;
         location = new Point();

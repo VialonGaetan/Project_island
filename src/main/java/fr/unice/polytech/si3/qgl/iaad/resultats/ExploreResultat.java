@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.resultats;
 
-import fr.unice.polytech.si3.qgl.iaad.format.json.JsonResult;
+import fr.unice.polytech.si3.qgl.iaad.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.resource.ResourceInformation;
 
 import java.util.List;
@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class ExploreResultat {
 
-    JsonResult result;
+    private Result result;
 
-    ExploreResultat(JsonResult result) {
+    public ExploreResultat(Result result) {
         this.result = result;
     }
 

@@ -3,7 +3,7 @@ package fr.unice.polytech.si3.qgl.iaad.resultats;
 import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.board.Creek;
 import fr.unice.polytech.si3.qgl.iaad.board.EmergencySite;
-import fr.unice.polytech.si3.qgl.iaad.format.json.JsonResult;
+import fr.unice.polytech.si3.qgl.iaad.format.Result;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import java.util.List;
  */
 public class ScanResultat {
 
-    JsonResult result;
+    private Result result;
 
-    ScanResultat(JsonResult result) {
+    public ScanResultat(Result result) {
         this.result = result;
     }
 

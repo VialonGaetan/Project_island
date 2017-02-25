@@ -10,11 +10,7 @@ public enum Direction {
     N(new Point(0, -1)),
     E(new Point(1, 0)),
     S(new Point(0, 1)),
-    W(new Point(-1, 0)),
-    SE(new Point(1, 1)),
-    NE(new Point(1, -1)),
-    NW(new Point(-1, -1)),
-    SW(new Point(-1, 1));
+    W(new Point(-1, 0));
 
     private Point vecteur;
 
