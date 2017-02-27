@@ -3,7 +3,7 @@ package fr.unice.polytech.si3.qgl.iaad.strategy.simple;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.player.actions.Scan;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Board;
+import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.protocol.LandOnCreek;
@@ -21,14 +21,14 @@ import java.awt.*;
 class ScanMap implements Protocol
 {
     private final Context context;
-    private final Board board;
+    private final IslandMap islandMap;
     private final Drone drone;
     private final Direction sense;
 
-    ScanMap(Context context, Board board, Drone drone, Direction sense)
+    ScanMap(Context context, IslandMap islandMap, Drone drone, Direction sense)
     {
         this.context = context;
-        this.board = board;
+        this.islandMap = islandMap;
         this.drone = drone;
         this.sense = sense;
     }
@@ -53,15 +53,15 @@ class ScanMap implements Protocol
         }
 
         if (droneIsAbleToFlyInDirection(heading))
-            return new FlyOnMap(this, board, drone);
+            return new FlyOnMap(this, islandMap, drone);
 
         if (droneIsAbleToFlyInDirection(sense))
-            return new Turn(new Turn(this, board, drone, heading.getBack()), board, drone, sense);
+            return new Turn(new Turn(this, islandMap, drone, heading.getBack()), islandMap, drone, sense);
 
-        Protocol exit = new ScanMap(context, board, drone, sense.getBack());
-        exit = new Turn(exit, board, drone, heading.getBack());
-        exit = new FlyOnMap(exit, board, drone);
-        return new Turn(exit, board, drone, sense.getBack());
+        Protocol exit = new ScanMap(context, islandMap, drone, sense.getBack());
+        exit = new Turn(exit, islandMap, drone, heading.getBack());
+        exit = new FlyOnMap(exit, islandMap, drone);
+        return new Turn(exit, islandMap, drone, sense.getBack());
     }
 
     private boolean droneIsAbleToFlyInDirection(Direction direction)
@@ -70,6 +70,6 @@ class ScanMap implements Protocol
         Point vector = direction.getVecteur();
         location.translate(vector.x, vector.y);
         location.translate(vector.x, vector.y);
-        return board.isOnBoard(location);
+        return islandMap.isOnBoard(location);
     }
 }

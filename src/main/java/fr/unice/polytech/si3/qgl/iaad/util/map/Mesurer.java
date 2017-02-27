@@ -21,16 +21,16 @@ public final class Mesurer implements IMesurer{
 
 
 
-    public static Creek findClosestCreek(Board board) {
-        Set listKeys=board.getPoints();
+    public static Creek findClosestCreek(IslandMap islandMap) {
+        Set listKeys= islandMap.getPoints();
         Iterator iterateur=listKeys.iterator();
         while(iterateur.hasNext())
         {
             Point key= (Point) iterateur.next();
-            if (board.getTile(key).getCreeks().size()!=0){
+            if (islandMap.getTile(key).getCreeks().size()!=0){
                 listCreek.add(key);
             }
-            if (board.getTile(key).getEmergencySites().size()!=0){
+            if (islandMap.getTile(key).getEmergencySites().size()!=0){
                 listEmergencySite.add(key);
             }
         }
@@ -46,10 +46,10 @@ public final class Mesurer implements IMesurer{
                 closestCreekLocation = listCreek.get(i);
             }
         }
-        return board.getTile(closestCreekLocation).getCreeks().get(0);
+        return islandMap.getTile(closestCreekLocation).getCreeks().get(0);
     }
 
 
-    public static String findClosestCreekId(Board board) {return findClosestCreek(board).getId();}
+    public static String findClosestCreekId(IslandMap islandMap) {return findClosestCreek(islandMap).getId();}
 
 }

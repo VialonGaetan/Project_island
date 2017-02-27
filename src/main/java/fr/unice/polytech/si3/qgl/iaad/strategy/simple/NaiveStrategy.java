@@ -2,7 +2,7 @@ package fr.unice.polytech.si3.qgl.iaad.strategy.simple;
 
 import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.player.actions.Decision;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Board;
+import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.protocol.Protocol;
@@ -19,7 +19,7 @@ public class NaiveStrategy implements Protocol
     public NaiveStrategy(Context context)
     {
         Direction heading = context.getHeading();
-        initialisation = new EchoInDirection(context, new Board(), new Drone(heading), heading, heading.getRight(), heading.getLeft());
+        initialisation = new EchoInDirection(context, new IslandMap(), new Drone(heading), heading, heading.getRight(), heading.getLeft());
     }
 
     @Override

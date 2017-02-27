@@ -3,7 +3,7 @@ package fr.unice.polytech.si3.qgl.iaad.strategy.simple;
 import fr.unice.polytech.si3.qgl.iaad.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.player.actions.Fly;
 import fr.unice.polytech.si3.qgl.iaad.player.actions.Stop;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Board;
+import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.protocol.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
@@ -15,13 +15,13 @@ import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 class FlyOnMap implements Protocol
 {
     private final Protocol exit;
-    private final Board board;
+    private final IslandMap islandMap;
     private final Drone drone;
 
-    FlyOnMap(Protocol exit, Board board, Drone drone)
+    FlyOnMap(Protocol exit, IslandMap islandMap, Drone drone)
     {
         this.exit = exit;
-        this.board = board;
+        this.islandMap = islandMap;
         this.drone = drone;
     }
 
@@ -29,7 +29,7 @@ class FlyOnMap implements Protocol
     public Decision takeDecision()
     {
         drone.fly();
-        if (board.isOnBoard(drone.getLocation()))
+        if (islandMap.isOnBoard(drone.getLocation()))
             return new Fly();
         return new Stop();
     }

@@ -4,7 +4,7 @@ import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.player.actions.Heading;
 import fr.unice.polytech.si3.qgl.iaad.player.actions.Stop;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Board;
+import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.protocol.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
@@ -16,14 +16,14 @@ import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 class Turn implements Protocol
 {
     private final Protocol exit;
-    private final Board board;
+    private final IslandMap islandMap;
     private final Drone drone;
     private final Direction direction;
 
-    Turn(Protocol exit, Board board, Drone drone, Direction direction)
+    Turn(Protocol exit, IslandMap islandMap, Drone drone, Direction direction)
     {
         this.exit = exit;
-        this.board = board;
+        this.islandMap = islandMap;
         this.drone = drone;
         this.direction = direction;
     }
@@ -32,7 +32,7 @@ class Turn implements Protocol
     public Decision takeDecision()
     {
         drone.heading(direction);
-        if (!board.isOnBoard(drone.getLocation()))
+        if (!islandMap.isOnBoard(drone.getLocation()))
             return new Stop();
         return new Heading(direction);
     }

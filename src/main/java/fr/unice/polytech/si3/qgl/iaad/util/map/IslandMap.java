@@ -7,16 +7,16 @@ import java.util.*;
  * @author romain
  * Created on 12/02/17.
  */
-public class Board
+public class IslandMap
 {
     private Map<Point, Tile> map;
     private Map<Direction, Integer> dimensions;
 
     /**
-     * Board constructor
-     * Board contains a new Tile
+     * IslandMap constructor
+     * IslandMap contains a new Tile
      */
-    public Board()
+    public IslandMap()
     {
         map = new HashMap<>();
         dimensions = new HashMap<>();
@@ -30,16 +30,16 @@ public class Board
     }
 
     /**
-     * Grow the Board in a direction of a number of points
-     * @param direction where the Board has to grow
+     * Grow the IslandMap in a direction of a number of points
+     * @param direction where the IslandMap has to grow
      * @param range, the number of points
      */
     public void grow(Direction direction, int range) { dimensions.put(direction, dimensions.get(direction)+range); }
 
     /**
-     * Check if the such point is located on the Board
+     * Check if the such point is located on the IslandMap
      * @param point, the point to analyze
-     * @return true if the point is on the Board, false otherwise
+     * @return true if the point is on the IslandMap, false otherwise
      */
     public boolean isOnBoard(Point point)
     {
@@ -57,9 +57,9 @@ public class Board
     }
 
     /**
-     * Get the such tile from the Board at this point
+     * Get the such tile from the IslandMap at this point
      * @param point, the point where is located the tile
-     * @return null if the point is not on the Board
+     * @return null if the point is not on the IslandMap
      */
     public Tile getTile(Point point)
     {
