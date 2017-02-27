@@ -21,9 +21,9 @@ public class SecondContract {
         initialContract=new HashMap<>();
         toBeCrafted = new HashMap<>();
         secondContract = new HashMap<>();
-        /*for (int i=0; i<cx.numberOfContrats(); i++){
-            initialContract.put(Resource.valueOf(cx.getContract(i).getResource()), cx.getContract(i).getAmount());
-        }*/
+        for (int i=0; i<cx.getContracts().size(); i++){
+            initialContract.put(Resource.valueOf(cx.getContracts().get(i).getResource().getName()), cx.getContracts().get(i).getAmount());
+        }
     }
 
 
