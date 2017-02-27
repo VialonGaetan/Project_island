@@ -1,24 +1,31 @@
 package fr.unice.polytech.si3.qgl.iaad.contract;
 
+import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.engine.Engine;
 import fr.unice.polytech.si3.qgl.iaad.init.Context;
 import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by Théo on 23/02/2017.
  */
 public class SecondContractTest {
 
-    Context context;
+    fr.unice.polytech.si3.qgl.iaad.format.Context context;
     JSONObject firstContext;
     SecondContract secondContract;
+    private List<Contract> contracts;
 
     @Before
     public void defineContext() {
@@ -32,10 +39,26 @@ public class SecondContractTest {
                 "  ],\n" +
                 "  \"heading\": \"W\"\n" +
                 "}");
-        context = new Context(firstContext);
+       // context = new Context(firstContext);
+
+    }
+
+    @Before
+    public void setUp() throws Exception
+    {
+        context = mock(fr.unice.polytech.si3.qgl.iaad.format.Context.class);
+        contracts = new ArrayList<>();
+        //contracts.add(new Contract(Resource.FISH, 1000));
+        //contracts.add(new StandardContract(Resource.GLASS, 50));
+
+        when(context.getBudget()).thenReturn(10000);
+        when(context.getHeading()).thenReturn(Direction.E);
+        when(context.getNumberOfMen()).thenReturn(12);
+        when(context.getContracts()).thenReturn(contracts);
         secondContract = new SecondContract(context);
         this.secondContract.createSecondContract();
     }
+
 
     @Test
     public void createSecondContractTest(){

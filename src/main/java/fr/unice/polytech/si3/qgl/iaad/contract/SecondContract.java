@@ -17,12 +17,13 @@ public class SecondContract {
     private Map<Resource,Integer> secondContract;
     private Map<Resource, Integer> initialContract;
 
-    public SecondContract(Context cx){
+
+    public SecondContract(fr.unice.polytech.si3.qgl.iaad.format.Context cx){
         initialContract=new HashMap<>();
         toBeCrafted = new HashMap<>();
         secondContract = new HashMap<>();
-        for (int i=0; i<cx.numberOfContrats(); i++){
-            initialContract.put(Resource.valueOf(cx.getContract(i).getResource()), cx.getContract(i).getAmount());
+        for (int i=0; i<cx.getContracts().size(); i++){
+            initialContract.put(Resource.valueOf(cx.getContracts().get(i).getResource().getName()), cx.getContracts().get(i).getAmount());
         }
     }
 
