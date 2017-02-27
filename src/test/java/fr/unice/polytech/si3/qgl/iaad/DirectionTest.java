@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad;
 
-import fr.unice.polytech.si3.qgl.iaad.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import org.junit.Test;
 
 import java.awt.*;

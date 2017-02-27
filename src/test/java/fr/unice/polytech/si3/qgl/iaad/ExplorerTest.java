@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad;
 
-import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
+import fr.unice.polytech.si3.qgl.iaad.player.actions.Decision;
 import org.junit.Before;
 import org.junit.Test;
 
