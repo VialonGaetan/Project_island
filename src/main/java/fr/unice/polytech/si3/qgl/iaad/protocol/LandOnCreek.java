@@ -1,9 +1,9 @@
 package fr.unice.polytech.si3.qgl.iaad.protocol;
 
-import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
-import fr.unice.polytech.si3.qgl.iaad.actions.Land;
-import fr.unice.polytech.si3.qgl.iaad.board.Creek;
-import fr.unice.polytech.si3.qgl.iaad.format.Result;
+import fr.unice.polytech.si3.qgl.iaad.player.actions.Decision;
+import fr.unice.polytech.si3.qgl.iaad.player.actions.Land;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Creek;
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
 
 /**
  * @author Alexandre Clement

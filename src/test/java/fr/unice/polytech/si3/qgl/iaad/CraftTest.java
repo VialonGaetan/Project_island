@@ -1,11 +1,9 @@
 package fr.unice.polytech.si3.qgl.iaad;
 
-import fr.unice.polytech.si3.qgl.iaad.resource.Resource;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.Craft;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Iterator;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -1,12 +1,12 @@
 package fr.unice.polytech.si3.qgl.iaad.engine;
 
-import fr.unice.polytech.si3.qgl.iaad.actions.Decision;
-import fr.unice.polytech.si3.qgl.iaad.contract.Contract;
-import fr.unice.polytech.si3.qgl.iaad.format.Context;
-import fr.unice.polytech.si3.qgl.iaad.format.Result;
+import fr.unice.polytech.si3.qgl.iaad.player.actions.Decision;
+import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.protocol.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.protocol.StopExploration;
-import fr.unice.polytech.si3.qgl.iaad.strategy.naive.NaiveStrategy;
+import fr.unice.polytech.si3.qgl.iaad.strategy.simple.NaiveStrategy;
 
 /**
  * @author Alexandre Clement
