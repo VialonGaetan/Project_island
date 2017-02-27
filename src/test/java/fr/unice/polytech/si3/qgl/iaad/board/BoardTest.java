@@ -2,7 +2,6 @@ package fr.unice.polytech.si3.qgl.iaad.board;
 
 import fr.unice.polytech.si3.qgl.iaad.Biome;
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.Exception.InvalidMapException;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -25,7 +24,7 @@ public class BoardTest
     public void before() { board = new Board(); }
 
     @Test
-    public void IslandMapConstructor() throws InvalidMapException
+    public void IslandMapConstructor()
     {
         assertEquals(0, board.getTile(new Point()).getBiomes().size());
         assertTrue(board.isOnBoard(new Point()));

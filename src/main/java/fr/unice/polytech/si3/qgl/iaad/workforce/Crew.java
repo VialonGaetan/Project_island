@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad.ground;
+package fr.unice.polytech.si3.qgl.iaad.workforce;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
 

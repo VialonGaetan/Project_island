@@ -1,7 +1,7 @@
-package fr.unice.polytech.si3.qgl.iaad.ground;
+package fr.unice.polytech.si3.qgl.iaad.board;
 
 import fr.unice.polytech.si3.qgl.iaad.Direction;
-import fr.unice.polytech.si3.qgl.iaad.ground.Mesurer;
+import fr.unice.polytech.si3.qgl.iaad.board.Mesurer;
 import fr.unice.polytech.si3.qgl.iaad.board.Board;
 import fr.unice.polytech.si3.qgl.iaad.board.Creek;
 import fr.unice.polytech.si3.qgl.iaad.board.EmergencySite;
