@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.future;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Board;
+import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Creek;
 
 /**
@@ -8,11 +8,11 @@ import fr.unice.polytech.si3.qgl.iaad.util.map.Creek;
  */
 public interface IMesurer {
 
-    static Creek findClosestCreek(Board board) {
+    static Creek findClosestCreek(IslandMap islandMap) {
         return null;
     }
 
-    static String findClosestCreekId(Board board) {
+    static String findClosestCreekId(IslandMap islandMap) {
         return null;
     }
 
