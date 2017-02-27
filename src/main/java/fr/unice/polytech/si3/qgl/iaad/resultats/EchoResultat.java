@@ -16,7 +16,7 @@ public class EchoResultat
         this.result = result;
     }
 
-    public int getCots()
+    public int getCost()
     {
         return result.getCost();
     }

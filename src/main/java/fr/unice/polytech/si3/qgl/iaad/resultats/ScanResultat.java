@@ -19,7 +19,7 @@ public class ScanResultat {
         this.result = result;
     }
 
-    public int getCots(){return result.getCost();}
+    public int getCost(){return result.getCost();}
 
     public List<Biome> getBiomes(){
         return result.getBiomes();

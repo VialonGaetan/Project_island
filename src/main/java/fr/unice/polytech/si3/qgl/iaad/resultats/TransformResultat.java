@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.resultats;
 
 import fr.unice.polytech.si3.qgl.iaad.actions.Transform;
+import fr.unice.polytech.si3.qgl.iaad.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.format.json.JsonResult;
 
 /**
@@ -9,13 +10,13 @@ import fr.unice.polytech.si3.qgl.iaad.format.json.JsonResult;
  */
 public class TransformResultat {
 
-    JsonResult result;
+    Result result;
 
-    TransformResultat(JsonResult result) {
+    TransformResultat(Result result) {
         this.result = result;
     }
 
-    public int getCots(){return result.getCost();}
+    public int getCost(){return result.getCost();}
 
     public int getTransformProduction(){
         return result.getTransformProduction();

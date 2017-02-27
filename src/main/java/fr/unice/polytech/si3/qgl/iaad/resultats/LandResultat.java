@@ -14,5 +14,5 @@ public class LandResultat {
         this.result = result;
     }
 
-    public int getCots(){return result.getCost();}
+    public int getCost(){return result.getCost();}
 }

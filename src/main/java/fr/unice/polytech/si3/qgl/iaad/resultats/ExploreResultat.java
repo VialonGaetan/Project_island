@@ -17,7 +17,7 @@ public class ExploreResultat {
         this.result = result;
     }
 
-    public int getCots(){return result.getCost();}
+    public int getCost(){return result.getCost();}
 
     public List<ResourceInformation> getResourcesExplored(){
         return result.getResourcesExplored();
