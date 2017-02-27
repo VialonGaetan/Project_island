@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.action;
 
 import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
-import fr.unice.polytech.si3.qgl.iaad.player.actions.*;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.*;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -14,7 +14,7 @@ public class StandardContractTest
     @Test
     public void fishContract() throws Exception
     {
-        Contract contract = new StandardContract(Resource.FISH, 1000);
+        Contract contract = new Contract(Resource.FISH, 1000);
         assertEquals(1000, contract.getRemainingAmount());
         assertFalse(contract.isComplete());
 

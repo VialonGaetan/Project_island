@@ -1,9 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
 import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
-import fr.unice.polytech.si3.qgl.iaad.util.contract.StandardContract;
-import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,7 +42,7 @@ class JsonContext implements Context
             jsonContract = jsonArray.getJSONObject(i);
             resource = Resource.valueOf(jsonContract.get(JsonArguments.RESOURCE.toString()).toString());
             amount = jsonContract.getInt(JsonArguments.AMOUNT.toString());
-            contract = new StandardContract(resource, amount);
+            contract = new Contract(resource, amount);
             retrievedContracts.add(contract);
         }
         return retrievedContracts;

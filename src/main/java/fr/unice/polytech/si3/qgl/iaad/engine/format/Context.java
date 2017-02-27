@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 
 import java.util.List;
 
