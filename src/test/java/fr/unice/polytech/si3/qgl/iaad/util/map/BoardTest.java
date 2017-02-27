@@ -17,57 +17,57 @@ import static org.junit.Assert.*;
  */
 public class BoardTest
 {
-    private Board board;
+    private IslandMap islandMap;
 
     @Before
-    public void before() { board = new Board(); }
+    public void before() { islandMap = new IslandMap(); }
 
     @Test
     public void IslandMapConstructor()
     {
-        assertEquals(0, board.getTile(new Point()).getBiomes().size());
-        assertTrue(board.isOnBoard(new Point()));
+        assertEquals(0, islandMap.getTile(new Point()).getBiomes().size());
+        assertTrue(islandMap.isOnBoard(new Point()));
     }
 
     @Ignore
     @Test
     public void grow()
     {
-        board.grow(Direction.E, 1);
-        assertTrue(board.isOnBoard(new Point()));
-        assertTrue(board.isOnBoard(new Point(1, 0)));
+        islandMap.grow(Direction.E, 1);
+        assertTrue(islandMap.isOnBoard(new Point()));
+        assertTrue(islandMap.isOnBoard(new Point(1, 0)));
 
-        board.grow(Direction.S, 1);
-        assertTrue(board.isOnBoard(new Point()));
-        assertTrue(board.isOnBoard(new Point(1, 0)));
-        assertTrue(board.isOnBoard(new Point(1, -1)));
+        islandMap.grow(Direction.S, 1);
+        assertTrue(islandMap.isOnBoard(new Point()));
+        assertTrue(islandMap.isOnBoard(new Point(1, 0)));
+        assertTrue(islandMap.isOnBoard(new Point(1, -1)));
 
-        board.grow(Direction.W, 1);
-        assertTrue(board.isOnBoard(new Point()));
-        assertTrue(board.isOnBoard(new Point(1, 0)));
-        assertTrue(board.isOnBoard(new Point(1, -1)));
-        assertTrue(board.isOnBoard(new Point(0, -1)));
+        islandMap.grow(Direction.W, 1);
+        assertTrue(islandMap.isOnBoard(new Point()));
+        assertTrue(islandMap.isOnBoard(new Point(1, 0)));
+        assertTrue(islandMap.isOnBoard(new Point(1, -1)));
+        assertTrue(islandMap.isOnBoard(new Point(0, -1)));
 
-        board.grow(Direction.N, 1);
-        assertTrue(board.isOnBoard(new Point()));
-        assertTrue(board.isOnBoard(new Point(1, 0)));
-        assertTrue(board.isOnBoard(new Point(1, -1)));
-        assertTrue(board.isOnBoard(new Point(0, -1)));
+        islandMap.grow(Direction.N, 1);
+        assertTrue(islandMap.isOnBoard(new Point()));
+        assertTrue(islandMap.isOnBoard(new Point(1, 0)));
+        assertTrue(islandMap.isOnBoard(new Point(1, -1)));
+        assertTrue(islandMap.isOnBoard(new Point(0, -1)));
     }
 
     @Ignore
     @Test
     public void isOnBoard()
     {
-        assertTrue(board.isOnBoard(new Point()));
-        assertFalse(board.isOnBoard(new Point(0, 1)));
-        board.grow(Direction.E, 2);
-        assertTrue(board.isOnBoard(new Point(1, 0)));
-        assertTrue(board.isOnBoard(new Point(2, 0)));
-        board.grow(Direction.S, 10);
-        assertTrue(board.isOnBoard(new Point(1, -2)));
-        assertFalse(board.isOnBoard(new Point(0, 3)));
-        assertFalse(board.isOnBoard(new Point(2, -11)));
+        assertTrue(islandMap.isOnBoard(new Point()));
+        assertFalse(islandMap.isOnBoard(new Point(0, 1)));
+        islandMap.grow(Direction.E, 2);
+        assertTrue(islandMap.isOnBoard(new Point(1, 0)));
+        assertTrue(islandMap.isOnBoard(new Point(2, 0)));
+        islandMap.grow(Direction.S, 10);
+        assertTrue(islandMap.isOnBoard(new Point(1, -2)));
+        assertFalse(islandMap.isOnBoard(new Point(0, 3)));
+        assertFalse(islandMap.isOnBoard(new Point(2, -11)));
     }
 
     @Test
@@ -76,44 +76,44 @@ public class BoardTest
         List<Biome> biomes = new ArrayList<>();
         biomes.add(Biome.ALPINE);
 
-        assertEquals(0, board.getTile(new Point()).getBiomes().size());
+        assertEquals(0, islandMap.getTile(new Point()).getBiomes().size());
         Tile tile = new Tile();
         tile.addBiomes(biomes);
-        board.getTile(new Point()).addBiomes(biomes);
-        assertEquals(1, board.getTile(new Point()).getBiomes().size());
-        assertEquals(Biome.ALPINE, board.getTile(new Point()).getBiomes().get(0));
-        board.grow(Direction.E, 1);
-        assertEquals(0, board.getTile(new Point(1, 0)).getBiomes().size());
-        assertNull(board.getTile(new Point(2, 0)));
+        islandMap.getTile(new Point()).addBiomes(biomes);
+        assertEquals(1, islandMap.getTile(new Point()).getBiomes().size());
+        assertEquals(Biome.ALPINE, islandMap.getTile(new Point()).getBiomes().get(0));
+        islandMap.grow(Direction.E, 1);
+        assertEquals(0, islandMap.getTile(new Point(1, 0)).getBiomes().size());
+        assertNull(islandMap.getTile(new Point(2, 0)));
     }
 
     @Test
     public void isOnBoardAfterZoom()
     {
-        board.zoom();
-        assertTrue(board.isOnBoard(new Point(-1, 1)));
-        assertTrue(board.isOnBoard(new Point(1, 1)));
-        assertTrue(board.isOnBoard(new Point(0, 1)));
-        assertTrue(board.isOnBoard(new Point(-1, 0)));
-        assertTrue(board.isOnBoard(new Point()));
-        assertTrue(board.isOnBoard(new Point(1, 0)));
-        assertTrue(board.isOnBoard(new Point(-1, -1)));
-        assertTrue(board.isOnBoard(new Point(0, -1)));
-        assertTrue(board.isOnBoard(new Point(1, -1)));
+        islandMap.zoom();
+        assertTrue(islandMap.isOnBoard(new Point(-1, 1)));
+        assertTrue(islandMap.isOnBoard(new Point(1, 1)));
+        assertTrue(islandMap.isOnBoard(new Point(0, 1)));
+        assertTrue(islandMap.isOnBoard(new Point(-1, 0)));
+        assertTrue(islandMap.isOnBoard(new Point()));
+        assertTrue(islandMap.isOnBoard(new Point(1, 0)));
+        assertTrue(islandMap.isOnBoard(new Point(-1, -1)));
+        assertTrue(islandMap.isOnBoard(new Point(0, -1)));
+        assertTrue(islandMap.isOnBoard(new Point(1, -1)));
     }
 
     @Test
     public void getTileAfterZoom()
     {
-        board.zoom();
-        assertTrue(board.getTile(new Point(-1, 1)).equals(new Tile()));
-        assertTrue(board.getTile(new Point(1, 1)).equals(new Tile()));
-        assertTrue(board.getTile(new Point(0, 1)).equals(new Tile()));
-        assertTrue(board.getTile(new Point(-1, 0)).equals(new Tile()));
-        assertTrue(board.getTile(new Point()).equals(new Tile()));
-        assertTrue(board.getTile(new Point(1, 0)).equals(new Tile()));
-        assertTrue(board.getTile(new Point(-1, -1)).equals(new Tile()));
-        assertTrue(board.getTile(new Point(0, -1)).equals(new Tile()));
-        assertTrue(board.getTile(new Point(1, -1)).equals(new Tile()));
+        islandMap.zoom();
+        assertTrue(islandMap.getTile(new Point(-1, 1)).equals(new Tile()));
+        assertTrue(islandMap.getTile(new Point(1, 1)).equals(new Tile()));
+        assertTrue(islandMap.getTile(new Point(0, 1)).equals(new Tile()));
+        assertTrue(islandMap.getTile(new Point(-1, 0)).equals(new Tile()));
+        assertTrue(islandMap.getTile(new Point()).equals(new Tile()));
+        assertTrue(islandMap.getTile(new Point(1, 0)).equals(new Tile()));
+        assertTrue(islandMap.getTile(new Point(-1, -1)).equals(new Tile()));
+        assertTrue(islandMap.getTile(new Point(0, -1)).equals(new Tile()));
+        assertTrue(islandMap.getTile(new Point(1, -1)).equals(new Tile()));
     }
 }
