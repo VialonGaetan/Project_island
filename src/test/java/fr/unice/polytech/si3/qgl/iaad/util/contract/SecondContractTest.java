@@ -1,11 +1,11 @@
 package fr.unice.polytech.si3.qgl.iaad.util.contract;
 
-import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
+import fr.unice.polytech.si3.qgl.iaad.util.contract.SecondContract;
 import org.json.JSONObject;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -23,35 +23,16 @@ import static org.mockito.Mockito.when;
 public class SecondContractTest {
 
     Context context;
-    JSONObject firstContext;
     SecondContract secondContract;
     private List<Contract> contracts;
 
-    @Before
-    public void defineContext() {
-
-        firstContext = new JSONObject("{ \n" +
-                "  \"men\": 12,\n" +
-                "  \"budget\": 10000,\n" +
-                "  \"contracts\": [\n" +
-                "    { \"amount\": 600, \"resource\": \"WOOD\" },\n" +
-                "    { \"amount\": 200, \"resource\": \"GLASS\" }\n" +
-                "  ],\n" +
-                "  \"heading\": \"W\"\n" +
-                "}");
-        //context = new Context(firstContext);
-
-    }
-
-    @Ignore
     @Before
     public void setUp() throws Exception
     {
         context = mock(Context.class);
         contracts = new ArrayList<>();
-        //contracts.add(new Contract(Resource.FISH, 1000));
-        //contracts.add(new StandardContract(Resource.GLASS, 50));
-
+        contracts.add(new StandardContract(Resource.FISH, 1000));
+        contracts.add(new StandardContract(Resource.GLASS, 50));
         when(context.getBudget()).thenReturn(10000);
         when(context.getHeading()).thenReturn(Direction.E);
         when(context.getNumberOfMen()).thenReturn(12);
@@ -60,20 +41,19 @@ public class SecondContractTest {
         this.secondContract.createSecondContract();
     }
 
-    @Ignore
+
     @Test
     public void createSecondContractTest(){
         Set listKeys=this.secondContract.getSecondContract().keySet();
         Iterator iterateur=listKeys.iterator();
-        while(iterateur.hasNext())
+        for (int i=0;i<secondContract.getSecondContract().size();i++)
         {
             assertTrue(Resource.isPrimary((Resource) iterateur.next()));
         }
-        assertTrue(this.secondContract.getSecondContract().get(Resource.WOOD)==1600);
-        assertTrue(this.secondContract.getSecondContract().get(Resource.QUARTZ)==2000);
+        assertTrue(this.secondContract.getSecondContract().get(Resource.FISH)==1000);
+        assertTrue(this.secondContract.getSecondContract().get(Resource.QUARTZ)==500);
     }
 
-    @Ignore
     @Test
     public void createSecondContractToBeCraftedTest(){
         Set listKeys=this.secondContract.getToBeCrafted().keySet();
@@ -82,7 +62,7 @@ public class SecondContractTest {
         {
             assertTrue(!Resource.isPrimary((Resource) iterateur.next()));
         }
-        assertTrue(this.secondContract.getToBeCrafted().get(Resource.GLASS)==200);
+        assertTrue(this.secondContract.getToBeCrafted().get(Resource.GLASS)==50);
     }
 }
 
