@@ -39,7 +39,7 @@ public class SecondContract {
         while(iterateur.hasNext())
         {
             Resource res = (Resource) iterateur.next();
-            if (!Resource.isPrimary(res)){
+            if (!res.isPrimary(res)){
                 toBeCrafted.put(res, initialContract.get(res));
                 Set listReagents =Resource.getRecipe(res).keySet();
                 Iterator iterator=listReagents.iterator();
@@ -53,7 +53,7 @@ public class SecondContract {
 
                 }
             }
-            if (Resource.isPrimary(res)){
+            if (res.isPrimary(res)){
                 if (this.secondContract.containsKey(res)) secondContract.put(res, this.secondContract.get(res)+initialContract.get(res));
                 else secondContract.put(res,initialContract.get(res));
             }

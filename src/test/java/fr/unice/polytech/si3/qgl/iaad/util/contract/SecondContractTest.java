@@ -44,9 +44,11 @@ public class SecondContractTest {
     public void createSecondContractTest(){
         Set listKeys=this.secondContract.getSecondContract().keySet();
         Iterator iterateur=listKeys.iterator();
+        Resource tmpRes;
         for (int i=0;i<secondContract.getSecondContract().size();i++)
         {
-            assertTrue(Resource.isPrimary((Resource) iterateur.next()));
+            tmpRes=((Resource)(iterateur.next()));
+            assertTrue(tmpRes.isPrimary(tmpRes));
         }
         assertTrue(this.secondContract.getSecondContract().get(Resource.FISH)==1000);
         assertTrue(this.secondContract.getSecondContract().get(Resource.QUARTZ)==500);
@@ -56,9 +58,12 @@ public class SecondContractTest {
     public void createSecondContractToBeCraftedTest(){
         Set listKeys=this.secondContract.getToBeCrafted().keySet();
         Iterator iterateur=listKeys.iterator();
+        Resource tmpRes;
+
         while(iterateur.hasNext())
         {
-            assertTrue(!Resource.isPrimary((Resource) iterateur.next()));
+            tmpRes=(Resource) iterateur.next();
+            assertTrue(!(tmpRes).isPrimary(tmpRes));
         }
         assertTrue(this.secondContract.getToBeCrafted().get(Resource.GLASS)==50);
     }
