@@ -1,15 +1,16 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.simple;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
-import fr.unice.polytech.si3.qgl.iaad.player.actions.Decision;
-import fr.unice.polytech.si3.qgl.iaad.player.actions.Echo;
-import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Element;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
-import fr.unice.polytech.si3.qgl.iaad.protocol.Protocol;
-import fr.unice.polytech.si3.qgl.iaad.protocol.StopExploration;
-import fr.unice.polytech.si3.qgl.iaad.player.results.EchoResultat;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Echo;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.results.EchoResultat;
+import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
+import fr.unice.polytech.si3.qgl.iaad.strategy.common.StopExploration;
+import fr.unice.polytech.si3.qgl.iaad.strategy.common.Turn;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Element;
+import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 
 import java.util.ArrayDeque;

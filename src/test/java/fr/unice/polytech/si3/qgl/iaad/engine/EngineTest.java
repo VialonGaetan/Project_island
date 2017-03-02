@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.engine;
 
 import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
-import fr.unice.polytech.si3.qgl.iaad.player.actions.ArgActions;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.ArgActions;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.StandardContract;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
