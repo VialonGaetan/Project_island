@@ -32,7 +32,7 @@ public enum Resource {
         this.name = name;
     }
 
-    public static Boolean isPrimary(Resource resource) {
+    public Boolean isPrimary(Resource resource) {
         switch (resource.getName()){
             case "FISH" : {
                 return true;
@@ -64,7 +64,7 @@ public enum Resource {
 
     public static HashMap<Resource, Integer> getRecipe(Resource resource){
         HashMap<Resource, Integer> recipe = new HashMap<>();
-        if (isPrimary(resource)) return null;
+        if (resource.isPrimary(resource)) return null;
         switch (resource.getName()){
             case "GLASS" : {
                 recipe.put(Resource.QUARTZ,10);

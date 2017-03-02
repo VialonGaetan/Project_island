@@ -1,10 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.util.contract;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
-import fr.unice.polytech.si3.qgl.iaad.util.contract.SecondContract;
-import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,9 +44,11 @@ public class SecondContractTest {
     public void createSecondContractTest(){
         Set listKeys=this.secondContract.getSecondContract().keySet();
         Iterator iterateur=listKeys.iterator();
+        Resource tmpRes;
         for (int i=0;i<secondContract.getSecondContract().size();i++)
         {
-            assertTrue(Resource.isPrimary((Resource) iterateur.next()));
+            tmpRes=((Resource)(iterateur.next()));
+            assertTrue(tmpRes.isPrimary(tmpRes));
         }
         assertTrue(this.secondContract.getSecondContract().get(Resource.FISH)==1000);
         assertTrue(this.secondContract.getSecondContract().get(Resource.QUARTZ)==500);
@@ -58,9 +58,12 @@ public class SecondContractTest {
     public void createSecondContractToBeCraftedTest(){
         Set listKeys=this.secondContract.getToBeCrafted().keySet();
         Iterator iterateur=listKeys.iterator();
+        Resource tmpRes;
+
         while(iterateur.hasNext())
         {
-            assertTrue(!Resource.isPrimary((Resource) iterateur.next()));
+            tmpRes=(Resource) iterateur.next();
+            assertTrue(!(tmpRes).isPrimary(tmpRes));
         }
         assertTrue(this.secondContract.getToBeCrafted().get(Resource.GLASS)==50);
     }
