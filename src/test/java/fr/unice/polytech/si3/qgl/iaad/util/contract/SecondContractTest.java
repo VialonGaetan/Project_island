@@ -1,10 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.util.contract;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
-import fr.unice.polytech.si3.qgl.iaad.util.contract.SecondContract;
-import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 

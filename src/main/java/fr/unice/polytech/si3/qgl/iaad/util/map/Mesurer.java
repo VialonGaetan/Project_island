@@ -1,7 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.util.map;
 
-import fr.unice.polytech.si3.qgl.iaad.future.IMesurer;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,7 +9,7 @@ import java.util.Set;
 /**
  * Created by Théo on 13/02/2017.
  */
-public final class Mesurer implements IMesurer{
+public final class Mesurer{
 
 
     private static List<Point> listCreek= new ArrayList<>();
