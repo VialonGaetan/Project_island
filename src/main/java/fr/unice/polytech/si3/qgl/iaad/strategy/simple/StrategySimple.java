@@ -1,7 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.simple;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
@@ -18,8 +19,8 @@ public class StrategySimple implements Protocol
 
     public StrategySimple(Context context)
     {
-        Direction heading = context.getHeading();
-        initialisation = new EchoInDirection(context, new IslandMap(), new Drone(heading), heading, heading.getRight(), heading.getLeft());
+        Compass heading = context.getHeading();
+        initialisation = new EchoInDirection(context, new IslandMap(), new Drone(heading), heading, heading.get(Direction.RIGHT), heading.get(Direction.LEFT));
     }
 
     @Override

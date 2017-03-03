@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.simple;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Heading;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Stop;
@@ -18,9 +18,9 @@ class Turn implements Protocol
     private final Protocol exit;
     private final IslandMap islandMap;
     private final Drone drone;
-    private final Direction direction;
+    private final Compass direction;
 
-    Turn(Protocol exit, IslandMap islandMap, Drone drone, Direction direction)
+    Turn(Protocol exit, IslandMap islandMap, Drone drone, Compass direction)
     {
         this.exit = exit;
         this.islandMap = islandMap;

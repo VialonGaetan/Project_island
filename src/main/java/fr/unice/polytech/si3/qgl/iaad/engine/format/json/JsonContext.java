@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
@@ -17,13 +17,13 @@ import java.util.List;
 class JsonContext implements Context
 {
     private final int budget;
-    private final Direction heading;
+    private final Compass heading;
     private final int men;
     private final List<Contract> contracts;
 
     JsonContext(JSONObject jsonObject)
     {
-        heading = Direction.valueOf(jsonObject.get(JsonArguments.HEADING.toString()).toString());
+        heading = Compass.valueOf(jsonObject.get(JsonArguments.HEADING.toString()).toString());
         budget = jsonObject.getInt(JsonArguments.BUDGET.toString());
         men = jsonObject.getInt(JsonArguments.MEN.toString());
         contracts = retrievesContracts(jsonObject);
@@ -67,7 +67,7 @@ class JsonContext implements Context
     }
 
     @Override
-    public Direction getHeading()
+    public Compass getHeading()
     {
         return heading;
     }

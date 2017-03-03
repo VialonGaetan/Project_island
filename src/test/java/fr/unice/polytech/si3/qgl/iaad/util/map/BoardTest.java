@@ -33,22 +33,22 @@ public class BoardTest
     @Test
     public void grow()
     {
-        islandMap.grow(Direction.E, 1);
+        islandMap.grow(Compass.E, 1);
         assertTrue(islandMap.isOnBoard(new Point()));
         assertTrue(islandMap.isOnBoard(new Point(1, 0)));
 
-        islandMap.grow(Direction.S, 1);
+        islandMap.grow(Compass.S, 1);
         assertTrue(islandMap.isOnBoard(new Point()));
         assertTrue(islandMap.isOnBoard(new Point(1, 0)));
         assertTrue(islandMap.isOnBoard(new Point(1, -1)));
 
-        islandMap.grow(Direction.W, 1);
+        islandMap.grow(Compass.W, 1);
         assertTrue(islandMap.isOnBoard(new Point()));
         assertTrue(islandMap.isOnBoard(new Point(1, 0)));
         assertTrue(islandMap.isOnBoard(new Point(1, -1)));
         assertTrue(islandMap.isOnBoard(new Point(0, -1)));
 
-        islandMap.grow(Direction.N, 1);
+        islandMap.grow(Compass.N, 1);
         assertTrue(islandMap.isOnBoard(new Point()));
         assertTrue(islandMap.isOnBoard(new Point(1, 0)));
         assertTrue(islandMap.isOnBoard(new Point(1, -1)));
@@ -61,10 +61,10 @@ public class BoardTest
     {
         assertTrue(islandMap.isOnBoard(new Point()));
         assertFalse(islandMap.isOnBoard(new Point(0, 1)));
-        islandMap.grow(Direction.E, 2);
+        islandMap.grow(Compass.E, 2);
         assertTrue(islandMap.isOnBoard(new Point(1, 0)));
         assertTrue(islandMap.isOnBoard(new Point(2, 0)));
-        islandMap.grow(Direction.S, 10);
+        islandMap.grow(Compass.S, 10);
         assertTrue(islandMap.isOnBoard(new Point(1, -2)));
         assertFalse(islandMap.isOnBoard(new Point(0, 3)));
         assertFalse(islandMap.isOnBoard(new Point(2, -11)));
@@ -82,7 +82,7 @@ public class BoardTest
         islandMap.getTile(new Point()).addBiomes(biomes);
         assertEquals(1, islandMap.getTile(new Point()).getBiomes().size());
         assertEquals(Biome.ALPINE, islandMap.getTile(new Point()).getBiomes().get(0));
-        islandMap.grow(Direction.E, 1);
+        islandMap.grow(Compass.E, 1);
         assertEquals(0, islandMap.getTile(new Point(1, 0)).getBiomes().size());
         assertNull(islandMap.getTile(new Point(2, 0)));
     }

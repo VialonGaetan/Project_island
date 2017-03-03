@@ -10,7 +10,7 @@ import java.util.*;
 public class IslandMap
 {
     private Map<Point, Tile> map;
-    private Map<Direction, Integer> dimensions;
+    private Map<Compass, Integer> dimensions;
 
     /**
      * IslandMap constructor
@@ -23,7 +23,7 @@ public class IslandMap
 
         map.put(new Point(), new Tile());
 
-        for(Direction direction : Direction.values())
+        for(Compass direction : Compass.values())
         {
             dimensions.put(direction, 0);
         }
@@ -34,7 +34,7 @@ public class IslandMap
      * @param direction where the IslandMap has to grow
      * @param range, the number of points
      */
-    public void grow(Direction direction, int range) { dimensions.put(direction, dimensions.get(direction)+range); }
+    public void grow(Compass direction, int range) { dimensions.put(direction, dimensions.get(direction)+range); }
 
     /**
      * Check if the such point is located on the IslandMap
@@ -45,9 +45,9 @@ public class IslandMap
     {
         boolean test = false;
 
-        if((point.x >= -dimensions.get(Direction.W)) && (point.x <= dimensions.get(Direction.E)))
+        if((point.x >= -dimensions.get(Compass.W)) && (point.x <= dimensions.get(Compass.E)))
         {
-            if((point.y <= dimensions.get(Direction.S)) && (point.y >= -dimensions.get(Direction.N)))
+            if((point.y <= dimensions.get(Compass.S)) && (point.y >= -dimensions.get(Compass.N)))
             {
                 test = true;
             }
@@ -121,7 +121,7 @@ public class IslandMap
             groundMap.putAll(getGroundTiles(point, map.get(point)));
         }
 
-        for(Direction direction : Direction.values())
+        for(Compass direction : Compass.values())
         {
             dimensions.put(direction, dimensions.get(direction)*3+1);
         }
@@ -135,7 +135,7 @@ public class IslandMap
      */
     public Set<Point> getPoints() { return map.keySet(); }
 
-    public int getDimension(Direction direction)
+    public int getDimension(Compass direction)
     {
         return dimensions.get(direction);
     }
