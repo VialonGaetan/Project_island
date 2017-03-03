@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.util.map;
 
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceInformation;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class Tile
     private List<Creek> creeks;
     private List<EmergencySite> emergencySites;
     private List<ResourceInformation> resourceInformations;
+    private List<Resource> exploitedResources;
     private boolean isAlreadyScanned, isAlreadyVisited, isAlreadyScouted, isAlreadyGlimpsed;
 
     public Tile()
@@ -24,6 +26,7 @@ public class Tile
         creeks = new ArrayList<>();
         emergencySites = new ArrayList<>();
         resourceInformations = new ArrayList<>();
+        exploitedResources = new ArrayList<>();
     }
 
     public Tile(Tile tile)
@@ -32,6 +35,7 @@ public class Tile
         creeks = new ArrayList<>(tile.creeks);
         emergencySites = new ArrayList<>(tile.emergencySites);
         resourceInformations = new ArrayList<>(tile.resourceInformations);
+        exploitedResources = new ArrayList<>(tile.exploitedResources);
         isAlreadyVisited = tile.isAlreadyVisited;
         isAlreadyScanned = tile.isAlreadyScanned;
         isAlreadyScouted = tile.isAlreadyScouted;
@@ -49,7 +53,7 @@ public class Tile
         Tile tile = (Tile) o;
         boolean test = false;
 
-        if(biomes.equals(tile.biomes) && creeks.equals(tile.creeks) && emergencySites.equals(tile.emergencySites) && resourceInformations.equals(tile.resourceInformations))
+        if(biomes.equals(tile.biomes) && creeks.equals(tile.creeks) && emergencySites.equals(tile.emergencySites) && resourceInformations.equals(tile.resourceInformations) && exploitedResources.equals(tile.exploitedResources))
         {
             if(isAlreadyVisited == tile.isAlreadyVisited && isAlreadyScanned == tile.isAlreadyScanned && isAlreadyScouted == tile.isAlreadyScouted && isAlreadyGlimpsed == tile.isAlreadyGlimpsed)
             {
@@ -59,6 +63,29 @@ public class Tile
 
         return test;
     }
+
+    private void exploitResource(Resource resource)
+    {
+        for(Resource current : exploitedResources)
+        {
+            if(current == resource)
+            {
+                return;
+            }
+        }
+
+        exploitedResources.add(resource);
+    }
+
+    public void exploitResources(List<Resource> resources)
+    {
+        for(Resource resource : resources)
+        {
+            exploitResource(resource);
+        }
+    }
+
+    public boolean resourceAlreadyExploited(Resource resource) { return exploitedResources.contains(resource); }
 
     public void addBiomes(List<Biome> biomes)
     {
