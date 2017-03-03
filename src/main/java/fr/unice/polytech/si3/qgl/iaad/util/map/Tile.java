@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.util.map;
 
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceInformation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +15,15 @@ public class Tile
     private List<Biome> biomes;
     private List<Creek> creeks;
     private List<EmergencySite> emergencySites;
-    private boolean isAlreadyScanned;
-    private boolean isAlreadyVisited;
-    private boolean isAlreadyScouted;
-    private boolean isAlreadyGlimpsed;
+    private List<ResourceInformation> resourceInformations;
+    private boolean isAlreadyScanned, isAlreadyVisited, isAlreadyScouted, isAlreadyGlimpsed;
 
     public Tile()
     {
         biomes = new ArrayList<>();
         creeks = new ArrayList<>();
         emergencySites = new ArrayList<>();
+        resourceInformations = new ArrayList<>();
     }
 
     public Tile(Tile tile)
@@ -31,6 +31,7 @@ public class Tile
         biomes = new ArrayList<>(tile.biomes);
         creeks = new ArrayList<>(tile.creeks);
         emergencySites = new ArrayList<>(tile.emergencySites);
+        resourceInformations = new ArrayList<>(tile.resourceInformations);
         isAlreadyVisited = tile.isAlreadyVisited;
         isAlreadyScanned = tile.isAlreadyScanned;
         isAlreadyScouted = tile.isAlreadyScouted;
@@ -48,7 +49,7 @@ public class Tile
         Tile tile = (Tile) o;
         boolean test = false;
 
-        if(biomes.equals(tile.biomes) && creeks.equals(tile.creeks) && emergencySites.equals(tile.emergencySites))
+        if(biomes.equals(tile.biomes) && creeks.equals(tile.creeks) && emergencySites.equals(tile.emergencySites) && resourceInformations.equals(tile.resourceInformations))
         {
             if(isAlreadyVisited == tile.isAlreadyVisited && isAlreadyScanned == tile.isAlreadyScanned && isAlreadyScouted == tile.isAlreadyScouted && isAlreadyGlimpsed == tile.isAlreadyGlimpsed)
             {
@@ -64,6 +65,14 @@ public class Tile
         for(Biome biome : biomes)
         {
             addBiome(biome);
+        }
+    }
+
+    public void addResourceInformations(List<ResourceInformation> resourceInformations)
+    {
+        for(ResourceInformation resourceInformation : resourceInformations)
+        {
+            addResourceInformation(resourceInformation);
         }
     }
 
@@ -88,6 +97,8 @@ public class Tile
     public List<Creek> getCreeks() { return creeks; }
 
     public List<EmergencySite> getEmergencySites() { return emergencySites; }
+
+    public List<ResourceInformation> getResourceInformations() { return resourceInformations; }
 
     public boolean isAlreadyScanned() { return isAlreadyScanned; }
 
@@ -142,5 +153,18 @@ public class Tile
         }
 
         emergencySites.add(emergencySite);
+    }
+
+    private void addResourceInformation(ResourceInformation resourceInformation)
+    {
+        for(ResourceInformation current : resourceInformations)
+        {
+            if(current.equals(resourceInformation))
+            {
+                return;
+            }
+        }
+
+        resourceInformations.add(resourceInformation);
     }
 }
