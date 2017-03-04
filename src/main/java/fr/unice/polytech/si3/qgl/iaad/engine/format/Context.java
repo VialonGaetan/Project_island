@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 
 import java.util.List;
 
@@ -17,5 +17,5 @@ public interface Context
 
     List<Contract> getContracts();
 
-    Direction getHeading();
+    Compass getHeading();
 }

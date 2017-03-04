@@ -35,8 +35,8 @@ public class MesurerTest {
         listCreek2.add(creek2);
         emergencySites.add(emergencySite);
         islandMap =new IslandMap();
-        islandMap.grow(Direction.E,10);
-        islandMap.grow(Direction.S,10);
+        islandMap.grow(Compass.E,10);
+        islandMap.grow(Compass.S,10);
         islandMap.getTile(new Point()).addCreeks(listCreek1);
         islandMap.getTile(new Point(5,0)).addCreeks(listCreek2);
         islandMap.getTile(new Point(0,0)).addEmergencySites(emergencySites);

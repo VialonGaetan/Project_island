@@ -4,25 +4,73 @@ import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 
 /**
  * @author Alexandre Clement
- * @since 13/02/2017.
+ * @since 21/02/2017.
  */
-public interface Contract
+public class Contract
 {
-    Resource getResource();
+    private final Resource resource;
+    private final int amount;
+    private int collected;
 
-    int getAmount();
+    public Contract(Resource resource, int amount)
+    {
+        this.resource = resource;
+        this.amount = amount;
+        collected = 0;
+    }
 
-    void collect(int amount);
+    public Resource getResource()
+    {
+        return resource;
+    }
 
-    int getCollectedAmount();
+    public int getAmount()
+    {
+        return amount;
+    }
 
-    default int getRemainingAmount()
+    public void collect(int amount)
+    {
+        collected += amount;
+    }
+
+    public int getCollectedAmount()
+    {
+        return collected;
+    }
+
+    public int getRemainingAmount()
     {
         return Math.max(0, getAmount() - getCollectedAmount());
     }
 
-    default boolean isComplete()
+    public boolean isComplete()
     {
         return getRemainingAmount() == 0;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Contract that = (Contract) o;
+
+        boolean sameAmount = amount == that.amount;
+        boolean sameCollectedAmount = collected == that.collected;
+        boolean sameResource = resource == that.resource;
+        return sameAmount && sameCollectedAmount && sameResource;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = resource.hashCode();
+        result = 31 * result + amount;
+        result = 31 * result + collected;
+        return result;
     }
 }
