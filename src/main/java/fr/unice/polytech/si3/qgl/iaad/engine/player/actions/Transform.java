@@ -7,8 +7,11 @@ import org.json.JSONObject;
  * @author Gaetan Vialon
  * Created the 15/11/2016.
  */
-public class Transform extends Ground{
+public class Transform implements Decision{
 
+    private ArgActions actionType;
+    private Resource resource, resource1;
+    private int nbResource, nbResource1;
 
     public Transform(Resource resource, Resource resource1, int nbResource, int nbResource1) {
         this.resource = resource;
@@ -28,19 +31,7 @@ public class Transform extends Ground{
     }
 
     @Override
-    public Ground putResults(String result) {
-        this.result = result;
-        return this;
-    }
-
-    @Override
-    public String getKind(){
-        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getString(ArgResult.KIND.getName());
-    }
-
-
-    @Override
-    public int getProduction(){
-        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getInt(ArgResult.PRODUCTION.getName());
+    public ArgActions getActionEnum() {
+        return actionType;
     }
 }

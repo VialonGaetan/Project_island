@@ -10,7 +10,7 @@ public class TransformResultat {
 
     Result result;
 
-    TransformResultat(Result result) {
+    public TransformResultat(Result result) {
         this.result = result;
     }
 

@@ -7,24 +7,18 @@ import org.json.JSONObject;
  * @author Gaetan Vialon
  * Created the 15/11/2016.
  */
-public class Heading extends Area{
-
-
+public class Heading implements Decision{
+    private Compass direction;
+    ArgActions actionType;
     public Heading(Compass direction) {
 
         this.direction = direction;
         actionType = ArgActions.HEADING;
     }
 
-    /**
-     * Créé un objet HeadingResult
-     * @param result de l'explorer
-     * @return HeadingResult
-     */
     @Override
-    public Area putResults(String result) {
-        this.result = result;
-        return this;
+    public ArgActions getActionEnum() {
+        return actionType;
     }
 
     @Override

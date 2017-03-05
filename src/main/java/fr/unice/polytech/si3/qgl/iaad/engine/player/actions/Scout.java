@@ -7,8 +7,10 @@ import org.json.JSONObject;
  * @author Gaetan Vialon
  * Created the 15/11/2016.
  */
-public class Scout extends Ground {
+public class Scout implements Decision {
 
+    private Compass direction;
+    private ArgActions actionType;
 
     public Scout(Compass direction) {
         this.direction = direction;
@@ -25,26 +27,7 @@ public class Scout extends Ground {
     }
 
     @Override
-    public int nbResources(){ return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.RESOURCES.getName()).length();}
-
-    @Override
-    public String getResource(int n){
-        try{
-            return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getJSONArray(ArgResult.RESOURCES.getName()).getString(n);
-        }
-        catch (RuntimeException e){
-            return null;
-        }
-    }
-
-    @Override
-    public int getAltitude(){
-        return new JSONObject(result).getJSONObject(ArgResult.EXTRAS.getName()).getInt(ArgResult.ALTITUDE.getName());
-    }
-
-    @Override
-    public Ground putResults(String result) {
-        this.result = result;
-        return this;
+    public ArgActions getActionEnum() {
+        return actionType;
     }
 }

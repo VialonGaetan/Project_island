@@ -28,4 +28,17 @@ public class ResourceInformation
     {
         return resourceCondition;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        ResourceInformation resourceInformation = (ResourceInformation) o;
+
+        return (resource == resourceInformation.resource && resourceAmount == resourceInformation.resourceAmount && resourceCondition == resourceInformation.resourceCondition);
+    }
 }

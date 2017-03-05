@@ -7,7 +7,10 @@ import org.json.JSONObject;
  * @author Gaetan Vialon
  * Created the 15/11/2016.
  */
-public class Move_to extends Ground {
+public class Move_to implements Decision {
+
+    private Compass direction;
+    private ArgActions actionType;
 
     public Move_to(Compass direction) {
         this.direction = direction;
@@ -24,8 +27,7 @@ public class Move_to extends Ground {
     }
 
     @Override
-    public Ground putResults(String result) {
-        this.result = result;
-        return this;
+    public ArgActions getActionEnum() {
+        return actionType;
     }
 }
