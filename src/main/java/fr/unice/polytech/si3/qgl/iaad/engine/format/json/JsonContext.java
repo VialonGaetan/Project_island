@@ -1,8 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
-import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
+import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created on 10/11/2016.
+ *
  * @author Gaetan VIALON
  */
 class JsonContext implements Context

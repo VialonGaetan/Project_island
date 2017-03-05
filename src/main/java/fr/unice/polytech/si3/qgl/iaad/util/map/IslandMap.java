@@ -30,14 +30,14 @@ public class IslandMap
     }
 
     /**
-     * Grow the IslandMap in a direction of a number of points
+     * Grow the IslandMap in a get of a number of points
      * @param direction where the IslandMap has to grow
      * @param range, the number of points
      */
     public void grow(Compass direction, int range) { dimensions.put(direction, dimensions.get(direction)+range); }
 
     /**
-     * Check if the such point is located on the IslandMap
+     * EchoCheck if the such point is located on the IslandMap
      * @param point, the point to analyze
      * @return true if the point is on the IslandMap, false otherwise
      */

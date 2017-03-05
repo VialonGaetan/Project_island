@@ -1,26 +1,23 @@
-package fr.unice.polytech.si3.qgl.iaad.strategy.simple;
+package fr.unice.polytech.si3.qgl.iaad.strategy.advanced;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 
 /**
  * @author Alexandre Clement
- * @since 21/02/2017.
+ * @since 02/03/2017.
  */
-public class StrategySimple implements Protocol
+public class AdvancedStrategy implements Protocol
 {
     private final Protocol initialisation;
 
-    public StrategySimple(Context context)
+    public AdvancedStrategy(Context context, IslandMap islandMap, Drone drone)
     {
-        Compass heading = context.getHeading();
-        initialisation = new EchoInDirection(context, new IslandMap(), new Drone(heading), heading, heading.get(Direction.RIGHT), heading.get(Direction.LEFT));
+        initialisation = new Initialisation(context, islandMap, drone);
     }
 
     @Override

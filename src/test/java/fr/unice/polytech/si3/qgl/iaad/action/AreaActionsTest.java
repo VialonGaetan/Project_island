@@ -17,11 +17,11 @@ public class AreaActionsTest {
 
     private Decision action;
     private String toJSON;
-    private Compass direction;
+    private Compass compass;
 
     @Before
     public void defineContext() {
-        direction = Compass.S;
+        compass = Compass.S;
     }
 
     @Test
@@ -35,7 +35,7 @@ public class AreaActionsTest {
 
     @Test
     public void testEcho(){
-        action = new Echo(direction);
+        action = new Echo(compass);
         toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"echo\",\"parameters\":{\"direction\":\"S\"}}");
         assertNotEquals(toJSON,"{\"action\":\"echo\",\"parameters\":{\"direction\":\"N\"}}");
@@ -46,7 +46,7 @@ public class AreaActionsTest {
 
     @Test
     public void testHeading(){
-        action = new Heading(direction);
+        action = new Heading(compass);
         toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"heading\",\"parameters\":{\"direction\":\"S\"}}");
         assertNotEquals(toJSON,"{\"action\":\"heading\",\"parameters\":{\"direction\":\"N\"}}");
@@ -61,7 +61,7 @@ public class AreaActionsTest {
         toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"scan\"}");
         assertEquals(toJSON,new Scan().getJsonObject().toString());
-        assertNotEquals(action,new Echo(direction));
+        assertNotEquals(action,new Echo(compass));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class AreaActionsTest {
         toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"stop\"}");
         assertEquals(toJSON,new Stop().getJsonObject().toString());
-        assertNotEquals(action,new Heading(direction));
+        assertNotEquals(action,new Heading(compass));
     }
 
     @Test
@@ -81,12 +81,12 @@ public class AreaActionsTest {
         assertEquals(toJSON,new Land("id",22).getJsonObject().toString());
         assertNotEquals(toJSON,new Stop().getJsonObject().toString());
         assertNotEquals(toJSON,new Land("4532",22).getJsonObject().toString());
-        assertNotEquals(action,new Heading(direction));
+        assertNotEquals(action,new Heading(compass));
         action = new Land("4532",1);
         toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"land\",\"parameters\":{\"creek\":\"4532\",\"people\":1}}");
         assertEquals(toJSON,new Land("4532",1).getJsonObject().toString());
         assertNotEquals(toJSON,new Land("4532",22).getJsonObject().toString());
-        assertNotEquals(action,new Heading(direction));
+        assertNotEquals(action,new Heading(compass));
     }
 }

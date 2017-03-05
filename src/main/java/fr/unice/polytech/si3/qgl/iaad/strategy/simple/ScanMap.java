@@ -1,16 +1,18 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.simple;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
-import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
-import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Scan;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
-import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
-import fr.unice.polytech.si3.qgl.iaad.strategy.common.LandOnCreek;
-import fr.unice.polytech.si3.qgl.iaad.strategy.common.Protocol;
-import fr.unice.polytech.si3.qgl.iaad.strategy.common.StopExploration;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Scan;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.ScanResultat;
+import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
+import fr.unice.polytech.si3.qgl.iaad.strategy.common.FlyOnMap;
+import fr.unice.polytech.si3.qgl.iaad.strategy.common.LandOnCreek;
+import fr.unice.polytech.si3.qgl.iaad.strategy.common.StopExploration;
+import fr.unice.polytech.si3.qgl.iaad.strategy.common.Turn;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 
 import java.awt.*;

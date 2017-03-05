@@ -19,6 +19,12 @@ public class Drone
         location = new Point();
     }
 
+    public Drone(Drone drone)
+    {
+        this.heading = drone.getHeading();
+        this.location = new Point(drone.getLocation());
+    }
+
     public Point getLocation()
     {
         return new Point(location);
