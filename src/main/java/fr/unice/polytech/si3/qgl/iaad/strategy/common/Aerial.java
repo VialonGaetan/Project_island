@@ -61,7 +61,7 @@ public class Aerial
     {
         Point vector = direction.getVector();
         int range = islandMap.getDimension(direction);
-        return Math.abs(scalarProduct(vector, range) - distanceToCenter(direction));
+        return Math.abs(scalarProduct(vector, range)) - distanceToCenter(direction);
     }
 
     protected Compass getLargestSide()
