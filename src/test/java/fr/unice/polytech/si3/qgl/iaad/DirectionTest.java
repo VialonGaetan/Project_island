@@ -26,7 +26,7 @@ public class DirectionTest
         assertNotEquals(Compass.N, direction.get(Direction.RIGHT));
         assertNotEquals(direction.get(Direction.BACK), direction.get(Direction.RIGHT));
         assertNotEquals(direction.get(Direction.LEFT), direction.get(Direction.RIGHT));
-        assertNotEquals(direction.getVecteur(), direction.get(Direction.RIGHT));
+        assertNotEquals(direction.getVector(), direction.get(Direction.RIGHT));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class DirectionTest
         assertNotEquals(Compass.S, direction.get(Direction.LEFT));
         assertNotEquals(direction.get(Direction.BACK), direction.get(Direction.LEFT));
         assertNotEquals(direction.get(Direction.RIGHT), direction.get(Direction.LEFT));
-        assertNotEquals(direction.getVecteur(), direction.get(Direction.LEFT));
+        assertNotEquals(direction.getVector(), direction.get(Direction.LEFT));
     }
 
     @Test
@@ -52,31 +52,31 @@ public class DirectionTest
         assertNotEquals(Compass.N, direction.get(Direction.BACK));
         assertNotEquals(direction.get(Direction.RIGHT), direction.get(Direction.BACK));
         assertNotEquals(direction.get(Direction.LEFT), direction.get(Direction.BACK));
-        assertNotEquals(direction.getVecteur(), direction.get(Direction.BACK));
+        assertNotEquals(direction.getVector(), direction.get(Direction.BACK));
     }
 
     @Test
     public void getVecteurTest()
     {
         Compass direction = Compass.E;
-        assertEquals(new Point(1,0), direction.getVecteur());
-        assertNotEquals(new Point(1,1), direction.getVecteur());
-        assertNotEquals(new Point(0,0), direction.getVecteur());
-        assertNotEquals(new Point(0,1), direction.getVecteur());
+        assertEquals(new Point(1,0), direction.getVector());
+        assertNotEquals(new Point(1,1), direction.getVector());
+        assertNotEquals(new Point(0,0), direction.getVector());
+        assertNotEquals(new Point(0,1), direction.getVector());
         direction = Compass.W;
-        assertEquals(new Point(-1,0), direction.getVecteur());
-        assertNotEquals(new Point(1,1), direction.getVecteur());
-        assertNotEquals(new Point(0,0), direction.getVecteur());
-        assertNotEquals(new Point(0,1), direction.getVecteur());
+        assertEquals(new Point(-1,0), direction.getVector());
+        assertNotEquals(new Point(1,1), direction.getVector());
+        assertNotEquals(new Point(0,0), direction.getVector());
+        assertNotEquals(new Point(0,1), direction.getVector());
         direction = Compass.S;
-        assertEquals(new Point(0,1), direction.getVecteur());
-        assertNotEquals(new Point(1,1), direction.getVecteur());
-        assertNotEquals(new Point(0,0), direction.getVecteur());
-        assertNotEquals(new Point(1,0), direction.getVecteur());
+        assertEquals(new Point(0,1), direction.getVector());
+        assertNotEquals(new Point(1,1), direction.getVector());
+        assertNotEquals(new Point(0,0), direction.getVector());
+        assertNotEquals(new Point(1,0), direction.getVector());
         direction = Compass.N;
-        assertEquals(new Point(0,-1), direction.getVecteur());
-        assertNotEquals(new Point(1,1), direction.getVecteur());
-        assertNotEquals(new Point(0,0), direction.getVecteur());
-        assertNotEquals(new Point(0,1), direction.getVecteur());
+        assertEquals(new Point(0,-1), direction.getVector());
+        assertNotEquals(new Point(1,1), direction.getVector());
+        assertNotEquals(new Point(0,0), direction.getVector());
+        assertNotEquals(new Point(0,1), direction.getVector());
     }
 }

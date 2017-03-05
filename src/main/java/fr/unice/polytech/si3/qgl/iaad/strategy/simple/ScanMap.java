@@ -70,7 +70,7 @@ class ScanMap implements Protocol
     private boolean droneIsAbleToFlyInDirection(Compass direction)
     {
         Point location = drone.getLocation();
-        Point vector = direction.getVecteur();
+        Point vector = direction.getVector();
         location.translate(vector.x, vector.y);
         location.translate(vector.x, vector.y);
         return islandMap.isOnBoard(location);

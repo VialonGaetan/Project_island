@@ -13,16 +13,16 @@ public enum Compass
     S(new Point(0, 1)),
     W(new Point(-1, 0));
 
-    private Point vecteur;
+    private Point vector;
 
-    Compass(Point vecteur)
+    Compass(Point vector)
     {
-        this.vecteur = vecteur;
+        this.vector = vector;
     }
 
-    public Point getVecteur()
+    public Point getVector()
     {
-        return new Point(vecteur);
+        return new Point(vector);
     }
 
     public Compass get(Direction direction)

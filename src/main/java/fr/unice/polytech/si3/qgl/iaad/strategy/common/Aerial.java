@@ -53,15 +53,15 @@ public class Aerial
     protected int distanceToCenter(Compass direction)
     {
         Point location = drone.getLocation();
-        Point vector = direction.getVecteur();
-        return matrixProduct(location, vector);
+        Point vector = direction.getVector();
+        return Math.abs(matrixProduct(location, vector));
     }
 
     protected int distanceToLimit(Compass direction)
     {
-        Point vector = direction.getVecteur();
+        Point vector = direction.getVector();
         int range = islandMap.getDimension(direction);
-        return scalarProduct(vector, range) - distanceToCenter(direction);
+        return Math.abs(scalarProduct(vector, range) - distanceToCenter(direction));
     }
 
     protected Compass getLargestSide()

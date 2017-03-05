@@ -37,7 +37,7 @@ public class Drone
 
     public void fly()
     {
-        location.translate(heading.getVecteur().x, heading.getVecteur().y);
+        location.translate(heading.getVector().x, heading.getVector().y);
     }
 
     public void heading(Compass direction)
