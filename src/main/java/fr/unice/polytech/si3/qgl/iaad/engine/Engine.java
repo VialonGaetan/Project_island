@@ -4,9 +4,11 @@ import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
+import fr.unice.polytech.si3.qgl.iaad.strategy.advanced.AdvancedStrategy;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.StopExploration;
-import fr.unice.polytech.si3.qgl.iaad.strategy.simple.NaiveStrategy;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
+import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 
 /**
  * @author Alexandre Clement
@@ -24,7 +26,7 @@ public class Engine
     {
         budget = context.getBudget();
         this.context = context;
-        protocol = new NaiveStrategy(context);
+        protocol = new AdvancedStrategy(context, new IslandMap(), new Drone(context.getHeading()));
     }
 
     public Decision takeDecision()

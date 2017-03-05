@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.StandardContract;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
@@ -64,7 +64,7 @@ public class JsonContextTest
     @Test
     public void getHeading() throws Exception
     {
-        assertEquals(Direction.W, context.getHeading());
+        assertEquals(Compass.W, context.getHeading());
     }
 
 

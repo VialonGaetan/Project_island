@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.player.actions;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import org.json.JSONObject;
@@ -12,7 +12,7 @@ import org.json.JSONObject;
 public class Glimpse extends Ground{
 
 
-    public Glimpse(Direction direction, int range) {
+    public Glimpse(Compass direction, int range) {
         this.direction=direction;
         this.range = range;
         actionType = ArgActions.GLIMPSE;

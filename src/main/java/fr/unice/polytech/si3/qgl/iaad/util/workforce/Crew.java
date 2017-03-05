@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.util.workforce;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 
 import java.awt.*;
 
@@ -29,7 +29,7 @@ public class Crew{
     }
 
 
-    public void move(Direction direction) {
+    public void move(Compass direction) {
         switch (direction){
 
             case E: {

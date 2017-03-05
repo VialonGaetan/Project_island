@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.engine;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.ArgActions;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.StandardContract;
@@ -37,7 +37,7 @@ public class EngineTest
         contracts.add(new StandardContract(Resource.GLASS, 50));
 
         when(context.getBudget()).thenReturn(10000);
-        when(context.getHeading()).thenReturn(Direction.E);
+        when(context.getHeading()).thenReturn(Compass.E);
         when(context.getNumberOfMen()).thenReturn(12);
         when(context.getContracts()).thenReturn(contracts);
     }

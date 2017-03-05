@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.result;
 
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.*;
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class GroundResultTest {
     @Test
     public void moveToTest()
     {
-        result = new Move_to(Direction.E);
+        result = new Move_to(Compass.E);
         result.putResults("{ \"cost\": 6, \"extras\": { }, \"status\": \"OK\" }\n");
         int cost=6;
         String status = "OK";
@@ -42,7 +42,7 @@ public class GroundResultTest {
     @Test
     public void scoutTest()
     {
-        result = new Scout(Direction.E);
+        result = new Scout(Compass.E);
         result.putResults("{ \"cost\": 5, \"extras\": { \"altitude\": 1, \"resources\": [\"FUR\", \"WOOD\"] }, \"status\": \"OK\" }");
         int cost = 5;
         int altitude = 1;
@@ -66,7 +66,7 @@ public class GroundResultTest {
     @Test
     public void glimpseTest()
     {
-        result = new Glimpse(Direction.E,1);
+        result = new Glimpse(Compass.E,1);
         result.putResults("{ \n" +
                 "  \"cost\": 3,\n" +
                 "  \"extras\": {\n" +
@@ -204,7 +204,7 @@ public class GroundResultTest {
 
     @Test
     public void testGlimpseResult(){
-        result = new Glimpse(Direction.S,4);
+        result = new Glimpse(Compass.S,4);
         result.putResults("{ \n" +
                 "  \"cost\": 3,\n" +
                 "  \"extras\": {\n" +

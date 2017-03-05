@@ -10,6 +10,7 @@ import fr.unice.polytech.si3.qgl.iaad.strategy.common.FlyOnMap;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.LandOnCreek;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.StopExploration;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.Turn;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
@@ -25,9 +26,9 @@ class ScanMap implements Protocol
     private final Context context;
     private final IslandMap islandMap;
     private final Drone drone;
-    private final Direction sense;
+    private final Compass sense;
 
-    ScanMap(Context context, IslandMap islandMap, Drone drone, Direction sense)
+    ScanMap(Context context, IslandMap islandMap, Drone drone, Compass sense)
     {
         this.context = context;
         this.islandMap = islandMap;
@@ -45,7 +46,7 @@ class ScanMap implements Protocol
     public Protocol acknowledgeResults(Result result)
     {
         ScanResultat scanResultat = new ScanResultat(result);
-        Direction heading = drone.getHeading();
+        Compass heading = drone.getHeading();
 
         if (!scanResultat.getCreeks().isEmpty())
         {
@@ -58,15 +59,15 @@ class ScanMap implements Protocol
             return new FlyOnMap(this, islandMap, drone);
 
         if (droneIsAbleToFlyInDirection(sense))
-            return new Turn(new Turn(this, islandMap, drone, heading.getBack()), islandMap, drone, sense);
+            return new Turn(new Turn(this, islandMap, drone, heading.get(Direction.BACK)), islandMap, drone, sense);
 
-        Protocol exit = new ScanMap(context, islandMap, drone, sense.getBack());
-        exit = new Turn(exit, islandMap, drone, heading.getBack());
+        Protocol exit = new ScanMap(context, islandMap, drone, sense.get(Direction.BACK));
+        exit = new Turn(exit, islandMap, drone, heading.get(Direction.BACK));
         exit = new FlyOnMap(exit, islandMap, drone);
-        return new Turn(exit, islandMap, drone, sense.getBack());
+        return new Turn(exit, islandMap, drone, sense.get(Direction.BACK));
     }
 
-    private boolean droneIsAbleToFlyInDirection(Direction direction)
+    private boolean droneIsAbleToFlyInDirection(Compass direction)
     {
         Point location = drone.getLocation();
         Point vector = direction.getVecteur();

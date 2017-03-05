@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.player.actions;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import org.json.JSONObject;
 
 /**
@@ -10,7 +10,7 @@ import org.json.JSONObject;
 public class Scout extends Ground {
 
 
-    public Scout(Direction direction) {
+    public Scout(Compass direction) {
         this.direction = direction;
         actionType = ArgActions.SCOUT;
     }

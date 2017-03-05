@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.player.actions;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import org.json.JSONObject;
 
 /**
@@ -9,7 +9,7 @@ import org.json.JSONObject;
  */
 public class Move_to extends Ground {
 
-    public Move_to(Direction direction) {
+    public Move_to(Compass direction) {
         this.direction = direction;
         actionType = ArgActions.MOVE_TO;
     }

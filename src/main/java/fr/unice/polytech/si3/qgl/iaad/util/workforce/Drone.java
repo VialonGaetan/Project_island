@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.util.workforce;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 
 import java.awt.*;
 
@@ -11,12 +11,18 @@ import java.awt.*;
 public class Drone
 {
     private final Point location;
-    private Direction heading;
+    private Compass heading;
 
-    public Drone(Direction heading)
+    public Drone(Compass heading)
     {
         this.heading = heading;
         location = new Point();
+    }
+
+    public Drone(Drone drone)
+    {
+        this.heading = drone.getHeading();
+        this.location = new Point(drone.getLocation());
     }
 
     public Point getLocation()
@@ -24,7 +30,7 @@ public class Drone
         return new Point(location);
     }
 
-    public Direction getHeading()
+    public Compass getHeading()
     {
         return heading;
     }
@@ -34,7 +40,7 @@ public class Drone
         location.translate(heading.getVecteur().x, heading.getVecteur().y);
     }
 
-    public void heading(Direction direction)
+    public void heading(Compass direction)
     {
         fly();
         heading = direction;
