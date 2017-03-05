@@ -17,6 +17,8 @@ import fr.unice.polytech.si3.qgl.iaad.util.map.Tile;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 
+import java.util.Optional;
+
 /**
  * @author Alexandre Clement
  * @since 04/03/2017.
@@ -44,8 +46,12 @@ public class ScanIsland extends Aerial implements Protocol
 
         acknowledgeMap(scanResultat);
 
-        if (islandMapContainsNCreeks())
-            return new LandOnCreek(new StopExploration(), getACreek(), 1);
+        if (droneHasEnoughExplored())
+        {
+            Optional<Creek> creekOptional = findACreek();
+            if (creekOptional.isPresent())
+                return new LandOnCreek(new StopExploration(), creekOptional.get(), 1);
+        }
 
         if (scanResultat.getBiomes().contains(Biome.OCEAN) && scanResultat.getBiomes().size() == 1)
             return new ReturnToIsland(context, islandMap, drone, direction);
@@ -53,19 +59,11 @@ public class ScanIsland extends Aerial implements Protocol
         return new FlyOnMap(new ScanIsland(context, islandMap, drone, direction), islandMap, drone);
     }
 
-    private Creek getACreek()
+    private boolean droneHasEnoughExplored()
     {
-        return islandMap.getPoints().stream()
-                .filter(point -> !islandMap.getTile(point).getCreeks().isEmpty())
-                .map(islandMap::getTile)
-                .map(Tile::getCreeks)
-                .findFirst().orElse(null)
-                .get(0);
-    }
-
-    private boolean islandMapContainsNCreeks()
-    {
-        return islandMap.getPoints().stream().filter(point -> !islandMap.getTile(point).getCreeks().isEmpty()).count() >= 2;
+        Drone simulation = new Drone(drone);
+        simulation.heading(direction);
+        return islandMap.isOnBoard(simulation.getLocation()) && islandMap.getTile(simulation.getLocation()).isAlreadyScanned();
     }
 
     private void acknowledgeMap(ScanResultat scanResultat)

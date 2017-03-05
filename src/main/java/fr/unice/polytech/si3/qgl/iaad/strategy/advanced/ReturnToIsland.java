@@ -19,7 +19,7 @@ import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
  */
 public class ReturnToIsland extends Aerial implements Protocol
 {
-    private Protocol protocol;
+    private final Protocol protocol;
 
     ReturnToIsland(Context context, IslandMap islandMap, Drone drone, Compass direction)
     {
