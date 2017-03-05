@@ -8,9 +8,6 @@ import org.json.JSONObject;
  */
 public class Scan extends Area {
 
-
-    ArgActions actionType;
-
     public Scan() {
         actionType = ArgActions.SCAN;
     }

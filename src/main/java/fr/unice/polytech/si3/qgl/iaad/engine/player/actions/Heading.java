@@ -28,11 +28,6 @@ public class Heading extends Area{
     }
 
     @Override
-    public ArgActions getActionEnum() {
-        return null;
-    }
-
-    @Override
     public JSONObject getJsonObject() {
         return new JSONObject().put("action" , ArgActions.HEADING.getName()).put("parameters", new JSONObject().put("direction", direction.toString()));
     }
