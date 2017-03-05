@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,7 +11,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Alexandre Clement

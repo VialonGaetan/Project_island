@@ -2,7 +2,10 @@ package fr.unice.polytech.si3.qgl.iaad.strategy.advanced;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
-import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.*;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Echo;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Heading;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.EchoResultat;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.Aerial;

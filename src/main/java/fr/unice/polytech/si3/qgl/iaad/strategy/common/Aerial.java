@@ -4,7 +4,7 @@ import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.util.map.*;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,13 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.result;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
-import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.*;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
 /**
  * @author Gaetan Vialon
  * Created the 20/11/2016.

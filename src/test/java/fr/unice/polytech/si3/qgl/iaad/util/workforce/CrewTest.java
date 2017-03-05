@@ -4,10 +4,9 @@ import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import java.awt.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Théo on 13/02/2017.

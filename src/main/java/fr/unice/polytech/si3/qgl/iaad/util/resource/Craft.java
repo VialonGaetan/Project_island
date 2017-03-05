@@ -1,7 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.util.resource;
 
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
-
 import java.util.HashMap;
 import java.util.Map;
 

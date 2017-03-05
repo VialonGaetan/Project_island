@@ -1,14 +1,10 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Creek;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Element;
 import fr.unice.polytech.si3.qgl.iaad.util.map.EmergencySite;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceAmount;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceCondition;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceInformation;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

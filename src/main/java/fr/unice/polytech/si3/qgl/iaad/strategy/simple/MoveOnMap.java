@@ -1,13 +1,12 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.simple;
 
-import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
-import fr.unice.polytech.si3.qgl.iaad.strategy.common.Protocol;
-import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.*;
-import fr.unice.polytech.si3.qgl.iaad.engine.player.results.*;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Move_to;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Stop;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.results.MoveToResultat;
+import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
 

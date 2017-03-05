@@ -1,8 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.action;
 
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
-import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -96,11 +96,11 @@ public class GroundActionsTest {
 
     @Test
     public void testStop(){
-        action = new StopGround();
+        action = new Stop();
         toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"stop\"}");
         assertEquals(toJSON,new Stop().getJsonObject().toString());
-        assertNotEquals(action,new Heading(direction));
+        assertNotEquals(action,new Heading(compass));
     }
 
     /*

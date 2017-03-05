@@ -4,7 +4,7 @@ import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Explore;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.ExploreResultat;
-import fr.unice.polytech.si3.qgl.iaad.strategy.common.Protocol;
+import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
@@ -27,7 +27,7 @@ public class ExploreTuile implements Protocol {
     private boolean containFish;
 
 
-    ExploreTuile(Map contrat, Crew crew, IslandMap map) {
+    public ExploreTuile(Map contrat, Crew crew, IslandMap map) {
         this.contrat=contrat;
         this.crew=crew;
         this.map=map;
