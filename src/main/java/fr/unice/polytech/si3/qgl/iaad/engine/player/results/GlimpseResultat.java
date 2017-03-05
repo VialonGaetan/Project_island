@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.player.results;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
 
 /**
  * @author Gaetan Vialon
@@ -10,9 +11,10 @@ public class GlimpseResultat {
 
     Result result;
 
-    GlimpseResultat(Result result) {
+    public GlimpseResultat(Result result) {
         this.result = result;
     }
 
     public int getCost(){return result.getCost();}
+
 }

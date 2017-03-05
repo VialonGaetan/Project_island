@@ -77,12 +77,9 @@ public class Tile
         exploitedResources.add(resource);
     }
 
-    public void exploitResources(List<Resource> resources)
+    public void exploitResources(Resource resource)
     {
-        for(Resource resource : resources)
-        {
-            exploitResource(resource);
-        }
+        exploitResource(resource);
     }
 
     public boolean resourceAlreadyExploited(Resource resource) { return exploitedResources.contains(resource); }

@@ -6,8 +6,11 @@ import org.json.JSONObject;
  * @author Gaetan Vialon
  * Created the 15/11/2016.
  */
-public class Land extends Area {
+public class Land implements Decision {
 
+    private String ID;
+    private int people;
+    private ArgActions actionType;
 
     public Land(String ID, int people) {
         this.ID = ID;
@@ -24,14 +27,8 @@ public class Land extends Area {
         return new JSONObject().put("action" , ArgActions.LAND.getName()).put("parameters", new JSONObject().put("creek", ID.toString()).put("people", people));
     }
 
-    /**
-     * Créé un objet LandResult
-     * @param result de l'explorer
-     * @return LandResult
-     */
     @Override
-    public Area putResults(String result) {
-        this.result = result;
-        return this;
+    public ArgActions getActionEnum() {
+        return actionType;
     }
 }

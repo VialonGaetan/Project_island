@@ -12,10 +12,4 @@ public interface Decision
     ArgActions getActionEnum();
 
     JSONObject getJsonObject();
-
-    Decision putResults(String result);
-
-    int getCost();
-
-    String getStatus();
 }

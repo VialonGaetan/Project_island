@@ -9,8 +9,11 @@ import org.json.JSONObject;
  * @author Gaetan Vialon
  * Created the 15/11/2016.
  */
-public class Glimpse extends Ground{
+public class Glimpse implements Decision{
 
+    private ArgActions actionType;
+    private Compass direction;
+    private int range;
 
     public Glimpse(Compass direction, int range) {
         this.direction=direction;
@@ -27,6 +30,11 @@ public class Glimpse extends Ground{
         return new JSONObject().put("action" , ArgActions.GLIMPSE.getName()).put("parameters", new JSONObject().put("direction", direction.toString()).put("range", range));
     }
 
+    @Override
+    public ArgActions getActionEnum() {
+        return actionType;
+    }
+    /*
     @Override
     public Ground putResults(String result) {
         this.result = result;
@@ -54,12 +62,7 @@ public class Glimpse extends Ground{
         }
     }
 
-    /**
-     * On ne l'utilise pas pour l'instant
-     * @param inforange
-     * @param n
-     * @return
-     */
+
     @Override
     public double getInfoReport(int inforange, int n){
         return -1;
@@ -88,4 +91,5 @@ public class Glimpse extends Ground{
         }
         return false;
     }
+    */
 }

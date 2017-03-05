@@ -25,7 +25,7 @@ public class JsonResult implements Result
     private final JSONObject extras;
     private final JSONObject data;
 
-    JsonResult(JSONObject result)
+    public JsonResult(JSONObject result)
     {
         this.data = result;
         extras = result.getJSONObject(JsonArguments.EXTRAS.toString());
@@ -98,5 +98,10 @@ public class JsonResult implements Result
         Resource resource = Resource.valueOf(jsonObject.get(JsonArguments.RESOURCE.toString()).toString());
         ResourceCondition resourceCondition = ResourceCondition.valueOf(jsonObject.get(JsonArguments.COND.toString()).toString());
         return new ResourceInformation(resource, resourceAmount, resourceCondition);
+    }
+
+    public List<Biome> getGlimpseBiome(int range){
+        List<Biome> biomes = new ArrayList<>();
+        return biomes;
     }
 }
