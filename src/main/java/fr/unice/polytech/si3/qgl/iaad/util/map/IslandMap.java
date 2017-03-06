@@ -1,7 +1,10 @@
 package fr.unice.polytech.si3.qgl.iaad.util.map;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Point;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Iterator;
 
 /**
  * @author romain

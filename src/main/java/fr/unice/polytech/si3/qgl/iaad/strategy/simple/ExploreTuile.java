@@ -44,7 +44,7 @@ public class ExploreTuile implements Protocol {
     @Override
     public Protocol acknowledgeResults(Result result) {
         exploreResult = new ExploreResultat(result);
-        map.getTile(crew.getLocation()).addResourceInformations(exploreResult.getResourcesExplored());
+        map.getTile(crew.getLocation()).addResourceInformationList(exploreResult.getResourcesExplored());
         for (int i = 0; i < exploreResult.getResourcesExplored().size(); i++) {
             Resource resource = exploreResult.getResourcesExplored().get(i).getResource();
             if(resource.equals(Resource.FISH) && i == 0)
