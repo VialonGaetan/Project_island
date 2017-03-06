@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
  * @author romain
  * Created on 24/11/2016.
  */
-public class BoardTest
+public class IslandTest
 {
     private IslandMap islandMap;
 
@@ -29,7 +29,6 @@ public class BoardTest
         assertTrue(islandMap.isOnBoard(new Point()));
     }
 
-    @Ignore
     @Test
     public void grow()
     {
@@ -40,13 +39,13 @@ public class BoardTest
         islandMap.grow(Compass.S, 1);
         assertTrue(islandMap.isOnBoard(new Point()));
         assertTrue(islandMap.isOnBoard(new Point(1, 0)));
-        assertTrue(islandMap.isOnBoard(new Point(1, -1)));
+        assertTrue(islandMap.isOnBoard(new Point(1, 1)));
 
         islandMap.grow(Compass.W, 1);
         assertTrue(islandMap.isOnBoard(new Point()));
         assertTrue(islandMap.isOnBoard(new Point(1, 0)));
-        assertTrue(islandMap.isOnBoard(new Point(1, -1)));
-        assertTrue(islandMap.isOnBoard(new Point(0, -1)));
+        assertTrue(islandMap.isOnBoard(new Point(1, 1)));
+        assertTrue(islandMap.isOnBoard(new Point(0, 1)));
 
         islandMap.grow(Compass.N, 1);
         assertTrue(islandMap.isOnBoard(new Point()));
@@ -55,7 +54,6 @@ public class BoardTest
         assertTrue(islandMap.isOnBoard(new Point(0, -1)));
     }
 
-    @Ignore
     @Test
     public void isOnBoard()
     {
@@ -65,9 +63,9 @@ public class BoardTest
         assertTrue(islandMap.isOnBoard(new Point(1, 0)));
         assertTrue(islandMap.isOnBoard(new Point(2, 0)));
         islandMap.grow(Compass.S, 10);
-        assertTrue(islandMap.isOnBoard(new Point(1, -2)));
-        assertFalse(islandMap.isOnBoard(new Point(0, 3)));
-        assertFalse(islandMap.isOnBoard(new Point(2, -11)));
+        assertTrue(islandMap.isOnBoard(new Point(1, 2)));
+        assertFalse(islandMap.isOnBoard(new Point(0, -3)));
+        assertFalse(islandMap.isOnBoard(new Point(2, 11)));
     }
 
     @Test
