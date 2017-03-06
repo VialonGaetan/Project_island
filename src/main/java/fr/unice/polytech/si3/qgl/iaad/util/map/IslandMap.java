@@ -113,7 +113,7 @@ public class IslandMap
      */
     public void zoom()
     {
-        Map<Point, Tile> groundMap = new HashMap();
+        Map<Point, Tile> groundMap = new HashMap<>();
 
         Set<Point> keySet = map.keySet();
         Iterator<Point> iterator = keySet.iterator();
@@ -138,6 +138,11 @@ public class IslandMap
      */
     public Set<Point> getPoints() { return map.keySet(); }
 
+    /**
+     * Get the dimension in a direction
+     * @param direction that we want to know the dimension
+     * @return int
+     */
     public int getDimension(Compass direction)
     {
         return dimensions.get(direction);
