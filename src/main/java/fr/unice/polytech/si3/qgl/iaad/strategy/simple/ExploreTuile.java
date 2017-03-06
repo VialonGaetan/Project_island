@@ -63,7 +63,7 @@ public class ExploreTuile implements Protocol {
     private Compass choseCompass(){
         Point position = crew.getLocation();
         position.y = (int) position.getY() - 1;
-        if (! map.getTile(position).isAlready(GroundActionTile.VISITED) && map.isOnMap(position))
+        if (map.isOnMap(position) && !map.getTile(position).isAlready(GroundActionTile.VISITED))
             return Compass.N;
         else
             return Compass.S;
@@ -72,7 +72,7 @@ public class ExploreTuile implements Protocol {
     private Compass choseSensUTurn(){
         Point position = crew.getLocation();
         position.y = (int) position.getX() + 1;
-        if (! map.getTile(position).isAlready(GroundActionTile.VISITED) && map.isOnMap(position))
+        if (map.isOnMap(position) && !map.getTile(position).isAlready(GroundActionTile.VISITED))
             return Compass.E;
         else
             return Compass.W;

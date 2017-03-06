@@ -1,11 +1,12 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.common;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
-import fr.unice.polytech.si3.qgl.iaad.util.map.*;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 
 import java.awt.*;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -71,16 +72,18 @@ public class Aerial
         return drone.getHeading().get(right > left ? Direction.RIGHT : Direction.LEFT);
     }
 
-    protected Optional<Creek> findACreek()
+    protected Point aerialToGroundLocation(Point point)
     {
-        Optional<List<Creek>> creeksOptional = islandMap.getPoints().stream()
-                .map(islandMap::getTile)
-                .map(Tile::getCreeks)
-                .filter(creeks -> !creeks.isEmpty())
-                .findFirst();
-        
-        if (creeksOptional.isPresent())
-            return Optional.of(creeksOptional.get().get(0));
+        return new Point(point.x * 3, point.y * 3);
+    }
+
+    protected Optional<Point> findCreekLocation()
+    {
+        for (Point point : islandMap.getPoints())
+        {
+            if (!islandMap.getTile(point).getCreeks().isEmpty())
+                return Optional.of(point);
+        }
         return Optional.empty();
     }
 

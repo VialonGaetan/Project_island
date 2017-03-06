@@ -25,7 +25,7 @@ public class Crew{
 
 
     public Point getLocation() {
-        return this.location;
+        return new Point(this.location);
     }
 
 

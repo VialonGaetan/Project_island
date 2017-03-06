@@ -44,7 +44,7 @@ public class AdvancedStrategyTest
     @Test
     public void run() throws Exception
     {
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 10000; i++)
         {
             Protocol advanced = advancedStrategy();
             Decision decision = advanced.takeDecision();

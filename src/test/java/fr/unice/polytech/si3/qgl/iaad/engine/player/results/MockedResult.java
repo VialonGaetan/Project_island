@@ -3,8 +3,7 @@ package fr.unice.polytech.si3.qgl.iaad.engine.player.results;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Creek;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Element;
 import fr.unice.polytech.si3.qgl.iaad.util.map.EmergencySite;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceInformation;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.*;
 
 import java.util.*;
 
@@ -59,18 +58,26 @@ public class MockedResult extends Result
     @Override
     protected List<ResourceInformation> getResourcesExplored()
     {
-        return null;
+        Resource resource = getRandomEnumValue(Resource.values());
+        ResourceAmount resourceAmount = getRandomEnumValue(ResourceAmount.values());
+        ResourceCondition resourceCondition = getRandomEnumValue(ResourceCondition.values());
+        return Collections.singletonList(new ResourceInformation(resource, resourceAmount, resourceCondition));
     }
 
     @Override
     protected int getExploitAmount()
     {
-        return 0;
+        return random.nextInt(40);
     }
 
     @Override
     protected int getTransformProduction()
     {
-        return 0;
+        return random.nextInt(20);
+    }
+
+    private <T> T getRandomEnumValue(T[] values)
+    {
+        return values[random.nextInt(values.length)];
     }
 }
