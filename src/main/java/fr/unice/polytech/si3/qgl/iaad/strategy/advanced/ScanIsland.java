@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.advanced;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
-import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Scan;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.ScanResultat;
@@ -9,7 +9,6 @@ import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.Aerial;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.FlyOnMap;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.LandOnCreek;
-import fr.unice.polytech.si3.qgl.iaad.strategy.common.StopExploration;
 import fr.unice.polytech.si3.qgl.iaad.strategy.simple.ExploreTuile;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
@@ -57,7 +56,7 @@ public class ScanIsland extends Aerial implements Protocol {
                     contract.put(contrat.getResource(), contrat.getAmount());
                 }
                 Protocol groundStrategy = new ExploreTuile(contract, new Crew(context.getNumberOfMen() - 1, drone.getLocation()), islandMap);
-                return new LandOnCreek(new StopExploration(), creekOptional.get(), 1);
+                return new LandOnCreek(groundStrategy, creekOptional.get(), 1);
             }
         }
 

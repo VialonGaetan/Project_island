@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 
 /**
  * @author Alexandre Clement

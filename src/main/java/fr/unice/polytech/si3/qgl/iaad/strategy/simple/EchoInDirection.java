@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.simple;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
-import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Echo;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.EchoResultat;

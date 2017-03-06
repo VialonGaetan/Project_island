@@ -2,7 +2,7 @@ package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Format;
-import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
 import org.json.JSONObject;
 

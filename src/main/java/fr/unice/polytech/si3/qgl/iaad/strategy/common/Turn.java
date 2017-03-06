@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.common;
 
-import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Heading;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Stop;
