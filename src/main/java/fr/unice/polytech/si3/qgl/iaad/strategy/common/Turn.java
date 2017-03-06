@@ -32,7 +32,7 @@ public class Turn implements Protocol
     public Decision takeDecision()
     {
         drone.heading(direction);
-        if (!islandMap.isOnBoard(drone.getLocation()))
+        if (!islandMap.isOnMap(drone.getLocation()))
             return new Stop();
         return new Heading(direction);
     }

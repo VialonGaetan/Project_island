@@ -30,7 +30,7 @@ public class Aerial
         Drone simulation = new Drone(drone);
         simulation.fly();
         simulation.fly();
-        return islandMap.isOnBoard(simulation.getLocation());
+        return islandMap.isOnMap(simulation.getLocation());
     }
 
     protected boolean droneIsAbleToTurnInDirection(Compass direction)
@@ -38,7 +38,7 @@ public class Aerial
         Drone simulation = new Drone(drone);
         simulation.heading(direction);
         simulation.fly();
-        return islandMap.isOnBoard(simulation.getLocation());
+        return islandMap.isOnMap(simulation.getLocation());
     }
 
     protected boolean droneIsAbleToUTurnInDirection(Compass direction)
@@ -47,7 +47,7 @@ public class Aerial
         simulation.heading(direction);
         simulation.heading(drone.getHeading().get(Direction.BACK));
         simulation.fly();
-        return islandMap.isOnBoard(simulation.getLocation());
+        return islandMap.isOnMap(simulation.getLocation());
     }
 
     protected int distanceToCenter(Compass direction)

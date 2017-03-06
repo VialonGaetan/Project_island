@@ -6,6 +6,7 @@ import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Explore;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.ExploreResultat;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
+import fr.unice.polytech.si3.qgl.iaad.util.map.GroundActionTile;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
@@ -62,7 +63,7 @@ public class ExploreTuile implements Protocol {
     private Compass choseCompass(){
         Point position = crew.getLocation();
         position.y = (int) position.getY() - 1;
-        if (! map.getTile(position).isAlreadyVisited() && map.isOnBoard(position))
+        if (! map.getTile(position).isAlready(GroundActionTile.VISITED) && map.isOnMap(position))
             return Compass.N;
         else
             return Compass.S;
@@ -71,7 +72,7 @@ public class ExploreTuile implements Protocol {
     private Compass choseSensUTurn(){
         Point position = crew.getLocation();
         position.y = (int) position.getX() + 1;
-        if (! map.getTile(position).isAlreadyVisited() && map.isOnBoard(position))
+        if (! map.getTile(position).isAlready(GroundActionTile.VISITED) && map.isOnMap(position))
             return Compass.E;
         else
             return Compass.W;

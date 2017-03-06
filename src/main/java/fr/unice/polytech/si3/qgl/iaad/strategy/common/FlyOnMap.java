@@ -29,7 +29,7 @@ public class FlyOnMap implements Protocol
     public Decision takeDecision()
     {
         drone.fly();
-        if (islandMap.isOnBoard(drone.getLocation()))
+        if (islandMap.isOnMap(drone.getLocation()))
             return new Fly();
         return new Stop();
     }

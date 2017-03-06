@@ -42,7 +42,7 @@ public class FindIsland extends Aerial implements Protocol
     private void setupDecisions()
     {
         drone.heading(getLargestSide());
-        if (!islandMap.isOnBoard(drone.getLocation()))
+        if (!islandMap.isOnMap(drone.getLocation()))
             decisions.add(new Stop());
         decisions.add(new Heading(drone.getHeading()));
         decisions.add(new Echo(getLargestSide()));

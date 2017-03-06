@@ -82,6 +82,6 @@ class ScanMap implements Protocol
         Point vector = direction.getVector();
         location.translate(vector.x, vector.y);
         location.translate(vector.x, vector.y);
-        return islandMap.isOnBoard(location);
+        return islandMap.isOnMap(location);
     }
 }

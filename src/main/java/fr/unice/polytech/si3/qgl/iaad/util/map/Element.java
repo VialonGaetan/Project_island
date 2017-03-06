@@ -8,7 +8,5 @@ package fr.unice.polytech.si3.qgl.iaad.util.map;
 public enum Element
 {
     OUT_OF_RANGE,
-    CREEK,
     GROUND,
-    EMERGENCY_SITE
 }

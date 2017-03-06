@@ -38,7 +38,7 @@ public class UTurn implements Protocol {
     @Override
     public Decision takeDecision() {
         crew.move(sense);
-        if (map.isOnBoard(crew.getLocation()))
+        if (map.isOnMap(crew.getLocation()))
             return action;
         return new Stop();
     }

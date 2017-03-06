@@ -7,17 +7,13 @@ package fr.unice.polytech.si3.qgl.iaad.util.map;
 public class EmergencySite
 {
     private String id;
-    private boolean isFound;
 
-    public EmergencySite() { id = ""; }
-
-    public EmergencySite(String id)
-    {
-        this.id = id;
-        isFound = true;
-    }
+    public EmergencySite(String id) { this.id = id; }
 
     public String getId() { return id; }
+
+    @Override
+    public int hashCode() { return id != null ? id.hashCode() : 0; }
 
     @Override
     public boolean equals(Object o)
@@ -31,12 +27,4 @@ public class EmergencySite
 
         return id.equals(emergencySite.id);
     }
-
-    /*
-     * Seront supprimés  :
-     * is Found()
-     * isFound
-     */
-
-    boolean isFound() { return isFound; }
 }
