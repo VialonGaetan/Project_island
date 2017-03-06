@@ -1,10 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.util.map;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author romain
@@ -23,7 +20,6 @@ public class IslandMap
     {
         map = new HashMap<>();
         dimensions = new HashMap<>();
-
         map.put(new Point(), new Tile());
 
         for(Compass direction : Compass.values())
@@ -44,7 +40,7 @@ public class IslandMap
      * @param point, the point to analyze
      * @return true if the point is on the IslandMap, false otherwise
      */
-    public boolean isOnBoard(Point point)
+    public boolean isOnMap(Point point)
     {
         boolean test = false;
 
@@ -68,7 +64,7 @@ public class IslandMap
     {
         Tile tile = null;
 
-        if(isOnBoard(point))
+        if(isOnMap(point))
         {
             if(!map.containsKey(point))
             {

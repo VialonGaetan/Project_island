@@ -12,10 +12,7 @@ import fr.unice.polytech.si3.qgl.iaad.strategy.common.LandOnCreek;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.StopExploration;
 import fr.unice.polytech.si3.qgl.iaad.strategy.simple.ExploreTuile;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Creek;
-import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Tile;
+import fr.unice.polytech.si3.qgl.iaad.util.map.*;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
@@ -70,12 +67,12 @@ public class ScanIsland extends Aerial implements Protocol {
     private boolean droneHasEnoughExplored() {
         Drone simulation = new Drone(drone);
         simulation.heading(direction);
-        return islandMap.isOnBoard(simulation.getLocation()) && islandMap.getTile(simulation.getLocation()).isAlreadyScanned();
+        return islandMap.isOnMap(simulation.getLocation()) && islandMap.getTile(simulation.getLocation()).isAlready(GroundActionTile.SCANNED);
     }
 
     private void acknowledgeMap(ScanResultat scanResultat) {
         Tile tile = islandMap.getTile(drone.getLocation());
-        tile.setAsAlreadyScanned();
+        tile.setAsAlready(GroundActionTile.SCANNED);
         tile.addBiomes(scanResultat.getBiomes());
         tile.addCreeks(scanResultat.getCreeks());
         tile.addEmergencySites(scanResultat.getSites());

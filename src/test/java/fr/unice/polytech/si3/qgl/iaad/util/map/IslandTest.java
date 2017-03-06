@@ -2,7 +2,6 @@ package fr.unice.polytech.si3.qgl.iaad.util.map;
 
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.*;
@@ -23,49 +22,60 @@ public class IslandTest
     public void before() { islandMap = new IslandMap(); }
 
     @Test
-    public void IslandMapConstructor()
+    public void constructor()
     {
         assertEquals(0, islandMap.getTile(new Point()).getBiomes().size());
-        assertTrue(islandMap.isOnBoard(new Point()));
+        assertTrue(islandMap.isOnMap(new Point()));
+
+        for(Compass compass : Compass.values())
+        {
+            assertEquals(0, islandMap.getDimension(compass));
+        }
     }
 
     @Test
     public void grow()
     {
         islandMap.grow(Compass.E, 1);
-        assertTrue(islandMap.isOnBoard(new Point()));
-        assertTrue(islandMap.isOnBoard(new Point(1, 0)));
+        assertEquals(1, islandMap.getDimension(Compass.E));
+        assertTrue(islandMap.isOnMap(new Point()));
+        assertTrue(islandMap.isOnMap(new Point(1, 0)));
 
         islandMap.grow(Compass.S, 1);
-        assertTrue(islandMap.isOnBoard(new Point()));
-        assertTrue(islandMap.isOnBoard(new Point(1, 0)));
-        assertTrue(islandMap.isOnBoard(new Point(1, 1)));
+        assertEquals(1, islandMap.getDimension(Compass.S));
+        assertTrue(islandMap.isOnMap(new Point()));
+        assertTrue(islandMap.isOnMap(new Point(1, 0)));
+        assertTrue(islandMap.isOnMap(new Point(1, 1)));
 
         islandMap.grow(Compass.W, 1);
-        assertTrue(islandMap.isOnBoard(new Point()));
-        assertTrue(islandMap.isOnBoard(new Point(1, 0)));
-        assertTrue(islandMap.isOnBoard(new Point(1, 1)));
-        assertTrue(islandMap.isOnBoard(new Point(0, 1)));
+        assertEquals(1, islandMap.getDimension(Compass.W));
+        assertTrue(islandMap.isOnMap(new Point()));
+        assertTrue(islandMap.isOnMap(new Point(1, 0)));
+        assertTrue(islandMap.isOnMap(new Point(1, 1)));
+        assertTrue(islandMap.isOnMap(new Point(0, 1)));
 
         islandMap.grow(Compass.N, 1);
-        assertTrue(islandMap.isOnBoard(new Point()));
-        assertTrue(islandMap.isOnBoard(new Point(1, 0)));
-        assertTrue(islandMap.isOnBoard(new Point(1, -1)));
-        assertTrue(islandMap.isOnBoard(new Point(0, -1)));
+        assertEquals(1, islandMap.getDimension(Compass.N));
+        assertTrue(islandMap.isOnMap(new Point()));
+        assertTrue(islandMap.isOnMap(new Point(1, 0)));
+        assertTrue(islandMap.isOnMap(new Point(1, -1)));
+        assertTrue(islandMap.isOnMap(new Point(0, -1)));
     }
 
     @Test
-    public void isOnBoard()
+    public void isOnMap()
     {
-        assertTrue(islandMap.isOnBoard(new Point()));
-        assertFalse(islandMap.isOnBoard(new Point(0, 1)));
+        assertTrue(islandMap.isOnMap(new Point()));
+        assertFalse(islandMap.isOnMap(new Point(0, 1)));
         islandMap.grow(Compass.E, 2);
-        assertTrue(islandMap.isOnBoard(new Point(1, 0)));
-        assertTrue(islandMap.isOnBoard(new Point(2, 0)));
+        assertEquals(2, islandMap.getDimension(Compass.E));
+        assertTrue(islandMap.isOnMap(new Point(1, 0)));
+        assertTrue(islandMap.isOnMap(new Point(2, 0)));
         islandMap.grow(Compass.S, 10);
-        assertTrue(islandMap.isOnBoard(new Point(1, 2)));
-        assertFalse(islandMap.isOnBoard(new Point(0, -3)));
-        assertFalse(islandMap.isOnBoard(new Point(2, 11)));
+        assertEquals(10, islandMap.getDimension(Compass.S));
+        assertTrue(islandMap.isOnMap(new Point(1, 2)));
+        assertFalse(islandMap.isOnMap(new Point(0, -3)));
+        assertFalse(islandMap.isOnMap(new Point(2, 11)));
     }
 
     @Test
@@ -89,21 +99,33 @@ public class IslandTest
     public void isOnBoardAfterZoom()
     {
         islandMap.zoom();
-        assertTrue(islandMap.isOnBoard(new Point(-1, 1)));
-        assertTrue(islandMap.isOnBoard(new Point(1, 1)));
-        assertTrue(islandMap.isOnBoard(new Point(0, 1)));
-        assertTrue(islandMap.isOnBoard(new Point(-1, 0)));
-        assertTrue(islandMap.isOnBoard(new Point()));
-        assertTrue(islandMap.isOnBoard(new Point(1, 0)));
-        assertTrue(islandMap.isOnBoard(new Point(-1, -1)));
-        assertTrue(islandMap.isOnBoard(new Point(0, -1)));
-        assertTrue(islandMap.isOnBoard(new Point(1, -1)));
+
+        for(Compass compass : Compass.values())
+        {
+            assertEquals(1, islandMap.getDimension(compass));
+        }
+
+        assertTrue(islandMap.isOnMap(new Point(-1, 1)));
+        assertTrue(islandMap.isOnMap(new Point(1, 1)));
+        assertTrue(islandMap.isOnMap(new Point(0, 1)));
+        assertTrue(islandMap.isOnMap(new Point(-1, 0)));
+        assertTrue(islandMap.isOnMap(new Point()));
+        assertTrue(islandMap.isOnMap(new Point(1, 0)));
+        assertTrue(islandMap.isOnMap(new Point(-1, -1)));
+        assertTrue(islandMap.isOnMap(new Point(0, -1)));
+        assertTrue(islandMap.isOnMap(new Point(1, -1)));
     }
 
     @Test
     public void getTileAfterZoom()
     {
         islandMap.zoom();
+
+        for(Compass compass : Compass.values())
+        {
+            assertEquals(1, islandMap.getDimension(compass));
+        }
+
         assertTrue(islandMap.getTile(new Point(-1, 1)).equals(new Tile()));
         assertTrue(islandMap.getTile(new Point(1, 1)).equals(new Tile()));
         assertTrue(islandMap.getTile(new Point(0, 1)).equals(new Tile()));

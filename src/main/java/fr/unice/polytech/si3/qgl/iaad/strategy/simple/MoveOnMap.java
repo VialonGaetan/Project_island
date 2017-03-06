@@ -47,7 +47,7 @@ public class MoveOnMap implements Protocol{
     @Override
     public Decision takeDecision() {
         crew.move(direction);
-        if (map.isOnBoard(crew.getLocation()))
+        if (map.isOnMap(crew.getLocation()))
             return action;
         return new Stop();
     }

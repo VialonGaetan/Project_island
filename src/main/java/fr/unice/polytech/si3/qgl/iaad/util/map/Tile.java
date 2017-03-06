@@ -18,7 +18,7 @@ public class Tile
     private final List<EmergencySite> emergencySites;
     private final List<ResourceInformation> resourceInformationList;
     private final List<Resource> exploitedResources;
-    private boolean isAlreadyScanned, isAlreadyVisited, isAlreadyScouted, isAlreadyGlimpsed;
+    private final List<GroundActionTile> groundActionTiles;
 
      public Tile()
     {
@@ -27,19 +27,17 @@ public class Tile
         emergencySites = new ArrayList<>();
         resourceInformationList = new ArrayList<>();
         exploitedResources = new ArrayList<>();
+        groundActionTiles = new ArrayList<>();
     }
 
     public Tile(Tile tile)
     {
-        biomes = new ArrayList<>(tile.biomes);
-        creeks = new ArrayList<>(tile.creeks);
-        emergencySites = new ArrayList<>(tile.emergencySites);
-        resourceInformationList = new ArrayList<>(tile.resourceInformationList);
-        exploitedResources = new ArrayList<>(tile.exploitedResources);
-        isAlreadyVisited = tile.isAlreadyVisited;
-        isAlreadyScanned = tile.isAlreadyScanned;
-        isAlreadyScouted = tile.isAlreadyScouted;
-        isAlreadyGlimpsed = tile.isAlreadyGlimpsed;
+        biomes = tile.biomes;
+        creeks = tile.creeks;
+        emergencySites = tile.emergencySites;
+        resourceInformationList = tile.resourceInformationList;
+        exploitedResources = tile.exploitedResources;
+        groundActionTiles = tile.groundActionTiles;
     }
 
     @Override
@@ -51,17 +49,16 @@ public class Tile
             return false;
 
         Tile tile = (Tile) o;
-        boolean test = false;
 
-        if(biomes.equals(tile.biomes) && creeks.equals(tile.creeks) && emergencySites.equals(tile.emergencySites) && resourceInformationList.equals(tile.resourceInformationList) && exploitedResources.equals(tile.exploitedResources))
-        {
-            if(isAlreadyVisited == tile.isAlreadyVisited && isAlreadyScanned == tile.isAlreadyScanned && isAlreadyScouted == tile.isAlreadyScouted && isAlreadyGlimpsed == tile.isAlreadyGlimpsed)
-            {
-                test = true;
-            }
-        }
-
-        return test;
+        return
+        (
+            biomes.equals(tile.biomes)
+            && creeks.equals(tile.creeks)
+            && emergencySites.equals(tile.emergencySites)
+            && resourceInformationList.equals(tile.resourceInformationList)
+            && exploitedResources.equals(tile.exploitedResources)
+            && groundActionTiles.equals(tile.groundActionTiles)
+        );
     }
 
     @Override
@@ -73,10 +70,7 @@ public class Tile
         result = 31 * result + emergencySites.hashCode();
         result = 31 * result + resourceInformationList.hashCode();
         result = 31 * result + exploitedResources.hashCode();
-        result = 31 * result + (isAlreadyScanned ? 1 : 0);
-        result = 31 * result + (isAlreadyVisited ? 1 : 0);
-        result = 31 * result + (isAlreadyScouted ? 1 : 0);
-        result = 31 * result + (isAlreadyGlimpsed ? 1 : 0);
+        result = 31 * result + (groundActionTiles.hashCode());
 
         return result;
     }
@@ -103,19 +97,7 @@ public class Tile
 
     public List<ResourceInformation> getResourceInformationList() { return resourceInformationList; }
 
-    public boolean isAlreadyScanned() { return isAlreadyScanned; }
+    public void setAsAlready(GroundActionTile groundActionTile) { if(!groundActionTiles.contains(groundActionTile)) groundActionTiles.add(groundActionTile); }
 
-    public boolean isAlreadyVisited() { return isAlreadyVisited; }
-
-    public boolean isAlreadyScouted() { return isAlreadyScouted; }
-
-    public boolean isAlreadyGlimpsed() { return isAlreadyGlimpsed; }
-
-    public void setAsAlreadyScanned() { isAlreadyScanned = true; }
-
-    public void setAsAlreadyVisited() { isAlreadyVisited = true; }
-
-    public void setAsAlreadyScouted() { isAlreadyScouted = true; }
-
-    public void setAsAlreadyGlimpsed() { isAlreadyGlimpsed = true; }
+    public boolean isAlready(GroundActionTile groundActionTile) { return groundActionTiles.contains(groundActionTile); }
 }
