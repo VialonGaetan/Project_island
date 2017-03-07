@@ -8,7 +8,6 @@ import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.util.map.Tile;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 import org.junit.Test;
@@ -17,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -26,6 +26,9 @@ import static org.mockito.Mockito.when;
  */
 public class AdvancedStrategyTest
 {
+    private static final long TIME_OUT = 2000L;
+    private static final String TIME_OUT_MESSAGE = "Time out";
+
     private Protocol advancedStrategy() throws Exception
     {
         Context context = mock(Context.class);
@@ -52,9 +55,30 @@ public class AdvancedStrategyTest
             while (decision.getActionEnum() != ArgActions.STOP)
             {
                 assertNotNull(decision);
-                advanced = advanced.acknowledgeResults(new MockedResult());
-                decision = advanced.takeDecision();
+                advanced = acknowledgeResults(advanced);
+                decision = getDecision(advanced);
             }
         }
+    }
+
+    private Decision getDecision(Protocol advanced)
+    {
+        Decision decision;
+        long time = System.currentTimeMillis();
+        decision = advanced.takeDecision();
+        long end = System.currentTimeMillis() - time;
+        if (end > TIME_OUT)
+            fail(TIME_OUT_MESSAGE + ": " + end + "ms");
+        return decision;
+    }
+
+    private Protocol acknowledgeResults(Protocol advanced)
+    {
+        long time = System.currentTimeMillis();
+        advanced = advanced.acknowledgeResults(new MockedResult());
+        long end = System.currentTimeMillis() - time;
+        if (end > TIME_OUT)
+            fail(TIME_OUT_MESSAGE + ": " + end + "ms");
+        return advanced;
     }
 }
