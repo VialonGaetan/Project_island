@@ -20,7 +20,7 @@ public class Tile
     private final List<Resource> exploitedResources;
     private final List<GroundActionTile> groundActionTiles;
 
-     public Tile()
+    public Tile()
     {
         biomes = new ArrayList<>();
         creeks = new ArrayList<>();
@@ -83,7 +83,7 @@ public class Tile
 
     public void addBiomes(List<Biome> biomes) { add(this.biomes, biomes); }
 
-    public void addResourceInformations(List<ResourceInformation> resourceInformationList) { add(this.resourceInformationList, resourceInformationList); }
+    public void addResourceInformationList(List<ResourceInformation> resourceInformationList) { add(this.resourceInformationList, resourceInformationList); }
 
     public void addCreeks(List<Creek> creeks) { add(this.creeks, creeks); }
 
