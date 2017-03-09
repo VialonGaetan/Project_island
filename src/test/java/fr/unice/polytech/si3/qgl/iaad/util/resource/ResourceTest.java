@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.iaad.util.resource;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -38,7 +39,22 @@ public class ResourceTest {
         assertTrue(res.toString().equals("SUGAR_CANE"));
         res=Resource.WOOD;
         assertTrue(res.toString().equals("WOOD"));
+    }
 
+    @Test
+    public void isPrimaryTest() {
+        assertTrue(Resource.FISH.isPrimary());
+        assertTrue(Resource.FLOWER.isPrimary());
+        assertTrue(Resource.FRUITS.isPrimary());
+        assertTrue(Resource.FUR.isPrimary());
+        assertTrue(Resource.ORE.isPrimary());
+        assertTrue(Resource.SUGAR_CANE.isPrimary());
+        assertTrue(Resource.QUARTZ.isPrimary());
+        assertFalse(Resource.RUM.isPrimary());
+        assertFalse(Resource.GLASS.isPrimary());
+        assertFalse(Resource.INGOT.isPrimary());
+        assertFalse(Resource.LEATHER.isPrimary());
+        assertFalse(Resource.PLANK.isPrimary());
     }
 
 }

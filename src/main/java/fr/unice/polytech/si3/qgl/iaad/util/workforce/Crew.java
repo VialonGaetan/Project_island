@@ -30,29 +30,13 @@ public class Crew{
 
 
     public void move(Direction direction) {
-        switch (direction){
-
-            case E: {
-                this.location = new Point((int) this.location.getX()+1, (int) this.location.getY());
-                break;
-            }
-
-            case S: {
-                this.location = new Point((int) this.location.getX(), (int) this.location.getY()+1);
-                break;
-            }
-
-            case W: {
-                this.location = new Point((int) this.location.getX()-1, (int) this.location.getY());
-                break;
-            }
-
-            case N:{
-                this.location = new Point((int) this.location.getX(), (int) this.location.getY()-1);
-                break;
-            }
-
-            default: break;
-        }
+        if (direction.equals(Direction.E))
+            this.location = new Point((int) this.location.getX() + 1, (int) this.location.getY());
+        else if (direction.equals(Direction.S))
+            this.location = new Point((int) this.location.getX(), (int) this.location.getY() + 1);
+        else if (direction.equals(Direction.W))
+            this.location = new Point((int) this.location.getX() - 1, (int) this.location.getY());
+        else if (direction.equals(Direction.N))
+            this.location = new Point((int) this.location.getX(), (int) this.location.getY() - 1);
     }
 }
