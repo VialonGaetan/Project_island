@@ -11,6 +11,7 @@ import java.util.Set;
 /**
  * Created by Théo on 22/02/2017.
  */
+
 public class SecondContract {
 
     private Map<Resource, Integer> toBeCrafted;
