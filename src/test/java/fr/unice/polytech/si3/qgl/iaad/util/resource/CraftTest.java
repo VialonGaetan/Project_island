@@ -1,13 +1,13 @@
-package fr.unice.polytech.si3.qgl.iaad;
+package fr.unice.polytech.si3.qgl.iaad.util.resource;
 
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Craft;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.Iterator;
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Théo on 22/02/2017.
@@ -21,26 +21,11 @@ public class CraftTest {
         craft = new Craft();
     }
 
-    @Test
-    public void isPrimaryTest() {
-        assertTrue(craft.isPrimary(Resource.FISH));
-        assertTrue(craft.isPrimary(Resource.FLOWER));
-        assertTrue(craft.isPrimary(Resource.FRUITS));
-        assertTrue(craft.isPrimary(Resource.FUR));
-        assertTrue(craft.isPrimary(Resource.ORE));
-        assertTrue(craft.isPrimary(Resource.SUGAR_CANE));
-        assertTrue(craft.isPrimary(Resource.QUARTZ));
-        assertFalse(craft.isPrimary(Resource.RUM));
-        assertFalse(craft.isPrimary(Resource.GLASS));
-        assertFalse(craft.isPrimary(Resource.INGOT));
-        assertFalse(craft.isPrimary(Resource.LEATHER));
-        assertFalse(craft.isPrimary(Resource.PLANK));
-    }
-
     /**
      * Erreur introuvée .. En cours ..
      */
-    /*
+
+    @Ignore
     @Test
     public void getReagentTest() {
         craft=new Craft();
@@ -89,6 +74,6 @@ public class CraftTest {
             assertEquals(reagent, Resource.SUGAR_CANE);
             assertEquals((int) craft.getReagent(Resource.RUM).get(reagent), 10);
         }
-    }*/
+    }
 
 }

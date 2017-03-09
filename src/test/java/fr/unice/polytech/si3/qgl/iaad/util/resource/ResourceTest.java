@@ -1,6 +1,5 @@
-package fr.unice.polytech.si3.qgl.iaad;
+package fr.unice.polytech.si3.qgl.iaad.util.resource;
 
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

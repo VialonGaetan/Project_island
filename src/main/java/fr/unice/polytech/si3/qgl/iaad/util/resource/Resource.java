@@ -1,98 +1,72 @@
 package fr.unice.polytech.si3.qgl.iaad.util.resource;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created on 14/11/2016.
- * @author Gaetan VIALON
+ * @author Theo CHOLLEY
  */
 
 public enum Resource {
-    FISH("FISH"),
-    FLOWER("FLOWER"),
-    FRUITS("FRUITS"),
-    FUR("FUR"),
-    ORE("ORE"),
-    QUARTZ("QUARTZ"),
-    SUGAR_CANE("SUGAR_CANE"),
-    WOOD("WOOD"),
-    GLASS("GLASS"),
-    INGOT("INGOT"),
-    LEATHER("LEATHER"),
-    PLANK("PLANK"),
-    RUM("RUM");
+    FISH("FISH", true, null, 0, null, 0),
+    FLOWER("FLOWER", true, null, 0, null, 0),
+    FRUITS("FRUITS", true, null, 0, null, 0),
+    FUR("FUR", true, null, 0, null, 0),
+    ORE("ORE", true, null, 0, null, 0),
+    QUARTZ("QUARTZ", true, null, 0, null, 0),
+    SUGAR_CANE("SUGAR_CANE", true, null, 0, null, 0),
+    WOOD("WOOD", true, null, 0, null, 0),
+    GLASS("GLASS", false, Resource.QUARTZ, 10, Resource.WOOD,5 ),
+    INGOT("INGOT", false, Resource.ORE, 5, Resource.WOOD,5),
+    LEATHER("LEATHER", false, Resource.FUR, 3, null, 0),
+    PLANK("PLANK", false, Resource.WOOD, 1, null, 0),
+    RUM("RUM", false, Resource.SUGAR_CANE, 10, Resource.FRUITS,1);
 
     private String name;
+    private Resource  reagent1, reagent2;
+    private int qte1, qte2;
+    private Boolean isPrimary;
 
     public String getName() {
         return name;
     }
 
-    Resource(String name) {
+    public Boolean isPrimary(){
+        return isPrimary;
+    }
+
+    Resource(String name, Boolean isPrimary, Resource reagent1, Integer qte1, Resource reagent2, Integer qte2) {
         this.name = name;
+        this.isPrimary = isPrimary;
+        this.reagent1=reagent1;
+        this.reagent2=reagent2;
+        this.qte1=qte1;
+        this.qte2=qte2;
     }
 
-    public Boolean isPrimary(Resource resource) {
-        switch (resource.getName()){
-            case "FISH" : {
-                return true;
-            }
-            case "FLOWER" : {
-                return true;
-            }
-            case "FRUITS" : {
-                return true;
-            }
-            case "FUR" : {
-                return true;
-            }
-            case "ORE" : {
-                return true;
-            }
-            case "QUARTZ" : {
-                return true;
-            }
-            case "SUGAR_CANE" : {
-                return true;
-            }
-            case "WOOD" : {
-                return true;
-            }
-            default : return false;
-        }
+    public Resource getReagent1() {
+        return reagent1;
     }
 
-    public static HashMap<Resource, Integer> getRecipe(Resource resource){
-        HashMap<Resource, Integer> recipe = new HashMap<>();
-        if (resource.isPrimary(resource)) return null;
-        switch (resource.getName()){
-            case "GLASS" : {
-                recipe.put(Resource.QUARTZ,10);
-                recipe.put(Resource.WOOD,5);
-                return recipe;
-            }
-            case "INGOT" : {
-                recipe.put(Resource.ORE, 5);
-                recipe.put(Resource.WOOD, 5);
-                return recipe;
-
-            }
-            case "LEATHER" : {
-                recipe.put(Resource.FUR,3);
-                return recipe;
-
-            }
-            case "PLANK" : {
-                recipe.put(Resource.WOOD,1);
-                return recipe;
-            }
-            case "RUM" : {
-                recipe.put(Resource.SUGAR_CANE,10);
-                recipe.put(Resource.FRUITS,1);
-                return recipe;
-
-            }
-            default: return null;
-        }
+    public Resource getReagent2() {
+        return reagent2;
     }
+
+    public int getQte1() {
+        return qte1;
+    }
+
+    public int getQte2() {
+        return qte2;
+    }
+
+    public Map getRecipe(Resource resource){
+        if (resource.isPrimary()) return null;
+        Map<Resource, Integer> recipe = new HashMap<>();
+        if (resource.getQte1()!=0) recipe.put(resource.getReagent1(), resource.getQte1());
+        if (resource.getQte2()!=0) recipe.put(resource.getReagent2(),resource.getQte2());
+        return recipe;
+    }
+
 }

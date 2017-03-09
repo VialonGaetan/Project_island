@@ -1,7 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.util.resource;
 
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,68 +15,16 @@ public class Craft implements fr.unice.polytech.si3.qgl.iaad.future.Craft{
         this.products =new HashMap<>();
     }
 
-    public Boolean isPrimary(Resource resource) {
-        switch (resource.getName()){
-            case "FISH" : {
-                return true;
-            }
-            case "FLOWER" : {
-                return true;
-            }
-            case "FRUITS" : {
-                return true;
-            }
-            case "FUR" : {
-                return true;
-            }
-            case "ORE" : {
-                return true;
-            }
-            case "QUARTZ" : {
-                return true;
-            }
-            case "SUGAR_CANE" : {
-                return true;
-            }
-            default : return false;
-        }
+    public static void main(String[] args) {
+        System.out.println("ok");
     }
+
+
 
 
     @Override
     public Map<Resource, Integer> getReagent(Resource resource) {
-        this.reagent=new HashMap<>();
-        if (isPrimary(resource)) return null;
-        switch (resource.getName()){
-            case "GLASS" : {
-                this.reagent.put(Resource.QUARTZ,10);
-                this.reagent.put(Resource.WOOD,5);
-                return this.reagent;
-            }
-
-            case "INGOT" : {
-                this.reagent.put(resource.ORE,5);
-                this.reagent.put(Resource.WOOD,5);
-                return this.reagent;
-            }
-
-            case "LEATHER" : {
-                this.reagent.put(Resource.FUR,3);
-                return this.reagent;
-            }
-
-            case "PLANK" : {
-                this.reagent.put(Resource.WOOD,1);
-                return this.reagent;
-            }
-
-            case "RUM" : {
-                this.reagent.put(Resource.SUGAR_CANE,10);
-                this.reagent.put(Resource.FRUITS,1);
-                return this.reagent;
-            }
-            default: return null;
-        }
+        return resource.getRecipe(resource);
     }
 
 
@@ -88,7 +34,7 @@ public class Craft implements fr.unice.polytech.si3.qgl.iaad.future.Craft{
     }
 
     public void transformTheResource(Resource resource){
-        if (isPrimary(resource)) return;
+        if (resource.isPrimary()) return;
     }
 
 }

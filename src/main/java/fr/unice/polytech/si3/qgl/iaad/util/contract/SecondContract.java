@@ -39,21 +39,21 @@ public class SecondContract {
         while(iterateur.hasNext())
         {
             Resource res = (Resource) iterateur.next();
-            if (!res.isPrimary(res)){
+            if (!res.isPrimary()){
                 toBeCrafted.put(res, initialContract.get(res));
-                Set listReagents =Resource.getRecipe(res).keySet();
-                Iterator iterator=listReagents.iterator();
+                Set<Resource> listReagents =res.getRecipe(res).keySet();
+                Iterator<Resource> iterator=listReagents.iterator();
                 while(iterator.hasNext())
                 {
-                    reagent = (Resource) iterator.next();
+                    reagent =iterator.next();
                     for (int i=0; i<this.initialContract.get(res); i++){
-                        if (this.secondContract.containsKey(reagent)) this.secondContract.put(reagent,(int) this.secondContract.get(reagent)+Resource.getRecipe(res).get(reagent));
-                        else this.secondContract.put(reagent,Resource.getRecipe(res).get(reagent));
+                        if (this.secondContract.containsKey(reagent)) this.secondContract.put(reagent,(int) this.secondContract.get(reagent)+(Integer) res.getRecipe(res).get(reagent));
+                        else this.secondContract.put(reagent,(Integer)res.getRecipe(res).get(reagent));
                     }
 
                 }
             }
-            if (res.isPrimary(res)){
+            if (res.isPrimary()){
                 if (this.secondContract.containsKey(res)) secondContract.put(res, this.secondContract.get(res)+initialContract.get(res));
                 else secondContract.put(res,initialContract.get(res));
             }

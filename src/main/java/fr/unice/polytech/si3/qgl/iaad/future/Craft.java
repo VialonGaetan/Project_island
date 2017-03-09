@@ -14,5 +14,4 @@ public interface Craft
 
     Map<Resource, Integer> getProducts(Resource resource);
 
-    Boolean isPrimary(Resource resource);
 }
