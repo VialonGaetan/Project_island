@@ -1,8 +1,11 @@
 package fr.unice.polytech.si3.qgl.iaad.util.map;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author romain
@@ -12,16 +15,21 @@ public class EmergencyTest
 {
     EmergencySite emergencySite;
 
+    @Before
+    public void constructor() { emergencySite = new EmergencySite("id"); }
+
     @Test
-    public void constructors()
+    public void getIdTest() { assertTrue(emergencySite.getId().equals("id")); }
+
+    @Test
+    public void equalsTest()
     {
-        String id = "id";
-
-        emergencySite = new EmergencySite(id);
-
-        assertEquals(emergencySite.getId(), id);
-
-        EmergencySite emergencySite = new EmergencySite(this.emergencySite.getId());
-        assertEquals(emergencySite.getId(), this.emergencySite.getId());
+        assertTrue(emergencySite.equals(new EmergencySite("id")));
+        assertTrue(emergencySite.equals(emergencySite));
+        assertFalse(emergencySite.equals(null));
+        assertFalse(emergencySite.equals(new Object()));
     }
+
+    @Test
+    public void hashCodeTest() { assertEquals(3355, emergencySite.hashCode()); }
 }
