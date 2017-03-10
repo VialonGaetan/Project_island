@@ -68,4 +68,5 @@ public enum Resource {
         if (resource.getQte2()!=0) recipe.put(resource.getReagent2(),resource.getQte2());
         return recipe;
     }
+
 }
