@@ -76,8 +76,18 @@ public class MockedResult extends Result
         return random.nextInt(20);
     }
 
+    @Override
+    protected List<GlimpseInformation> getGlimpseInformation() {
+        Biome biome = getRandomEnumValue(Biome.values());
+        int range = random.nextInt(4);
+        double percentage = random.nextFloat();
+        return Collections.singletonList(new GlimpseInformation(biome,percentage,range));
+    }
+
     private <T> T getRandomEnumValue(T[] values)
     {
         return values[random.nextInt(values.length)];
     }
+
+
 }

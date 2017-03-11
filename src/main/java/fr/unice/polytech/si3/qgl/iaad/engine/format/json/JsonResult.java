@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.ArgResult;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Creek;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Element;
@@ -96,9 +97,19 @@ public class JsonResult extends Result
         return new ResourceInformation(resource, resourceAmount, resourceCondition);
     }
 
-    public List<Biome> getGlimpseBiome(int range){
-        List<Biome> biomes = new ArrayList<>();
-        return biomes;
+    public List<GlimpseInformation> getGlimpseInformation(){
+        List<GlimpseInformation> glimpseInformations = new ArrayList<>();
+        JSONArray report = extras.getJSONArray(ArgResult.REPORT.getName());
+        for (int i = 0; i < report.length(); i++) {
+            for (int j = 0; j < report.getJSONArray(i).length(); j++) {
+                if (i < 2)
+                    glimpseInformations.add(new GlimpseInformation(Biome.valueOf(report.getJSONArray(i).getJSONArray(j).getString(0)),report.getJSONArray(i).getJSONArray(j).getDouble(1),i+1));
+                else
+                    glimpseInformations.add(new GlimpseInformation(Biome.valueOf(report.getJSONArray(i).getString(j)),i+1));
+            }
+
+        }
+        return glimpseInformations;
     }
 
     private static List<String> retrievesData(JSONArray jsonArray)
