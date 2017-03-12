@@ -66,9 +66,9 @@ public class SeeOcean implements Protocol{
 
     private boolean viewOcean(List<GlimpseInformation> glimpseInformations){
         for (GlimpseInformation biomes: glimpseInformations) {
-            if(biomes.getBiome().equals(Biome.OCEAN))
-                return true;
+            if(!biomes.getBiome().equals(Biome.OCEAN))
+                return false;
         }
-        return false;
+        return true;
     }
 }

@@ -136,4 +136,36 @@ public class IslandTest
         assertTrue(islandMap.getTile(new Point(0, -1)).equals(new Tile()));
         assertTrue(islandMap.getTile(new Point(1, -1)).equals(new Tile()));
     }
+
+    @Test
+    public void idktest(){
+        IslandMap islandMap = new IslandMap();
+        assertEquals(islandMap.getDimension(Compass.N),0);
+        assertEquals(islandMap.getDimension(Compass.S),0);
+        assertEquals(islandMap.getDimension(Compass.E),0);
+        assertEquals(islandMap.getDimension(Compass.W),0);
+        assertTrue(islandMap.isOnMap(new Point(0,0)));
+        assertFalse(islandMap.isOnMap(new Point(1,0)));
+        assertFalse(islandMap.isOnMap(new Point(1,1)));
+        islandMap.grow(Compass.S,3);
+        assertEquals(islandMap.getDimension(Compass.N),0);
+        assertEquals(islandMap.getDimension(Compass.S),3);
+        assertEquals(islandMap.getDimension(Compass.E),0);
+        assertEquals(islandMap.getDimension(Compass.W),0);
+        assertTrue(islandMap.isOnMap(new Point(0,0)));
+        assertTrue(islandMap.isOnMap(new Point(0,1)));
+        assertTrue(islandMap.isOnMap(new Point(0,2)));
+        assertTrue(islandMap.isOnMap(new Point(0,3)));
+        assertFalse(islandMap.isOnMap(new Point(1,1)));
+        islandMap.zoom();
+        assertEquals(islandMap.getDimension(Compass.N),1);
+        assertEquals(islandMap.getDimension(Compass.S),10);
+        assertEquals(islandMap.getDimension(Compass.E),1);
+        assertEquals(islandMap.getDimension(Compass.W),1);
+        assertTrue(islandMap.isOnMap(new Point(0,0)));
+        assertTrue(islandMap.isOnMap(new Point(0,1)));
+        assertTrue(islandMap.isOnMap(new Point(0,2)));
+        assertTrue(islandMap.isOnMap(new Point(0,3)));
+        assertFalse(islandMap.isOnMap(new Point(2,1)));
+    }
 }
