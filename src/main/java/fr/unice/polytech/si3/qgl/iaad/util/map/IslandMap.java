@@ -125,7 +125,7 @@ public class IslandMap
 
         for(Compass direction : Compass.values())
         {
-            dimensions.put(direction, dimensions.get(direction)*3+1);
+            dimensions.put(direction, dimensions.get(direction)*3);
         }
 
         map = groundMap;
