@@ -1,15 +1,15 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.simple.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
-import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Scan;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.ScanResult;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.FlyOnMap;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.LandOnCreek;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.Turn;
-import fr.unice.polytech.si3.qgl.iaad.strategy.simple.ground.ExploreTuile;
+import fr.unice.polytech.si3.qgl.iaad.strategy.simple.ground.Initialize;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
@@ -61,7 +61,7 @@ class ScanMap implements Protocol
             for (Contract contrat : context.getContracts()) {
                 contract.put(contrat.getResource(),contrat.getAmount());
             }
-            Protocol groundStrategy = new ExploreTuile(Compass.N,contract,new Crew(context.getNumberOfMen() - 1,drone.getLocation()),islandMap);
+            Protocol groundStrategy = new Initialize(contract,new Crew(context.getNumberOfMen() - 1,drone.getLocation()),islandMap);
             return new LandOnCreek(groundStrategy, scanResult.getCreeks().get(0), context.getNumberOfMen() - 1);
         }
 

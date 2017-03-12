@@ -1,9 +1,9 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
-import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.EchoResult;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.Aerial;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;

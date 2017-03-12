@@ -1,8 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.common;
 
-import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Land;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Creek;
 

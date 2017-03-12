@@ -12,42 +12,30 @@ import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.GlimpseInformation;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
 
-import java.util.List;
 import java.util.Map;
 
 /**
  * @author Gaetan Vialon
- *         Created the 11/03/2017.
+ *         Created the 12/03/2017.
  */
-public class SeeOcean implements Protocol{
+public class Initialize implements Protocol {
 
     private Glimpse action;
     private GlimpseResult glimpseResult;
     private Compass direction;
+    private Compass sense;
     private int range;
     private Crew crew;
     private IslandMap map;
     private Map contrat;
-    private Compass sense;
 
-    public SeeOcean(int range,Compass direction,Compass sense, Map contrat,Crew crew, IslandMap map) {
-        this.direction = direction;
-        this.range = range;
-        this.crew = crew;
-        this.map = map;
-        this.sense=sense;
-        this.contrat = contrat;
-        action = new Glimpse(direction,range);
-    }
-
-    public SeeOcean(Compass direction, Compass sense,Map contrat, Crew crew, IslandMap map) {
-        this.direction = direction;
-        this.range = 4;
+    public Initialize(Map contrat, Crew crew, IslandMap map) {
         this.crew = crew;
         this.map = map;
         this.contrat = contrat;
-        this.sense=sense;
-        action = new Glimpse(direction,range);
+        direction=Compass.N;
+        sense=Compass.E;
+        action = new Glimpse(sense,2);
     }
 
     @Override
@@ -58,18 +46,11 @@ public class SeeOcean implements Protocol{
     @Override
     public Protocol acknowledgeResults(Result result) {
         glimpseResult = new GlimpseResult(result);
-        if (viewOcean(glimpseResult.getGlimpseInformation()))
-            return new UTurn(direction.get(Direction.BACK),sense,contrat,crew,map);
-
-        else
-            return new MoveOnMap(direction,sense,contrat,crew,map);
-    }
-
-    private boolean viewOcean(List<GlimpseInformation> glimpseInformations){
-        for (GlimpseInformation biomes: glimpseInformations) {
-            if(!biomes.getBiome().equals(Biome.OCEAN))
-                return false;
+        for (GlimpseInformation biomes: glimpseResult.getGlimpseInformation()) {
+            if(biomes.getBiome().equals(Biome.OCEAN) && biomes.getPercentage()>50)
+                return new ExploreTuile(direction,sense.get(Direction.BACK),contrat,crew,map);
         }
-        return true;
+        return new ExploreTuile(direction,sense,contrat,crew,map);
+
     }
 }

@@ -1,8 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.engine;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
-import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.strategy.advanced.AdvancedStrategy;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.StopExploration;

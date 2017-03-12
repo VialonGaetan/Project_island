@@ -1,7 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.player.results;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.json.JsonResult;
-import fr.unice.polytech.si3.qgl.iaad.engine.player.results.*;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceAmount;

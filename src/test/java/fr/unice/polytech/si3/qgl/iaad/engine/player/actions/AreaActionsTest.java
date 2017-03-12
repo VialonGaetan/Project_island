@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.player.actions;
 
-import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.*;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import org.junit.Before;
 import org.junit.Test;

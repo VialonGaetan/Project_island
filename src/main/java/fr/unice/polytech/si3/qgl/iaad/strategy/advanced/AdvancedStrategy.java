@@ -1,8 +1,8 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.advanced;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
-import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.strategy.advanced.aerial.Initialisation;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
