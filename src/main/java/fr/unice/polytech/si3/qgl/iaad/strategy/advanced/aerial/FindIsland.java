@@ -62,7 +62,8 @@ public class FindIsland extends Aerial implements Protocol
             return new FindIsland(context, islandMap, drone);
 
         Protocol exit = new ScanIsland(context, islandMap, drone, drone.getHeading());
-        exit = new FlyToIsland(exit, context, islandMap, drone, echoResult.getRange() - 1);
+        if (echoResult.getRange() > 1)
+            exit = new FlyToIsland(exit, context, islandMap, drone, echoResult.getRange() - 1);
         return new Turn(exit, islandMap, drone, getLargestSide());
     }
 }
