@@ -23,7 +23,8 @@ public enum Biome {
     ALPINE(Resource.FLOWER, Resource.ORE),
     GLACIER(Resource.FLOWER),
     SHRUBLAND(Resource.FUR),
-    SUB_TROPICAL_DESERT(Resource.ORE, Resource.QUARTZ);
+    SUB_TROPICAL_DESERT(Resource.ORE, Resource.QUARTZ),
+    TUNDRA;
 
     private List<Resource> resources;
 
