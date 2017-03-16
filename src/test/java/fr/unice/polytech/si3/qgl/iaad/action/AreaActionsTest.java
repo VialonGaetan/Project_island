@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.action;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
-import fr.unice.polytech.si3.qgl.iaad.player.actions.*;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.*;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,11 +17,11 @@ public class AreaActionsTest {
 
     private Decision action;
     private String toJSON;
-    private Direction direction;
+    private Compass compass;
 
     @Before
     public void defineContext() {
-        direction = Direction.S;
+        compass = Compass.S;
     }
 
     @Test
@@ -30,28 +30,28 @@ public class AreaActionsTest {
         toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"fly\"}");
         assertEquals(action.getJsonObject().toString(), new Fly().getJsonObject().toString());
-        assertNotEquals(action,new Heading(Direction.W));
+        assertNotEquals(action,new Heading(Compass.W));
     }
 
     @Test
     public void testEcho(){
-        action = new Echo(direction);
+        action = new Echo(compass);
         toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"echo\",\"parameters\":{\"direction\":\"S\"}}");
         assertNotEquals(toJSON,"{\"action\":\"echo\",\"parameters\":{\"direction\":\"N\"}}");
         assertNotEquals(action,new Fly());
-        assertEquals(toJSON,new Echo(Direction.S).getJsonObject().toString());
-        assertNotEquals(toJSON,new Echo(Direction.W).getJsonObject().toString());
+        assertEquals(toJSON,new Echo(Compass.S).getJsonObject().toString());
+        assertNotEquals(toJSON,new Echo(Compass.W).getJsonObject().toString());
     }
 
     @Test
     public void testHeading(){
-        action = new Heading(direction);
+        action = new Heading(compass);
         toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"heading\",\"parameters\":{\"direction\":\"S\"}}");
         assertNotEquals(toJSON,"{\"action\":\"heading\",\"parameters\":{\"direction\":\"N\"}}");
-        assertEquals(toJSON,new Heading(Direction.S).getJsonObject().toString());
-        assertNotEquals(toJSON,new Heading(Direction.W).getJsonObject().toString());
+        assertEquals(toJSON,new Heading(Compass.S).getJsonObject().toString());
+        assertNotEquals(toJSON,new Heading(Compass.W).getJsonObject().toString());
         assertNotEquals(action,new Scan());
     }
 
@@ -61,7 +61,7 @@ public class AreaActionsTest {
         toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"scan\"}");
         assertEquals(toJSON,new Scan().getJsonObject().toString());
-        assertNotEquals(action,new Echo(direction));
+        assertNotEquals(action,new Echo(compass));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class AreaActionsTest {
         toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"stop\"}");
         assertEquals(toJSON,new Stop().getJsonObject().toString());
-        assertNotEquals(action,new Heading(direction));
+        assertNotEquals(action,new Heading(compass));
     }
 
     @Test
@@ -81,12 +81,12 @@ public class AreaActionsTest {
         assertEquals(toJSON,new Land("id",22).getJsonObject().toString());
         assertNotEquals(toJSON,new Stop().getJsonObject().toString());
         assertNotEquals(toJSON,new Land("4532",22).getJsonObject().toString());
-        assertNotEquals(action,new Heading(direction));
+        assertNotEquals(action,new Heading(compass));
         action = new Land("4532",1);
         toJSON = action.getJsonObject().toString();
         assertEquals(toJSON,"{\"action\":\"land\",\"parameters\":{\"creek\":\"4532\",\"people\":1}}");
         assertEquals(toJSON,new Land("4532",1).getJsonObject().toString());
         assertNotEquals(toJSON,new Land("4532",22).getJsonObject().toString());
-        assertNotEquals(action,new Heading(direction));
+        assertNotEquals(action,new Heading(compass));
     }
 }

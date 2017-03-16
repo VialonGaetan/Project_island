@@ -1,7 +1,10 @@
 package fr.unice.polytech.si3.qgl.iaad.util.map;
 
 import java.awt.Point;
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Iterator;
 
 /**
  * @author romain
@@ -10,7 +13,7 @@ import java.util.*;
 public class IslandMap
 {
     private Map<Point, Tile> map;
-    private Map<Direction, Integer> dimensions;
+    private Map<Compass, Integer> dimensions;
 
     /**
      * IslandMap constructor
@@ -20,34 +23,33 @@ public class IslandMap
     {
         map = new HashMap<>();
         dimensions = new HashMap<>();
-
         map.put(new Point(), new Tile());
 
-        for(Direction direction : Direction.values())
+        for(Compass direction : Compass.values())
         {
             dimensions.put(direction, 0);
         }
     }
 
     /**
-     * Grow the IslandMap in a direction of a number of points
+     * Grow the IslandMap in a get of a number of points
      * @param direction where the IslandMap has to grow
      * @param range, the number of points
      */
-    public void grow(Direction direction, int range) { dimensions.put(direction, dimensions.get(direction)+range); }
+    public void grow(Compass direction, int range) { dimensions.put(direction, dimensions.get(direction)+range); }
 
     /**
-     * Check if the such point is located on the IslandMap
+     * EchoCheck if the such point is located on the IslandMap
      * @param point, the point to analyze
      * @return true if the point is on the IslandMap, false otherwise
      */
-    public boolean isOnBoard(Point point)
+    public boolean isOnMap(Point point)
     {
         boolean test = false;
 
-        if((point.x >= -dimensions.get(Direction.W)) && (point.x <= dimensions.get(Direction.E)))
+        if((point.x >= -dimensions.get(Compass.W)) && (point.x <= dimensions.get(Compass.E)))
         {
-            if((point.y <= dimensions.get(Direction.S)) && (point.y >= -dimensions.get(Direction.N)))
+            if((point.y <= dimensions.get(Compass.S)) && (point.y >= -dimensions.get(Compass.N)))
             {
                 test = true;
             }
@@ -65,7 +67,7 @@ public class IslandMap
     {
         Tile tile = null;
 
-        if(isOnBoard(point))
+        if(isOnMap(point))
         {
             if(!map.containsKey(point))
             {
@@ -110,7 +112,7 @@ public class IslandMap
      */
     public void zoom()
     {
-        Map<Point, Tile> groundMap = new HashMap();
+        Map<Point, Tile> groundMap = new HashMap<>();
 
         Set<Point> keySet = map.keySet();
         Iterator<Point> iterator = keySet.iterator();
@@ -121,7 +123,7 @@ public class IslandMap
             groundMap.putAll(getGroundTiles(point, map.get(point)));
         }
 
-        for(Direction direction : Direction.values())
+        for(Compass direction : Compass.values())
         {
             dimensions.put(direction, dimensions.get(direction)*3+1);
         }
@@ -135,7 +137,12 @@ public class IslandMap
      */
     public Set<Point> getPoints() { return map.keySet(); }
 
-    public int getDimension(Direction direction)
+    /**
+     * Get the dimension in a direction
+     * @param direction that we want to know the dimension
+     * @return int
+     */
+    public int getDimension(Compass direction)
     {
         return dimensions.get(direction);
     }

@@ -1,14 +1,10 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
-import fr.unice.polytech.si3.qgl.iaad.engine.format.Result;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Creek;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Element;
 import fr.unice.polytech.si3.qgl.iaad.util.map.EmergencySite;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceAmount;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceCondition;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceInformation;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,12 +16,12 @@ import java.util.stream.Collectors;
  * @author Alexandre Clement
  * @since 06/02/2017.
  */
-public class JsonResult implements Result
+public class JsonResult extends Result
 {
     private final JSONObject extras;
     private final JSONObject data;
 
-    JsonResult(JSONObject result)
+    public JsonResult(JSONObject result)
     {
         this.data = result;
         extras = result.getJSONObject(JsonArguments.EXTRAS.toString());
@@ -53,21 +49,21 @@ public class JsonResult implements Result
     public List<Biome> getBiomes()
     {
         JSONArray biomes = extras.getJSONArray(JsonArguments.BIOMES.toString());
-        return biomes.toList().stream().map(Object::toString).map(Biome::valueOf).collect(Collectors.toList());
+        return retrievesData(biomes).stream().map(Biome::valueOf).collect(Collectors.toList());
     }
 
     @Override
     public List<Creek> getCreeks()
     {
         JSONArray creeks = extras.getJSONArray(JsonArguments.CREEKS.toString());
-        return creeks.toList().stream().map(Object::toString).map(Creek::new).collect(Collectors.toList());
+        return retrievesData(creeks).stream().map(Creek::new).collect(Collectors.toList());
     }
 
     @Override
     public List<EmergencySite> getSites()
     {
         JSONArray sites = extras.getJSONArray(JsonArguments.SITES.toString());
-        return sites.toList().stream().map(Object::toString).map(EmergencySite::new).collect(Collectors.toList());
+        return retrievesData(sites).stream().map(EmergencySite::new).collect(Collectors.toList());
     }
 
     @Override
@@ -98,5 +94,20 @@ public class JsonResult implements Result
         Resource resource = Resource.valueOf(jsonObject.get(JsonArguments.RESOURCE.toString()).toString());
         ResourceCondition resourceCondition = ResourceCondition.valueOf(jsonObject.get(JsonArguments.COND.toString()).toString());
         return new ResourceInformation(resource, resourceAmount, resourceCondition);
+    }
+
+    public List<Biome> getGlimpseBiome(int range){
+        List<Biome> biomes = new ArrayList<>();
+        return biomes;
+    }
+
+    private static List<String> retrievesData(JSONArray jsonArray)
+    {
+        List<String> list = new ArrayList<>();
+        for (Object o : jsonArray)
+        {
+            list.add(o.toString());
+        }
+        return list;
     }
 }

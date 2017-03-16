@@ -1,8 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
-import fr.unice.polytech.si3.qgl.iaad.util.contract.StandardContract;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,7 +11,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Alexandre Clement
@@ -56,15 +55,15 @@ public class JsonContextTest
     public void getContracts() throws Exception
     {
         List<Contract> expected = new ArrayList<>();
-        expected.add(new StandardContract(Resource.WOOD, 600));
-        expected.add(new StandardContract(Resource.GLASS, 200));
+        expected.add(new Contract(Resource.WOOD, 600));
+        expected.add(new Contract(Resource.GLASS, 200));
         assertEquals(expected, context.getContracts());
     }
 
     @Test
     public void getHeading() throws Exception
     {
-        assertEquals(Direction.W, context.getHeading());
+        assertEquals(Compass.W, context.getHeading());
     }
 
 
