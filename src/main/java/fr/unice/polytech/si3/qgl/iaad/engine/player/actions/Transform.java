@@ -27,7 +27,13 @@ public class Transform implements Decision{
      * @return String of JSON
      */
     @Override
-    public JSONObject getJsonObject() {
+    public JSONObject getJsonObject()
+    {
+        if(nbResource1 == 0)
+        {
+            return new JSONObject().put("action",ArgActions.TRANSFORM.getName()).put("parameters",new JSONObject().put(resource.getName(),nbResource));
+        }
+
         return new JSONObject().put("action" , ArgActions.TRANSFORM.getName()).put("parameters", new JSONObject().put(resource.getName(), nbResource).put(resource1.getName(), nbResource1));
     }
 
