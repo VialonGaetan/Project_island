@@ -13,14 +13,6 @@ public class Transform implements Decision{
     private Resource resource, resource1;
     private int nbResource, nbResource1;
 
-    public Transform(Resource resource, int nbResource) {
-        this.resource = resource;
-        this.nbResource = nbResource;
-        this.resource1 = resource1;
-        this.nbResource1 =nbResource1;
-        actionType = ArgActions.TRANSFORM;
-    }
-
     public Transform(Resource resource, Resource resource1, int nbResource, int nbResource1) {
         this.resource = resource;
         this.nbResource = nbResource;
