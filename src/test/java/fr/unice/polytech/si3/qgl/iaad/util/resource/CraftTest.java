@@ -1,13 +1,21 @@
 package fr.unice.polytech.si3.qgl.iaad.util.resource;
 
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
+import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
+import fr.unice.polytech.si3.qgl.iaad.util.contract.SecondContract;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by Théo on 22/02/2017.
@@ -15,10 +23,23 @@ import static org.junit.Assert.assertEquals;
 public class CraftTest {
 
     Craft craft;
+    Context context;
+    SecondContract secondContract;
+    private List<Contract> contracts;
 
     @Before
-    public void init() {
-        craft = new Craft();
+    public void setUp() throws Exception
+    {
+        context = mock(Context.class);
+        contracts = new ArrayList<>();
+        contracts.add(new Contract(Resource.FISH, 1000));
+        contracts.add(new Contract(Resource.GLASS, 50));
+        when(context.getBudget()).thenReturn(10000);
+        when(context.getHeading()).thenReturn(Compass.E);
+        when(context.getNumberOfMen()).thenReturn(12);
+        when(context.getContracts()).thenReturn(contracts);
+        secondContract = new SecondContract(context);
+        this.secondContract.createSecondContract();
     }
 
     /**
@@ -28,7 +49,7 @@ public class CraftTest {
     @Ignore
     @Test
     public void getReagentTest() {
-        craft=new Craft();
+        //craft=new Craft();
         Set listKeys = craft.getReagent(Resource.GLASS).keySet();
         Iterator iterateur = listKeys.iterator();
         Resource reagent;

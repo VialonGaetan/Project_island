@@ -21,6 +21,7 @@ public class Transform implements Decision{
         actionType = ArgActions.TRANSFORM;
     }
 
+
     /**
      * Créé un objet JSON avec l'fr.unice.polytech.si3.qgl.iaad.action ECHO
      * @return String of JSON
