@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.util.workforce;
 
-import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 
 import java.awt.*;
 
@@ -29,14 +29,14 @@ public class Crew{
     }
 
 
-    public void move(Direction direction) {
-        if (direction.equals(Direction.E))
+    public void move(Compass direction) {
+        if (direction.equals(Compass.E))
             this.location = new Point((int) this.location.getX() + 1, (int) this.location.getY());
-        else if (direction.equals(Direction.S))
+        else if (direction.equals(Compass.S))
             this.location = new Point((int) this.location.getX(), (int) this.location.getY() + 1);
-        else if (direction.equals(Direction.W))
+        else if (direction.equals(Compass.E.W))
             this.location = new Point((int) this.location.getX() - 1, (int) this.location.getY());
-        else if (direction.equals(Direction.N))
+        else if (direction.equals(Compass.N))
             this.location = new Point((int) this.location.getX(), (int) this.location.getY() - 1);
     }
 }

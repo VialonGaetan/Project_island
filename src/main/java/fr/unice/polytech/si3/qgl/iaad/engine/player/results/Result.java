@@ -31,4 +31,5 @@ public abstract class Result
     protected abstract int getExploitAmount();
 
     protected abstract int getTransformProduction();
+
 }
