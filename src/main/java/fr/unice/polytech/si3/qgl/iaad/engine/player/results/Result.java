@@ -4,6 +4,7 @@ import fr.unice.polytech.si3.qgl.iaad.util.map.Creek;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Element;
 import fr.unice.polytech.si3.qgl.iaad.util.map.EmergencySite;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.GlimpseInformation;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceInformation;
 
 import java.util.List;
@@ -32,4 +33,5 @@ public abstract class Result
 
     protected abstract int getTransformProduction();
 
+    protected abstract List<GlimpseInformation> getGlimpseInformation();
 }

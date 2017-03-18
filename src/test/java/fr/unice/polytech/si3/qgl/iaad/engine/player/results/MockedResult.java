@@ -14,30 +14,33 @@ import java.util.*;
 public class MockedResult extends Result
 {
     private Random random = new Random();
+    private int cost = random.nextInt(50);
+    private int range = random.nextInt(53);
+    private Element found = Math.random() > 0.5 ? Element.GROUND : Element.OUT_OF_RANGE;
 
     @Override
     public int getCost()
     {
-        return random.nextInt(50);
+        return cost;
     }
 
     @Override
     protected int getRange()
     {
-        return 10 + random.nextInt(42);
+        return range;
     }
 
     @Override
     protected Element getFound()
     {
-        return Math.random() > 0.5 ? Element.GROUND : Element.OUT_OF_RANGE;
+        return found;
     }
 
     @Override
     protected List<Biome> getBiomes()
     {
         List<Biome> biomes = new ArrayList<>(Arrays.asList(Biome.values()));
-        int numberOfBiomes = 1 + random.nextInt(2);
+        int numberOfBiomes = 1 + random.nextInt(3);
         while (biomes.size() > numberOfBiomes)
             biomes.remove(random.nextInt(biomes.size()));
         return biomes;
@@ -76,8 +79,18 @@ public class MockedResult extends Result
         return random.nextInt(20);
     }
 
+    @Override
+    protected List<GlimpseInformation> getGlimpseInformation() {
+        Biome biome = getRandomEnumValue(Biome.values());
+        int range = random.nextInt(4);
+        double percentage = random.nextFloat();
+        return Collections.singletonList(new GlimpseInformation(biome,percentage,range));
+    }
+
     private <T> T getRandomEnumValue(T[] values)
     {
         return values[random.nextInt(values.length)];
     }
+
+
 }

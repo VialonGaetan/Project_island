@@ -25,8 +25,9 @@ public class Crew{
 
 
     public Point getLocation() {
-        return this.location;
+        return new Point(this.location);
     }
+
 
 
     public void move(Compass direction) {
@@ -34,7 +35,7 @@ public class Crew{
             this.location = new Point((int) this.location.getX() + 1, (int) this.location.getY());
         else if (direction.equals(Compass.S))
             this.location = new Point((int) this.location.getX(), (int) this.location.getY() + 1);
-        else if (direction.equals(Compass.E.W))
+        else if (direction.equals(Compass.W))
             this.location = new Point((int) this.location.getX() - 1, (int) this.location.getY());
         else if (direction.equals(Compass.N))
             this.location = new Point((int) this.location.getX(), (int) this.location.getY() - 1);
