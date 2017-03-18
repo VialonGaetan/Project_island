@@ -43,10 +43,10 @@ public class FindLimit extends Aerial implements Protocol
 
     private void setupDecisions()
     {
-        if (direction == drone.getHeading())
-            turn();
-        else
+        if (direction.isOrthogonal(drone.getHeading()))
             fly();
+        else
+            turn();
 
         decisions.add(new Echo(direction));
     }

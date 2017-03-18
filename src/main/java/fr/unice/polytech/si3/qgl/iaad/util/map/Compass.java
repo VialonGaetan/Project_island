@@ -29,4 +29,9 @@ public enum Compass
     {
         return Compass.values()[(this.ordinal() + direction.ordinal()) % 4];
     }
+
+    public boolean isOrthogonal(Compass compass)
+    {
+        return get(Direction.LEFT) == compass || get(Direction.RIGHT) == compass;
+    }
 }
