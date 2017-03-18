@@ -1,14 +1,12 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
+import fr.unice.polytech.si3.qgl.iaad.util.contract.Basket;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created on 10/11/2016.
@@ -20,33 +18,31 @@ class JsonContext implements Context
     private final int budget;
     private final Compass heading;
     private final int men;
-    private final List<Contract> contracts;
+    private final Contract contract;
 
     JsonContext(JSONObject jsonObject)
     {
         heading = Compass.valueOf(jsonObject.get(JsonArguments.HEADING.toString()).toString());
         budget = jsonObject.getInt(JsonArguments.BUDGET.toString());
         men = jsonObject.getInt(JsonArguments.MEN.toString());
-        contracts = retrievesContracts(jsonObject);
+        contract = retrievesContract(jsonObject);
     }
 
-    private List<Contract> retrievesContracts(JSONObject jsonObject)
+    private Contract retrievesContract(JSONObject jsonObject)
     {
-        List<Contract> retrievedContracts = new ArrayList<>();
         JSONObject jsonContract;
         Resource resource;
         int amount;
-        Contract contract;
+        Basket resourceInContract = new Basket();
         JSONArray jsonArray = jsonObject.getJSONArray(JsonArguments.CONTRACTS.toString());
         for (int i = 0; i < jsonArray.length(); i++)
         {
             jsonContract = jsonArray.getJSONObject(i);
             resource = Resource.valueOf(jsonContract.get(JsonArguments.RESOURCE.toString()).toString());
             amount = jsonContract.getInt(JsonArguments.AMOUNT.toString());
-            contract = new Contract(resource, amount);
-            retrievedContracts.add(contract);
+            resourceInContract.put(resource, amount);
         }
-        return retrievedContracts;
+        return new Contract(resourceInContract);
     }
 
     @Override
@@ -62,9 +58,9 @@ class JsonContext implements Context
     }
 
     @Override
-    public List<Contract> getContracts()
+    public Contract getContract()
     {
-        return contracts;
+        return contract;
     }
 
     @Override

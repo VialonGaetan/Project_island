@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.util.contract;
 
+import fr.unice.polytech.si3.qgl.iaad.engine.Engine;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
@@ -22,19 +23,21 @@ public class SecondContractTest {
 
     Context context;
     SecondContract secondContract;
-    private List<Contract> contracts;
+    private Contract contracts;
 
     @Before
     public void setUp() throws Exception
     {
         context = mock(Context.class);
-        contracts = new ArrayList<>();
-        contracts.add(new Contract(Resource.FISH, 1000));
-        contracts.add(new Contract(Resource.GLASS, 50));
+        Basket basket = new Basket();
+        basket.put(Resource.FISH, 1000);
+        basket.put(Resource.GLASS, 50);
+        contracts = new Contract(basket);
+
         when(context.getBudget()).thenReturn(10000);
         when(context.getHeading()).thenReturn(Compass.E);
         when(context.getNumberOfMen()).thenReturn(12);
-        when(context.getContracts()).thenReturn(contracts);
+        when(context.getContract()).thenReturn(contracts);
         secondContract = new SecondContract(context);
         this.secondContract.createSecondContract();
     }

@@ -5,6 +5,7 @@ import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.ArgActions;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.MockedResult;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
+import fr.unice.polytech.si3.qgl.iaad.util.contract.Basket;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
@@ -32,15 +33,15 @@ public class AdvancedStrategyTest
     private Protocol advancedStrategy() throws Exception
     {
         Context context = mock(Context.class);
-
-        List<Contract> contracts = new ArrayList<>();
-        contracts.add(new Contract(Resource.FISH, 1000));
-        contracts.add(new Contract(Resource.GLASS, 50));
+        Basket basket = new Basket();
+        basket.put(Resource.FISH, 1000);
+        basket.put(Resource.GLASS, 50);
+        Contract contracts = new Contract(basket);
 
         when(context.getBudget()).thenReturn(10000);
         when(context.getHeading()).thenReturn(Compass.E);
         when(context.getNumberOfMen()).thenReturn(12);
-        when(context.getContracts()).thenReturn(contracts);
+        when(context.getContract()).thenReturn(contracts);
         return new AdvancedStrategy(context, new IslandMap(), new Drone(context.getHeading()));
     }
 

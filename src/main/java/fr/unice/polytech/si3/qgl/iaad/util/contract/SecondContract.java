@@ -3,10 +3,7 @@ package fr.unice.polytech.si3.qgl.iaad.util.contract;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Théo on 22/02/2017.
@@ -19,12 +16,9 @@ public class SecondContract {
     private Map<Resource, Integer> initialContract;
 
     public SecondContract(Context cx){
-        initialContract=new HashMap<>();
+        initialContract = cx.getContract();
         toBeCrafted = new HashMap<>();
         secondContract = new HashMap<>();
-        for (int i=0; i<cx.getContracts().size(); i++){
-            initialContract.put(Resource.valueOf(cx.getContracts().get(i).getResource().getName()), cx.getContracts().get(i).getAmount());
-        }
     }
 
 

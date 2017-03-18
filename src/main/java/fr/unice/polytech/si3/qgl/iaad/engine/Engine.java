@@ -6,7 +6,6 @@ import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.strategy.advanced.AdvancedStrategy;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.StopExploration;
-import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 
@@ -31,7 +30,7 @@ public class Engine
 
     public Decision takeDecision()
     {
-        if (lowBudget() || completedAllContracts())
+        if (budget < LOW_BUDGET || context.getContract().allCompleted())
             protocol = new StopExploration();
         return protocol.takeDecision();
     }
@@ -45,15 +44,5 @@ public class Engine
     public String deliverFinalReport()
     {
         return REPORT;
-    }
-
-    private boolean lowBudget()
-    {
-        return budget < LOW_BUDGET;
-    }
-
-    private boolean completedAllContracts()
-    {
-        return context.getContracts().stream().allMatch(Contract::isComplete);
     }
 }

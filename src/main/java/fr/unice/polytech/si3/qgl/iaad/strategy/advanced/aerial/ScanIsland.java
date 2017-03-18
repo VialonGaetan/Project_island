@@ -10,16 +10,12 @@ import fr.unice.polytech.si3.qgl.iaad.strategy.common.Aerial;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.FlyOnMap;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.LandOnCreek;
 import fr.unice.polytech.si3.qgl.iaad.strategy.simple.ground.Initialize;
-import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.*;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 
 import java.awt.*;
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -70,7 +66,7 @@ public class ScanIsland extends Aerial implements Protocol
         Creek creek = islandMap.getTile(creekLocation).getCreeks().get(0);
         islandMap.zoom();
         Crew crew = new Crew(1, aerialToGroundLocation(creekLocation));
-        Protocol groundStrategy = new Initialize(retrieveContractFromContext(context), crew, islandMap);
+        Protocol groundStrategy = new Initialize(context.getContract(), crew, islandMap);
         return new LandOnCreek(groundStrategy, creek, 1);
     }
 
@@ -89,16 +85,4 @@ public class ScanIsland extends Aerial implements Protocol
         tile.addCreeks(scanResult.getCreeks());
         tile.addEmergencySites(scanResult.getSites());
     }
-
-    private static Map<Resource, Integer> retrieveContractFromContext(Context context)
-    {
-        Map<Resource, Integer> contracts = new EnumMap<>(Resource.class);
-
-        for (Contract contract : context.getContracts())
-        {
-            contracts.put(contract.getResource(), contract.getAmount());
-        }
-        return contracts;
-    }
-
 }

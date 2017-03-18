@@ -3,12 +3,14 @@ package fr.unice.polytech.si3.qgl.iaad.engine;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.ArgActions;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
+import fr.unice.polytech.si3.qgl.iaad.util.contract.Basket;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,21 +26,22 @@ public class EngineTest
 {
     private Engine engine;
     private Context context;
-    private List<Contract> contracts;
+    private Contract contracts;
 
     @Before
     public void setUp() throws Exception
     {
         engine = new Engine();
         context = mock(Context.class);
-        contracts = new ArrayList<>();
-        contracts.add(new Contract(Resource.FISH, 1000));
-        contracts.add(new Contract(Resource.GLASS, 50));
+        Basket basket = new Basket();
+        basket.put(Resource.FISH, 1000);
+        basket.put(Resource.GLASS, 50);
+        contracts = new Contract(basket);
 
         when(context.getBudget()).thenReturn(10000);
         when(context.getHeading()).thenReturn(Compass.E);
         when(context.getNumberOfMen()).thenReturn(12);
-        when(context.getContracts()).thenReturn(contracts);
+        when(context.getContract()).thenReturn(contracts);
     }
 
     @Test
@@ -59,7 +62,7 @@ public class EngineTest
     @Test
     public void emptyContracts() throws Exception
     {
-        when(context.getContracts()).thenReturn(new ArrayList<>());
+        when(context.getContract()).thenReturn(new Contract(new Basket()));
         engine.setContext(context);
         assertEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
     }
@@ -90,7 +93,7 @@ public class EngineTest
     public void notAllContractAreCompleted() throws Exception
     {
         engine.setContext(context);
-        contracts.get(0).collect(1000);
+        contracts.collect(Resource.FISH, 1000);
         assertNotEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
     }
 
@@ -98,8 +101,8 @@ public class EngineTest
     public void allContractsAreComplete() throws Exception
     {
         engine.setContext(context);
-        contracts.get(0).collect(1000);
-        contracts.get(1).collect(50);
+        contracts.collect(Resource.FISH, 1000);
+        contracts.collect(Resource.GLASS, 50);
         assertEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
 
     }

@@ -1,5 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
+import fr.unice.polytech.si3.qgl.iaad.util.contract.Basket;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
@@ -12,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Alexandre Clement
@@ -54,10 +58,11 @@ public class JsonContextTest
     @Test
     public void getContracts() throws Exception
     {
-        List<Contract> expected = new ArrayList<>();
-        expected.add(new Contract(Resource.WOOD, 600));
-        expected.add(new Contract(Resource.GLASS, 200));
-        assertEquals(expected, context.getContracts());
+        Basket basket = new Basket();
+        basket.put(Resource.WOOD, 600);
+        basket.put(Resource.GLASS, 200);
+        Contract expected = new Contract(basket);
+        assertEquals(expected, context.getContract());
     }
 
     @Test
