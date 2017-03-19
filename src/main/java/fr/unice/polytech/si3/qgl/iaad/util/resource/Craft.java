@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.util.resource;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
+import fr.unice.polytech.si3.qgl.iaad.util.contract.Basket;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.SecondContract;
 
 import java.util.HashMap;
@@ -15,10 +16,10 @@ public class Craft{
     Map<Resource, Integer> products;
     SecondContract secondContract;
 
-    public Craft(Context cx){
+    public Craft(Context cx, Basket basket){
         this.reagent = new HashMap<>();
         this.products =new HashMap<>();
-        secondContract = new SecondContract(cx);
+        secondContract = new SecondContract(cx,basket);
     }
 
     public Map<Resource, Integer> getReagent(Resource resource) {
