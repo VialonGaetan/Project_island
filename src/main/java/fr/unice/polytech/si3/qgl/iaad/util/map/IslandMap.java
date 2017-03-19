@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author romain
@@ -128,7 +130,7 @@ public class IslandMap
             dimensions.put(direction, dimensions.get(direction)*3);
         }
 
-        map = groundMap;
+        map = groundMap.keySet().stream().filter(this::isOnMap).collect(Collectors.toMap(Function.identity(), this::getTile));
     }
 
     /**
