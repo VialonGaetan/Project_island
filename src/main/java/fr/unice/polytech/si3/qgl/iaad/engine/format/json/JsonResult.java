@@ -17,59 +17,50 @@ import java.util.stream.Collectors;
  * @author Alexandre Clement
  * @since 06/02/2017.
  */
-public class JsonResult extends Result
-{
+public class JsonResult extends Result {
     private final JSONObject extras;
     private final JSONObject data;
 
-    public JsonResult(JSONObject result)
-    {
+    public JsonResult(JSONObject result) {
         this.data = result;
         extras = result.getJSONObject(JsonArguments.EXTRAS.toString());
     }
 
     @Override
-    public int getCost()
-    {
+    public int getCost() {
         return data.getInt(JsonArguments.COST.toString());
     }
 
     @Override
-    public int getRange()
-    {
+    public int getRange() {
         return extras.getInt(JsonArguments.RANGE.toString());
     }
 
     @Override
-    public Element getFound()
-    {
+    public Element getFound() {
         return Element.valueOf(extras.get(JsonArguments.FOUND.toString()).toString());
     }
 
     @Override
-    public List<Biome> getBiomes()
-    {
+    public List<Biome> getBiomes() {
         JSONArray biomes = extras.getJSONArray(JsonArguments.BIOMES.toString());
         return retrievesData(biomes).stream().map(Biome::valueOf).collect(Collectors.toList());
     }
 
     @Override
-    public List<Creek> getCreeks()
-    {
+    public List<Creek> getCreeks() {
         JSONArray creeks = extras.getJSONArray(JsonArguments.CREEKS.toString());
         return retrievesData(creeks).stream().map(Creek::new).collect(Collectors.toList());
     }
 
     @Override
-    public List<EmergencySite> getSites()
-    {
+    public List<EmergencySite> getSites() {
         JSONArray sites = extras.getJSONArray(JsonArguments.SITES.toString());
         return retrievesData(sites).stream().map(EmergencySite::new).collect(Collectors.toList());
     }
 
     @Override
-    public List<ResourceInformation> getResourcesExplored()
-    {
+    public List<ResourceInformation> getResourcesExplored() {
         List<ResourceInformation> resourceInformation = new ArrayList<>();
         JSONArray jsonArray = extras.getJSONArray(JsonArguments.RESOURCES.toString());
         for (int i = 0; i < jsonArray.length(); i++)
@@ -78,16 +69,15 @@ public class JsonResult extends Result
     }
 
     @Override
-    public int getExploitAmount()
-    {
+    public int getExploitAmount() {
         return extras.getInt(JsonArguments.AMOUNT.toString());
     }
 
     @Override
-    public int getTransformProduction()
-    {
+    public int getTransformProduction() {
         return extras.getInt(JsonArguments.PRODUCTION.toString());
     }
+
 
     private ResourceInformation getResource(JSONObject jsonObject)
     {

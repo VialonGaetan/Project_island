@@ -80,13 +80,13 @@ public class GroundActionsTest {
 
     @Test
     public void testTransform() {
-        action = new Transform(Resource.FUR,Resource.GLASS,10,6);
+        action = new Transform(Resource.FUR,10,Resource.GLASS,6);
         toJSON = action.getJsonObject().toString();
         assertNotEquals(toJSON,"{\"action\":\"transform\",\"parameters\":{\"FUR\":10,\"GLASS\":6}}");
         assertNotEquals(toJSON, "{\"action\":\"transform\",\"parameters\":{\"FUR\":6,\"GLASS\":10}}");
         assertEquals(toJSON, "{\"action\":\"transform\",\"parameters\":{\"GLASS\":6,\"FUR\":10}}");
         assertNotEquals(toJSON, "{\"action\":\"transform\",\"parameters\":{\"GLASS\":10,\"FUR\":6}}");
-        assertNotEquals(toJSON, new Transform(Resource.GLASS,Resource.FUR,10,6));
+        assertNotEquals(toJSON, new Transform(Resource.GLASS,10,Resource.FUR,6));
         assertNotEquals(toJSON, "{\"action\":\"transform\",\"parameters\":{\"WOOD\":6,\"QUARTZ\":11}}");
         assertNotEquals(action, new Scout(Compass.S));
         assertNotEquals(toJSON, new Move_to(Compass.W).getJsonObject().toString());

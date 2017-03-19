@@ -13,7 +13,7 @@ public class Transform implements Decision{
     private Resource resource, resource1;
     private int nbResource, nbResource1;
 
-    public Transform(Resource resource, Resource resource1, int nbResource, int nbResource1) {
+    public Transform(Resource resource, int nbResource,Resource resource1, int nbResource1) {
         this.resource = resource;
         this.nbResource = nbResource;
         this.resource1 = resource1;
@@ -21,12 +21,26 @@ public class Transform implements Decision{
         actionType = ArgActions.TRANSFORM;
     }
 
+    public Transform(Resource resource, int nbResource) {
+        this.resource = resource;
+        this.nbResource = nbResource;
+        actionType = ArgActions.TRANSFORM;
+    }
+
+
+
     /**
-     * Créé un objet JSON avec l'fr.unice.polytech.si3.qgl.iaad.action ECHO
+     * Créé un objet JOSN avec l'fr.unice.polytech.si3.qgl.iaad.action ECHO
      * @return String of JSON
      */
     @Override
-    public JSONObject getJsonObject() {
+    public JSONObject getJsonObject()
+    {
+        if(nbResource1 == 0)
+        {
+            return new JSONObject().put("action",ArgActions.TRANSFORM.getName()).put("parameters",new JSONObject().put(resource.getName(),nbResource));
+        }
+
         return new JSONObject().put("action" , ArgActions.TRANSFORM.getName()).put("parameters", new JSONObject().put(resource.getName(), nbResource).put(resource1.getName(), nbResource1));
     }
 
