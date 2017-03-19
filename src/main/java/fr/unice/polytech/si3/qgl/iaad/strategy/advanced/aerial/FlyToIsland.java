@@ -21,7 +21,7 @@ public class FlyToIsland extends Aerial implements Protocol
     private final Deque<Protocol> protocols;
     private final Protocol exit;
 
-    FlyToIsland(Protocol exit, Context context, IslandMap islandMap, Drone drone, int range)
+    public FlyToIsland(Protocol exit, Context context, IslandMap islandMap, Drone drone, int range)
     {
         super(context, islandMap, drone);
         this.exit = exit;

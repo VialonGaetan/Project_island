@@ -26,7 +26,7 @@ public class ScanIsland extends Aerial implements Protocol
 {
     private final Compass direction;
 
-    ScanIsland(Context context, IslandMap islandMap, Drone drone, Compass direction)
+    public ScanIsland(Context context, IslandMap islandMap, Drone drone, Compass direction)
     {
         super(context, islandMap, drone);
         this.direction = direction;
