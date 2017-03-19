@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.terrestrial;
+package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.prioritisation;
 
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 
@@ -17,7 +17,7 @@ public class ModeledMap
     private final IslandMap map;
     private final Map<Biome, Set<Rectangle>> biomeAreaMap;
 
-    ModeledMap(IslandMap map)
+    public ModeledMap(IslandMap map)
     {
         this.map = map;
         biomeAreaMap = new EnumMap<>(Biome.class);
@@ -34,13 +34,24 @@ public class ModeledMap
         for (Point point : map.getPoints())
         {
             if (map.getTile(point).getBiomes().contains(fr.unice.polytech.si3.qgl.iaad.util.resource.Biome.valueOf(biome.toString())))
-                    rectangles.add(new Rectangle(point.x - 1, point.y - 1, 2, 2));
+                    rectangles.add(new Rectangle(point.x, point.y, 1, 1));
         }
 
         return rectangles;
     }
 
-    double getComputedArea(Biome biome)
+    public Set<Rectangle> biomeArea(PrimaryResource primaryResource)
+    {
+        Set<Rectangle> area = new HashSet<>();
+        for (Biome biome : Biome.values())
+        {
+            if (biome.getResourceMap().contains(primaryResource))
+                area.addAll(biomeArea(biome));
+        }
+        return area;
+    }
+
+    private double getComputedArea(Biome biome)
     {
         return biomeAreaMap.get(biome).stream()
                 .map(rectangle -> rectangle.getHeight() * rectangle.getWidth())

@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.terrestrial;
+package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.prioritisation;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.ArgActions;
@@ -10,9 +10,13 @@ import fr.unice.polytech.si3.qgl.iaad.util.contract.Basket;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.*;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 import org.junit.Test;
+
+import java.awt.*;
+import java.util.Collections;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;

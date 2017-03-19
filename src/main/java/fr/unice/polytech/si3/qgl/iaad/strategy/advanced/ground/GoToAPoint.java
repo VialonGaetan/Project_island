@@ -1,11 +1,12 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.ground;
 
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Decision;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Move_to;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
-import fr.unice.polytech.si3.qgl.iaad.strategy.common.StopExploration;
+import fr.unice.polytech.si3.qgl.iaad.strategy.advanced.terrestrial.ScheduleCrewPath;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
@@ -19,6 +20,7 @@ import java.util.Map;
  */
 public class GoToAPoint implements Protocol {
 
+    private Context context;
     private Point dest;
     private Map contrat;
     private Crew crew;
@@ -39,7 +41,12 @@ public class GoToAPoint implements Protocol {
         }
         else
             action = (distanceX > 0) ? new Move_to(direction =Compass.E) : new Move_to(direction = Compass.W);
+    }
 
+    public GoToAPoint(Context context, IslandMap map, Crew crew, Point point)
+    {
+        this(point, context.getContract(), crew, map);
+        this.context = context;
     }
 
     @Override
@@ -53,8 +60,8 @@ public class GoToAPoint implements Protocol {
     @Override
     public Protocol acknowledgeResults(Result result) {
         if (dest.equals(crew.getLocation()))
-            return new StopExploration();
+            return new ScheduleCrewPath(context, map, crew);
         else
-            return new GoToAPoint(dest,contrat,crew,map);
+            return new GoToAPoint(context, map, crew, dest);
     }
 }

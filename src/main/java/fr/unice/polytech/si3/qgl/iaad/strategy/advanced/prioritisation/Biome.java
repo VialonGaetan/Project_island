@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.terrestrial;
+package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.prioritisation;
 
 /**
  * @author Alexandre Clement
@@ -23,7 +23,6 @@ public enum Biome
     OCEAN(3.0, new ResourceEntry(PrimaryResource.FISH, 0.9)),
     LAKE(2.0, new ResourceEntry(PrimaryResource.FISH, 0.8)),
     GLACIER(2.5, new ResourceEntry(PrimaryResource.FLOWER, 0.05));
-
 
     private final double crossFactor;
     private final ResourceMap resourceMap;

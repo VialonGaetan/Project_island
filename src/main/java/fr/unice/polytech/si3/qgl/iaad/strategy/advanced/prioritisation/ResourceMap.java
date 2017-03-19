@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.terrestrial;
+package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.prioritisation;
 
 import java.util.EnumMap;
 import java.util.Map;

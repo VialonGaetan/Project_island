@@ -1,10 +1,10 @@
-package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.terrestrial;
+package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.prioritisation;
 
 /**
  * @author Alexandre Clement
  * @since 19/03/2017.
  */
-public enum PrimaryResource implements Resource
+public enum PrimaryResource implements ResourceCategorised
 {
     FISH(40, 1.05),
     QUARTZ(5, 0.7),
@@ -33,7 +33,6 @@ public enum PrimaryResource implements Resource
     {
         return difficulty;
     }
-
 
     @Override
     public ResourceCategory getCategory()

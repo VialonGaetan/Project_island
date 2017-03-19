@@ -1,10 +1,10 @@
-package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.terrestrial;
+package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.prioritisation;
 
 /**
  * @author Alexandre Clement
  * @since 19/03/2017.
  */
-public enum Manufactured implements Resource
+public enum Manufactured implements ResourceCategorised
 {
     GLASS(new ResourceMap(new ResourceEntry(PrimaryResource.QUARTZ, 10), new ResourceEntry(PrimaryResource.WOOD, 5)), 0.5, false),
     INGOT(new ResourceMap(new ResourceEntry(PrimaryResource.ORE, 5), new ResourceEntry(PrimaryResource.WOOD, 5)), 1, true),

@@ -130,7 +130,7 @@ public class IslandMap
             dimensions.put(direction, dimensions.get(direction)*3);
         }
 
-        map = groundMap.keySet().stream().filter(this::isOnMap).collect(Collectors.toMap(Function.identity(), this::getTile));
+        map = groundMap.keySet().stream().filter(this::isOnMap).collect(Collectors.toMap(Function.identity(), groundMap::get));
     }
 
     /**

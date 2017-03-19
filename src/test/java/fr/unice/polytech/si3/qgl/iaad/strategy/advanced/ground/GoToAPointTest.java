@@ -10,6 +10,7 @@ import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.Assert.*;
 
@@ -45,7 +46,7 @@ public class GoToAPointTest {
         contrat.put(Resource.FISH,12);
     }
 
-
+    @Ignore
     @Test
     public void run(){
         Protocol strategy = new GoToAPoint(destination,contrat,crew,map);
