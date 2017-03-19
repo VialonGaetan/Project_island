@@ -28,6 +28,10 @@ public enum Resource {
     private int qte1, qte2;
     private Boolean isPrimary;
 
+    //nombre de ressources exploitées
+
+    private int exploitedFish, exploitedFlower, exploitedFruits, exploitedFur, exploitedOre, exploitedQuartz, exploitedSugarCane, exploitedWood;
+
     public String getName() {
         return name;
     }
@@ -69,4 +73,35 @@ public enum Resource {
         return recipe;
     }
 
+    public int getExploitedFish() {
+        return exploitedFish;
+    }
+
+    public int getExploitedFlower() {
+        return exploitedFlower;
+    }
+
+    public int getExploitedFruits() {
+        return exploitedFruits;
+    }
+
+    public int getExploitedFur() {
+        return exploitedFur;
+    }
+
+    public int getExploitedOre() {
+        return exploitedOre;
+    }
+
+    public int getExploitedQuartz() {
+        return exploitedQuartz;
+    }
+
+    public int getExploitedSugarCane() {
+        return exploitedSugarCane;
+    }
+
+    public int getExploitedWood() {
+        return exploitedWood;
+    }
 }

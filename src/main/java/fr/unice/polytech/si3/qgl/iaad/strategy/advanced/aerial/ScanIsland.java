@@ -22,6 +22,7 @@ import java.util.Optional;
  * @author Alexandre Clement
  * @since 04/03/2017.
  */
+
 public class ScanIsland extends Aerial implements Protocol
 {
     private final Compass direction;

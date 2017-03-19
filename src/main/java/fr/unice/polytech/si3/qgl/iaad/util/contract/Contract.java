@@ -27,4 +27,5 @@ public class Contract extends Basket
     {
         merge(resource, collectedQuantity, (previous, collected) -> Math.max(0, previous - collected));
     }
+
 }

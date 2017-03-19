@@ -3,19 +3,23 @@ package fr.unice.polytech.si3.qgl.iaad.util.contract;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Théo on 22/02/2017.
  */
 
-public class SecondContract {
+public class SecondContract extends Contract{
 
     private Map<Resource, Integer> toBeCrafted;
     private Map<Resource,Integer> secondContract;
     private Map<Resource, Integer> initialContract;
 
-    public SecondContract(Context cx){
+    public SecondContract(Context cx, Basket basket){
+        super(basket);
         initialContract = cx.getContract();
         toBeCrafted = new HashMap<>();
         secondContract = new HashMap<>();
@@ -67,4 +71,44 @@ public class SecondContract {
     public Map<Resource, Integer> getInitialContract() {
         return initialContract;
     }
+
+
+    /**
+     * Retourne True si la ressource passée en paramètre est actuellement craftable, false sinon
+     * @param resource
+     * @param basket
+     * @return Boolean
+     */
+    public Boolean isCraftable(Resource resource, Basket basket){
+        if (resource.isPrimary()) return false;
+        HashMap<Resource, Integer> recipe = (HashMap<Resource, Integer>) resource.getRecipe(resource);
+        Set listKeys=recipe.keySet();
+        Iterator iterateur=listKeys.iterator();
+        Resource res = (Resource) iterateur.next();
+
+        while(res!=null && iterateur.hasNext()) {
+            if (!basket.containsKey(res)) return false;
+            if (basket.get(res) < recipe.get(res)) {
+                return false;
+            }
+            res = (Resource) iterateur.next();
+        }
+        return true;
+    }
+
+    /*
+    Contract = Basket pour le moment ? peu d'intérêt
+     */
+    public Resource getCraftableResource(Contract contract, Basket basket){
+        Set listKeys=contract.keySet();
+        Iterator iteratorOfContract=listKeys.iterator();
+        Resource res = (Resource) iteratorOfContract.next();
+        while (iteratorOfContract.hasNext() && res!=null){
+            if (isCraftable(res, basket)) return res;
+            System.out.println(res);
+            res = (Resource) iteratorOfContract.next();
+        }
+        return null;
+    }
+
 }
