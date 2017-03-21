@@ -19,6 +19,7 @@ public enum Biome {
     TEMPERATE_RAIN_FOREST(Resource.WOOD),
     TEMPERATE_DESERT(Resource.ORE, Resource.QUARTZ),
     TAIGA(),
+    TUNDRA(Resource.FUR),
     SNOW(Resource.ORE),
     ALPINE(Resource.FLOWER, Resource.ORE),
     GLACIER(Resource.FLOWER),

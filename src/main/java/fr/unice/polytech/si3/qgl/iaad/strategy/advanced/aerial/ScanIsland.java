@@ -6,10 +6,10 @@ import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Scan;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.ScanResult;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
+import fr.unice.polytech.si3.qgl.iaad.strategy.advanced.terrestrial.ScheduleCrewPath;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.Aerial;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.FlyOnMap;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.LandOnCreek;
-import fr.unice.polytech.si3.qgl.iaad.strategy.simple.ground.Initialize;
 import fr.unice.polytech.si3.qgl.iaad.util.map.*;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
@@ -67,7 +67,7 @@ public class ScanIsland extends Aerial implements Protocol
         Creek creek = islandMap.getTile(creekLocation).getCreeks().get(0);
         islandMap.zoom();
         Crew crew = new Crew(1, aerialToGroundLocation(creekLocation));
-        Protocol groundStrategy = new Initialize(context.getContract(), crew, islandMap);
+        Protocol groundStrategy = new ScheduleCrewPath(context, islandMap, crew);
         return new LandOnCreek(groundStrategy, creek, 1);
     }
 

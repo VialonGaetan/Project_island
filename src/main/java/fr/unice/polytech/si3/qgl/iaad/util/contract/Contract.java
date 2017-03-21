@@ -20,7 +20,7 @@ public class Contract extends Basket
 
     public boolean completed(Resource resource)
     {
-        return get(resource) == 0;
+        return !containsKey(resource) || get(resource) == 0;
     }
 
     public void collect(Resource resource, Integer collectedQuantity)

@@ -15,8 +15,6 @@ import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 import org.junit.Test;
 
-import java.awt.*;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -28,9 +26,7 @@ import static org.mockito.Mockito.when;
  */
 public class AdvancedStrategyTest
 {
-    private static final long TIME_OUT = 2000L;
-    private static final String TIME_OUT_MESSAGE = "Time out";
-    private Drone drone;
+    private Drone expectedDrone;
 
     private Protocol advancedStrategy() throws Exception
     {
@@ -44,7 +40,7 @@ public class AdvancedStrategyTest
         when(context.getHeading()).thenReturn(Compass.E);
         when(context.getNumberOfMen()).thenReturn(12);
         when(context.getContract()).thenReturn(contracts);
-        drone = new Drone(context.getHeading());
+        expectedDrone = new Drone(context.getHeading());
         return new AdvancedStrategy(context, new IslandMap(), new Drone(context.getHeading()));
     }
 
@@ -60,9 +56,9 @@ public class AdvancedStrategyTest
         Assertion goodOrientation = decision ->
         {
             if (decision.getActionEnum() == ArgActions.ECHO)
-                assertFalse(drone.getHeading() == ((Oriented) decision).getDirection().get(Direction.BACK));
+                assertFalse(expectedDrone.getHeading() == ((Oriented) decision).getDirection().get(Direction.BACK));
             else if (decision.getActionEnum() == ArgActions.HEADING)
-                drone.heading(((Oriented) decision).getDirection());
+                expectedDrone.heading(((Oriented) decision).getDirection());
         };
         run(goodOrientation);
     }
@@ -74,8 +70,8 @@ public class AdvancedStrategyTest
         {
             if (decision.getActionEnum() == ArgActions.HEADING)
             {
-                assertTrue(drone.getHeading().isOrthogonal(((Oriented) decision).getDirection()));
-                drone.heading(((Oriented) decision).getDirection());
+                assertTrue(expectedDrone.getHeading().isOrthogonal(((Oriented) decision).getDirection()));
+                expectedDrone.heading(((Oriented) decision).getDirection());
             }
         };
         run(goodOrientation);
