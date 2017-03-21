@@ -68,6 +68,7 @@ public class Crafting implements Protocol {
         return new ScheduleCrewPath(context,map,crew); //A modifier en fonction de ce qu'on veut faire dans ce cas (le craft a échoué, et on a plus assez de ressources pour le reCraft)
     }
 
+
     public void updateBasket(Resource resource){
         if (resource.isPrimary())return;
         HashMap<Resource, Integer> recipe = (HashMap<Resource, Integer>) resource.getRecipe(resource);
