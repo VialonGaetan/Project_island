@@ -8,11 +8,8 @@ import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.util.map.GroundActionTile;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceInformation;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
-
-import java.util.Map;
 
 /**
  * @author Alexandre Clement
@@ -23,14 +20,12 @@ public class ExploreTile implements Protocol
     private final Context context;
     private final IslandMap map;
     private final Crew crew;
-    private final Map<Resource, Double> prioritizedContract;
 
-    ExploreTile(Context context, IslandMap map, Crew crew, Map<Resource, Double> prioritizedContract)
+    public ExploreTile(Context context, IslandMap map, Crew crew)
     {
         this.context = context;
         this.map = map;
         this.crew = crew;
-        this.prioritizedContract = prioritizedContract;
     }
 
     @Override
@@ -44,7 +39,7 @@ public class ExploreTile implements Protocol
     {
         ExploreResult exploreResult = new ExploreResult(result);
 
-        map.getTile(crew.getLocation()).setAsAlready(GroundActionTile.VISITED);
+        acknowledgeMap(exploreResult);
 
         for (ResourceInformation resourceInformation : exploreResult.getResourcesExplored())
         {
@@ -54,8 +49,16 @@ public class ExploreTile implements Protocol
         return new ScheduleCrewPath(context, map, crew);
     }
 
+    private void acknowledgeMap(ExploreResult exploreResult)
+    {
+        map.getTile(crew.getLocation()).setAsAlready(GroundActionTile.VISITED);
+        map.getTile(crew.getLocation()).addResourceInformationList(exploreResult.getResourcesExplored());
+    }
+
     private boolean isWorthToExploit(ResourceInformation resourceInformation)
     {
-        return prioritizedContract.containsKey(resourceInformation.getResource()) && resourceInformation.getResourceAmount().getQuantity() * resourceInformation.getResourceCondition().getCondition() * prioritizedContract.get(resourceInformation.getResource()) > 0;
+        boolean isInContract = context.getContract().getTotalBasket().contains(resourceInformation.getResource());
+        boolean isWorthToExploit = resourceInformation.getResourceCondition().getCondition() * resourceInformation.getResourceAmount().getQuantity() >= 0.5;
+        return isInContract && isWorthToExploit;
     }
 }

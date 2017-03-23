@@ -1,10 +1,14 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
-import fr.unice.polytech.si3.qgl.iaad.util.contract.Basket;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
+import fr.unice.polytech.si3.qgl.iaad.util.contract.ManufacturedContract;
+import fr.unice.polytech.si3.qgl.iaad.util.contract.PrimaryContract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.Manufactured;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.PrimaryResource;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceCategory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -25,24 +29,30 @@ class JsonContext implements Context
         heading = Compass.valueOf(jsonObject.get(JsonArguments.HEADING.toString()).toString());
         budget = jsonObject.getInt(JsonArguments.BUDGET.toString());
         men = jsonObject.getInt(JsonArguments.MEN.toString());
-        contract = retrievesContract(jsonObject);
+
+        contract = new Contract();
+        retrievesContract(jsonObject);
     }
 
-    private Contract retrievesContract(JSONObject jsonObject)
+    private void retrievesContract(JSONObject jsonObject)
     {
         JSONObject jsonContract;
-        Resource resource;
         int amount;
-        Basket resourceInContract = new Basket();
+        String name;
+        Resource resource;
         JSONArray jsonArray = jsonObject.getJSONArray(JsonArguments.CONTRACTS.toString());
+
         for (int i = 0; i < jsonArray.length(); i++)
         {
             jsonContract = jsonArray.getJSONObject(i);
-            resource = Resource.valueOf(jsonContract.get(JsonArguments.RESOURCE.toString()).toString());
+            name = jsonContract.get(JsonArguments.RESOURCE.toString()).toString();
+            resource = Resource.valueOf(name);
             amount = jsonContract.getInt(JsonArguments.AMOUNT.toString());
-            resourceInContract.put(resource, amount);
+            if (resource.getCategory() == ResourceCategory.PRIMARY)
+                contract.addContract(new PrimaryContract(PrimaryResource.valueOf(name), amount));
+            else
+                contract.addContract(new ManufacturedContract(Manufactured.valueOf(name), amount));
         }
-        return new Contract(resourceInContract);
     }
 
     @Override
@@ -58,14 +68,14 @@ class JsonContext implements Context
     }
 
     @Override
-    public Contract getContract()
-    {
-        return contract;
-    }
-
-    @Override
     public Compass getHeading()
     {
         return heading;
+    }
+
+    @Override
+    public Contract getContract()
+    {
+        return contract;
     }
 }

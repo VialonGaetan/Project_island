@@ -6,7 +6,7 @@ package fr.unice.polytech.si3.qgl.iaad.engine.player.results;
  */
 public class TransformResult {
 
-    Result result;
+    private Result result;
 
     public TransformResult(Result result) {
         this.result = result;

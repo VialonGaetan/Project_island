@@ -36,14 +36,6 @@ public enum JsonArguments
         this.name = name;
     }
 
-    public static JsonArguments argumentsOf(String name)
-    {
-        for (JsonArguments arguments : values())
-            if (arguments.toString().equals(name))
-                return arguments;
-        return null;
-    }
-
     @Override
     public String toString()
     {

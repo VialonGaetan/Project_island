@@ -1,10 +1,10 @@
-package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.prioritisation;
+package fr.unice.polytech.si3.qgl.iaad.util.resource;
 
 /**
  * @author Alexandre Clement
  * @since 19/03/2017.
  */
-public enum PrimaryResource implements ResourceCategorised
+public enum PrimaryResource implements Resource
 {
     FISH(40, 1.05),
     QUARTZ(5, 0.7),

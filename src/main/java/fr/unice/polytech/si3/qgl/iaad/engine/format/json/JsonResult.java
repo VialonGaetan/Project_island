@@ -92,24 +92,24 @@ public class JsonResult extends Result
     private ResourceInformation getResource(JSONObject jsonObject)
     {
         ResourceAmount resourceAmount = ResourceAmount.valueOf(jsonObject.get(JsonArguments.AMOUNT.toString()).toString());
-        Resource resource = Resource.valueOf(jsonObject.get(JsonArguments.RESOURCE.toString()).toString());
+        PrimaryResource resource = PrimaryResource.valueOf(jsonObject.get(JsonArguments.RESOURCE.toString()).toString());
         ResourceCondition resourceCondition = ResourceCondition.valueOf(jsonObject.get(JsonArguments.COND.toString()).toString());
         return new ResourceInformation(resource, resourceAmount, resourceCondition);
     }
 
+    @Override
     public List<GlimpseInformation> getGlimpseInformation(){
-        List<GlimpseInformation> glimpseInformations = new ArrayList<>();
+        List<GlimpseInformation> glimpseInformation = new ArrayList<>();
         JSONArray report = extras.getJSONArray(ArgResult.REPORT.getName());
         for (int i = 0; i < report.length(); i++) {
             for (int j = 0; j < report.getJSONArray(i).length(); j++) {
                 if (i < 2)
-                    glimpseInformations.add(new GlimpseInformation(Biome.valueOf(report.getJSONArray(i).getJSONArray(j).getString(0)),report.getJSONArray(i).getJSONArray(j).getDouble(1),i+1));
+                    glimpseInformation.add(new GlimpseInformation(Biome.valueOf(report.getJSONArray(i).getJSONArray(j).getString(0)), report.getJSONArray(i).getJSONArray(j).getDouble(1), i + 1));
                 else
-                    glimpseInformations.add(new GlimpseInformation(Biome.valueOf(report.getJSONArray(i).getString(j)),i+1));
+                    glimpseInformation.add(new GlimpseInformation(Biome.valueOf(report.getJSONArray(i).getString(j)), i + 1));
             }
-
         }
-        return glimpseInformations;
+        return glimpseInformation;
     }
 
     private static List<String> retrievesData(JSONArray jsonArray)

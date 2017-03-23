@@ -1,7 +1,11 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.player.actions;
 
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
+import fr.unice.polytech.si3.qgl.iaad.engine.format.json.JsonArguments;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.Manufactured;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.PrimaryResource;
 import org.json.JSONObject;
+
+import java.util.Map;
 
 /**
  * @author Gaetan Vialon
@@ -9,15 +13,14 @@ import org.json.JSONObject;
  */
 public class Transform implements Decision{
 
+    private final Manufactured manufactured;
+    private final int quantity;
     private ArgActions actionType;
-    private Resource resource, resource1;
-    private int nbResource, nbResource1;
 
-    public Transform(Resource resource, Resource resource1, int nbResource, int nbResource1) {
-        this.resource = resource;
-        this.nbResource = nbResource;
-        this.resource1 = resource1;
-        this.nbResource1 =nbResource1;
+    public Transform(Manufactured manufactured, int quantity)
+    {
+        this.manufactured = manufactured;
+        this.quantity = quantity;
         actionType = ArgActions.TRANSFORM;
     }
 
@@ -27,7 +30,13 @@ public class Transform implements Decision{
      */
     @Override
     public JSONObject getJsonObject() {
-        return new JSONObject().put("action" , ArgActions.TRANSFORM.getName()).put("parameters", new JSONObject().put(resource.getName(), nbResource).put(resource1.getName(), nbResource1));
+        JSONObject parameters = new JSONObject();
+        for (Map.Entry<PrimaryResource, Double> entry : manufactured.getRecipe().entrySet())
+        {
+            parameters.put(entry.getKey().toString(), (int) Math.ceil(entry.getValue() * quantity));
+        }
+        return new JSONObject().put(JsonArguments.ACTION.toString(), ArgActions.TRANSFORM.getName())
+                .put(JsonArguments.PARAMETERS.toString(), parameters);
     }
 
     @Override

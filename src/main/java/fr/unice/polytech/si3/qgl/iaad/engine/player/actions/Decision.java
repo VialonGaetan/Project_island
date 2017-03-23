@@ -8,7 +8,6 @@ import org.json.JSONObject;
  */
 public interface Decision
 {
-
     ArgActions getActionEnum();
 
     JSONObject getJsonObject();

@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.prioritisation;
+package fr.unice.polytech.si3.qgl.iaad.util.resource;
 
 /**
  * @author Alexandre Clement

@@ -61,7 +61,7 @@ public class MockedResult extends Result
     @Override
     protected List<ResourceInformation> getResourcesExplored()
     {
-        Resource resource = getRandomEnumValue(Resource.values());
+        PrimaryResource resource = getRandomEnumValue(PrimaryResource.values());
         ResourceAmount resourceAmount = getRandomEnumValue(ResourceAmount.values());
         ResourceCondition resourceCondition = getRandomEnumValue(ResourceCondition.values());
         return Collections.singletonList(new ResourceInformation(resource, resourceAmount, resourceCondition));

@@ -17,9 +17,9 @@ public class BiomeTest {
     public void OceanTest(){
         Biome biome = Biome.OCEAN;
         List<Resource> resourceList = new ArrayList<>();
-        resourceList.add(Resource.FISH);
+        resourceList.add(PrimaryResource.FISH);
         assertEquals(biome.getAssociateResources(),resourceList);
-        assertEquals(biome.getAssociateResources().get(0),Resource.FISH);
+        assertEquals(biome.getAssociateResources().get(0),PrimaryResource.FISH);
         assertEquals(biome.getAssociateResources().size(),1);
     }
 }

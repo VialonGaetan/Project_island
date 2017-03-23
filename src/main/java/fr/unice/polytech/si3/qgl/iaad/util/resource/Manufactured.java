@@ -1,10 +1,10 @@
-package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.prioritisation;
+package fr.unice.polytech.si3.qgl.iaad.util.resource;
 
 /**
  * @author Alexandre Clement
  * @since 19/03/2017.
  */
-public enum Manufactured implements ResourceCategorised
+public enum Manufactured implements Resource
 {
     GLASS(new ResourceMap(new ResourceEntry(PrimaryResource.QUARTZ, 10), new ResourceEntry(PrimaryResource.WOOD, 5)), 0.5, false),
     INGOT(new ResourceMap(new ResourceEntry(PrimaryResource.ORE, 5), new ResourceEntry(PrimaryResource.WOOD, 5)), 1, true),
@@ -37,7 +37,6 @@ public enum Manufactured implements ResourceCategorised
     {
         return isAloneActivity;
     }
-
 
     @Override
     public ResourceCategory getCategory()

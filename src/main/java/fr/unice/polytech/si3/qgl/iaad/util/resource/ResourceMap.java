@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.prioritisation;
+package fr.unice.polytech.si3.qgl.iaad.util.resource;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -12,7 +12,7 @@ public class ResourceMap
 {
     private Map<PrimaryResource, Double> resources;
 
-    ResourceMap(ResourceEntry... reagents)
+    public ResourceMap(ResourceEntry... reagents)
     {
         resources = new EnumMap<>(PrimaryResource.class);
 
@@ -27,6 +27,11 @@ public class ResourceMap
         return resources.keySet();
     }
 
+    public Set<Map.Entry<PrimaryResource, Double>> entrySet()
+    {
+        return resources.entrySet();
+    }
+
     public boolean contains(PrimaryResource primaryResource)
     {
         return resources.containsKey(primaryResource);
@@ -34,6 +39,6 @@ public class ResourceMap
 
     public Double get(PrimaryResource primaryResource)
     {
-        return resources.get(primaryResource);
+        return resources.getOrDefault(primaryResource, 0d);
     }
 }

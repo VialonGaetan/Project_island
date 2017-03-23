@@ -24,11 +24,6 @@ public class Scan implements Decision {
         return new JSONObject().put("action" , ArgActions.SCAN.getName());
     }
 
-    /**
-     * Créé un objet ScanResult
-     * @param result de l'explorer
-     * @return ScanResult
-     */
     @Override
     public ArgActions getActionEnum() {
         return actionType;

@@ -33,7 +33,7 @@ public class TileTest
             assertFalse(tile.isAlready(groundActionTile));
         }
 
-        for(Resource resource : Resource.values())
+        for(PrimaryResource resource : PrimaryResource.values())
         {
             assertFalse(tile.resourceAlreadyExploited(resource));
         }
@@ -66,19 +66,16 @@ public class TileTest
         List<EmergencySite> emergencySites = new ArrayList<>();
         List<ResourceInformation> resourceInformationList = new ArrayList<>();
 
-        assertTrue(tile.equals(tile));
-        assertFalse(tile.equals(null));
-
         biomes.add(Biome.BEACH);
         creeks.add(new Creek("creek"));
         emergencySites.add(new EmergencySite("em"));
-        resourceInformationList.add(new ResourceInformation(Resource.FISH, ResourceAmount.HIGH, ResourceCondition.EASY));
+        resourceInformationList.add(new ResourceInformation(PrimaryResource.FISH, ResourceAmount.HIGH, ResourceCondition.EASY));
 
         tile.addBiomes(biomes);
         tile.addCreeks(creeks);
         tile.addEmergencySites(emergencySites);
         tile.addResourceInformationList(resourceInformationList);
-        tile.exploitResource(Resource.FISH);
+        tile.exploitResource(PrimaryResource.FISH);
 
         assertFalse(tile.equals(new Tile()));
 
@@ -92,7 +89,7 @@ public class TileTest
     @Test
     public void resourceAlreadyExploited()
     {
-        for(Resource resource : Resource.values())
+        for(PrimaryResource resource : PrimaryResource.values())
         {
             assertFalse(tile.resourceAlreadyExploited(resource));
             tile.exploitResource(resource);
@@ -114,8 +111,8 @@ public class TileTest
         creeks.add(new Creek("id2"));
         emergencySites.add(new EmergencySite("id1"));
         emergencySites.add(new EmergencySite("id2"));
-        resourceInformationList.add(new ResourceInformation(Resource.FISH, ResourceAmount.HIGH, ResourceCondition.EASY));
-        resourceInformationList.add(new ResourceInformation(Resource.FLOWER, ResourceAmount.HIGH, ResourceCondition.EASY));
+        resourceInformationList.add(new ResourceInformation(PrimaryResource.FISH, ResourceAmount.HIGH, ResourceCondition.EASY));
+        resourceInformationList.add(new ResourceInformation(PrimaryResource.FLOWER, ResourceAmount.HIGH, ResourceCondition.EASY));
 
 
         tile.addBiomes(biomes);
@@ -136,7 +133,7 @@ public class TileTest
         biomes2.add(Biome.BEACH);
         creeks2.add(new Creek("id2"));
         emergencySites2.add(new EmergencySite("id2"));
-        resourceInformationList2.add(new ResourceInformation(Resource.FLOWER, ResourceAmount.LOW, ResourceCondition.EASY));
+        resourceInformationList2.add(new ResourceInformation(PrimaryResource.FLOWER, ResourceAmount.LOW, ResourceCondition.EASY));
 
         assertNotEquals(biomes2, tile.getBiomes());
         assertNotEquals(creeks2, tile.getCreeks());
@@ -160,7 +157,7 @@ public class TileTest
         biomes.add(Biome.BEACH);
         creeks.add(new Creek("creek"));
         emergencySites.add(new EmergencySite("em"));
-        resourceInformationList.add(new ResourceInformation(Resource.FISH, ResourceAmount.HIGH, ResourceCondition.EASY));
+        resourceInformationList.add(new ResourceInformation(PrimaryResource.FISH, ResourceAmount.HIGH, ResourceCondition.EASY));
 
         tile.addBiomes(biomes);
         tile.addCreeks(creeks);

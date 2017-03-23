@@ -1,10 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.util.map;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -31,6 +28,12 @@ public class IslandMap
         {
             dimensions.put(direction, 0);
         }
+    }
+
+    public IslandMap(IslandMap islandMap)
+    {
+        map = new HashMap<>(islandMap.map);
+        dimensions = new EnumMap<>(islandMap.dimensions);
     }
 
     /**

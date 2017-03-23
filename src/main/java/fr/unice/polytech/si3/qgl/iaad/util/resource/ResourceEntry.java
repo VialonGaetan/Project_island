@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.prioritisation;
+package fr.unice.polytech.si3.qgl.iaad.util.resource;
 
 /**
  * @author Alexandre Clement
@@ -9,7 +9,7 @@ public class ResourceEntry
     private final PrimaryResource resource;
     private final double coefficient;
 
-    ResourceEntry(PrimaryResource resource, double coefficient)
+    public ResourceEntry(PrimaryResource resource, double coefficient)
     {
         this.resource = resource;
         this.coefficient = coefficient;

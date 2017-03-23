@@ -10,7 +10,10 @@ import fr.unice.polytech.si3.qgl.iaad.strategy.advanced.terrestrial.ScheduleCrew
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.Aerial;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.FlyOnMap;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.LandOnCreek;
-import fr.unice.polytech.si3.qgl.iaad.util.map.*;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
+import fr.unice.polytech.si3.qgl.iaad.util.map.GroundActionTile;
+import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Tile;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
@@ -63,11 +66,10 @@ public class ScanIsland extends Aerial implements Protocol
 
     private Protocol land(Point creekLocation)
     {
-        Creek creek = islandMap.getTile(creekLocation).getCreeks().get(0);
         islandMap.zoom();
         Crew crew = new Crew(1, aerialToGroundLocation(creekLocation));
         Protocol groundStrategy = new ScheduleCrewPath(context, islandMap, crew);
-        return new LandOnCreek(groundStrategy, creek, 1);
+        return new LandOnCreek(groundStrategy, islandMap, aerialToGroundLocation(creekLocation), crew);
     }
 
     private boolean droneHasEnoughExplored()

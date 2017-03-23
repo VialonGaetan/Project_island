@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.util.map;
 
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.PrimaryResource;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceInformation;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class Tile
     private final List<Creek> creeks;
     private final List<EmergencySite> emergencySites;
     private final List<ResourceInformation> resourceInformationList;
-    private final List<Resource> exploitedResources;
+    private final List<PrimaryResource> exploitedResources;
     private final List<GroundActionTile> groundActionTiles;
 
     public Tile()
@@ -32,12 +32,12 @@ public class Tile
 
     public Tile(Tile tile)
     {
-        biomes = tile.biomes;
-        creeks = tile.creeks;
-        emergencySites = tile.emergencySites;
-        resourceInformationList = tile.resourceInformationList;
-        exploitedResources = tile.exploitedResources;
-        groundActionTiles = tile.groundActionTiles;
+        biomes = new ArrayList<>(tile.biomes);
+        creeks = new ArrayList<>(tile.creeks);
+        emergencySites = new ArrayList<>(tile.emergencySites);
+        resourceInformationList = new ArrayList<>(tile.resourceInformationList);
+        exploitedResources = new ArrayList<>(tile.exploitedResources);
+        groundActionTiles = new ArrayList<>(tile.groundActionTiles);
     }
 
     @Override
@@ -77,9 +77,15 @@ public class Tile
 
     private <T> void add(List<T> list, List<T> toAdd) { toAdd.stream().filter(element -> !list.contains(element)).forEach(list::add); }
 
-    public void exploitResource(Resource resource) { if(!exploitedResources.contains(resource)) exploitedResources.add(resource); }
+    public void exploitResource(PrimaryResource resource)
+    {
+        if (!exploitedResources.contains(resource)) exploitedResources.add(resource);
+    }
 
-    public boolean resourceAlreadyExploited(Resource resource) { return exploitedResources.contains(resource); }
+    public boolean resourceAlreadyExploited(PrimaryResource resource)
+    {
+        return exploitedResources.contains(resource);
+    }
 
     public void addBiomes(List<Biome> biomes) { add(this.biomes, biomes); }
 

@@ -2,7 +2,7 @@ package fr.unice.polytech.si3.qgl.iaad.engine.player.results;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.json.JsonResult;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Resource;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.PrimaryResource;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceAmount;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceCondition;
 import org.json.JSONObject;
@@ -87,11 +87,11 @@ public class GroundResultTest {
         assertEquals(result.getCost(),cost);
         assertEquals(result.getResourcesExplored().get(0).getResourceAmount(), ResourceAmount.HIGH);
         assertEquals(result.getResourcesExplored().get(1).getResourceAmount(),ResourceAmount.LOW);
-        assertEquals(result.getResourcesExplored().get(0).getResource(),Resource.FUR);
+        assertEquals(result.getResourcesExplored().get(0).getResource(),PrimaryResource.FUR);
         assertEquals(result.getResourcesExplored().get(0).getResourceCondition(),ResourceCondition.FAIR);
         assertEquals(result.getResourcesExplored().get(1).getResourceCondition(), ResourceCondition.HARSH);
-        assertEquals(result.getResourcesExplored().get(0).getResource(),Resource.FUR);
-        assertEquals(result.getResourcesExplored().get(1).getResource(),Resource.WOOD);
+        assertEquals(result.getResourcesExplored().get(0).getResource(),PrimaryResource.FUR);
+        assertEquals(result.getResourcesExplored().get(1).getResource(), PrimaryResource.WOOD);
 
     }
 
