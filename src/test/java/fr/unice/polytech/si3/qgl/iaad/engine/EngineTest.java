@@ -25,19 +25,22 @@ public class EngineTest
     private Engine engine;
     private Context context;
     private PrimaryContract contracts;
+    private Contract contract;
 
     @Before
     public void setUp() throws Exception
     {
         engine = new Engine();
         context = mock(Context.class);
-
+        contract = new Contract();
+        contract.addContract(new PrimaryContract(PrimaryResource.FISH,50));
         when(context.getBudget()).thenReturn(10000);
         when(context.getHeading()).thenReturn(Compass.E);
         when(context.getNumberOfMen()).thenReturn(12);
+        when(context.getContract()).thenReturn(contract);
     }
 
-    @Ignore
+
     @Test
     public void decisionAreNotNullable() throws Exception
     {
@@ -61,7 +64,6 @@ public class EngineTest
         assertEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
     }
 
-    @Ignore
     @Test
     public void enoughBudgetAndAtLeastOneContract() throws Exception
     {
@@ -69,7 +71,6 @@ public class EngineTest
         assertNotEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
     }
 
-    @Ignore
     @Test
     public void deductActionCostFromTheBudget() throws Exception
     {
@@ -85,7 +86,7 @@ public class EngineTest
         assertEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
     }
 
-    @Ignore
+
     @Test
     public void notAllContractAreCompleted() throws Exception
     {
@@ -93,11 +94,12 @@ public class EngineTest
         assertNotEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
     }
 
-    @Ignore
     @Test
     public void allContractsAreComplete() throws Exception
     {
+        when(context.getContract()).thenReturn(new Contract());
         engine.setContext(context);
+        assertTrue(new Contract().getTotalBasket().isEmpty());
         assertEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
 
     }

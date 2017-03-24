@@ -7,6 +7,7 @@ import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Oriented;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.MockedResult;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Basket;
+import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.PrimaryContract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
@@ -35,18 +36,18 @@ public class AdvancedStrategyTest
         when(context.getBudget()).thenReturn(10000);
         when(context.getHeading()).thenReturn(Compass.E);
         when(context.getNumberOfMen()).thenReturn(12);
+        when(context.getContract()).thenReturn(new Contract());
         expectedDrone = new Drone(context.getHeading());
         return new AdvancedStrategy(context, new IslandMap(), new Drone(context.getHeading()));
     }
 
-    @Ignore
+
     @Test
     public void timeout() throws Exception
     {
         run(new TimeOut());
     }
 
-    @Ignore
     @Test
     public void echoHaveGoodOrientation() throws Exception
     {
@@ -60,7 +61,6 @@ public class AdvancedStrategyTest
         run(goodOrientation);
     }
 
-    @Ignore
     @Test
     public void headingHaveGoodOrientation() throws Exception
     {
