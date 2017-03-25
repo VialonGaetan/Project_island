@@ -18,6 +18,18 @@ public class Land implements Decision {
         actionType = ArgActions.LAND;
     }
 
+    public String getID() {
+        return ID;
+    }
+
+    public int getPeople() {
+        return people;
+    }
+
+    public ArgActions getActionType() {
+        return actionType;
+    }
+
     /**
      * Créé un objet JSON avec l'fr.unice.polytech.si3.qgl.iaad.action Land
      * @return String of JSON
