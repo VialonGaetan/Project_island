@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.common;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Fly;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Heading;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Creek;
@@ -23,30 +24,28 @@ import static org.junit.Assert.*;
  */
 public class TurnTest
 {
-    private FlyOnMap flyOnMap;
+    private Turn turn;
     private IslandMap islandMap;
-    private Drone drone;
 
     @Before
     public void setUp()
     {
         islandMap = new IslandMap();
-        drone = new Drone(Compass.E);
-        flyOnMap = new FlyOnMap(null, islandMap, drone);
+        turn = new Turn(null, islandMap, new Drone(Compass.E), Compass.E);
     }
 
     @Test
     public void takeDecision()
     {
-        assertTrue(flyOnMap.takeDecision() instanceof Stop);
-        islandMap.grow(Compass.E, 1);
-        flyOnMap = new FlyOnMap(null, islandMap, new Drone(Compass.E));
-        assertTrue(flyOnMap.takeDecision() instanceof Fly);
+        assertTrue(turn.takeDecision() instanceof Stop);
+        islandMap.grow(Compass.E, 2);
+        turn = new Turn(null, islandMap, new Drone(Compass.E), Compass.E);
+        assertTrue(turn.takeDecision() instanceof Heading);
     }
 
     @Test
     public void acknowledgeResults()
     {
-        assertNull(flyOnMap.acknowledgeResults(null));
+        assertNull(turn.acknowledgeResults(null));
     }
 }

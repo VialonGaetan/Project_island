@@ -23,30 +23,15 @@ import static org.junit.Assert.*;
  */
 public class StopExplorationTest
 {
-    private FlyOnMap flyOnMap;
-    private IslandMap islandMap;
-    private Drone drone;
-
-    @Before
-    public void setUp()
-    {
-        islandMap = new IslandMap();
-        drone = new Drone(Compass.E);
-        flyOnMap = new FlyOnMap(null, islandMap, drone);
-    }
-
     @Test
     public void takeDecision()
     {
-        assertTrue(flyOnMap.takeDecision() instanceof Stop);
-        islandMap.grow(Compass.E, 1);
-        flyOnMap = new FlyOnMap(null, islandMap, new Drone(Compass.E));
-        assertTrue(flyOnMap.takeDecision() instanceof Fly);
+        assertTrue(new StopExploration().takeDecision() instanceof Stop);
     }
 
     @Test
     public void acknowledgeResults()
     {
-        assertNull(flyOnMap.acknowledgeResults(null));
+        assertNull(new StopExploration().acknowledgeResults(null));
     }
 }
