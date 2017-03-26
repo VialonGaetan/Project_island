@@ -12,6 +12,7 @@ import fr.unice.polytech.si3.qgl.iaad.util.resource.Manufactured;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.PrimaryResource;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.*;
@@ -73,6 +74,22 @@ public class PrioritisationTest {
         prioritisation = new Prioritisation(contract,map,simulatedMap,area,crew);
         destination=Optional.empty();
         assertEquals(prioritisation.nextLocationToExploit(),destination);
+
+    }
+
+    @Ignore
+    @Test
+    public void resourceOnTitle(){
+        setUpContract2();//Plank is easier than fish
+        crew = new Crew(1,new Point(2,2));
+        prioritisation = new Prioritisation(contract,map,simulatedMap,area,crew);
+        destination=Optional.of(new Point(1,1));
+        assertEquals(crew.getLocation(),new Point(2,2));
+        assertEquals(prioritisation.nextLocationToExploit(),destination);
+        map.getTile(new Point(1,1)).setAsAlready(GroundActionTile.VISITED);// si la case est deja visité il va plutot à celle à coté
+        destination=Optional.of(new Point(2,2));
+        assertEquals(prioritisation.nextLocationToExploit(),destination);
+
     }
 
     @Test
