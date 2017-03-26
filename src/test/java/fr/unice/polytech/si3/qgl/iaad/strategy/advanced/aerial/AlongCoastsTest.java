@@ -4,11 +4,11 @@ import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Echo;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
+import fr.unice.polytech.si3.qgl.iaad.strategy.common.FlyOnMap;
+import fr.unice.polytech.si3.qgl.iaad.strategy.common.Turn;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.*;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.GlimpseInformation;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceInformation;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.*;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,13 +22,13 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by Théo on 26/03/2017.
  */
-public class EchoCheckTest {
+public class AlongCoastsTest {
 
     private IslandMap islandMap;
     private Drone drone;
-    private EchoCheck echoCheck;
-    private Protocol groundProtocol;
-    private Protocol outOfRangeProtocol;
+    private Protocol exit;
+    private AlongCoasts alongCoasts;
+
 
     private Context newContext()
     {
@@ -60,7 +60,7 @@ public class EchoCheckTest {
         };
     }
 
-    private Result newResult(int n, Biome biome, boolean creek, Element element)
+    private Result newResult(int n, Biome biome, boolean creek, int range, Element element)
     {
         return new Result()
         {
@@ -68,7 +68,7 @@ public class EchoCheckTest {
             public int getCost() { return 60; }
 
             @Override
-            protected int getRange() { return 20; }
+            protected int getRange() { return range; }
 
             @Override
             protected Element getFound() { return element; }
@@ -108,10 +108,15 @@ public class EchoCheckTest {
             }
 
             @Override
-            protected List<ResourceInformation> getResourcesExplored() { return null; }
+            protected List<ResourceInformation> getResourcesExplored() {
+                List<ResourceInformation> exploredResources = new ArrayList<>();
+                exploredResources.add(new ResourceInformation(PrimaryResource.FISH, ResourceAmount.HIGH, ResourceCondition.EASY));
+                exploredResources.add(new ResourceInformation(PrimaryResource.WOOD, ResourceAmount.MEDIUM, ResourceCondition.HARSH));
+                return exploredResources;
+            }
 
             @Override
-            protected int getExploitAmount() { return 0; }
+            protected int getExploitAmount() { return 25; }
 
             @Override
             protected int getTransformProduction() { return 0; }
@@ -131,33 +136,31 @@ public class EchoCheckTest {
             islandMap.grow(compass, 10);
         }
         drone = new Drone(Compass.E);
-        groundProtocol = new ScanIsland(newContext(), islandMap, drone, Compass.E);
-        outOfRangeProtocol = new ScanIsland(newContext(), islandMap, drone, Compass.E.get(Direction.BACK));
-        echoCheck = new EchoCheck(groundProtocol, outOfRangeProtocol, newContext(), islandMap, drone);
+
+        exit = new ScanIsland(newContext(),islandMap,drone,Compass.E);
+        alongCoasts = new AlongCoasts(exit, newContext(), islandMap,drone,Compass.E);
     }
 
     @Test
-    public void takeDecisionTest(){
-        assertTrue(this.echoCheck.takeDecision() instanceof Echo);
+    public void takedecisionTest(){
+        assertTrue(this.alongCoasts.takeDecision() instanceof Echo);
     }
 
     @Test
-    public void acknowledgeResultsTest(){
-        Result result = newResult(10, Biome.ALPINE,false, Element.GROUND);
-        assertTrue(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(12, Biome.OCEAN, false, Element.GROUND);
-        assertTrue(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(1,Biome.ALPINE, false, Element.GROUND);
-        assertTrue(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(5,Biome.BEACH,true, Element.GROUND);
-        assertTrue(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(5,Biome.ALPINE, true, Element.GROUND);
-        assertTrue(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(10, Biome.TUNDRA, true, Element.GROUND);
-        assertTrue(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(2, Biome.BEACH, true, Element.OUT_OF_RANGE);
-        assertFalse(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
-
+    public void acknoledgeResultTest(){
+        Result result = newResult(1,Biome.ALPINE, false, 2, Element.GROUND);
+        assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof FlyOnMap);
+        result = newResult(1,Biome.ALPINE, false, 1, Element.GROUND);
+        assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof FlyOnMap);
+        result = newResult(1,Biome.ALPINE, false, 3, Element.GROUND);
+        assertFalse(this.alongCoasts.acknowledgeResults(result) instanceof FlyOnMap);
+        assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
+        result = newResult(1,Biome.ALPINE, false, 4, Element.GROUND);
+        assertFalse(this.alongCoasts.acknowledgeResults(result) instanceof FlyOnMap);
+        assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
+        result = newResult(1, Biome.ALPINE, false,2, Element.OUT_OF_RANGE);
+        assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
+        result = newResult(10,Biome.BEACH, true, 1, Element.OUT_OF_RANGE);
+        assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
     }
-
 }
