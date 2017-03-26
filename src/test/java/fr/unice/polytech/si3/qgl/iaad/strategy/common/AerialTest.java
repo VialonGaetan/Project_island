@@ -5,17 +5,15 @@ import fr.unice.polytech.si3.qgl.iaad.util.map.Creek;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Direction;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
-import java.awt.Point;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author Alexandre Clement

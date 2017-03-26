@@ -8,7 +8,7 @@ import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author romain

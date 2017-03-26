@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
-import fr.unice.polytech.si3.qgl.iaad.util.contract.Basket;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.PrimaryContract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
@@ -8,11 +7,9 @@ import fr.unice.polytech.si3.qgl.iaad.util.resource.PrimaryResource;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 
 /**
  * @author Alexandre Clement
