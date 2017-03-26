@@ -14,9 +14,9 @@ import org.junit.Test;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -85,15 +85,15 @@ public class MoveCrewToTest {
         assertEquals(crew.getLocation(),new Point(0,0));
         assertEquals(protocol.takeDecision().getActionEnum(), ArgActions.MOVE_TO);
         assertTrue(Biome.ALPINE.getCrossFactor() > Biome.BEACH.getCrossFactor());
-        //assertEquals(crew.getLocation(),new Point(0,1));//Beach is easier than alpine biome
+        assertEquals(crew.getLocation(), new Point(0, 1));//Beach is easier than alpine biome
         protocol = protocol.acknowledgeResults(mock(Result.class));
 
         assertEquals(protocol.takeDecision().getActionEnum(), ArgActions.MOVE_TO);
-        //assertEquals(crew.getLocation(),new Point(1,1));
+        assertEquals(crew.getLocation(), new Point(1, 1));
         protocol = protocol.acknowledgeResults(mock(Result.class));
 
         assertEquals(protocol.takeDecision().getActionEnum(), ArgActions.MOVE_TO);
-        //assertEquals(crew.getLocation(),new Point(2,1));
+        assertEquals(crew.getLocation(), new Point(2, 1));
         protocol = protocol.acknowledgeResults(mock(Result.class));
 
         assertEquals(protocol.takeDecision().getActionEnum(), ArgActions.EXPLORE);

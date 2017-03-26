@@ -14,22 +14,17 @@ import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
  */
 public class ScheduleCrewPath implements Protocol
 {
-    private final Context context;
-    private final IslandMap map;
-    private final Crew crew;
+    private final PathFinder pathFinder;
     private Protocol protocol;
 
     public ScheduleCrewPath(Context context, IslandMap map, Crew crew)
     {
-        this.context = context;
-        this.map = map;
-        this.crew = crew;
+         pathFinder = new PathFinder(context, map, crew);
     }
 
     @Override
     public Decision takeDecision()
     {
-        PathFinder pathFinder = new PathFinder(context, map, crew);
         protocol = pathFinder.next();
         return protocol.takeDecision();
     }

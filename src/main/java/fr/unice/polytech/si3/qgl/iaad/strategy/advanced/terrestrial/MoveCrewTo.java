@@ -6,15 +6,17 @@ import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Move_to;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Stop;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
-import fr.unice.polytech.si3.qgl.iaad.strategy.advanced.scheduler.SimulatedMap;
 import fr.unice.polytech.si3.qgl.iaad.util.map.Compass;
 import fr.unice.polytech.si3.qgl.iaad.util.map.IslandMap;
+import fr.unice.polytech.si3.qgl.iaad.util.map.Tile;
 import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
 
 import java.awt.*;
-import java.util.*;
-import java.util.List;
+import java.util.Comparator;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Alexandre Clement
@@ -40,22 +42,26 @@ public class MoveCrewTo implements Protocol
     {
         Crew simulation;
         double currentDistance = crew.getLocation().distance(target);
-        List<Map.Entry<Compass, Double>> difficultyList = new ArrayList<>();
-        SimulatedMap simulatedMap = new SimulatedMap(map);
+        Map<Compass, Double> orderedDifficulty = new EnumMap<>(Compass.class);
         for (Compass compass : Compass.values())
         {
             simulation = new Crew(crew);
             simulation.move(compass);
             if (simulation.getLocation().distance(target) < currentDistance && map.isOnMap(simulation.getLocation()))
             {
-                difficultyList.add(new AbstractMap.SimpleEntry<>(compass, simulatedMap.getTile(simulation.getLocation()).getBiomes().stream().mapToDouble(Biome::getCrossFactor).average().orElse(Biome.OCEAN.getCrossFactor())));
+                orderedDifficulty.put(compass, getTileDifficulty(map.getTile(simulation.getLocation())));
             }
         }
-        Optional<Compass> compass = difficultyList.stream().sorted(Map.Entry.comparingByValue()).map(Map.Entry::getKey).findFirst();
+        Optional<Compass> compass = orderedDifficulty.entrySet().stream().sorted(Comparator.comparingDouble(Map.Entry::getValue)).findFirst().map(Map.Entry::getKey);
         if (!compass.isPresent())
             return new Stop();
         crew.move(compass.get());
         return new Move_to(compass.get());
+    }
+
+    private double getTileDifficulty(Tile tile)
+    {
+        return tile.getBiomes().stream().mapToDouble(Biome::getCrossFactor).average().orElse(Biome.OCEAN.getCrossFactor());
     }
 
     @Override
