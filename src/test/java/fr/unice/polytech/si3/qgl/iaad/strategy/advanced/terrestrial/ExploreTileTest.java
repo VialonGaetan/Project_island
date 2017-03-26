@@ -16,9 +16,10 @@ import fr.unice.polytech.si3.qgl.iaad.util.workforce.Crew;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.List;
+
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;

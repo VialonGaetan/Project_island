@@ -1,20 +1,18 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.aerial;
 
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
-import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Scan;
+import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Echo;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
+import fr.unice.polytech.si3.qgl.iaad.strategy.Protocol;
 import fr.unice.polytech.si3.qgl.iaad.strategy.common.FlyOnMap;
-import fr.unice.polytech.si3.qgl.iaad.strategy.common.LandOnCreek;
+import fr.unice.polytech.si3.qgl.iaad.strategy.common.Turn;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.map.*;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.Biome;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.GlimpseInformation;
-import fr.unice.polytech.si3.qgl.iaad.util.resource.ResourceInformation;
+import fr.unice.polytech.si3.qgl.iaad.util.resource.*;
 import fr.unice.polytech.si3.qgl.iaad.util.workforce.Drone;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +20,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @author romain
- * Created on 20/03/17.
+ * Created by Théo on 26/03/2017.
  */
-public class ScanIslandTest
-{
-    private ScanIsland scanIsland;
+public class AlongCoastsTest {
+
     private IslandMap islandMap;
     private Drone drone;
+    private Protocol exit;
+    private AlongCoasts alongCoasts;
+
 
     private Context newContext()
     {
@@ -61,7 +60,7 @@ public class ScanIslandTest
         };
     }
 
-    private Result newResult(boolean moreThanOneBiome, Biome biome, boolean creek)
+    private Result newResult(int n, Biome biome, boolean creek, int range, Element element)
     {
         return new Result()
         {
@@ -69,10 +68,10 @@ public class ScanIslandTest
             public int getCost() { return 60; }
 
             @Override
-            protected int getRange() { return 20; }
+            protected int getRange() { return range; }
 
             @Override
-            protected Element getFound() { return null; }
+            protected Element getFound() { return element; }
 
             @Override
             protected List<Biome> getBiomes()
@@ -80,7 +79,7 @@ public class ScanIslandTest
                 List<Biome> biomes = new ArrayList<>();
                 biomes.add(biome);
 
-                if(moreThanOneBiome)
+                if(n == 2)
                 {
                     biomes.add(Biome.GRASSLAND);
                 }
@@ -109,10 +108,15 @@ public class ScanIslandTest
             }
 
             @Override
-            protected List<ResourceInformation> getResourcesExplored() { return null; }
+            protected List<ResourceInformation> getResourcesExplored() {
+                List<ResourceInformation> exploredResources = new ArrayList<>();
+                exploredResources.add(new ResourceInformation(PrimaryResource.FISH, ResourceAmount.HIGH, ResourceCondition.EASY));
+                exploredResources.add(new ResourceInformation(PrimaryResource.WOOD, ResourceAmount.MEDIUM, ResourceCondition.HARSH));
+                return exploredResources;
+            }
 
             @Override
-            protected int getExploitAmount() { return 0; }
+            protected int getExploitAmount() { return 25; }
 
             @Override
             protected int getTransformProduction() { return 0; }
@@ -123,47 +127,40 @@ public class ScanIslandTest
     }
 
     @Before
-    public void setUp()
-    {
+    public void setUp(){
+
         islandMap = new IslandMap();
 
         for(Compass compass : Compass.values())
         {
             islandMap.grow(compass, 10);
         }
-
         drone = new Drone(Compass.E);
-        scanIsland = new ScanIsland(newContext(), islandMap, drone, Compass.E);
+
+        exit = new ScanIsland(newContext(),islandMap,drone,Compass.E);
+        alongCoasts = new AlongCoasts(exit, newContext(), islandMap,drone,Compass.E);
     }
 
     @Test
-    public void takeDecision()
-    {
-        assertTrue(scanIsland.takeDecision() instanceof Scan);
+    public void takedecisionTest(){
+        assertTrue(this.alongCoasts.takeDecision() instanceof Echo);
     }
 
     @Test
-    public void land()
-    {
-        islandMap.getTile(new Point(2, 0)).setAsAlready(GroundActionTile.SCANNED);
-        scanIsland = new ScanIsland(newContext(), islandMap, drone, Compass.E);
-        assertTrue(scanIsland.acknowledgeResults(newResult(false, Biome.ALPINE, true)) instanceof LandOnCreek);
-        assertFalse(scanIsland.acknowledgeResults(newResult(false, Biome.ALPINE, false)) instanceof LandOnCreek);
-    }
-
-    @Test
-    public void returnToIsland()
-    {
-        scanIsland = new ScanIsland(newContext(), islandMap, drone, Compass.E);
-        assertTrue(scanIsland.acknowledgeResults(newResult(false, Biome.OCEAN, true)) instanceof ReturnToIsland);
-    }
-
-    @Test
-    public void fly()
-    {
-        scanIsland = new ScanIsland(newContext(), islandMap, drone, Compass.E);
-        assertTrue(scanIsland.acknowledgeResults(newResult(false, Biome.ALPINE, true)) instanceof FlyOnMap);
-        scanIsland = new ScanIsland(newContext(), islandMap, drone, Compass.E);
-        assertTrue(scanIsland.acknowledgeResults(newResult(true, Biome.OCEAN, true)) instanceof FlyOnMap);
+    public void acknoledgeResultTest(){
+        Result result = newResult(1,Biome.ALPINE, false, 2, Element.GROUND);
+        assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof FlyOnMap);
+        result = newResult(1,Biome.ALPINE, false, 1, Element.GROUND);
+        assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof FlyOnMap);
+        result = newResult(1,Biome.ALPINE, false, 3, Element.GROUND);
+        assertFalse(this.alongCoasts.acknowledgeResults(result) instanceof FlyOnMap);
+        assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
+        result = newResult(1,Biome.ALPINE, false, 4, Element.GROUND);
+        assertFalse(this.alongCoasts.acknowledgeResults(result) instanceof FlyOnMap);
+        assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
+        result = newResult(1, Biome.ALPINE, false,2, Element.OUT_OF_RANGE);
+        assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
+        result = newResult(10,Biome.BEACH, true, 1, Element.OUT_OF_RANGE);
+        assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
     }
 }

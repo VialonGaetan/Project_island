@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.scheduler;
 
-import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.ManufacturedContract;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.PrimaryContract;
@@ -16,12 +15,11 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Gaetan Vialon

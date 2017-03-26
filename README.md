@@ -57,3 +57,47 @@ Cause : Ground strategy doesn't work and crash cause nullpointeurexception
     
 Expected : Land on the island and start to exploit resource in land point
 Results : OK
+
+## Week 2
+    
+Expected : Land on the island and start to exploit resource in land point
+Results : OK
+
+## Week 5
+    
+Expected : Se deplacer sur la carte
+Results : OK
+
+## Week 6
+    
+Expected : Recuperer une ressource 
+Results : KO detection d'un bug qui nous fait tourner en rond
+
+## Week 7
+    
+Expected : Developpement d'une nouvelle strategie
+Results : OK
+
+## Week 8
+    
+Expected : Remplir au moins un contrat
+Results : OK
+
+## Week 9
+    
+Expected : Amelioration de la stratégie terrestre
+Results : KO à cause de l'utilisation de .toList() avec les JsonObject
+
+## Week 10
+    
+Expected : Amelioration de la stratégie terrestre
+Results : KO, enum de biome pas complete
+
+## Week 11
+    
+Expected : Craft + debut de la prioritisation
+Results : Craft : KO  et prioritisation OK
+
+## Week 12
+    
+Expected : Fin du projet avec ajout de la prioritisation + craft
