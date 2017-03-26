@@ -162,7 +162,5 @@ public class AlongCoastsTest {
         assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
         result = newResult(10,Biome.BEACH, true, 1, Element.OUT_OF_RANGE);
         assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
-
     }
-
 }
