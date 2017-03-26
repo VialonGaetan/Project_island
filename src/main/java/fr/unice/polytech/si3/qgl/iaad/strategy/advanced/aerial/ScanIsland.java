@@ -74,6 +74,7 @@ public class ScanIsland extends Aerial implements Protocol
 
     private boolean droneHasEnoughExplored()
     {
+
         Drone simulation = new Drone(drone);
         simulation.heading(direction);
         return islandMap.isOnMap(simulation.getLocation()) && islandMap.getTile(simulation.getLocation()).isAlready(GroundActionTile.SCANNED);
