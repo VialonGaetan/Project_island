@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.aerial;
 
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Budget;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.Echo;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
@@ -38,9 +39,9 @@ public class ReturnToIslandTest {
             }
 
             @Override
-            public int getBudget()
+            public Budget getBudget()
             {
-                return 80;
+                return new Budget(80);
             }
 
             @Override
