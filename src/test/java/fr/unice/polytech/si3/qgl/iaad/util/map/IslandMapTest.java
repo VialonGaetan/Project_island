@@ -14,12 +14,12 @@ import static org.junit.Assert.*;
  * @author romain
  * Created on 24/11/2016.
  */
-public class IslandTest
+public class IslandMapTest
 {
     private IslandMap islandMap;
 
     @Before
-    public void before() { islandMap = new IslandMap(); }
+    public void setUp() { islandMap = new IslandMap(); }
 
     @Test
     public void constructor()
@@ -96,7 +96,7 @@ public class IslandTest
     }
 
     @Test
-    public void isOnBoardAfterZoom()
+    public void isOnMapAfterZoom()
     {
         islandMap.zoom();
 
@@ -122,7 +122,8 @@ public class IslandTest
     }
 
     @Test
-    public void idktest(){
+    public void zoomAndDimensions()
+    {
         IslandMap islandMap = new IslandMap();
         assertEquals(islandMap.getDimension(Compass.N),0);
         assertEquals(islandMap.getDimension(Compass.S),0);
