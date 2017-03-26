@@ -60,7 +60,7 @@ public class ScanIslandTest
         };
     }
 
-    private Result newResult(int n, Biome biome, boolean creek)
+    private Result newResult(boolean moreThanOneBiome, Biome biome, boolean creek)
     {
         return new Result()
         {
@@ -79,7 +79,7 @@ public class ScanIslandTest
                 List<Biome> biomes = new ArrayList<>();
                 biomes.add(biome);
 
-                if(n == 2)
+                if(moreThanOneBiome)
                 {
                     biomes.add(Biome.GRASSLAND);
                 }
@@ -146,23 +146,23 @@ public class ScanIslandTest
     {
         islandMap.getTile(new Point(2, 0)).setAsAlready(GroundActionTile.SCANNED);
         scanIsland = new ScanIsland(newContext(), islandMap, drone, Compass.E);
-        assertTrue(scanIsland.acknowledgeResults(newResult(1, Biome.ALPINE, true)) instanceof LandOnCreek);
-        assertFalse(scanIsland.acknowledgeResults(newResult(1, Biome.ALPINE, false)) instanceof LandOnCreek);
+        assertTrue(scanIsland.acknowledgeResults(newResult(false, Biome.ALPINE, true)) instanceof LandOnCreek);
+        assertFalse(scanIsland.acknowledgeResults(newResult(false, Biome.ALPINE, false)) instanceof LandOnCreek);
     }
 
     @Test
     public void returnToIsland()
     {
         scanIsland = new ScanIsland(newContext(), islandMap, drone, Compass.E);
-        assertTrue(scanIsland.acknowledgeResults(newResult(1, Biome.OCEAN, true)) instanceof ReturnToIsland);
+        assertTrue(scanIsland.acknowledgeResults(newResult(false, Biome.OCEAN, true)) instanceof ReturnToIsland);
     }
 
     @Test
     public void fly()
     {
         scanIsland = new ScanIsland(newContext(), islandMap, drone, Compass.E);
-        assertTrue(scanIsland.acknowledgeResults(newResult(1, Biome.ALPINE, true)) instanceof FlyOnMap);
+        assertTrue(scanIsland.acknowledgeResults(newResult(false, Biome.ALPINE, true)) instanceof FlyOnMap);
         scanIsland = new ScanIsland(newContext(), islandMap, drone, Compass.E);
-        assertTrue(scanIsland.acknowledgeResults(newResult(2, Biome.OCEAN, true)) instanceof FlyOnMap);
+        assertTrue(scanIsland.acknowledgeResults(newResult(true, Biome.OCEAN, true)) instanceof FlyOnMap);
     }
 }
