@@ -11,7 +11,7 @@ public interface Context
 {
     int getNumberOfMen();
 
-    int getBudget();
+    Budget getBudget();
 
     Contract getContract();
 

@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Budget;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Basket;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.PrimaryContract;
@@ -49,7 +50,7 @@ public class JsonContextTest
     @Test
     public void getBudget() throws Exception
     {
-        assertEquals(10000, context.getBudget());
+        assertEquals(new Budget(10000), context.getBudget());
     }
 
     @Test

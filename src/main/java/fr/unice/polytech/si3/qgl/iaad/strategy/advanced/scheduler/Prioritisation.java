@@ -22,13 +22,15 @@ import java.util.stream.Stream;
  */
 public class Prioritisation
 {
+    private final Comparator<Point> findClosest = Comparator.comparingDouble(point -> point.distance(currentCrewLocation()));
     private final Contract contract;
     private final IslandMap map;
     private final SimulatedMap simulatedMap;
     private final Area area;
     private final Crew crew;
 
-    public Prioritisation(Contract contract, IslandMap islandMap, SimulatedMap simulatedMap, Area area, Crew crew)
+
+    Prioritisation(Contract contract, IslandMap islandMap, SimulatedMap simulatedMap, Area area, Crew crew)
     {
         this.contract = contract;
         this.map = islandMap;
@@ -37,7 +39,12 @@ public class Prioritisation
         this.crew = crew;
     }
 
-    public Optional<Point> nextLocationToExploit()
+    private Point currentCrewLocation()
+    {
+        return crew.getLocation();
+    }
+
+    Optional<Point> nextLocationToExploit()
     {
         Optional<PrimaryContract> selectedContract = selectContract();
 
@@ -50,7 +57,7 @@ public class Prioritisation
         return Stream.of(closestBiomePoint, closestResourcePoint)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .sorted(Comparator.comparingDouble(point -> point.distance(crew.getLocation())))
+                .sorted(findClosest)
                 .findFirst();
     }
 
@@ -61,7 +68,7 @@ public class Prioritisation
                 .filter(point -> simulatedMap.getTile(point)
                         .getResourceInformationList().stream()
                         .anyMatch(resourceInformation -> resourceInformation.getResource() == primaryContract.getResource()))
-                .sorted(Comparator.comparingDouble(point -> point.distance(crew.getLocation())))
+                .sorted(findClosest)
                 .findFirst();
     }
 
@@ -74,7 +81,7 @@ public class Prioritisation
 
         return clusterOptional.get().stream()
                 .filter(point -> !map.getTile(point).isAlready(GroundActionTile.VISITED))
-                .sorted(Comparator.comparingDouble(crew.getLocation()::distance))
+                .sorted(Comparator.comparingDouble(currentCrewLocation()::distance))
                 .findFirst();
     }
 
@@ -89,7 +96,7 @@ public class Prioritisation
 
     private double compareClusterProductivity(Cluster cluster, PrimaryContract primaryContract)
     {
-        return 1d / cluster.size() / cluster.getBiome().getResourceMap().get(primaryContract.getResource());
+        return 1d * cluster.stream().sorted(findClosest).findFirst().map(currentCrewLocation()::distance).orElse(0d) / cluster.getBiome().getResourceMap().get(primaryContract.getResource());
     }
 
     private Optional<PrimaryContract> selectContract()
@@ -156,7 +163,8 @@ public class Prioritisation
 
     private double evaluateContractDifficulty(PrimaryContract primaryContract)
     {
-        return 100d / primaryContract.getTotalQuantity() + primaryContract.getRemainingQuantity() / 100;
+        double amountDifficulty = 100d / primaryContract.getTotalQuantity() + primaryContract.getRemainingQuantity() / 100;
+        return amountDifficulty * amountDifficulty / primaryContract.getResource().getDifficulty() / primaryContract.getResource().getPerHectare();
     }
 
 }

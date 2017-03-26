@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.engine.format.json;
 
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Budget;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.Contract;
 import fr.unice.polytech.si3.qgl.iaad.util.contract.ManufacturedContract;
@@ -19,7 +20,7 @@ import org.json.JSONObject;
  */
 class JsonContext implements Context
 {
-    private final int budget;
+    private final Budget budget;
     private final Compass heading;
     private final int men;
     private final Contract contract;
@@ -27,7 +28,7 @@ class JsonContext implements Context
     JsonContext(JSONObject jsonObject)
     {
         heading = Compass.valueOf(jsonObject.get(JsonArguments.HEADING.toString()).toString());
-        budget = jsonObject.getInt(JsonArguments.BUDGET.toString());
+        budget = new Budget(jsonObject.getInt(JsonArguments.BUDGET.toString()));
         men = jsonObject.getInt(JsonArguments.MEN.toString());
 
         contract = new Contract();
@@ -62,7 +63,7 @@ class JsonContext implements Context
     }
 
     @Override
-    public int getBudget()
+    public Budget getBudget()
     {
         return budget;
     }

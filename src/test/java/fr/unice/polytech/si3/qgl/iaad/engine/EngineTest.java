@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.engine;
 
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Budget;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.ArgActions;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
@@ -34,7 +35,7 @@ public class EngineTest
         context = mock(Context.class);
         contract = new Contract();
         contract.addContract(new PrimaryContract(PrimaryResource.FISH,50));
-        when(context.getBudget()).thenReturn(10000);
+        when(context.getBudget()).thenReturn(new Budget(10000));
         when(context.getHeading()).thenReturn(Compass.E);
         when(context.getNumberOfMen()).thenReturn(12);
         when(context.getContract()).thenReturn(contract);
@@ -51,7 +52,7 @@ public class EngineTest
     @Test
     public void notEnoughBudget() throws Exception
     {
-        when(context.getBudget()).thenReturn(199);
+        when(context.getBudget()).thenReturn(new Budget(199));
         engine.setContext(context);
         assertEquals(ArgActions.STOP, engine.takeDecision().getActionEnum());
     }
@@ -74,7 +75,7 @@ public class EngineTest
     @Test
     public void deductActionCostFromTheBudget() throws Exception
     {
-        when(context.getBudget()).thenReturn(200);
+        when(context.getBudget()).thenReturn(new Budget(200));
 
         engine.setContext(context);
         engine.takeDecision();

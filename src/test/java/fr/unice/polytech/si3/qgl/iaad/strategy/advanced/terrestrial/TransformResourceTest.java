@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.terrestrial;
 
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Budget;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.json.JsonResult;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.ArgActions;
@@ -38,7 +39,7 @@ public class TransformResourceTest {
         crew = new Crew(1,new Point(1,1));
         map = new IslandMap();
         context = mock(Context.class);
-        when(context.getBudget()).thenReturn(10000);
+        when(context.getBudget()).thenReturn(new Budget(10000));
         when(context.getHeading()).thenReturn(Compass.E);
         when(context.getNumberOfMen()).thenReturn(1);
         Contract contract = new Contract();

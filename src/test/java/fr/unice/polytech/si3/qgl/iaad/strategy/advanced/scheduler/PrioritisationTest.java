@@ -77,15 +77,14 @@ public class PrioritisationTest {
 
     }
 
-    @Ignore
     @Test
     public void resourceOnTitle(){
         setUpContract2();//Plank is easier than fish
         crew = new Crew(1,new Point(2,2));
         prioritisation = new Prioritisation(contract,map,simulatedMap,area,crew);
-        destination=Optional.of(new Point(1,1));
+        destination=Optional.of(new Point(2,2));
         assertEquals(crew.getLocation(),new Point(2,2));
-        assertEquals(prioritisation.nextLocationToExploit(),destination);
+        assertEquals(destination, prioritisation.nextLocationToExploit());
         map.getTile(new Point(1,1)).setAsAlready(GroundActionTile.VISITED);// si la case est deja visité il va plutot à celle à coté
         destination=Optional.of(new Point(2,2));
         assertEquals(prioritisation.nextLocationToExploit(),destination);

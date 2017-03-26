@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.iaad.strategy.advanced.terrestrial;
 
+import fr.unice.polytech.si3.qgl.iaad.engine.format.Budget;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.Context;
 import fr.unice.polytech.si3.qgl.iaad.engine.format.json.JsonResult;
 import fr.unice.polytech.si3.qgl.iaad.engine.player.actions.ArgActions;
@@ -44,7 +45,7 @@ public class ExploreTileTest {
         map.grow(Compass.S,10);
         map.grow(Compass.E,10);
         context = mock(Context.class);
-        when(context.getBudget()).thenReturn(10000);
+        when(context.getBudget()).thenReturn(new Budget(10000));
         when(context.getHeading()).thenReturn(Compass.E);
         when(context.getNumberOfMen()).thenReturn(12);
         Contract contract = new Contract();
