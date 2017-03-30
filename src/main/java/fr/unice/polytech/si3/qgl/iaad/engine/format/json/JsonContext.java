@@ -25,6 +25,10 @@ class JsonContext implements Context
     private final int men;
     private final Contract contract;
 
+    /**
+     * get data from the JSONObject object
+     * @param jsonObject, JSONObject object
+     */
     JsonContext(JSONObject jsonObject)
     {
         heading = Compass.valueOf(jsonObject.get(JsonArguments.HEADING.toString()).toString());
@@ -35,6 +39,10 @@ class JsonContext implements Context
         retrievesContract(jsonObject);
     }
 
+    /**
+     * get all the contracts from a JSONObject object
+     * @param jsonObject, JSONObject
+     */
     private void retrievesContract(JSONObject jsonObject)
     {
         JSONObject jsonContract;
@@ -56,24 +64,36 @@ class JsonContext implements Context
         }
     }
 
+    /**
+     * @return int value
+     */
     @Override
     public int getNumberOfMen()
     {
         return men;
     }
 
+    /**
+     * @return Budget object
+     */
     @Override
     public Budget getBudget()
     {
         return budget;
     }
 
+    /**
+     * @return Compass object
+     */
     @Override
     public Compass getHeading()
     {
         return heading;
     }
 
+    /**
+     * @return Contract value
+     */
     @Override
     public Contract getContract()
     {

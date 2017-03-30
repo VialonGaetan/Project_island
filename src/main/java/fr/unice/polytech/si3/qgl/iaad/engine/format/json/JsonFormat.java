@@ -7,6 +7,7 @@ import fr.unice.polytech.si3.qgl.iaad.engine.player.results.Result;
 import org.json.JSONObject;
 
 /**
+ * description in Format class
  * @author Alexandre Clement
  * @since 05/02/2017.
  */
