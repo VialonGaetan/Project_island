@@ -28,6 +28,10 @@ public class ReturnToIslandTest {
     private Drone drone;
 
 
+    /**
+     *
+     * @return : a new Context
+     */
     private Context newContext()
     {
         return new Context()
@@ -58,7 +62,12 @@ public class ReturnToIslandTest {
         };
     }
 
-    private Result newResult(int n, Biome biome, boolean creek)
+    /**
+     * @param biome : a given biome
+     * @param creek : if there is a creek or not
+     * @return : a new Result
+     */
+    private Result newResult(Biome biome, boolean creek)
     {
         return new Result()
         {
@@ -77,10 +86,9 @@ public class ReturnToIslandTest {
                 List<Biome> biomes = new ArrayList<>();
                 biomes.add(biome);
 
-                if(n == 2)
-                {
-                    biomes.add(Biome.GRASSLAND);
-                }
+
+                biomes.add(Biome.GRASSLAND);
+
                 return biomes;
             }
 
@@ -134,20 +142,26 @@ public class ReturnToIslandTest {
 
     }
 
+    /**
+     * Check if the returned decision is Echo
+     */
     @Test
     public void takeDecisionTest(){
         assertTrue(this.returnToIsland.takeDecision() instanceof Echo);
     }
 
+    /**
+     * Check if the returned protocol is FlyToIsland in fonction of some Result from the previous action
+     */
     @Test
     public void acknowledgeResultsTest(){
-        Result result = newResult(12, Biome.OCEAN, false);
+        Result result = newResult(Biome.OCEAN, false);
         assertTrue(this.returnToIsland.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(1,Biome.ALPINE, false);
+        result = newResult(Biome.ALPINE, false);
         assertTrue(this.returnToIsland.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(5,Biome.BEACH,true);
+        result = newResult(Biome.BEACH,true);
         assertTrue(this.returnToIsland.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(5,Biome.ALPINE, true);
+        result = newResult(Biome.ALPINE, true);
         assertTrue(this.returnToIsland.acknowledgeResults(result) instanceof FlyToIsland);
     }
 

@@ -28,6 +28,10 @@ public class FindLimitTest {
     private FindLimit findLimit;
 
 
+    /**
+     *
+     * @return : a new Context
+     */
     private Context newContext()
     {
         return new Context()
@@ -58,7 +62,13 @@ public class FindLimitTest {
         };
     }
 
-    private Result newResult(int n, Biome biome, boolean creek)
+    /**
+     *
+     * @param biome : a given biome
+     * @param creek : if there is a creek or not
+     * @return : a new Result
+     */
+    private Result newResult(Biome biome, boolean creek)
     {
         return new Result()
         {
@@ -77,10 +87,9 @@ public class FindLimitTest {
                 List<Biome> biomes = new ArrayList<>();
                 biomes.add(biome);
 
-                if(n == 2)
-                {
-                    biomes.add(Biome.GRASSLAND);
-                }
+
+                biomes.add(Biome.GRASSLAND);
+
                 return biomes;
             }
 

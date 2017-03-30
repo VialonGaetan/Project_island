@@ -22,6 +22,9 @@ public class CrewTest {
         crew= new Crew(50,location);
     }
 
+    /**
+     * Check if the crew actualise well its position when they move in a given direction
+     */
     @Test
     public void moveTest(){
         crew.move(Compass.E);

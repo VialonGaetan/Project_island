@@ -28,6 +28,9 @@ public class FindIslandTest
         findIsland = new FindIsland(null, islandMap, drone);
     }
 
+    /**
+     * Check if the Decision Stop is returned at every right moment
+     */
     @Test
     public void takeStopDecision()
     {
@@ -43,6 +46,7 @@ public class FindIslandTest
         findIsland = new FindIsland(null, islandMap, drone);
         assertTrue(findIsland.takeDecision() instanceof Stop);
     }
+
 
     @Test
     public void takeHeadingDecision()

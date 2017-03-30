@@ -31,6 +31,10 @@ public class EchoCheckTest {
     private Protocol groundProtocol;
     private Protocol outOfRangeProtocol;
 
+    /**
+     * Method to create a Context
+     * @return : a new Context
+     */
     private Context newContext()
     {
         return new Context()
@@ -61,7 +65,14 @@ public class EchoCheckTest {
         };
     }
 
-    private Result newResult(int n, Biome biome, boolean creek, Element element)
+    /**
+     *
+     * @param biome : a certain biome
+     * @param creek : if there is a creek here or not
+     * @param element : an element found
+     * @return
+     */
+    private Result newResult(Biome biome, boolean creek, Element element)
     {
         return new Result()
         {
@@ -80,10 +91,8 @@ public class EchoCheckTest {
                 List<Biome> biomes = new ArrayList<>();
                 biomes.add(biome);
 
-                if(n == 2)
-                {
-                    biomes.add(Biome.GRASSLAND);
-                }
+                biomes.add(Biome.GRASSLAND);
+
                 return biomes;
             }
 
@@ -137,26 +146,32 @@ public class EchoCheckTest {
         echoCheck = new EchoCheck(groundProtocol, outOfRangeProtocol, newContext(), islandMap, drone);
     }
 
+    /**
+     * Check if the decision taken by the drone is an Echo
+     */
     @Test
     public void takeDecisionTest(){
         assertTrue(this.echoCheck.takeDecision() instanceof Echo);
     }
 
+    /**
+     * Check if the protocol returned is the good
+     */
     @Test
     public void acknowledgeResultsTest(){
-        Result result = newResult(10, Biome.ALPINE,false, Element.GROUND);
+        Result result = newResult(Biome.ALPINE,false, Element.GROUND);
         assertTrue(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(12, Biome.OCEAN, false, Element.GROUND);
+        result = newResult(Biome.OCEAN, false, Element.GROUND);
         assertTrue(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(1,Biome.ALPINE, false, Element.GROUND);
+        result = newResult(Biome.ALPINE, false, Element.GROUND);
         assertTrue(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(5,Biome.BEACH,true, Element.GROUND);
+        result = newResult(Biome.BEACH,true, Element.GROUND);
         assertTrue(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(5,Biome.ALPINE, true, Element.GROUND);
+        result = newResult(Biome.ALPINE, true, Element.GROUND);
         assertTrue(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(10, Biome.TUNDRA, true, Element.GROUND);
+        result = newResult(Biome.TUNDRA, true, Element.GROUND);
         assertTrue(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
-        result = newResult(2, Biome.BEACH, true, Element.OUT_OF_RANGE);
+        result = newResult(Biome.BEACH, true, Element.OUT_OF_RANGE);
         assertFalse(this.echoCheck.acknowledgeResults(result) instanceof FlyToIsland);
 
     }

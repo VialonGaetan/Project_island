@@ -32,6 +32,10 @@ public class ScanIslandTest
     private IslandMap islandMap;
     private Drone drone;
 
+    /**
+     *
+     * @return : a new Context
+     */
     private Context newContext()
     {
         return new Context()
@@ -62,6 +66,13 @@ public class ScanIslandTest
         };
     }
 
+    /**
+     *
+     * @param moreThanOneBiome : If there is more than 1 biome here
+     * @param biome : a given biome
+     * @param creek : if there is a creek
+     * @return : a new Result
+     */
     private Result newResult(boolean moreThanOneBiome, Biome biome, boolean creek)
     {
         return new Result()
@@ -137,12 +148,18 @@ public class ScanIslandTest
         scanIsland = new ScanIsland(newContext(), islandMap, drone, Compass.E);
     }
 
+    /**
+     * Check if the returned decision is an Echo
+     */
     @Test
     public void takeDecision()
     {
         assertTrue(scanIsland.takeDecision() instanceof Scan);
     }
 
+    /**
+     * Check if the crew Land on an allowed position : if there s a creek
+     */
     @Test
     public void land()
     {
@@ -152,6 +169,9 @@ public class ScanIslandTest
         assertFalse(scanIsland.acknowledgeResults(newResult(false, Biome.ALPINE, false)) instanceof LandOnCreek);
     }
 
+    /**
+     * Check if the returned Protocol is an instance of ReturnToIsland one
+     */
     @Test
     public void returnToIsland()
     {

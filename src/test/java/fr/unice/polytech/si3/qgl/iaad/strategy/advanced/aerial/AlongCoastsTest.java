@@ -31,6 +31,10 @@ public class AlongCoastsTest {
     private AlongCoasts alongCoasts;
 
 
+    /**
+     * Can create a Context to perform the test
+     * @return : a new Context
+     */
     private Context newContext()
     {
         return new Context()
@@ -61,7 +65,14 @@ public class AlongCoastsTest {
         };
     }
 
-    private Result newResult(int n, Biome biome, boolean creek, int range, Element element)
+    /**
+     * @param biome : a given biome
+     * @param creek : if there is a creek
+     * @param range : the current range
+     * @param element : An element found
+     * @return : a new result
+     */
+    private Result newResult(Biome biome, boolean creek, int range, Element element)
     {
         return new Result()
         {
@@ -80,10 +91,8 @@ public class AlongCoastsTest {
                 List<Biome> biomes = new ArrayList<>();
                 biomes.add(biome);
 
-                if(n == 2)
-                {
-                    biomes.add(Biome.GRASSLAND);
-                }
+                biomes.add(Biome.GRASSLAND);
+
                 return biomes;
             }
 
@@ -142,26 +151,32 @@ public class AlongCoastsTest {
         alongCoasts = new AlongCoasts(exit, newContext(), islandMap,drone,Compass.E);
     }
 
+    /**
+     * Check if the decision taken is an Echo
+     */
     @Test
     public void takedecisionTest(){
         assertTrue(this.alongCoasts.takeDecision() instanceof Echo);
     }
 
+    /**
+     * Given a certain result, check if the returned Protocol is the good
+     */
     @Test
     public void acknoledgeResultTest(){
-        Result result = newResult(1,Biome.ALPINE, false, 2, Element.GROUND);
+        Result result = newResult(Biome.ALPINE, false, 2, Element.GROUND);
         assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof FlyOnMap);
-        result = newResult(1,Biome.ALPINE, false, 1, Element.GROUND);
+        result = newResult(Biome.ALPINE, false, 1, Element.GROUND);
         assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof FlyOnMap);
-        result = newResult(1,Biome.ALPINE, false, 3, Element.GROUND);
+        result = newResult(Biome.ALPINE, false, 3, Element.GROUND);
         assertFalse(this.alongCoasts.acknowledgeResults(result) instanceof FlyOnMap);
         assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
-        result = newResult(1,Biome.ALPINE, false, 4, Element.GROUND);
+        result = newResult(Biome.ALPINE, false, 4, Element.GROUND);
         assertFalse(this.alongCoasts.acknowledgeResults(result) instanceof FlyOnMap);
         assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
-        result = newResult(1, Biome.ALPINE, false,2, Element.OUT_OF_RANGE);
+        result = newResult(Biome.ALPINE, false,2, Element.OUT_OF_RANGE);
         assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
-        result = newResult(10,Biome.BEACH, true, 1, Element.OUT_OF_RANGE);
+        result = newResult(Biome.BEACH, true, 1, Element.OUT_OF_RANGE);
         assertTrue(this.alongCoasts.acknowledgeResults(result) instanceof Turn);
     }
 }

@@ -29,6 +29,9 @@ public class FlyToIslandTest
         flyToIsland = new FlyToIsland(null, null, islandMap, drone, 2);
     }
 
+    /**
+     * Check if the Decision taken by the module FlyToIsland return Fly or FlyToIsland at the right moment
+     */
     @Test
     public void flyToIsland()
     {
