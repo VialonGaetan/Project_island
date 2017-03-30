@@ -20,6 +20,9 @@ public class FlyOnMapTest
     private FlyOnMap flyOnMap;
     private IslandMap islandMap;
 
+    /**
+     * init a new fly on the map in the east direction with an empty map
+     */
     @Before
     public void setUp()
     {
@@ -27,6 +30,10 @@ public class FlyOnMapTest
         flyOnMap = new FlyOnMap(null, islandMap, new Drone(Compass.E));
     }
 
+    /**
+     * test we can still fly on the map ie if the decision is an instance of Fly
+     * if it cannot fly on the map anymore, then test if the decion is an instance of Stop
+     */
     @Test
     public void takeDecision()
     {

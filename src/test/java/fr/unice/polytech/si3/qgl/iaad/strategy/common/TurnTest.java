@@ -20,6 +20,10 @@ public class TurnTest
     private Turn turn;
     private IslandMap islandMap;
 
+    /**
+     * create an empty map
+     * create a turn in the east direction
+     */
     @Before
     public void setUp()
     {
@@ -27,6 +31,9 @@ public class TurnTest
         turn = new Turn(null, islandMap, new Drone(Compass.E), Compass.E);
     }
 
+    /**
+     * test if it can turn or not
+     */
     @Test
     public void takeDecision()
     {

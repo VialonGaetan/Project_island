@@ -25,6 +25,10 @@ public class LandOnCreekTest
     private Point creekLocation;
     private Crew crew;
 
+    /**
+     * creates a map with a creek
+     * create a crew
+     */
     @Before
     public void setUp()
     {
@@ -37,6 +41,9 @@ public class LandOnCreekTest
         landOnCreek = new LandOnCreek(null, islandMap, creekLocation, crew);
     }
 
+    /**
+     * test if we can land on the creek (ie if the decision is an instance of land)
+     */
     @Test
     public void takeDecision()
     {

@@ -12,6 +12,9 @@ import static org.junit.Assert.assertTrue;
  */
 public class StopExplorationTest
 {
+    /**
+     * test if the decision is an instance of Stop
+     */
     @Test
     public void takeDecision()
     {
