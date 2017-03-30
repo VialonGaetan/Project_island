@@ -20,6 +20,9 @@ public class TileTest
     @Before
     public void init() { tile = new Tile(); }
 
+    /**
+     * test if an init tile is empty and not visited yet
+     */
     @Test
     public void constructor()
     {
@@ -39,6 +42,10 @@ public class TileTest
         }
     }
 
+    /**
+     * test the new Tile(tile) constructor
+     * the tile must be the equals to the other but not the same (not referenced)
+     */
     @Test
     public void constructor2()
     {
@@ -58,6 +65,9 @@ public class TileTest
         assertTrue(tile.getBiomes().equals(biomes2));
     }
 
+    /**
+     * test if a tile is really equal to another
+     */
     @Test
     public void equalsTest()
     {
@@ -86,6 +96,9 @@ public class TileTest
     @Test
     public void hashCodeTest() { assertEquals(29583456, tile.hashCode()); }
 
+    /**
+     * test if a resource has already been exploited
+     */
     @Test
     public void resourceAlreadyExploited()
     {
@@ -97,6 +110,9 @@ public class TileTest
         }
     }
 
+    /**
+     * test all the add methods as addEmergencySite, addCreeks, etc ...
+     */
     @Test
     public void add()
     {
@@ -146,6 +162,9 @@ public class TileTest
         assertEquals(resourceInformationList, tile.getResourceInformationList());
     }
 
+    /**
+     * test all the getters
+     */
     @Test
     public void get()
     {
@@ -170,6 +189,9 @@ public class TileTest
         assertTrue(tile.getResourceInformationList().equals(resourceInformationList));
     }
 
+    /**
+     * test all the actions done on the tile
+     */
     @Test
     public void isAlready()
     {

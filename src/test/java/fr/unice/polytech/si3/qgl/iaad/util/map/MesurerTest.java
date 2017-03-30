@@ -16,12 +16,13 @@ import static org.junit.Assert.assertFalse;
 public class MesurerTest {
 
     IslandMap islandMap;
-    Tile tile;
     Creek creek1, creek2;
     List<Creek> listCreek1, listCreek2;
-    Mesurer mesurer;
     EmergencySite emergencySite;
 
+    /**
+     * create a map with somme objects, an emergency site and some creeks
+     */
     @Before
     public void init(){
         islandMap = new IslandMap();
@@ -42,12 +43,18 @@ public class MesurerTest {
         islandMap.getTile(new Point(0,0)).addEmergencySites(emergencySites);
     }
 
+    /**
+     * test what is the closest creek from the emergency site
+     */
     @Test
     public void findClosestCreekTest(){
         assertEquals(Mesurer.findClosestCreek(islandMap),creek1);
         assertFalse(Mesurer.findClosestCreek(islandMap).equals(creek2));
     }
 
+    /**
+     * test if the id of the closest creek is correct
+     */
     @Test
     public void findClosestCreekIdTest(){
         assertEquals(Mesurer.findClosestCreekId(islandMap),"ok");

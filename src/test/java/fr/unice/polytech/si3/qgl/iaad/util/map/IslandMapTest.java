@@ -18,9 +18,17 @@ public class IslandMapTest
 {
     private IslandMap islandMap;
 
+    /**
+     * init an empty map
+     */
     @Before
     public void setUp() { islandMap = new IslandMap(); }
 
+    /**
+     * test if the map is like a unique point
+     * test if the point (0, 0) is on the map
+     * test if the tile of the point is empty
+     */
     @Test
     public void constructor()
     {
@@ -33,6 +41,10 @@ public class IslandMapTest
         }
     }
 
+    /**
+     * test if the map grows without changing the current tiles
+     * test if dimensions are correctly changed
+     */
     @Test
     public void grow()
     {
@@ -62,6 +74,9 @@ public class IslandMapTest
         assertTrue(islandMap.isOnMap(new Point(0, -1)));
     }
 
+    /**
+     * test if a point is on the map
+     */
     @Test
     public void isOnMap()
     {
@@ -78,6 +93,10 @@ public class IslandMapTest
         assertFalse(islandMap.isOnMap(new Point(2, 11)));
     }
 
+    /**
+     * test if we get the correct tile from the map
+     * test if we have an empty tile if the point has never been visited in the map
+     */
     @Test
     public void getTile()
     {
@@ -95,6 +114,9 @@ public class IslandMapTest
         assertNull(islandMap.getTile(new Point(2, 0)));
     }
 
+    /**
+     * test if the map contains new or old points
+     */
     @Test
     public void isOnMapAfterZoom()
     {
@@ -108,6 +130,9 @@ public class IslandMapTest
         assertTrue(islandMap.isOnMap(new Point()));
     }
 
+    /**
+     * test if the tiles are still on the map
+     */
     @Test
     public void getTileAfterZoom()
     {
@@ -121,6 +146,9 @@ public class IslandMapTest
         assertTrue(islandMap.getTile(new Point()).equals(new Tile()));
     }
 
+    /**
+     * test dimensions of the map and if points are still on the map
+     */
     @Test
     public void zoomAndDimensions()
     {
