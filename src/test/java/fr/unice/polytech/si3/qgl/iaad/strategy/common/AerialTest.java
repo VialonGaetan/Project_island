@@ -16,8 +16,8 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 /**
- * @author Alexandre Clement
  * @author romain
+ * @author Alexandre Clement
  * @since 05/03/2017.
  */
 public class AerialTest
@@ -26,6 +26,12 @@ public class AerialTest
     private Drone drone;
     private Aerial aerial;
 
+    /**
+     * create an empty map
+     * give an init heading to the drone (right here is East)
+     * init the object aerial
+     * @throws Exception, if there is a problem of init
+     */
     @Before
     public void setUp() throws Exception
     {
@@ -34,6 +40,10 @@ public class AerialTest
         aerial = new Aerial(null, islandMap, drone);
     }
 
+    /**
+     * test if the drone can fly with existing points on the map
+     * it depends of the dimensions of the map ...
+     */
     @Test
     public void droneIsAbleToFly()
     {
@@ -52,6 +62,9 @@ public class AerialTest
         }
     }
 
+    /**
+     * test if the drone can turn to a direction, it's similar to droneIsAbleToFly test
+     */
     @Test
     public void droneIsAbleToTurnInDirection()
     {
@@ -70,6 +83,9 @@ public class AerialTest
         }
     }
 
+    /**
+     * almost the same as the previous method
+     */
     @Test
     public void droneIsAbleToUTurnInDirection()
     {
@@ -88,6 +104,9 @@ public class AerialTest
         }
     }
 
+    /**
+     * test if a creek is correctly found on the map
+     */
     @Test
     public void findCreekLocation()
     {
@@ -101,6 +120,9 @@ public class AerialTest
         assertEquals(Optional.of(new Point()), aerial.findCreekLocation());
     }
 
+    /**
+     * get the largest orthogonal side
+     */
     @Test
     public void getLargestSide()
     {
@@ -118,6 +140,9 @@ public class AerialTest
         assertEquals(Compass.S, aerial.getLargestSide());
     }
 
+    /**
+     * the coordinates of the point if there is a zoom and a land
+     */
     @Test
     public void aerialToGroundLocation()
     {
@@ -149,6 +174,10 @@ public class AerialTest
         assertEquals(4, aerial.distanceToCenter(Compass.E));
     }
 
+    /**
+     * test the distance between the current drone location and the limit in such direction
+     * @throws Exception
+     */
     @Test
     public void distanceToLimit() throws Exception
     {
