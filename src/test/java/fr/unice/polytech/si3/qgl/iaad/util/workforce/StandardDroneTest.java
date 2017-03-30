@@ -13,6 +13,10 @@ import static org.junit.Assert.assertEquals;
  */
 public class StandardDroneTest
 {
+    /**
+     * test if the drone fly correctly or heading correctly
+     * @throws Exception if problem
+     */
     @Test
     public void moveDrone() throws Exception
     {
